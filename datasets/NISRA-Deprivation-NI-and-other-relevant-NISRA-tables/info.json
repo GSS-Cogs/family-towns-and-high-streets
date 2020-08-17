@@ -1,0 +1,22 @@
+{
+    "title": "Deprivation (NI) [and other relevant NISRA tables]",
+    "publisher": "Northern Ireland Statistics and Research Agency",
+    "description": "NISRA website with multiple datasets relevant to several dataset families, including Towns and High Streets. Requires further investigation.",
+    "landingPage": "http://www.ninis2.nisra.gov.uk/public/Theme.aspx?themeNumber=137&themeName=Deprivation",
+    "published": "",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "",
+        "stage": "To document"
+    },
+    "transform": {
+        "stage": [
+            "Hold"
+        ],
+        "airtable": "recQ0JFjxC1YHbX2G"
+    },
+    "sizingNotes": "",
+    "notes": ""
+}

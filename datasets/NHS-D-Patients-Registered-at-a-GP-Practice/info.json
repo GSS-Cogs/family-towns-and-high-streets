@@ -1,0 +1,25 @@
+{
+    "title": "Patients Registered at a GP Practice",
+    "publisher": "NHS Digital",
+    "description": "Data for this publication are extracted each month as a snapshot in time from the Primary Care Registration database within the NHAIS (National Health Application and Infrastructure Services) system. This release is an accurate snapshot as at 1 August 2020.",
+    "landingPage": "https://digital.nhs.uk/data-and-information/publications/statistical/patients-registered-at-a-gp-practice",
+    "datasetNotes": [
+        "On landing page, scroll down to heading \"Latest Version\" which will link to new page where dataset can be found under heading \"Resources\"."
+    ],
+    "published": "2020-08-13",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "CSV",
+        "stage": "Documented"
+    },
+    "transform": {
+        "stage": [
+            "To Do"
+        ],
+        "airtable": "recLX3k2ygAUQNAVh"
+    },
+    "sizingNotes": "Simple table and structure in CSV format.",
+    "notes": ""
+}

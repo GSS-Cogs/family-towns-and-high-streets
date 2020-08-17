@@ -1,0 +1,22 @@
+{
+    "title": "Sub-regional fuel poverty data [year]",
+    "publisher": "Department for Business, Energy and Industrial Strategy",
+    "description": "This series brings together all documents relating to Fuel poverty sub-regional statistics.",
+    "landingPage": "https://www.gov.uk/government/collections/fuel-poverty-sub-regional-statistics",
+    "datasetNotes": [
+        "On landing page scroll down to latest link under heading \"[year] statistics\", on new page dataset is found under heading \"Documents\"."
+    ],
+    "published": "2020-04-30",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "XLS",
+        "stage": "Documented"
+    },
+    "transform": {
+        "airtable": "recpFOfrH0XefjfbJ"
+    },
+    "sizingNotes": "Simple table structure, straightforward dimensions with some footnotes.",
+    "notes": ""
+}

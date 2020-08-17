@@ -1,0 +1,25 @@
+{
+    "title": "Price Paid Data",
+    "publisher": "HM Land Registry",
+    "description": "Price Paid Data includes information on all property sales in England and Wales that are sold for value and are lodged with us for registration.",
+    "landingPage": "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+    "datasetNotes": [
+        "On landing page scroll down to heading \"Single File\" where whole dataset can be found in CSV format."
+    ],
+    "published": "2020-07-28",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "CSV, OD",
+        "stage": "Documented"
+    },
+    "transform": {
+        "stage": [
+            "Hold"
+        ],
+        "airtable": "recRUlC4KSpm3h4Qi"
+    },
+    "sizingNotes": "Straightforward structure in CSV and link to Open Data format.",
+    "notes": ""
+}

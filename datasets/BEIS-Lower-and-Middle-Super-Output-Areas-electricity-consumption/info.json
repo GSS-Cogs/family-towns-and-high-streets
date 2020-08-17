@@ -1,0 +1,25 @@
+{
+    "title": "Lower and Middle Super Output Areas electricity consumption",
+    "publisher": "Department for Business, Energy and Industrial Strategy",
+    "description": "Lower Super Output Area (LSOA), Middle Super Output Area (MSOA) and Intermediate Geography Zone (IGZ) electricity data.",
+    "landingPage": "https://www.gov.uk/government/statistics/lower-and-middle-super-output-areas-electricity-consumption",
+    "datasetNotes": [
+        "On landing page scroll down to heading \"Documents\" where dataset consists of a few files."
+    ],
+    "published": "2020-02-28",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "XLS, CSV",
+        "stage": "Documented"
+    },
+    "transform": {
+        "stage": [
+            "To Do"
+        ],
+        "airtable": "recKiGSmk1HCIHdyu"
+    },
+    "sizingNotes": "Simple tables and structure in CSV format.",
+    "notes": ""
+}

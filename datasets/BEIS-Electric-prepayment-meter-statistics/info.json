@@ -1,0 +1,22 @@
+{
+    "title": "Electric prepayment meter statistics",
+    "publisher": "Department for Business, Energy and Industrial Strategy",
+    "description": "Annual prepayment meter electricity statistics for local authorities, LSOAs, MSOAs and postcodes in England, Wales and Scotland.",
+    "landingPage": "https://www.gov.uk/government/statistics/electric-prepayment-meter-statistics",
+    "datasetNotes": [
+        "On landing page scroll down to relevant files (LOSA, MOSA and Postcode level) which make up the dataset."
+    ],
+    "published": "2019-04-08",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "XLS, CSV",
+        "stage": "Documented"
+    },
+    "transform": {
+        "airtable": "recLBeRBKtCPBphqq"
+    },
+    "sizingNotes": "Several tables but simple  structure and in CSV format.",
+    "notes": ""
+}

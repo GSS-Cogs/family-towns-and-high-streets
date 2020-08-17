@@ -1,0 +1,20 @@
+{
+    "family": "Towns and High Streets",
+    "pipelines": [
+        "BEIS-Electric-prepayment-meter-statistics",
+        "BEIS-LSOA-estimates-of-properties-not-connected-to-the-gas-network",
+        "BEIS-Lower-and-Middle-Super-Output-Areas-electricity-consumption",
+        "BEIS-Lower-and-Middle-Super-Output-Areas-gas-consumption",
+        "BEIS-Sub-regional-fuel-poverty-data-year",
+        "DfT-Journey-times-to-key-services-by-lower-super-output-area",
+        "HM-Land-Registry-Price-Paid-Data",
+        "HMRC-Child-Benefit-small-area-data",
+        "HMRC-Personal-tax-credits-finalised-award-statistics-small-area-data-LSOA-and-Data-Zone-year",
+        "MHCLG-English-indices-of-deprivation-2019",
+        "MHCLG-Tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-England-1999-to-2009",
+        "NHS-D-Patients-Registered-at-a-GP-Practice",
+        "NISRA-Deprivation-NI-and-other-relevant-NISRA-tables",
+        "Ofsted-Children-s-Social-Care-data-in-England-2020",
+        "SG-Scottish-Index-of-Multiple-Deprivation-2020"
+    ]
+}

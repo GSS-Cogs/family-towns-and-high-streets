@@ -1,0 +1,22 @@
+{
+    "title": "LSOA estimates of properties not connected to the gas network",
+    "publisher": "Department for Business, Energy and Industrial Strategy",
+    "description": "LSOA level estimates for the number of properties without mains gas. Estimates at local authority and MSOA levels are also available.",
+    "landingPage": "https://www.gov.uk/government/statistics/lsoa-estimates-of-households-not-connected-to-the-gas-network",
+    "datasetNotes": [
+        "On landing page scroll down to heading \"Documents\" where latest dataset can be found."
+    ],
+    "published": "2019-12-19",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "XLS, CSV",
+        "stage": "Documented"
+    },
+    "transform": {
+        "airtable": "recTo9o1L1Y4dpSQJ"
+    },
+    "sizingNotes": "Straightforward structure in CSV format.",
+    "notes": ""
+}

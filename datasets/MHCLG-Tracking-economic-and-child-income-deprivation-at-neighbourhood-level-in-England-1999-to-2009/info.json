@@ -1,0 +1,22 @@
+{
+    "title": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+    "publisher": "Ministry for Housing, Communities and Local Government",
+    "description": "Indices tracking levels of economic deprivation from 1999 to 2009 in small areas in England called lower-layer super output areas.",
+    "landingPage": "https://www.gov.uk/government/collections/english-indices-of-deprivation",
+    "datasetNotes": [
+        "On landing page scroll down to \"Publications\" which contains link to current and previous publications. Enter link \"Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009\". Several files on this page contain the dataset/s."
+    ],
+    "published": "2012-12-13",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "XLS",
+        "stage": "Documented"
+    },
+    "transform": {
+        "airtable": "recTqQcBA4pozZk4x"
+    },
+    "sizingNotes": "Simple tables and structures but spread over several files (though similar framework).",
+    "notes": ""
+}

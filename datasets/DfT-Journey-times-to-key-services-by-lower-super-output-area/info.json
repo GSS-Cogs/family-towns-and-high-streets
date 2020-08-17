@@ -1,0 +1,25 @@
+{
+    "title": "Journey times to key services by lower super output area",
+    "publisher": "Department for Transport",
+    "description": "LSOA Data about the number of journey times.",
+    "landingPage": "https://www.gov.uk/government/statistical-data-sets/journey-time-statistics-data-tables-jts",
+    "datasetNotes": [
+        "On landing page, croll down to heading \"Journey times to key services by lower super output area (JTS05)\" where dataset consists of several ODS files."
+    ],
+    "published": "2019-08-19",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "ODS",
+        "stage": "Documented"
+    },
+    "transform": {
+        "stage": [
+            "To Do"
+        ],
+        "airtable": "recDAoCnPa88oblxQ"
+    },
+    "sizingNotes": "Several simple tables and structure, all similar, in ODS format.",
+    "notes": ""
+}

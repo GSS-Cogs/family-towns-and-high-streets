@@ -1,0 +1,25 @@
+{
+    "title": "Children\u2019s Social Care data in England 2020",
+    "publisher": "Office for Standards in Education, Children's Services and Skills",
+    "description": "Inspection data and information about the providers and places of children\u2019s social care in England and inspection outcomes for local authority children\u2019s services covering the period 1 April 2019 to 31 March 2020.",
+    "landingPage": "https://www.gov.uk/government/statistics/childrens-social-care-data-in-england-2020",
+    "datasetNotes": [
+        "On landing page scroll down to heading \"Documents\" where dataset consists of CSV files."
+    ],
+    "published": "2020-07-07",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "CSV",
+        "stage": "Documented"
+    },
+    "transform": {
+        "stage": [
+            "To Do"
+        ],
+        "airtable": "recuF1idhAX8h9GR7"
+    },
+    "sizingNotes": "Simple tables and structure in CSV format.",
+    "notes": ""
+}

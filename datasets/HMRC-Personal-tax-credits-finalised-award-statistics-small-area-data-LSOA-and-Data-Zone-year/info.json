@@ -1,0 +1,25 @@
+{
+    "title": "Personal tax credits: finalised award statistics - small area data (LSOA and Data Zone) [year]",
+    "publisher": "HM Revenue & Customs",
+    "description": "These statistics provide detailed geographical estimates of the number of families in receipt of tax credits.",
+    "landingPage": "https://www.gov.uk/government/collections/personal-tax-credits-statistics#other-statistics-information",
+    "datasetNotes": [
+        "On landing page scroll down to heading \"National Statistics\" where link to latest dataset can be found titled \"Personal tax credits: finalised award statistics - small area data (LSOA and Data Zone) [year]\". On new page, dataset consists of several files un the heading \"Documents\""
+    ],
+    "published": "2019-10-30",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "XLS",
+        "stage": "Documented"
+    },
+    "transform": {
+        "stage": [
+            "To Do"
+        ],
+        "airtable": "recsBPDUIb4kZc3jq"
+    },
+    "sizingNotes": "Simple tables and structures but spread over several files (though similar framework).",
+    "notes": ""
+}

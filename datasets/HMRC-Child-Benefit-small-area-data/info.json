@@ -1,0 +1,25 @@
+{
+    "title": "Child Benefit: small area data",
+    "publisher": "HM Revenue & Customs",
+    "description": "Annual geographical estimates at Lower Super Output Area and Data Zone of the number of families and children claiming Child Benefit on 31 August of the year of analysis.",
+    "landingPage": "https://www.gov.uk/government/collections/child-benefit-small-area-data",
+    "datasetNotes": [
+        "On landing page scroll down to latest link under heading \"Official Statistics\", on new page dataset consists of several files found under heading \"Documents\"."
+    ],
+    "published": "2020-04-23",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "XLS",
+        "stage": "Documented"
+    },
+    "transform": {
+        "stage": [
+            "To Do"
+        ],
+        "airtable": "recLYW1g4WmtXNdMZ"
+    },
+    "sizingNotes": "Simple tables and structures but spread over several files (though similar framework).",
+    "notes": ""
+}

@@ -1,0 +1,22 @@
+{
+    "title": "English indices of deprivation 2019",
+    "publisher": "Ministry for Housing, Communities and Local Government",
+    "description": "These statistics update the English indices of deprivation 2015.\nThe English indices of deprivation measure relative deprivation in small areas in England called lower-layer super output areas. The index of multiple deprivation is the most widely used of these indices.",
+    "landingPage": "https://www.gov.uk/government/collections/english-indices-of-deprivation",
+    "datasetNotes": [
+        "On landing page scroll down to \"Publications\" which contains link to current and previous publications. Enter link \"English indices of deprivation 2019\", dataset can be found under heading \"File 7: all ranks, deciles and scores for the indices of deprivation, and population denominators\". This file contains all data from the other files."
+    ],
+    "published": "2019-09-26",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "CSV",
+        "stage": "Documented"
+    },
+    "transform": {
+        "airtable": "recA0YacdaH4PwcU5"
+    },
+    "sizingNotes": "Simple table and structure in CSV format.",
+    "notes": ""
+}

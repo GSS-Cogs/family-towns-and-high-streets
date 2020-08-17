@@ -1,0 +1,22 @@
+{
+    "title": "Scottish Index of Multiple Deprivation 2020",
+    "publisher": "Scottish Government",
+    "description": "The Scottish Index of Multiple Deprivation is a relative measure of deprivation across 6,976 small areas (called data zones). If an area is identified as \u2018deprived\u2019, this can relate to people having a low income but it can also mean fewer resources or opportunities. SIMD looks at the extent to which an area is deprived across seven domains: income, employment, education, health, access to services, crime and housing.",
+    "landingPage": "https://www.gov.scot/collections/scottish-index-of-multiple-deprivation-2020/",
+    "datasetNotes": [
+        "On landing page scroll down to heading \"Revision Notice\". Dataset consists of two files, \"ranks\" and \"indicators\". The two correspond links will open a new page with the relevant towards top of page."
+    ],
+    "published": "2020-04-01",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "XLS",
+        "stage": "Documented"
+    },
+    "transform": {
+        "airtable": "recM395IXEFnnHarh"
+    },
+    "sizingNotes": "Although tables are simple in structure, they are spread across two separate files. May require split into two simple datasets, one for \"ranks\" and one for \"indicators\".",
+    "notes": ""
+}
