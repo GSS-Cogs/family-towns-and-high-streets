@@ -18,8 +18,9 @@
         "stage": [
             "To Do"
         ],
-        "airtable": "recKiGSmk1HCIHdyu"
+        "airtable": "recKiGSmk1HCIHdyu",
+        "main_issue": 3
     },
     "sizingNotes": "Simple tables and structure in CSV format.",
-    "notes": ""
+    "notes": "Prioritised as nice straightforward data in CSV, so should be quick to get in for demonstration purposes, but also showing another potential deprivation correlation"
 }

@@ -15,7 +15,8 @@
         "stage": "Documented"
     },
     "transform": {
-        "airtable": "recTqQcBA4pozZk4x"
+        "airtable": "recTqQcBA4pozZk4x",
+        "main_issue": 11
     },
     "sizingNotes": "Simple tables and structures but spread over several files (though similar framework).",
     "notes": ""

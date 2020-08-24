@@ -18,8 +18,9 @@
         "stage": [
             "To Do"
         ],
-        "airtable": "recuF1idhAX8h9GR7"
+        "airtable": "recuF1idhAX8h9GR7",
+        "main_issue": 15
     },
     "sizingNotes": "Simple tables and structure in CSV format.",
-    "notes": ""
+    "notes": "Provider level data at address level rather than area gives dataviz opportunities for showing location of services against demography and deprivation data"
 }

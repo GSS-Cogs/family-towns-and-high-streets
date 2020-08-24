@@ -18,7 +18,8 @@
         "stage": [
             "Hold"
         ],
-        "airtable": "recRUlC4KSpm3h4Qi"
+        "airtable": "recRUlC4KSpm3h4Qi",
+        "main_issue": 9
     },
     "sizingNotes": "Straightforward structure in CSV and link to Open Data format.",
     "notes": ""

@@ -18,8 +18,9 @@
         "stage": [
             "To Do"
         ],
-        "airtable": "recsBPDUIb4kZc3jq"
+        "airtable": "recsBPDUIb4kZc3jq",
+        "main_issue": 14
     },
     "sizingNotes": "Simple tables and structures but spread over several files (though similar framework).",
-    "notes": ""
+    "notes": "Prioritised as a good indicator for use, whilst the small area data is distributed across multiple files, so high value transforming into single data source"
 }

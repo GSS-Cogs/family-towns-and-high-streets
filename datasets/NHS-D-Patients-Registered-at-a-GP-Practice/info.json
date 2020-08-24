@@ -18,8 +18,9 @@
         "stage": [
             "To Do"
         ],
-        "airtable": "recLX3k2ygAUQNAVh"
+        "airtable": "recLX3k2ygAUQNAVh",
+        "main_issue": 5
     },
     "sizingNotes": "Simple table and structure in CSV format.",
-    "notes": ""
+    "notes": "Prioritised as valuable data, presented in simple structure, but broken into multiple files, structural metadata available on the page, postcode rather than area, so potentially interesting for DataViz demonstration"
 }

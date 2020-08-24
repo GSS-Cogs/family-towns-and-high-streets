@@ -15,7 +15,8 @@
         "stage": "Documented"
     },
     "transform": {
-        "airtable": "recLBeRBKtCPBphqq"
+        "airtable": "recLBeRBKtCPBphqq",
+        "main_issue": 4
     },
     "sizingNotes": "Several tables but simple  structure and in CSV format.",
     "notes": ""

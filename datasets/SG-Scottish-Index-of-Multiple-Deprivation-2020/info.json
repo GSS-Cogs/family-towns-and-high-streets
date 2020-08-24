@@ -15,7 +15,8 @@
         "stage": "Documented"
     },
     "transform": {
-        "airtable": "recM395IXEFnnHarh"
+        "airtable": "recM395IXEFnnHarh",
+        "main_issue": 7
     },
     "sizingNotes": "Although tables are simple in structure, they are spread across two separate files. May require split into two simple datasets, one for \"ranks\" and one for \"indicators\".",
     "notes": ""

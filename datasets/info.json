@@ -1,5 +1,16 @@
 {
     "family": "Towns and High Streets",
+    "github": "https://github.com/GSS-Cogs/family-towns-and-high-streets",
+    "githubcogs": "https://gss-cogs.github.io/family-towns-and-high-streets",
+    "jenkins": {
+        "base": "https://ci.floop.org.uk",
+        "path": [
+            "GSS_data",
+            "towns-high-streets"
+        ]
+    },
+    "sparql": "https://staging.gss-data.org.uk/sparql",
+    "pmd": "http://staging.gss-data.org.uk",
     "pipelines": [
         "BEIS-Electric-prepayment-meter-statistics",
         "BEIS-LSOA-estimates-of-properties-not-connected-to-the-gas-network",

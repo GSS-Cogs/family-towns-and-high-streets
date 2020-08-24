@@ -15,7 +15,8 @@
         "stage": "Documented"
     },
     "transform": {
-        "airtable": "recWp4Bw0XBIfzHlV"
+        "airtable": "recWp4Bw0XBIfzHlV",
+        "main_issue": 12
     },
     "sizingNotes": "Simple tables and structure in CSV format.",
     "notes": ""

@@ -15,7 +15,8 @@
         "stage": "Documented"
     },
     "transform": {
-        "airtable": "recTo9o1L1Y4dpSQJ"
+        "airtable": "recTo9o1L1Y4dpSQJ",
+        "main_issue": 10
     },
     "sizingNotes": "Straightforward structure in CSV format.",
     "notes": ""

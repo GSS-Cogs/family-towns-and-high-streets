@@ -15,7 +15,8 @@
         "stage": "Documented"
     },
     "transform": {
-        "airtable": "recpFOfrH0XefjfbJ"
+        "airtable": "recpFOfrH0XefjfbJ",
+        "main_issue": 13
     },
     "sizingNotes": "Simple table structure, straightforward dimensions with some footnotes.",
     "notes": ""

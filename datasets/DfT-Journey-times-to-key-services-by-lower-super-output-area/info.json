@@ -18,8 +18,9 @@
         "stage": [
             "To Do"
         ],
-        "airtable": "recDAoCnPa88oblxQ"
+        "airtable": "recDAoCnPa88oblxQ",
+        "main_issue": 2
     },
     "sizingNotes": "Several simple tables and structure, all similar, in ODS format.",
-    "notes": ""
+    "notes": "Prioritised as it shows some interesting data to put alongside other data, so a nice Dataviz opportunity.  Also, as the data is split over multiple files, value in bringing it together.  Reference data may be complicated to pull together as is addresses a series of questions, but the codelists are likely to be unique to this dataset"
 }
