@@ -33,7 +33,7 @@ scraper.dataset.description = scraper.dataset.description +
         \nThe figures have been independently rounded to the nearest 5. This can lead to components as shown not summing totals as shown
     """
 scraper.dataset.title = 'Child Benefit small area statistics'
-scraper.dataset.comment = 'Annual geographical estimates at Lower Super Output Area and Data Zone of the number of families and children claiming Child Benefit'
+scraper.dataset.comment = 'Annual geographical estimates at Lower Super Output Area and Data Zone of the number of families and children claiming Child Benefit as at specified date.'
 dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name))
 scraper.set_base_uri('http://gss-data.org.uk')
 scraper.set_dataset_id(dataset_path)

@@ -1,0 +1,5 @@
+Label,Notation,Parent Notation,Sort Priority
+All families,total,,1
+One child,one-child,total,2
+Two children,two-children,total,3
+Three or more children,three-or-more-children,total,4
