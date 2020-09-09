@@ -1,0 +1,62 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix cogsgit: <https://github.com/GSS-Cogs/> .
+@prefix cogs: <http://gss-cogs.uk/def/arch/> .
+
+<http://gss-cogs.uk/def/arch> a owl:Ontology;
+  rdfs:label "COGS Towns & High Streets Transform Mapping" ;
+.
+
+cogs:SoftwarePackage a owl:Class ;
+  rdfs:label "Software package" ;
+.
+cogs:SoftwarePackage a owl:Class ;
+  rdfs:label2 "Label2" ;
+.
+cogs:LandingPage a owl:Class ;
+  rdfs:subClassOf cogs:SoftwarePackage ;
+  rdfs:label "Landing Page" ;
+.
+cogs:Datasets a owl:Class ;
+  rdfs:subClassOf cogs:SoftwarePackage ;
+  rdfs:label "Output Dataset" ;
+.
+cogs:Sheets a owl:Class ;
+  rdfs:subClassOf cogs:SoftwarePackage ;
+  rdfs:label "Sheet Name";
+.
+cogs:Columns a owl:Class ;
+  rdfs:subClassOf cogs:SoftwarePackage ;
+  rdfs:label "Table" ;
+.
+cogs:PMD a owl:Class ;
+  rdfs:subClassOf cogs:SoftwarePackage ;
+  rdfs:label "PMD" ;
+.
+cogs:Rename a owl:Class ;
+  rdfs:subClassOf cogs:SoftwarePackage ;
+  rdfs:label "Rename & Add" ;
+.
+###########################################################################################################
+
+cogsgit:top-level a cogs:LandingPage ;
+  rdfs:label "Landing Page" ;
+  rdfs:label2 "<b>Child Benefit: small area data</b>" ;
+  rdfs:comment <https://www.gov.uk/government/collections/child-benefit-small-area-data>;
+  cogs:scrape cogsgit:sheet1 ;
+.
+
+cogsgit:sheet1 a cogs:Sheets ; rdfs:label "Multiple Files" ; 
+rdfs:comment "Regional LSOA</br>Electoral Ward</br>East Midlands</br>East of England</br>London</br>North East</br>North West</br>Scottish Data Zone</br>South East</br>South West</br>Wales</br>West Midlands</br>Yorkshire and the Humber" ; 
+cogs:transforms cogsgit:columns1 ; .
+
+cogsgit:columns1 a cogs:Columns ; rdfs:label "Output Table" ; rdfs:comment "Period</br>Area Code</br>Age</br>Gender</br>Family Size</br>Measure Type</br>Unit</br>Value" ; cogs:outputs cogsgit:dataset1 ; .
+
+cogsgit:dataset1 a cogs:Datasets ; rdfs:label "Dataset" ; rdfs:comment "Child Benefit: small area data" ; cogs:uploads cogsgit:pmd1 ; .
+
+cogsgit:pmd1 a cogs:PMD ;
+  rdfs:label "PMD" ;
+  rdfs:comment "Publish my Data: http://gss-data.org.uk/data/search" ;
+.
+###################################################################################################
