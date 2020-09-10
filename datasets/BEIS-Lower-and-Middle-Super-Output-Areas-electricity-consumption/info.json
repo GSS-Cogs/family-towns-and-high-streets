@@ -19,7 +19,144 @@
             "To Do"
         ],
         "airtable": "recKiGSmk1HCIHdyu",
-        "main_issue": 3
+        "main_issue": 3,
+        "transformStage": [
+            {
+                "name": "2010r",
+                "title": "Local Authority Name",
+                "columns": {
+                    "Period": "2010",
+                    "Local Authority Code": "{B3-B8849}",
+                    "MSOA Code": "{D3-D8849}",
+                    "Total Number of Meters": "{E3-E8849}",
+                    "Domestic Use": "Not Applicable",
+                    "Mean Consumption": "{G3-G8849}",
+                    "Median Consumption": "{H3-H8849}",
+                    "Measure Type": "Electricity Consumption",
+                    "Unit": "kWh"
+                }
+            },
+            {
+                "name": "2011r",
+                "title": "Local Authority Name",
+                "columns": {
+                    "Period": "2011",
+                    "Local Authority Code": "{B3-B8850}",
+                    "MSOA Code": "{D3-D8850}",
+                    "Total Number of Meters": "{E3-E8850}",
+                    "Domestic Use": "Not Applicable",
+                    "Mean Consumption": "{G3-G8850}",
+                    "Median Consumption": "{H3-H8850}",
+                    "Measure Type": "Electricity Consumption",
+                    "Unit": "kWh"
+                }
+            },
+            {
+                "name": "2012r",
+                "title": "Local Authority Name",
+                "columns": {
+                    "Period": "2012",
+                    "Local Authority Code": "{B3-B8848}",
+                    "MSOA Code": "{D3-D8848}",
+                    "Total Number of Meters": "{E3-E8848}",
+                    "Domestic Use": "Not Applicable",
+                    "Mean Consumption": "{G3-G8848}",
+                    "Median Consumption": "{H3-H8848}",
+                    "Measure Type": "Electricity Consumption",
+                    "Unit": "kWh"
+                }
+            },
+            {
+                "name": "2013r",
+                "title": "Local Authority Name",
+                "columns": {
+                    "Period": "2013",
+                    "Local Authority Code": "{B3-B8850}",
+                    "MSOA Code": "{D3-D8850}",
+                    "Total Number of Meters": "{E3-E8850}",
+                    "Domestic Use": "Not Applicable",
+                    "Mean Consumption": "{G3-G8850}",
+                    "Median Consumption": "{H3-H8850}",
+                    "Measure Type": "Electricity Consumption",
+                    "Unit": "kWh"
+                }
+            },
+            {
+                "name": "2014r",
+                "title": "Local Authority Name",
+                "columns": {
+                    "Period": "2014",
+                    "Local Authority Code": "{B3-B8852}",
+                    "MSOA Code": "{D3-D8852}",
+                    "Total Number of Meters": "{E3-E8852}",
+                    "Domestic Use": "Not Applicable",
+                    "Mean Consumption": "{G3-G8852}",
+                    "Median Consumption": "{H3-H8852}",
+                    "Measure Type": "Electricity Consumption",
+                    "Unit": "kWh"
+                }
+            },
+            {
+                "name": "2015r",
+                "title": "Local Authority Name",
+                "columns": {
+                    "Period": "2015",
+                    "Local Authority Code": "{B3-B8852}",
+                    "MSOA Code": "{D3-D8852}",
+                    "Total Number of Meters": "{E3-E8852}",
+                    "Domestic Use": "Not Applicable",
+                    "Mean Consumption": "{G3-G8852}",
+                    "Median Consumption": "{H3-H8852}",
+                    "Measure Type": "Electricity Consumption",
+                    "Unit": "kWh"
+                }
+            },
+            {
+                "name": "2016r",
+                "title": "Local Authority Name",
+                "columns": {
+                    "Period": "2016",
+                    "Local Authority Code": "{B3-B8851}",
+                    "MSOA Code": "{D3-D8851}",
+                    "Total Number of Meters": "{E3-E8851}",
+                    "Domestic Use": "Not Applicable",
+                    "Mean Consumption": "{G3-G8851}",
+                    "Median Consumption": "{H3-H8851}",
+                    "Measure Type": "Electricity Consumption",
+                    "Unit": "kWh"
+                }
+            },
+            {
+                "name": "2017r",
+                "title": "Local Authority Name",
+                "columns": {
+                    "Period": "2017",
+                    "Local Authority Code": "{B3-B8850}",
+                    "MSOA Code": "{D3-D8850}",
+                    "Total Number of Meters": "{E3-E8850}",
+                    "Domestic Use": "Not Applicable",
+                    "Mean Consumption": "{G3-G8850}",
+                    "Median Consumption": "{H3-H8850}",
+                    "Measure Type": "Electricity Consumption",
+                    "Unit": "kWh"
+                }
+            },
+            {
+                "name": "2018",
+                "title": "Local Authority Name",
+                "columns": {
+                    "Period": "2018",
+                    "Local Authority Code": "{B3-B8850}",
+                    "MSOA Code": "{D3-D8850}",
+                    "Total Number of Meters": "{E3-E8850}",
+                    "Domestic Use": "Not Applicable",
+                    "Mean Consumption": "{G3-G8850}",
+                    "Median Consumption": "{H3-H8850}",
+                    "Measure Type": "Electricity Consumption",
+                    "Unit": "kWh"
+                }
+            }
+        ]
     },
     "sizingNotes": "Simple tables and structure in CSV format.",
     "notes": "Prioritised as nice straightforward data in CSV, so should be quick to get in for demonstration purposes, but also showing another potential deprivation correlation"
