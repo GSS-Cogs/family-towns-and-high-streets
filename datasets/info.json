@@ -1,6 +1,7 @@
 {
     "family": "Towns and High Streets",
     "github": "https://github.com/GSS-Cogs/family-towns-and-high-streets",
+    "project": "https://github.com/orgs/GSS-Cogs/projects/11",
     "githubcogs": "https://gss-cogs.github.io/family-towns-and-high-streets",
     "jenkins": {
         "base": "https://ci.floop.org.uk",
