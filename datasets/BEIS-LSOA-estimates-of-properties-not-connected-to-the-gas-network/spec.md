@@ -37,15 +37,29 @@
 
 ### Stage 2. Alignment
 
-#### Sheet:
+#### Sheet: LSOA estimates of properties not connected to the gas network 2015-18 
 
-#### Dataset Name
 
+#### Dataset Name: LSOA estimates of properties not connected to the gas network 2015-18 
+
+	Add column with Period as year (CHECKING if it runs from mid May to mid May) and merge all sheets into one cube.
 
 #### Table Structure
-
+	Period, Local Authority Name, Local Authority Code, MSOA Name, Middle Layer Super Output Area (MSOA) Code, 
+	LSOA Name, Lower Layer Super Output Area (LSOA) Code, Number of domestic gas meters, Number of properties,
+	Measure Type, Unit, Value, Marker
 
 ##### Footnotes
+	Add XXX as link to methodology 
+	Add Contacts: 
+	Statistician Responsible:
+	Adam Bricknell
+
+	Prepared by:
+	Oliver Hendey
+	EnergyEfficiency.Stats@beis.gov.uk
+	020 7215 0222
+
 
 --------------
 
