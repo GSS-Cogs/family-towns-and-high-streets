@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
+# %%
 
-# In[28]:
+# %%
 
 
 from gssutils import *
@@ -155,13 +156,13 @@ scraper
 tidied_sheets = {}
 
 
-# In[29]:
+# %%
 
 
 trace = TransformTrace()
 
 
-# In[30]:
+# %%
 
 
 #LSAO domestic electricity 2010-18
@@ -172,7 +173,7 @@ display(LSOAdistribution)
 LSOAlink = LSOAdistribution.downloadURL
 
 
-# In[31]:
+# %%
 
 
 tabs = { tab: tab for tab in LSOAdistribution.as_databaker() }
@@ -243,7 +244,7 @@ for tab in tabs:
         tidied_sheets[tab.name + '_' + LSOAdistribution.title] = tidy_sheet.topandas()
 
 
-# In[32]:
+# %%
 
 
 #MSAO domestic electricity 2010-18
@@ -254,7 +255,7 @@ display(MSOAdistribution)
 MSOAlink = MSOAdistribution.downloadURL
 
 
-# In[33]:
+# %%
 
 
 tabs = { tab: tab for tab in MSOAdistribution.as_databaker() }
@@ -321,7 +322,7 @@ for tab in tabs:
         tidied_sheets[tab.name + '_' + MSOAdistribution.title] = tidy_sheet.topandas()
 
 
-# In[34]:
+# %%
 
 
 #MSAO non-domestic electricity 2010-18
@@ -332,7 +333,7 @@ display(MSOANDdistribution)
 MSOANDlink = MSOANDdistribution.downloadURL
 
 
-# In[35]:
+# %%
 
 
 tabs = { tab: tab for tab in MSOANDdistribution.as_databaker() }
@@ -399,7 +400,7 @@ for tab in tabs:
         tidied_sheets[tab.name + '_' + MSOANDdistribution.title] = tidy_sheet.topandas()
 
 
-# In[39]:
+# %%
 
 
 out = Path('out')
@@ -412,3 +413,5 @@ for key in tidied_sheets:
     df = tidied_sheets[key]
     df.drop_duplicates().to_csv(out / f'{key}.csv', index = False)
 
+
+# %%
