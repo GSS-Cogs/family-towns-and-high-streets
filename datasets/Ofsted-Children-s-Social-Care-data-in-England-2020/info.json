@@ -19,7 +19,727 @@
             "To Do"
         ],
         "airtable": "recuF1idhAX8h9GR7",
-        "main_issue": 15
+        "main_issue": 15,
+        "transformStage": [
+            {
+                "source_name": "LA level at 31 Mar 2020",
+                "identifier": "LA level at 31 Mar 2020||LA level at 31 Mar 2020||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm": ""
+                    }
+                ],
+                "title": "LA level at 31 Mar 2020",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": []
+            },
+            {
+                "source_name": "LA level in year 2019-20",
+                "identifier": "LA level in year 2019-20||LA level in year 2019-20||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm": ""
+                    }
+                ],
+                "title": "LA level in year 2019-20",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": []
+            },
+            {
+                "source_name": "Provider level at 31 Mar 2020",
+                "identifier": "Provider level at 31 Mar 2020||Provider level at 31 Mar 2020||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm": ""
+                    }
+                ],
+                "title": "Provider level at 31 Mar 2020",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "Web_link": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "URN": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Linked_Education_URN": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Provision_type": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Registration_date": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Registration_status": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Name": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Address_1": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Address_2": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Town": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "County": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Postcode": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Ofsted_region": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Government_Office_Region": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Parliamentary_constituency": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Sector": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Places": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Organisation_which_owns_the_provider": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Event_type": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Inspection_date": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Publication_date": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Event_number": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Overall_experiences_and_progress_of_children_and_young_people": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Outcomes_in_education_and_related_learning_activities": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Health_services": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "How_well_children_and_young_people_are_helped_and_protected": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "The_effectiveness_of_leaders_and_managers": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Provider level in year 2019-20",
+                "identifier": "Provider level in year 2019-20||Provider level in year 2019-20||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm": ""
+                    }
+                ],
+                "title": "Provider level in year 2019-20",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "Web_link": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "URN": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Linked_Education_URN": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Provision_type": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Registration_date": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Registration_status": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Name": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Address_1": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Address_2": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Town": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "County": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Postcode": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Ofsted_region": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Government_Office_Region": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Parliamentary_constituency": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Sector": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Places": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Organisation_which_owns_the_provider": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Event_type": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Inspection_date": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Publication_date": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Event_number": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Overall_experiences_and_progress_of_children_and_young_people": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Outcomes_in_education_and_related_learning_activities": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Health_services": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "How_well_children_and_young_people_are_helped_and_protected": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "The_effectiveness_of_leaders_and_managers": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Providers+places at 31 Mar 2020",
+                "identifier": "Providers+places at 31 Mar 2020||Providers+places at 31 Mar 2020||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm": ""
+                    }
+                ],
+                "title": "Providers+places at 31 Mar 2020",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": []
+            },
+            {
+                "source_name": "Leavers+Joiners at 31 Mar 2020",
+                "identifier": "Leavers+Joiners at 31 Mar 2020||Leavers+Joiners at 31 Mar 2020||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm": ""
+                    }
+                ],
+                "title": "Leavers+Joiners at 31 Mar 2020",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": []
+            },
+            {
+                "source_name": "Providers+places six monthly",
+                "identifier": "Providers+places six monthly||Providers+places six monthly||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm": ""
+                    }
+                ],
+                "title": "Providers+places six monthly",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "Date": [
+                            "Remove all rows from the first blank one in column \"Date\"."
+                        ]
+                    },
+                    {
+                        "Data_type": [
+                            "ALL: Make row \"1\" the new header row"
+                        ]
+                    },
+                    {
+                        "All_Children's_Homes": [
+                            "Use melt to unpivot all columns including and to the right of \"All Children's Homes\"."
+                        ]
+                    },
+                    {
+                        "Children's_Homes": [
+                            "ALL: Make row \"1\" the new header row"
+                        ]
+                    },
+                    {
+                        "Secure_Children's_Homes": [
+                            "ALL: Make row \"1\" the new header row"
+                        ]
+                    },
+                    {
+                        "Residential_special_school_(registered_as_a_children's_home)": [
+                            "ALL: Make row \"1\" the new header row"
+                        ]
+                    },
+                    {
+                        "Residential_Special_Schools": [
+                            "ALL: Make row \"1\" the new header row"
+                        ]
+                    },
+                    {
+                        "Residential_Family_Centres": [
+                            "ALL: Make row \"1\" the new header row"
+                        ]
+                    },
+                    {
+                        "Boarding_Schools": [
+                            "ALL: Make row \"1\" the new header row"
+                        ]
+                    },
+                    {
+                        "Further_Education_Colleges_with_Residential_Accommodation": [
+                            "ALL: Make row \"1\" the new header row"
+                        ]
+                    },
+                    {
+                        "Secure_Training_Centres": [
+                            "ALL: Make row \"1\" the new header row"
+                        ]
+                    },
+                    {
+                        "Adoption_Support_Agencies": [
+                            "ALL: Make row \"1\" the new header row"
+                        ]
+                    },
+                    {
+                        "Voluntary_Adoption_Agency_Branches": [
+                            "ALL: Make row \"1\" the new header row"
+                        ]
+                    },
+                    {
+                        "Independent_Fostering_Agencies": [
+                            "ALL: Make row \"1\" the new header row"
+                        ]
+                    },
+                    {
+                        "Residential_Holiday_Schemes_for_Disabled_Children": [
+                            "ALL: Make row \"1\" the new header row"
+                        ]
+                    },
+                    {
+                        "All": [
+                            "ALL: Make row \"1\" the new header row"
+                        ]
+                    },
+                    {
+                        "value": [
+                            "Remove all rows with a blank entry in column \"value\"."
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Latest OE 31 Mar Time Series",
+                "identifier": "Latest OE 31 Mar Time Series||Latest OE 31 Mar Time Series||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm": ""
+                    }
+                ],
+                "title": "Latest OE 31 Mar Time Series",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "": [
+                            "ALL: Make row \"4\" the new header row",
+                            "ALL: Dropped all columns with blank headers from dataframe"
+                        ]
+                    },
+                    {
+                        "Provision_Type": [
+                            "ALL: Dropped all columns with blank headers from dataframe"
+                        ]
+                    },
+                    {
+                        "Period_as_at": [
+                            "ALL: Dropped all columns with blank headers from dataframe"
+                        ]
+                    },
+                    {
+                        "Outstanding": [
+                            "Use melt to unpivot all columns including and to the right of \"Outstanding\"."
+                        ]
+                    },
+                    {
+                        "Good": [
+                            "ALL: Dropped all columns with blank headers from dataframe"
+                        ]
+                    },
+                    {
+                        "Requires_improvement_to_be_good": [
+                            "ALL: Dropped all columns with blank headers from dataframe"
+                        ]
+                    },
+                    {
+                        "Inadequate": [
+                            "ALL: Dropped all columns with blank headers from dataframe"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "In Year Time series",
+                "identifier": "In Year Time series||In Year Time series||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm": ""
+                    }
+                ],
+                "title": "In Year Time series",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "": [
+                            "ALL: Make row \"4\" the new header row",
+                            "ALL: Dropped all columns with blank headers from dataframe"
+                        ]
+                    },
+                    {
+                        "Provision_Type": [
+                            "ALL: Dropped all columns with blank headers from dataframe"
+                        ]
+                    },
+                    {
+                        "Period": [
+                            "ALL: Dropped all columns with blank headers from dataframe"
+                        ]
+                    },
+                    {
+                        "Outstanding": [
+                            "ALL: Dropped all columns with blank headers from dataframe"
+                        ]
+                    },
+                    {
+                        "Good": [
+                            "ALL: Dropped all columns with blank headers from dataframe"
+                        ]
+                    },
+                    {
+                        "Requires_improvement_to_be_good": [
+                            "ALL: Dropped all columns with blank headers from dataframe"
+                        ]
+                    },
+                    {
+                        "Inadequate": [
+                            "ALL: Dropped all columns with blank headers from dataframe"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "LA inspections 2009-2020",
+                "identifier": "LA inspections 2009-2020||LA inspections 2009-2020||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm": ""
+                    }
+                ],
+                "title": "LA inspections 2009-2020",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "Web_link": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Local_authority_name": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Ofsted_region": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Authority_type": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Publication_date": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "SLAC_Safeguarding_Overall_effectiveness_(OE)": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "SLAC_Looked_After_Children_Overall_Effectiveness_(OE)": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Safeguarding_OE": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Children_Looked_After_OE": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "CPI_Publication_date": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "CPI_Overall_Effectiveness_(OE)": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "CPRI_Publication_date": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "CPRI_Overall_Effectiveness_(OE)": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "TLAC_Publication_date": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "TLAC_Overall_Effectiveness_(OE)": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Overall_Judgement\n(OE)": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Children_who_need_help_and_protection_": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Children_looked_after_and_achieving_permanence_": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "CLA_Sub:_Adoption_Performance": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "CLA_Sub:_Experiences_and_progress_of_care_leavers": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Leadership,_management_and_governance": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "LSCB_Overall_Effectiveness_": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Inspection_type": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Overall_effectiveness": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Impact_of_leaders": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Experiences_and_progress_of_children_who_need_help_and_protection": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    },
+                    {
+                        "Experiences_and_progress_of_children_in_care_and_care_leavers": [
+                            "ALL: Make row \"0\" the new header row"
+                        ]
+                    }
+                ]
+            }
+        ]
     },
     "sizingNotes": "Simple tables and structure in CSV format.",
     "notes": "Provider level data at address level rather than area gives dataviz opportunities for showing location of services against demography and deprivation data"

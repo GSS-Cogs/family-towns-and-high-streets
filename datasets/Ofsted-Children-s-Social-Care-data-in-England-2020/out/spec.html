@@ -1,0 +1,2198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Spec</title>
+
+<!-- Not subtle, but I don't really want to monkey around with CORS for this-->
+<style>
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
+.font-weight-bold {
+    font-weight: 600!important;
+}
+
+.test {
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: bold;
+}
+
+table.condform {
+    width: 80%;
+    padding: 0;
+    border-spacing: 1em;
+    border: none;
+}
+
+table.condform2 {
+    margin-left: 20px;
+    width: 80%;
+    padding: 0;
+    border-spacing: 0.5em;
+    border: none;
+    width: 1000px;
+}
+
+table td.condform2{
+    width: 500px;
+}
+
+table th.condform2{
+    width: 500px;
+}
+
+table.postNotes {
+    margin-left: 20px;
+    width: 80%;
+    border-spacing: 5px;
+    border: none;
+    width: 1000px;
+}
+
+table td.postNotes{
+    padding-left: 100px;
+    width: 350px;
+}
+
+table th.postNotes{
+    padding-left: 50px;
+    width: 350px;
+}
+
+img {
+    padding-top: 10px;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+    text-align: left;
+    font-size: 14px;
+}
+
+th a{
+  font-weight: normal;
+}
+
+body {
+  background-color: #DDD;
+}
+
+
+body {
+  font-family: Helvetica, sans-serif;
+  padding: 30px 0;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 2.4em;
+  font-weight: normal;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 1.5em;
+  font-weight: normal;
+}
+
+h2.override {
+    margin-top: 0;
+    font-size: 1.2em;
+    font-weight: normal;
+    padding: 10px;
+}
+
+h3 {
+  margin-top: 0;
+  font-size: 1.5em;
+  font-weight: normal;
+}
+
+p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+a {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.page-wrap {
+  max-width: 1024px;
+  padding: 0 16px;
+  margin: 0 auto;
+}</style>
+
+<script>
+    // Hide tracer IDs unless we want to see them
+    function ToggleIDFunction() {
+
+        var allIdDivs = document.getElementsByClassName("id-div");
+        for (var i=0, item; item = allIdDivs[i]; i++) {
+        
+            var T = allIdDivs[i],
+                displayValue = "";
+            if (T.style.display == "")
+                displayValue = "none";
+        
+            T.style.display = displayValue;
+        }
+    }
+</script>
+</head>
+<body>
+
+    <div class="page-wrap">
+        <h1>Specification</h1>
+        <div id="meta-data"></div>
+    </div>
+
+        <h2>Children’s Social Care data in England 2020</h2>
+        <table class='condform'>
+            <tbody>
+                <tr>
+                    <th>Publisher:</th>
+                    <td>Office for Standards in Education, Children's Services and Skills</td>
+                    <th rowspan="2">Github\: <a href="https://github.com/GSS-Cogs/family-towns and high streets/issues/15">  <img alt="Github issue detail" src="https://img.shields.io/github/issues/detail/state/GSS-Cogs/family-towns and high streets/15?style=plastic"></a></th>
+                </tr>
+                
+                <tr><td></td></tr>
+                <tr>
+                    <th>Description:</th>
+                    <td>Inspection data and information about the providers and places of children’s social care in England and inspection outcomes for local authority children’s services covering the period 1 April 2019 to 31 March 2020.</td>
+                    <th rowspan="2">Jenkins: <a href="https://ci.floop.org.uk/job/GSS_data/job/Towns and high streets/job/Office-f-Children’s-Social-Care-data-in-England-2020"><br><img alt="Jenkins build status" src="https://ci.floop.org.uk/buildStatus/icon?job=GSS_data%2FTowns and high streets%2FOffice-f-Children’s-Social-Care-data-in-England-2020/"></a></th>
+                </tr>
+                <tr><td></td></tr>
+                <tr>
+                    <th>Landing Page:</th>
+                    <td><a href=https://www.gov.uk/government/statistics/childrens-social-care-data-in-england-2020>Link</a></td>
+                    <th rowspan="2">Source: <br><a>CSV</a></th>
+                </tr>
+                <tr><td></td></tr>
+                <tr>
+                    <th>Published:</th>
+                    <td>2020-07-07</td>
+                    <th rowspan="2">Airtable: <a>recuF1idhAX8h9GR7</a></th>
+                </tr>
+                <tr><td></td></tr>
+                <tr>
+                    <th>Sizing Notes:</th>
+                    <td>Simple tables and structure in CSV format.</td>
+                    <th rowspan="2">Priority: <br><a>['To Do']</a></th>
+                </tr>
+                <tr><td></td></tr>
+                <tr>
+                    <th>Dataset Notes:</th>
+                    <td>
+                        
+                            On landing page scroll down to heading "Documents" where dataset consists of CSV files.<br>
+                        
+                    </td>
+                </tr>
+                <tr><td></td></tr>
+                <tr>
+                    <th><span class="font-weight-bold"> Notes: </span> </th>
+                    <td>
+                        
+                            </tr>P</tr>
+                        
+                            </tr>r</tr>
+                        
+                            </tr>o</tr>
+                        
+                            </tr>v</tr>
+                        
+                            </tr>i</tr>
+                        
+                            </tr>d</tr>
+                        
+                            </tr>e</tr>
+                        
+                            </tr>r</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>l</tr>
+                        
+                            </tr>e</tr>
+                        
+                            </tr>v</tr>
+                        
+                            </tr>e</tr>
+                        
+                            </tr>l</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>d</tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr>t</tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr>t</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr>d</tr>
+                        
+                            </tr>d</tr>
+                        
+                            </tr>r</tr>
+                        
+                            </tr>e</tr>
+                        
+                            </tr>s</tr>
+                        
+                            </tr>s</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>l</tr>
+                        
+                            </tr>e</tr>
+                        
+                            </tr>v</tr>
+                        
+                            </tr>e</tr>
+                        
+                            </tr>l</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>r</tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr>t</tr>
+                        
+                            </tr>h</tr>
+                        
+                            </tr>e</tr>
+                        
+                            </tr>r</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>t</tr>
+                        
+                            </tr>h</tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr>n</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr>r</tr>
+                        
+                            </tr>e</tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>g</tr>
+                        
+                            </tr>i</tr>
+                        
+                            </tr>v</tr>
+                        
+                            </tr>e</tr>
+                        
+                            </tr>s</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>d</tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr>t</tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr>v</tr>
+                        
+                            </tr>i</tr>
+                        
+                            </tr>z</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>o</tr>
+                        
+                            </tr>p</tr>
+                        
+                            </tr>p</tr>
+                        
+                            </tr>o</tr>
+                        
+                            </tr>r</tr>
+                        
+                            </tr>t</tr>
+                        
+                            </tr>u</tr>
+                        
+                            </tr>n</tr>
+                        
+                            </tr>i</tr>
+                        
+                            </tr>t</tr>
+                        
+                            </tr>i</tr>
+                        
+                            </tr>e</tr>
+                        
+                            </tr>s</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>f</tr>
+                        
+                            </tr>o</tr>
+                        
+                            </tr>r</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>s</tr>
+                        
+                            </tr>h</tr>
+                        
+                            </tr>o</tr>
+                        
+                            </tr>w</tr>
+                        
+                            </tr>i</tr>
+                        
+                            </tr>n</tr>
+                        
+                            </tr>g</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>l</tr>
+                        
+                            </tr>o</tr>
+                        
+                            </tr>c</tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr>t</tr>
+                        
+                            </tr>i</tr>
+                        
+                            </tr>o</tr>
+                        
+                            </tr>n</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>o</tr>
+                        
+                            </tr>f</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>s</tr>
+                        
+                            </tr>e</tr>
+                        
+                            </tr>r</tr>
+                        
+                            </tr>v</tr>
+                        
+                            </tr>i</tr>
+                        
+                            </tr>c</tr>
+                        
+                            </tr>e</tr>
+                        
+                            </tr>s</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr>g</tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr>i</tr>
+                        
+                            </tr>n</tr>
+                        
+                            </tr>s</tr>
+                        
+                            </tr>t</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>d</tr>
+                        
+                            </tr>e</tr>
+                        
+                            </tr>m</tr>
+                        
+                            </tr>o</tr>
+                        
+                            </tr>g</tr>
+                        
+                            </tr>r</tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr>p</tr>
+                        
+                            </tr>h</tr>
+                        
+                            </tr>y</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr>n</tr>
+                        
+                            </tr>d</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>d</tr>
+                        
+                            </tr>e</tr>
+                        
+                            </tr>p</tr>
+                        
+                            </tr>r</tr>
+                        
+                            </tr>i</tr>
+                        
+                            </tr>v</tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr>t</tr>
+                        
+                            </tr>i</tr>
+                        
+                            </tr>o</tr>
+                        
+                            </tr>n</tr>
+                        
+                            </tr> </tr>
+                        
+                            </tr>d</tr>
+                        
+                            </tr>a</tr>
+                        
+                            </tr>t</tr>
+                        
+                            </tr>a</tr>
+                        
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <h2 class="override">Stage 1:</h2>
+
+            
+            <hr>
+                <ul>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Cube Name: </span></th> <td><a>LA level at 31 Mar 2020 </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Table Title: </span></th> <td><a>LA level at 31 Mar 2020 </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                                <button onclick="ToggleIDFunction()">Click to view full ID from tracer</button>
+                                <div class="id-div" id="display-id" style="display:none">
+                                    LA level at 31 Mar 2020||LA level at 31 Mar 2020||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm
+                                </div>
+                            </span>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Source(s): </span></th><td>
+                            <ul>
+                                
+                                    
+                                        <li><a href=https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm>https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm</a> </li><br>
+                                    
+                                
+                            </ul>
+                            </td>
+                        </tbody>
+                    </table>
+                    
+                    
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Columns: </span></th> <td></td>
+                        </tbody>
+                    </table>
+
+                    <ul>
+                        <table class="condform2">
+                        
+
+                        
+                        
+                        </table>
+                    </ul>
+                </ul>
+
+            
+            <hr>
+                <ul>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Cube Name: </span></th> <td><a>LA level in year 2019-20 </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Table Title: </span></th> <td><a>LA level in year 2019-20 </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                                <button onclick="ToggleIDFunction()">Click to view full ID from tracer</button>
+                                <div class="id-div" id="display-id" style="display:none">
+                                    LA level in year 2019-20||LA level in year 2019-20||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm
+                                </div>
+                            </span>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Source(s): </span></th><td>
+                            <ul>
+                                
+                                    
+                                        <li><a href=https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm>https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm</a> </li><br>
+                                    
+                                
+                            </ul>
+                            </td>
+                        </tbody>
+                    </table>
+                    
+                    
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Columns: </span></th> <td></td>
+                        </tbody>
+                    </table>
+
+                    <ul>
+                        <table class="condform2">
+                        
+
+                        
+                        
+                        </table>
+                    </ul>
+                </ul>
+
+            
+            <hr>
+                <ul>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Cube Name: </span></th> <td><a>Provider level at 31 Mar 2020 </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Table Title: </span></th> <td><a>Provider level at 31 Mar 2020 </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                                <button onclick="ToggleIDFunction()">Click to view full ID from tracer</button>
+                                <div class="id-div" id="display-id" style="display:none">
+                                    Provider level at 31 Mar 2020||Provider level at 31 Mar 2020||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm
+                                </div>
+                            </span>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Source(s): </span></th><td>
+                            <ul>
+                                
+                                    
+                                        <li><a href=https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm>https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm</a> </li><br>
+                                    
+                                
+                            </ul>
+                            </td>
+                        </tbody>
+                    </table>
+                    
+                    
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Columns: </span></th> <td></td>
+                        </tbody>
+                    </table>
+
+                    <ul>
+                        <table class="condform2">
+                        
+
+                        
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Web_link:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">URN:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Linked_Education_URN:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Provision_type:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Registration_date:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Registration_status:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Name:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Address_1:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Address_2:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Town:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">County:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Postcode:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Ofsted_region:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Government_Office_Region:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Local_authority:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Parliamentary_constituency:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Sector:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Places:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Organisation_which_owns_the_provider:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Event_type:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Inspection_date:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Publication_date:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Event_number:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Overall_experiences_and_progress_of_children_and_young_people:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Outcomes_in_education_and_related_learning_activities:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Health_services:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">How_well_children_and_young_people_are_helped_and_protected:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">The_effectiveness_of_leaders_and_managers:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                        </table>
+                    </ul>
+                </ul>
+
+            
+            <hr>
+                <ul>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Cube Name: </span></th> <td><a>Provider level in year 2019-20 </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Table Title: </span></th> <td><a>Provider level in year 2019-20 </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                                <button onclick="ToggleIDFunction()">Click to view full ID from tracer</button>
+                                <div class="id-div" id="display-id" style="display:none">
+                                    Provider level in year 2019-20||Provider level in year 2019-20||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm
+                                </div>
+                            </span>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Source(s): </span></th><td>
+                            <ul>
+                                
+                                    
+                                        <li><a href=https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm>https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm</a> </li><br>
+                                    
+                                
+                            </ul>
+                            </td>
+                        </tbody>
+                    </table>
+                    
+                    
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Columns: </span></th> <td></td>
+                        </tbody>
+                    </table>
+
+                    <ul>
+                        <table class="condform2">
+                        
+
+                        
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Web_link:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">URN:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Linked_Education_URN:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Provision_type:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Registration_date:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Registration_status:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Name:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Address_1:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Address_2:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Town:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">County:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Postcode:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Ofsted_region:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Government_Office_Region:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Local_authority:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Parliamentary_constituency:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Sector:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Places:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Organisation_which_owns_the_provider:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Event_type:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Inspection_date:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Publication_date:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Event_number:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Overall_experiences_and_progress_of_children_and_young_people:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Outcomes_in_education_and_related_learning_activities:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Health_services:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">How_well_children_and_young_people_are_helped_and_protected:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">The_effectiveness_of_leaders_and_managers:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                        </table>
+                    </ul>
+                </ul>
+
+            
+            <hr>
+                <ul>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Cube Name: </span></th> <td><a>Providers+places at 31 Mar 2020 </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Table Title: </span></th> <td><a>Providers+places at 31 Mar 2020 </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                                <button onclick="ToggleIDFunction()">Click to view full ID from tracer</button>
+                                <div class="id-div" id="display-id" style="display:none">
+                                    Providers+places at 31 Mar 2020||Providers+places at 31 Mar 2020||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm
+                                </div>
+                            </span>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Source(s): </span></th><td>
+                            <ul>
+                                
+                                    
+                                        <li><a href=https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm>https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm</a> </li><br>
+                                    
+                                
+                            </ul>
+                            </td>
+                        </tbody>
+                    </table>
+                    
+                    
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Columns: </span></th> <td></td>
+                        </tbody>
+                    </table>
+
+                    <ul>
+                        <table class="condform2">
+                        
+
+                        
+                        
+                        </table>
+                    </ul>
+                </ul>
+
+            
+            <hr>
+                <ul>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Cube Name: </span></th> <td><a>Leavers+Joiners at 31 Mar 2020 </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Table Title: </span></th> <td><a>Leavers+Joiners at 31 Mar 2020 </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                                <button onclick="ToggleIDFunction()">Click to view full ID from tracer</button>
+                                <div class="id-div" id="display-id" style="display:none">
+                                    Leavers+Joiners at 31 Mar 2020||Leavers+Joiners at 31 Mar 2020||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm
+                                </div>
+                            </span>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Source(s): </span></th><td>
+                            <ul>
+                                
+                                    
+                                        <li><a href=https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm>https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm</a> </li><br>
+                                    
+                                
+                            </ul>
+                            </td>
+                        </tbody>
+                    </table>
+                    
+                    
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Columns: </span></th> <td></td>
+                        </tbody>
+                    </table>
+
+                    <ul>
+                        <table class="condform2">
+                        
+
+                        
+                        
+                        </table>
+                    </ul>
+                </ul>
+
+            
+            <hr>
+                <ul>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Cube Name: </span></th> <td><a>Providers+places six monthly </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Table Title: </span></th> <td><a>Providers+places six monthly </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                                <button onclick="ToggleIDFunction()">Click to view full ID from tracer</button>
+                                <div class="id-div" id="display-id" style="display:none">
+                                    Providers+places six monthly||Providers+places six monthly||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm
+                                </div>
+                            </span>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Source(s): </span></th><td>
+                            <ul>
+                                
+                                    
+                                        <li><a href=https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm>https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm</a> </li><br>
+                                    
+                                
+                            </ul>
+                            </td>
+                        </tbody>
+                    </table>
+                    
+                    
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Columns: </span></th> <td></td>
+                        </tbody>
+                    </table>
+
+                    <ul>
+                        <table class="condform2">
+                        
+
+                        
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Date:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">Remove all rows from the first blank one in column "Date".</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Data_type:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "1" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">All_Children's_Homes:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">Use melt to unpivot all columns including and to the right of "All Children's Homes".</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Children's_Homes:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "1" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Secure_Children's_Homes:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "1" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Residential_special_school_(registered_as_a_children's_home):</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "1" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Residential_Special_Schools:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "1" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Residential_Family_Centres:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "1" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Boarding_Schools:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "1" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Further_Education_Colleges_with_Residential_Accommodation:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "1" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Secure_Training_Centres:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "1" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Adoption_Support_Agencies:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "1" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Voluntary_Adoption_Agency_Branches:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "1" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Independent_Fostering_Agencies:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "1" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Residential_Holiday_Schemes_for_Disabled_Children:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "1" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">All:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "1" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">value:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">Remove all rows with a blank entry in column "value".</td>
+                                
+                            </table>
+                            
+                        
+                        </table>
+                    </ul>
+                </ul>
+
+            
+            <hr>
+                <ul>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Cube Name: </span></th> <td><a>Latest OE 31 Mar Time Series </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Table Title: </span></th> <td><a>Latest OE 31 Mar Time Series </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                                <button onclick="ToggleIDFunction()">Click to view full ID from tracer</button>
+                                <div class="id-div" id="display-id" style="display:none">
+                                    Latest OE 31 Mar Time Series||Latest OE 31 Mar Time Series||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm
+                                </div>
+                            </span>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Source(s): </span></th><td>
+                            <ul>
+                                
+                                    
+                                        <li><a href=https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm>https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm</a> </li><br>
+                                    
+                                
+                            </ul>
+                            </td>
+                        </tbody>
+                    </table>
+                    
+                    
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Columns: </span></th> <td></td>
+                        </tbody>
+                    </table>
+
+                    <ul>
+                        <table class="condform2">
+                        
+
+                        
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "4" the new header row</td>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Dropped all columns with blank headers from dataframe</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Provision_Type:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Dropped all columns with blank headers from dataframe</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Period_as_at:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Dropped all columns with blank headers from dataframe</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Outstanding:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">Use melt to unpivot all columns including and to the right of "Outstanding".</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Good:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Dropped all columns with blank headers from dataframe</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Requires_improvement_to_be_good:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Dropped all columns with blank headers from dataframe</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Inadequate:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Dropped all columns with blank headers from dataframe</td>
+                                
+                            </table>
+                            
+                        
+                        </table>
+                    </ul>
+                </ul>
+
+            
+            <hr>
+                <ul>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Cube Name: </span></th> <td><a>In Year Time series </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Table Title: </span></th> <td><a>In Year Time series </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                                <button onclick="ToggleIDFunction()">Click to view full ID from tracer</button>
+                                <div class="id-div" id="display-id" style="display:none">
+                                    In Year Time series||In Year Time series||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm
+                                </div>
+                            </span>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Source(s): </span></th><td>
+                            <ul>
+                                
+                                    
+                                        <li><a href=https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm>https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm</a> </li><br>
+                                    
+                                
+                            </ul>
+                            </td>
+                        </tbody>
+                    </table>
+                    
+                    
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Columns: </span></th> <td></td>
+                        </tbody>
+                    </table>
+
+                    <ul>
+                        <table class="condform2">
+                        
+
+                        
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "4" the new header row</td>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Dropped all columns with blank headers from dataframe</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Provision_Type:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Dropped all columns with blank headers from dataframe</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Period:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Dropped all columns with blank headers from dataframe</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Outstanding:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Dropped all columns with blank headers from dataframe</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Good:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Dropped all columns with blank headers from dataframe</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Requires_improvement_to_be_good:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Dropped all columns with blank headers from dataframe</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Inadequate:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Dropped all columns with blank headers from dataframe</td>
+                                
+                            </table>
+                            
+                        
+                        </table>
+                    </ul>
+                </ul>
+
+            
+            <hr>
+                <ul>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Cube Name: </span></th> <td><a>LA inspections 2009-2020 </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Table Title: </span></th> <td><a>LA inspections 2009-2020 </a></td>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                                <button onclick="ToggleIDFunction()">Click to view full ID from tracer</button>
+                                <div class="id-div" id="display-id" style="display:none">
+                                    LA inspections 2009-2020||LA inspections 2009-2020||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm
+                                </div>
+                            </span>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Source(s): </span></th><td>
+                            <ul>
+                                
+                                    
+                                        <li><a href=https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm>https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/898068/Children_s_Social_Care_in_England_2019-20_underlying_data.xlsm</a> </li><br>
+                                    
+                                
+                            </ul>
+                            </td>
+                        </tbody>
+                    </table>
+                    
+                    
+                    <table>
+                        <tbody>
+                            <th><span class="test"> Columns: </span></th> <td></td>
+                        </tbody>
+                    </table>
+
+                    <ul>
+                        <table class="condform2">
+                        
+
+                        
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Web_link:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Local_authority_name:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Ofsted_region:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Authority_type:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Publication_date:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">SLAC_Safeguarding_Overall_effectiveness_(OE):</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">SLAC_Looked_After_Children_Overall_Effectiveness_(OE):</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Safeguarding_OE:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Children_Looked_After_OE:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">CPI_Publication_date:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">CPI_Overall_Effectiveness_(OE):</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">CPRI_Publication_date:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">CPRI_Overall_Effectiveness_(OE):</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">TLAC_Publication_date:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">TLAC_Overall_Effectiveness_(OE):</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Overall_Judgement
+(OE):</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Children_who_need_help_and_protection_:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Children_looked_after_and_achieving_permanence_:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">CLA_Sub:_Adoption_Performance:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">CLA_Sub:_Experiences_and_progress_of_care_leavers:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Leadership,_management_and_governance:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">LSCB_Overall_Effectiveness_:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Inspection_type:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Overall_effectiveness:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Impact_of_leaders:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Experiences_and_progress_of_children_who_need_help_and_protection:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                            
+                            <table class="postNotes">
+                                <th class="postNotes">Experiences_and_progress_of_children_in_care_and_care_leavers:</th>
+                                
+                                <tr></tr>
+                                <td class="postNotes">ALL: Make row "0" the new header row</td>
+                                
+                            </table>
+                            
+                        
+                        </table>
+                    </ul>
+                </ul>
+
+            
+</body>
+</html>
