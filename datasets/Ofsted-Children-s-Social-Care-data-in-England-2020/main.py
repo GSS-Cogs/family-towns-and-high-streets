@@ -77,7 +77,7 @@ for name, df in names_and_frames.items():
     
     # --- IMPORTANT ---
     # Uncomment me to see the before data as well as the after!
-    #df.to_csv("./out/{}-OLD.csv".format(name), index=False)
+    df.to_csv("./out/{}-OLD.csv".format(name), index=False)
     
     try:
         
@@ -169,8 +169,12 @@ for name, df in names_and_frames.items():
     except Exception as e:
         raise Exception("With sheet '{}'".format(name)) from e
         
-trace.render("spec_v1.html")
 # -
+# # Note for future me/somene else
+#
+# All the sheets are in a dictionary called `outputs` of the structure `{"sheet name":  datframe}`
 
 
 
+# leave at the end please
+trace.render("spec_v1.html")
