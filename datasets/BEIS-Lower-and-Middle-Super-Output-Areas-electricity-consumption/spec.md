@@ -60,6 +60,6 @@
 
 ##### DM Notes
 
+		Could not get script to finish running!
 		No code lists are needed for this dataset but some geographies might need to be added to gdp-vocabs
 		column definitions have been added to info.json
-		kWh and Kw need to be added to ref_common
