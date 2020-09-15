@@ -16,7 +16,7 @@
 		GEOGRAPHY_NAME - change to Geography, E00000000 etc
 		GENDER_NAME: change to 'Gender' and change values to M,F,T,U
 		C_AGE_NAME: change to 'Age'
-		C_AGE_TYPE: change to 'Age Type' defines from which age codelist the value is from (Labour Market category, Individual age, 5 year age band)
+		C_AGE_TYPE: change to 'Age Type' defines from which age codelist the value is from (Labour Market category, Individual age, 5 year age band). Kept in just in case it it important.
 		OBS_Status: change to 'Value'
 
 		'Measure Type' has been set to 'count'
