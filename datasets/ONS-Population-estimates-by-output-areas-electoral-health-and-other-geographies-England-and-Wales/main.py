@@ -37,7 +37,7 @@ joined_dat.drop_duplicates().to_csv(out / (csvName), index = False)
 # +
 from urllib.parse import urljoin
 
-scraper.dataset.family = 'towns-and-high-streets'
+scraper.dataset.family = 'towns-high-streets'
 scraper.dataset.comment = 'Estimates of the population for the UK, England and Wales by Geographical Output areas, Gender and Age'
 
 dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}'))
