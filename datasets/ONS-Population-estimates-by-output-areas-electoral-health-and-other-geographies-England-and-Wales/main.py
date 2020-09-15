@@ -24,6 +24,7 @@ joined_dat['Value'] = pd.to_numeric(joined_dat['Value'], downcast='integer')
 joined_dat['Age'] = joined_dat['Age'].apply(pathify)
 joined_dat['Age Type'] = joined_dat['Age Type'].apply(pathify)
 joined_dat['Gender'] = joined_dat['Gender'].replace({'Total': 'T', 'Male': 'M', 'Female': 'F'})
+joined_dat['Date'] = 'year/' + joined_dat['Date'].astype(str)
 joined_dat.head(10)
 
 # Output the data to CSV
