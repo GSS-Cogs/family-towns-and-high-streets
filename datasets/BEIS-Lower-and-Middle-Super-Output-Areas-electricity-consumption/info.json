@@ -20,7 +20,7 @@
         ],
         "columns": {
             "Year": {
-                "description": "Date of notification of death by the care home provider, not necessarily the date of death.",
+                "description": "",
                 "source": "",
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refPeriod",
                 "value": "http://reference.data.gov.uk/id/{+year}"

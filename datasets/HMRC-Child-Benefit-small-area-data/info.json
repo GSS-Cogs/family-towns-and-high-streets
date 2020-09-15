@@ -37,9 +37,11 @@
                 "unit": "http://gss-data.org.uk/def/concept/measurement-units/children",
                 "measure": "http://gss-data.org.uk/def/measure/count",
                 "datatype": "integer"
-            },
-        "airtable": "recLYW1g4WmtXNdMZ"
+            }
+        },
+        "airtable": "recLYW1g4WmtXNdMZ",
+        "main_issue": 6
     },
     "sizingNotes": "Simple tables and structures but spread over several files (though similar framework).",
-    "notes": ""
+    "notes": "Prioritised as data is not complex, but high value available from combining split regional data, and potentially bringing useful demographic insight"
 }
