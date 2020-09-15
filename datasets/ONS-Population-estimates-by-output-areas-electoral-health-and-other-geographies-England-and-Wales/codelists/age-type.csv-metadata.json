@@ -1,6 +1,6 @@
 {
   "@context": "http://www.w3.org/ns/csvw",
-  "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/ons-population-estimates-by-output-areas-electoral-health-and-other-geographies-england-and-wales#schema",
+  "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/ons-population-estimates-by-output-areas-electoral-health-and-other-geographies-england-and-wales#schema",
   "url": "age-type.csv",
   "tableSchema": {
     "columns": [
@@ -30,7 +30,7 @@
         },
         "required": false,
         "propertyUrl": "skos:broader",
-        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/ons-population-estimates-by-output-areas-electoral-health-and-other-geographies-england-and-wales#concept/age-type/{parent_notation}"
+        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/ons-population-estimates-by-output-areas-electoral-health-and-other-geographies-england-and-wales#concept/age-type/{parent_notation}"
       },
       {
         "titles": "Sort Priority",
@@ -54,16 +54,16 @@
       {
         "virtual": true,
         "propertyUrl": "skos:inScheme",
-        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/ons-population-estimates-by-output-areas-electoral-health-and-other-geographies-england-and-wales#scheme/age-type"
+        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/ons-population-estimates-by-output-areas-electoral-health-and-other-geographies-england-and-wales#scheme/age-type"
       }
     ],
     "primaryKey": "notation",
-    "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/ons-population-estimates-by-output-areas-electoral-health-and-other-geographies-england-and-wales#concept/age-type/{notation}"
+    "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/ons-population-estimates-by-output-areas-electoral-health-and-other-geographies-england-and-wales#concept/age-type/{notation}"
   },
   "prov:hadDerivation": {
-    "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/ons-population-estimates-by-output-areas-electoral-health-and-other-geographies-england-and-wales#scheme/age-type",
+    "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/ons-population-estimates-by-output-areas-electoral-health-and-other-geographies-england-and-wales#scheme/age-type",
     "@type": "skos:ConceptScheme",
     "rdfs:label": "Age Type",
-    "skos:hasTopConcept": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/ons-population-estimates-by-output-areas-electoral-health-and-other-geographies-england-and-wales#concept/age-type/all"
+    "skos:hasTopConcept": "http://gss-data.org.uk/data/gss_data/towns-high-streets/ons-population-estimates-by-output-areas-electoral-health-and-other-geographies-england-and-wales#concept/age-type/all"
   }
 }
