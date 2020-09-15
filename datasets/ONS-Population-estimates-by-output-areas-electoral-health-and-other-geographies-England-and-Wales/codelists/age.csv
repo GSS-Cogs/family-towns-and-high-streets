@@ -1,6 +1,6 @@
 Label,Notation,Parent Notation,Sort Priority
 Aged 0 to 15,aged-0-to-15,,1
-Aged 16+,aged-16,,2
+Aged 16+,aged-16plus,,2
 Aged 16 to 64,aged-16-to-64,,3
 Aged 16 to 24,aged-16-to-24,,4
 Aged 16 to 17,aged-16-to-17,,5
@@ -8,114 +8,114 @@ Aged 18 to 24,aged-18-to-24,,6
 Aged 18 to 21,aged-18-to-21,,7
 Aged 25 to 49,aged-25-to-49,,8
 Aged 50 to 64,aged-50-to-64,,9
-Aged 65+,aged-65,,10
+Aged 65+,aged-65plus,,10
 All ages,all-ages,,11
-Age 0   4,age-0-4,,12
+Age 0 to 4,age-0-4,,12
 Age 0,age-0,,13
 Age 1,age-1,,14
 Age 2,age-2,,15
 Age 3,age-3,,16
 Age 4,age-4,,17
-Aged 5 9,aged-5-9,,18
+Aged 5 to 9,aged-5-9,,18
 Age 5,age-5,,19
 Age 6,age-6,,20
 Age 7,age-7,,21
 Age 8,age-8,,22
 Age 9,age-9,,23
-Aged 10 14,aged-10-14,,24
+Aged 10 to 14,aged-10-14,,24
 Age 10,age-10,,25
 Age 11,age-11,,26
 Age 12,age-12,,27
 Age 13,age-13,,28
 Age 14,age-14,,29
-Aged 15 19,aged-15-19,,30
+Aged 15 to 19,aged-15-19,,30
 Age 15,age-15,,31
 Age 16,age-16,,32
 Age 17,age-17,,33
 Age 18,age-18,,34
 Age 19,age-19,,35
-Aged 20 24,aged-20-24,,36
+Aged 20 to 24,aged-20-24,,36
 Age 20,age-20,,37
 Age 21,age-21,,38
 Age 22,age-22,,39
 Age 23,age-23,,40
 Age 24,age-24,,41
-Aged 25 29,aged-25-29,,42
+Aged 25 to 29,aged-25-29,,42
 Age 25,age-25,,43
 Age 26,age-26,,44
 Age 27,age-27,,45
 Age 28,age-28,,46
 Age 29,age-29,,47
-Aged 30 34,aged-30-34,,48
+Aged 30 to 34,aged-30-34,,48
 Age 30,age-30,,49
 Age 31,age-31,,50
 Age 32,age-32,,51
 Age 33,age-33,,52
 Age 34,age-34,,53
-Aged 35 39,aged-35-39,,54
+Aged 35 to 39,aged-35-39,,54
 Age 35,age-35,,55
 Age 36,age-36,,56
 Age 37,age-37,,57
 Age 38,age-38,,58
 Age 39,age-39,,59
-Aged 40 44,aged-40-44,,60
+Aged 40 to 44,aged-40-44,,60
 Age 40,age-40,,61
 Age 41,age-41,,62
 Age 42,age-42,,63
 Age 43,age-43,,64
 Age 44,age-44,,65
-Aged 45 49,aged-45-49,,66
+Aged 45 to 49,aged-45-49,,66
 Age 45,age-45,,67
 Age 46,age-46,,68
 Age 47,age-47,,69
 Age 48,age-48,,70
 Age 49,age-49,,71
-Aged 50 54,aged-50-54,,72
+Aged 50 to 54,aged-50-54,,72
 Age 50,age-50,,73
 Age 51,age-51,,74
 Age 52,age-52,,75
 Age 53,age-53,,76
 Age 54,age-54,,77
-Aged 55 59,aged-55-59,,78
+Aged 55 to 59,aged-55-59,,78
 Age 55,age-55,,79
 Age 56,age-56,,80
 Age 57,age-57,,81
 Age 58,age-58,,82
 Age 59,age-59,,83
-Aged 60 64,aged-60-64,,84
+Aged 60 to 64,aged-60-64,,84
 Age 60,age-60,,85
 Age 61,age-61,,86
 Age 62,age-62,,87
 Age 63,age-63,,88
 Age 64,age-64,,89
-Aged 65 69,aged-65-69,,90
+Aged 65 to 69,aged-65-69,,90
 Age 65,age-65,,91
 Age 66,age-66,,92
 Age 67,age-67,,93
 Age 68,age-68,,94
 Age 69,age-69,,95
-Aged 70 74,aged-70-74,,96
+Aged 70 to 74,aged-70-74,,96
 Age 70,age-70,,97
 Age 71,age-71,,98
 Age 72,age-72,,99
 Age 73,age-73,,100
 Age 74,age-74,,101
-Aged 75 79,aged-75-79,,102
+Aged 75 to 79,aged-75-79,,102
 Age 75,age-75,,103
 Age 76,age-76,,104
 Age 77,age-77,,105
 Age 78,age-78,,106
 Age 79,age-79,,107
-Aged 80 84,aged-80-84,,108
+Aged 80 to 84,aged-80-84,,108
 Age 80,age-80,,109
 Age 81,age-81,,110
 Age 82,age-82,,111
 Age 83,age-83,,112
 Age 84,age-84,,113
-Aged 85+,aged-85,,114
+Aged 85+,aged-85plus,,114
 Age 85,age-85,,115
 Age 86,age-86,,116
 Age 87,age-87,,117
 Age 88,age-88,,118
 Age 89,age-89,,119
-Aged 90+,aged-90,,120
+Aged 90+,aged-90plus,,120
