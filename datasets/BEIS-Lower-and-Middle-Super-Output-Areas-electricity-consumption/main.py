@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[85]:
+# In[171]:
 
 
 from gssutils import *
@@ -153,24 +153,24 @@ print("Publisher: " + etl_publisher)
 print("Title: " + etl_title)
 
 scraper = Scraper(seed="info.json")
-scraper
-
-tidied_sheets = {}
+#scraper.title
 
 
-# In[86]:
+# In[172]:
 
 
 out = Path('out')
 out.mkdir(exist_ok=True)
 
-#trace = TransformTrace()
+trace = TransformTrace()
 
 
-# In[87]:
+# In[173]:
 
 
 df = pd.DataFrame()
+
+datasetTitle = scraper.title
 
 for distribution in scraper.distributions:
     if distribution.downloadURL.endswith('zip') and 'LSOA' in distribution.title:
@@ -179,10 +179,24 @@ for distribution in scraper.distributions:
         with ZipFile(BytesIO(scraper.session.get(distribution.downloadURL).content)) as zip:
             for name in zip.namelist()[1:]:
                 with zip.open(name, 'r') as file:
+
+                    link = distribution.downloadURL
+
+                    columns = ['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Lower Layer Super Output Area', 'Total number of domestic electricity meters', 'Mean domestic electricity consumption kWh per meter', 'Median domestic electricity consumption kWh per meter', 'Value']
+                    trace.start(datasetTitle, name, columns, link)
+
                     print(name)
                     table = pd.read_csv(file)
 
                     table['Year'] = 'year/' + name[:-4][-4:]
+                    trace.Year("Value taken from CSV file name: {}", var = name[18:])
+                    trace.Local_Authority("Values taken from 'LACode' field")
+                    trace.Middle_Layer_Super_Output_Area("Values taken from 'MSOACode' field")
+                    trace.Lower_Layer_Super_Output_Area("Values taken from 'LSOACode' field")
+                    trace.Total_number_of_domestic_electricity_meters("Values taken from 'METERS' field")
+                    trace.Mean_domestic_electricity_consumption_kWh_per_meter("Values taken from 'MEAN' field")
+                    trace.Median_domestic_electricity_consumption_kWh_per_meter("Values taken from 'MEDIAN' field")
+                    trace.Value("Values taken from 'KWH' field")
 
                     df = df.append(table, ignore_index = True)
 
@@ -196,6 +210,20 @@ df = df.rename(columns={'LACode':'Local Authority',
                         'MEAN':'Mean domestic electricity consumption kWh per meter',
                         'MEDIAN':'Median domestic electricity consumption kWh per meter'})
 
+trace.Local_Authority("Rename column from 'LACode' to 'Local Authority'")
+trace.Middle_Layer_Super_Output_Area("Rename column from 'MSOACode' to 'Middle Layer Super Output Area'")
+trace.Lower_Layer_Super_Output_Area("Rename column from 'LSOACode' to 'Lower Layer Super Output Area'")
+trace.Total_number_of_domestic_electricity_meters("Rename column from 'METERS' to 'Total number of domestic electricity meters'")
+trace.Mean_domestic_electricity_consumption_kWh_per_meter("Rename column from 'MEAN' to 'Mean domestic electricity consumption kWh per meter'")
+trace.Median_domestic_electricity_consumption_kWh_per_meter("Rename column from 'MEDIAN' to 'Median domestic electricity consumption kWh per meter'")
+trace.Value("Rename column from 'KWH' to 'Value'")
+
+infoNotes("""
+Guidance documentation can be found here: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/853104/sub-national-methodology-guidance.pdf
+Year, Local Authority, Middle Layer Super Output Area, Lower Layer Super Output Area, Total number of domestic electricity meters, Mean Domestic electricity consumption kWh per meter, Median domestic electricity consumption kWh per meter, Value
+Or if having the three geography causes problems:
+Year, Lower Layer Super Output Area, Total number of domestic electricity meters, Mean Domestic electricity consumption kWh per meter, Median domestic electricity consumption kWh per meter, Value""")
+
 df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Lower Layer Super Output Area', 'Total number of domestic electricity meters', 'Mean domestic electricity consumption kWh per meter', 'Median domestic electricity consumption kWh per meter', 'Value']]
 
 df.drop_duplicates().to_csv(out / 'observations.csv', index = False)
@@ -203,7 +231,7 @@ df.drop_duplicates().to_csv(out / 'observations.csv', index = False)
 df
 
 
-# In[88]:
+# In[174]:
 
 
 df = pd.DataFrame()
@@ -238,7 +266,7 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total num
 df
 
 
-# In[89]:
+# In[175]:
 
 
 df = pd.DataFrame()
@@ -273,7 +301,7 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total num
 df
 
 
-# In[90]:
+# In[176]:
 
 
 scraper.dataset.comment = scraper.description
@@ -281,16 +309,16 @@ scraper.dataset.comment = scraper.description
 scraper.dataset.description = "Guidance documentation can be found here: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/853104/sub-national-methodology-guidance.pdf"
 
 
-# In[91]:
+# In[177]:
 
 
 with open(out / 'observations.csv-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
 
-#trace.output()
+trace.output()
 
 
-# In[91]:
+# In[177]:
 
 
 
