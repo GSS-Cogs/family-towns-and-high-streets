@@ -33,5 +33,5 @@
 ##### DM Notes
 
 		Column definitions have been created in info.json file. Need some descriptions
-		Age codelist has been created along with codelist folder
+		'Age' and 'Age Type' codelists have been created along with codelist folder
 
