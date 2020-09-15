@@ -1,8 +1,9 @@
 {
     "title": "Population estimates by output areas, electoral, health and other geographies, England and Wales",
-    "publisher": "Office for National Statistics",
+    "publisher": "office-for-national-statistics",
     "description": "National population estimates for Super Output Areas and experimental statistics for health geographies, electoral wards, Parliamentary constituencies and National Parks in England and Wales.",
-    "landingPage": "https://www.nomisweb.co.uk/query/construct/summary.asp?mode=construct&version=0&dataset=2010",
+    "landingPageOLD": "https://www.nomisweb.co.uk/query/construct/summary.asp?mode=construct&version=0&dataset=2010",
+    "dataURL": "http://www.nomisweb.co.uk/api/v01/dataset/NM_2010_1.data.csv?geography=1254252436...1254252639,1254260020...1254260026&date=latest&gender=0...2&c_age=200...203,250,207...209&measures=20100&select=date_name,geography_name,geography_code,gender_name,c_age_name,measures_name,obs_value,obs_status_name.csv",
     "datasetNotes": [
         "On landing page select:",
         "Geography - All 2011 output area",
