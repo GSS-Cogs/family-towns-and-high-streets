@@ -14,7 +14,7 @@
 		Any age value with a '+' will need to be changed to 'plus'
 		Date, dates goes back to 2011, are we taking all this data?
 		GEOGRAPHY_NAME - change to Geography, E00000000 etc
-		GENDER_NAME: change to 'Gender' and values changed to M,F,T,U
+		GENDER_NAME: change to 'Gender' and change values to M,F,T,U
 		C_AGE_NAME: change to 'Age'
 		C_AGE_TYPE: change to 'Age Type' defines from which age codelist the value is from (Labour Market category, Individual age, 5 year age band)
 		OBS_Status: change to 'Value'
