@@ -39,6 +39,7 @@ from urllib.parse import urljoin
 
 scraper.dataset.family = 'towns-high-streets'
 scraper.dataset.comment = 'Estimates of the population for England and Wales by Geographical Output areas, Gender and Age'
+scraper.dataset.title = 'Population estimates by output areas, England and Wales'
 
 dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}'))
 scraper.set_base_uri('http://gss-data.org.uk')
