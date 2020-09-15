@@ -21,6 +21,10 @@
 
 		'Measure Type' has been set to 'count'
 		'Unit' has been set to 'persons'
+			Do we use:
+				"unit": "http://gss-data.org.uk/def/concept/measurement-units/persons",
+				or
+				"unit":"http://xmlns.com/foaf/0.1/person",
 
 #### Table Structure
 
