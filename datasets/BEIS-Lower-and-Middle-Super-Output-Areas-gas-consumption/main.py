@@ -1,231 +1,206 @@
 from gssutils import * 
 import json
-import re
+from zipfile import ZipFile
+from io import BytesIO
 
 info = json.load(open('info.json')) 
 etl_title = info["title"] 
-etl_publisher = info["publisher"][0]
+etl_publisher = info["publisher"]
 print("Publisher: " + etl_publisher) 
 print("Title: " + etl_title) 
 
 scraper = Scraper(seed="info.json")   
-scraper 
+scraper
 
 trace = TransformTrace()
+tidied_sheets = {} # dataframes will be stored in here
 
-def excelRange(bag):
-    min_x = min([cell.x for cell in bag])
-    max_x = max([cell.x for cell in bag])
-    min_y = min([cell.y for cell in bag])
-    max_y = max([cell.y for cell in bag])
-    top_left_cell = xypath.contrib.excel.excel_location(bag.filter(lambda x: x.x == min_x and x.y == min_y))
-    bottom_right_cell = xypath.contrib.excel.excel_location(bag.filter(lambda x: x.x == max_x and x.y == max_y))
-    return f"{top_left_cell}:{bottom_right_cell}"
+for distribution in scraper.distributions:
+    
+    # LSOA data first
+    if distribution.downloadURL.endswith('zip') and 'LSOA' in distribution.title:
+        with ZipFile(BytesIO(scraper.session.get(distribution.downloadURL).content)) as zip:
+            for name in zip.namelist()[1:]:
+                with zip.open(name, 'r') as file:
+                    
+                    link = distribution.downloadURL
+                    file_name = name.split("/")[-1].split(".")[0] # the name of the file
+                    
+                    columns = ['Year', 'Local Authority Code', 'MSOA Code', 'LSOA Code', 'Number of Meters', 'Domestic Use', 'Mean Consumption', 'Median Consumption', 'Measure Type', 'Unit', 'Value']
+                    trace.start(scraper.title, name, columns, link)
+                    
+                    table = pd.read_csv(file, dtype=str)
+                    
+                    year = file_name[-4:] # year is last 4 characters of file_name
+                    table["Year"] = "year/" + year
+                    
+                    domestic = "yes" # data is domestic gas only
+                    table["Domestic Use"] = domestic
+                    
+                    measure_type = "Gas Consumption" 
+                    table["Measure Type"] = measure_type
+                    
+                    unit = "kWh"
+                    table["Unit"] = unit
+                    
+                    trace.Year("Value taken from CSV file name: {}".format(year))
+                    trace.Local_Authority_Code("Values taken from 'LACode' column")
+                    trace.MSOA_Code("Values taken from 'MSOACode' column")
+                    trace.LSOA_Code("Values taken from 'LSOACode' column")
+                    trace.Number_of_Meters("Values taken from 'METERS' column")
+                    trace.Domestic_Use("Source file only contains Domestic use observations")
+                    trace.Mean_Consumption("Values taken from 'MEAN' column")
+                    trace.Median_Consumption("Values taken from 'MEDIAN' column")
+                    trace.Value("Values taken from 'KWH' column")
+                    trace.Measure_Type("Hardcoded as: {}".format(measure_type))
+                    trace.Unit('Hardcoded as: {}'.format(unit))
+                    
+                    table = table.drop(['LAName', 'MSOAName', 'LSOAName'], axis=1) # unwanted columns
 
-tidied_sheets = {}
+                    # renaming columns
+                    table = table.rename(columns={
+                        'LACode':'Local Authority Code',
+                        'MSOACode':'MSOA Code',
+                        'LSOACode':'LSOA Code',
+                        'METERS':'Number of Meters',
+                        'KWH':'Value',
+                        'MEAN':'Mean Consumption',
+                        'MEDIAN':'Median Consumption'
+                        }
+                    )
 
-#LSOA domestic gas 2010-18
+                    trace.Local_Authority_Code("Rename column from 'LACode' to 'Local Authority Code'")
+                    trace.MSOA_Code("Rename column from 'MSOACode' to 'MSOA Code'")
+                    trace.LSOA_Code("Rename column from 'LSOACode' to 'LSOA Code'")
+                    trace.Number_of_Meters("Rename column from 'METERS' to 'Number of Meters'")
+                    trace.Mean_Consumption("Rename column from 'MEAN' to 'Mean Consumption'")
+                    trace.Median_Consumption("Rename column from 'MEDIAN' to 'Median Consumption'")
+                    trace.Value("Rename column from 'KWH' to 'Value'")
 
-LSOAdistribution = scraper.distributions[0]
-display(LSOAdistribution)
+                    trace.store(file_name, table)
+                    tidied_sheets[file_name] = table
+                    
+    # MSOA domestic data second
+    elif distribution.downloadURL.endswith('zip') and 'MSOA domestic' in distribution.title:
+        with ZipFile(BytesIO(scraper.session.get(distribution.downloadURL).content)) as zip:
+            for name in zip.namelist()[1:]:
+                with zip.open(name, 'r') as file:
+                    
+                    link = distribution.downloadURL
+                    file_name = name.split("/")[-1].split(".")[0] # the name of the file
+                    
+                    columns = ['Year', 'Local Authority Code', 'MSOA Code', 'Number of Meters', 'Domestic Use', 'Mean Consumption', 'Median Consumption', 'Measure Type', 'Unit', 'Value']
+                    trace.start(scraper.title, name, columns, link)
+                    
+                    table = pd.read_csv(file, dtype=str)
+                    
+                    year = file_name[-4:] # year is last 4 characters of file_name
+                    table["Year"] = "year/" + year
+                    
+                    domestic = "yes" # data is domestic gas only
+                    table["Domestic Use"] = domestic
+                    
+                    measure_type = "Gas Consumption" 
+                    table["Measure Type"] = measure_type
+                    
+                    unit = "kWh"
+                    table["Unit"] = unit
+                    
+                    trace.Year("Value taken from CSV file name: {}".format(year))
+                    trace.Local_Authority_Code("Values taken from 'LACode' column")
+                    trace.MSOA_Code("Values taken from 'MSOACode' column")
+                    trace.Number_of_Meters("Values taken from 'METERS' column")
+                    trace.Domestic_Use("Source file only contains Domestic use observations")
+                    trace.Mean_Consumption("Values taken from 'MEAN' column")
+                    trace.Median_Consumption("Values taken from 'MEDIAN' column")
+                    trace.Value("Values taken from 'KWH' column")
+                    trace.Measure_Type("Hardcoded as: {}".format(measure_type))
+                    trace.Unit('Hardcoded as: {}'.format(unit))
+                    
+                    table = table.drop(['LAName', 'MSOAName'], axis=1) # unwanted columns
 
-LSOAlink = LSOAdistribution.downloadURL
-tabs = [ tab for tab in LSOAdistribution.as_databaker() ]
+                    # renaming columns
+                    table = table.rename(columns={
+                        'LACode':'Local Authority Code',
+                        'MSOACode':'MSOA Code',
+                        'METERS':'Number of Meters',
+                        'KWH':'Value',
+                        'MEAN':'Mean Consumption',
+                        'MEDIAN':'Median Consumption'
+                        }
+                    )
 
-for tab in tabs:
-    if tab.name.lower().strip() in ('title', 'annex sub-national publications'):
-        continue
-    
-    columns = ['Period', 'Local Authority Code', 'MSOA Code', 'LSOA Code', 'Number of Meters', 'Domestic Use', 'Mean Consumption', 'Median Consumption', 'Measure Type', 'Unit']
-    trace.start(LSOAdistribution.title, tab, columns, LSOAlink)
-    
-    pivot = tab.filter(contains_string('Local Authority Name')).shift(DOWN)
-    
-    local_authority_code = pivot.shift(RIGHT).expand(DOWN).is_not_blank()
-    trace.Local_Authority_Code("Values given in range {}", var=excelRange(local_authority_code))
-    
-    MSOA_code = pivot.shift(3, 0).expand(DOWN).is_not_blank()
-    trace.MSOA_Code("Values given in range {}", var=excelRange(MSOA_code))
-    
-    LSOA_code = pivot.shift(5, 0).expand(DOWN).is_not_blank()
-    trace.LSOA_Code("Values given in range {}", var=excelRange(LSOA_code))
-    
-    number_of_meters = pivot.shift(6, 0).expand(DOWN).is_not_blank()
-    trace.Number_of_Meters("Values given in range {}", var=excelRange(number_of_meters))
-    
-    mean = pivot.shift(8, 0).expand(DOWN).is_not_blank()
-    trace.Mean_Consumption("Values given in range {}", var=excelRange(mean))
-    
-    median = pivot.shift(9, 0).expand(DOWN).is_not_blank()
-    trace.Median_Consumption("Values given in range {}", var=excelRange(median))
-    
-    year = tab.name.replace('r', '')
-    trace.Period("Value given in name of tab as {}", var=year)
-    
-    domestic = 'yes'
-    trace.Domestic_Use("Source file only contains Domestic use observations")
-    
-    observations = pivot.shift(7, 0).expand(DOWN).is_not_blank()
-    
-    measure_type = 'Gas Consumption'
-    trace.Measure_Type('Hardcoded as: {}', var=measure_type)
-    
-    unit = 'kWh'
-    trace.Unit('Hardcoded as: {}', var=unit)
-    
-    dimensions = [
-            HDimConst('Period', year),
-            HDim(local_authority_code, 'Local Authority Code', DIRECTLY, LEFT),
-            HDim(MSOA_code, 'MSOA Code', DIRECTLY, LEFT),
-            HDim(LSOA_code, 'LSOA Code', DIRECTLY, LEFT),
-            HDim(number_of_meters, 'Number of Meters', DIRECTLY, LEFT),
-            HDimConst('Domestic Use', domestic),
-            HDim(mean, 'Mean Consumption', DIRECTLY, RIGHT),
-            HDim(median, 'Median Consumption', DIRECTLY, RIGHT),
-            HDimConst('Measure Type', measure_type),
-            HDimConst('Unit', unit)
-            ]
-    
-    tidy_sheet = ConversionSegment(tab, dimensions, observations) 
-    trace.with_preview(tidy_sheet)
+                    trace.Local_Authority_Code("Rename column from 'LACode' to 'Local Authority Code'")
+                    trace.MSOA_Code("Rename column from 'MSOACode' to 'MSOA Code'")
+                    trace.Number_of_Meters("Rename column from 'METERS' to 'Number of Meters'")
+                    trace.Mean_Consumption("Rename column from 'MEAN' to 'Mean Consumption'")
+                    trace.Median_Consumption("Rename column from 'MEDIAN' to 'Median Consumption'")
+                    trace.Value("Rename column from 'KWH' to 'Value'")
 
-    tab_title = pivot.shift(0, -2)
+                    trace.store(file_name, table)
+                    tidied_sheets[file_name] = table
+                    
+    # MSOA 'Non' domestic data next
+    elif distribution.downloadURL.endswith('zip') and 'MSOA non domestic' in distribution.title:
+        with ZipFile(BytesIO(scraper.session.get(distribution.downloadURL).content)) as zip:
+            for name in zip.namelist()[1:]:
+                with zip.open(name, 'r') as file:
+                    
+                    link = distribution.downloadURL
+                    file_name = name.split("/")[-1].split(".")[0] # the name of the file
+                    
+                    columns = ['Year', 'Local Authority Code', 'MSOA Code', 'Number of Meters', 'Domestic Use', 'Mean Consumption', 'Median Consumption', 'Measure Type', 'Unit', 'Value']
+                    trace.start(scraper.title, name, columns, link)
+                    
+                    table = pd.read_csv(file, dtype=str)
+                    
+                    year = file_name[-4:] # year is last 4 characters of file_name
+                    table["Year"] = "year/" + year
+                    
+                    domestic = "no" # data is non domestic gas only
+                    table["Domestic Use"] = domestic
+                    
+                    measure_type = "Gas Consumption" 
+                    table["Measure Type"] = measure_type
+                    
+                    unit = "kWh"
+                    table["Unit"] = unit
+                    
+                    trace.Year("Value taken from CSV file name: {}".format(year))
+                    trace.Local_Authority_Code("Values taken from 'LACode' column")
+                    trace.MSOA_Code("Values taken from 'MSOACode' column")
+                    trace.Number_of_Meters("Values taken from 'METERS' column")
+                    trace.Domestic_Use("Source file only contains Non-Domestic use observations")
+                    trace.Mean_Consumption("Values taken from 'MEAN' column")
+                    trace.Median_Consumption("Values taken from 'MEDIAN' column")
+                    trace.Value("Values taken from 'KWH' column")
+                    trace.Measure_Type("Hardcoded as: {}".format(measure_type))
+                    trace.Unit('Hardcoded as: {}'.format(unit))
+                    
+                    table = table.drop(['LAName', 'MSOAName'], axis=1) # unwanted columns
 
-    trace.store(tab.name + '_' + LSOAdistribution.title, tidy_sheet.topandas())
-    tidied_sheets[tab.name + '_' + LSOAdistribution.title] = tidy_sheet.topandas()
-    
-#MSAO domestic gas 2010-18
+                    # renaming columns
+                    table = table.rename(columns={
+                        'LACode':'Local Authority Code',
+                        'MSOACode':'MSOA Code',
+                        'METERS':'Number of Meters',
+                        'KWH':'Value',
+                        'MEAN':'Mean Consumption',
+                        'MEDIAN':'Median Consumption'
+                        }
+                    )
 
-MSOAdistribution = scraper.distributions[2]
-display(MSOAdistribution)
+                    trace.Local_Authority_Code("Rename column from 'LACode' to 'Local Authority Code'")
+                    trace.MSOA_Code("Rename column from 'MSOACode' to 'MSOA Code'")
+                    trace.Number_of_Meters("Rename column from 'METERS' to 'Number of Meters'")
+                    trace.Mean_Consumption("Rename column from 'MEAN' to 'Mean Consumption'")
+                    trace.Median_Consumption("Rename column from 'MEDIAN' to 'Median Consumption'")
+                    trace.Value("Rename column from 'KWH' to 'Value'")
 
-MSOAlink = MSOAdistribution.downloadURL
-tabs = [ tab for tab in MSOAdistribution.as_databaker() ]
+                    trace.store(file_name, table)
+                    tidied_sheets[file_name] = table
+                    
 
-for tab in tabs:
-    if tab.name.lower().strip() in ('title', 'annex sub-national publications'):
-        continue
-        
-    columns = ['Period', 'Local Authority Code', 'MSOA Code', 'Number of Meters', 'Domestic Use', 'Mean Consumption', 'Median Consumption', 'Measure Type', 'Unit']
-    trace.start(MSOAdistribution.title, tab, columns, MSOAlink)
-    
-    pivot = tab.filter(contains_string('Local Authority Name')).shift(DOWN)
-    
-    local_authority_code = pivot.shift(RIGHT).expand(DOWN).is_not_blank()
-    trace.Local_Authority_Code("Values given in range {}", var=excelRange(local_authority_code))
-    
-    MSOA_code = pivot.shift(3, 0).expand(DOWN).is_not_blank()
-    trace.MSOA_Code("Values given in range {}", var=excelRange(MSOA_code))
-    
-    number_of_meters = pivot.shift(4, 0).expand(DOWN).is_not_blank()
-    trace.Number_of_Meters("Values given in range {}", var=excelRange(number_of_meters))
-    
-    mean = pivot.shift(6, 0).expand(DOWN).is_not_blank()
-    trace.Mean_Consumption("Values given in range {}", var=excelRange(mean))
-    
-    median = pivot.shift(7, 0).expand(DOWN).is_not_blank()
-    trace.Median_Consumption("Values given in range {}", var=excelRange(median))
-    
-    year = tab.name.replace('r', '')
-    trace.Period("Value given in name of tab as {}", var=year)
-    
-    domestic = 'yes'
-    trace.Domestic_Use("Source file only contains Domestic use observations")
-    
-    observations = pivot.shift(5, 0).expand(DOWN).is_not_blank()
-    
-    measure_type = 'Gas Consumption'
-    trace.Measure_Type('Hardcoded as: {}', var=measure_type)
-    
-    unit = 'kWh'
-    trace.Unit('Hardcoded as: {}', var=unit)
-    
-    dimensions = [
-            HDimConst('Period', year),
-            HDim(local_authority_code, 'Local Authority Code', DIRECTLY, LEFT),
-            HDim(MSOA_code, 'MSOA Code', DIRECTLY, LEFT),
-            HDim(number_of_meters, 'Number of Meters', DIRECTLY, LEFT),
-            HDimConst('Domestic Use', domestic),
-            HDim(mean, 'Mean Consumption', DIRECTLY, RIGHT),
-            HDim(median, 'Median Consumption', DIRECTLY, RIGHT),
-            HDimConst('Measure Type', measure_type),
-            HDimConst('Unit', unit)
-            ]
-    
-    tidy_sheet = ConversionSegment(tab, dimensions, observations)
-    trace.with_preview(tidy_sheet)
-
-    tab_title = pivot.shift(0, -1)
-
-    trace.store(tab.name + '_' + MSOAdistribution.title, tidy_sheet.topandas())
-    tidied_sheets[tab.name + '_' + MSOAdistribution.title] = tidy_sheet.topandas()
-    
-#MSAO non-domestic gas 2010-18
-
-MSOANDdistribution = scraper.distributions[4]
-display(MSOANDdistribution)
-
-MSOANDlink = MSOANDdistribution.downloadURL
-tabs = [ tab for tab in MSOANDdistribution.as_databaker() ]
-
-for tab in tabs:
-    if tab.name.lower().strip() in ('title', 'annex sub-national publications'):
-        continue
-    
-    columns = ['Period', 'Local Authority Code', 'MSOA Code', 'Number of Meters', 'Domestic Use', 'Mean Consumption', 'Median Consumption', 'Measure Type', 'Unit']
-    trace.start(MSOANDdistribution.title, tab, columns, MSOANDlink)
-    
-    pivot = tab.filter(contains_string('Local Authority Name')).shift(DOWN)
-    
-    local_authority_code = pivot.shift(RIGHT).expand(DOWN).is_not_blank()
-    trace.Local_Authority_Code("Values given in range {}", var=excelRange(local_authority_code))
-    
-    MSOA_code = pivot.shift(3, 0).expand(DOWN).is_not_blank()
-    trace.MSOA_Code("Values given in range {}", var=excelRange(MSOA_code))
-    
-    number_of_meters = pivot.shift(4, 0).expand(DOWN).is_not_blank()
-    trace.Number_of_Meters("Values given in range {}", var=excelRange(number_of_meters))
-    
-    mean = pivot.shift(6, 0).expand(DOWN).is_not_blank()
-    trace.Mean_Consumption("Values given in range {}", var=excelRange(mean))
-    
-    median = pivot.shift(7, 0).expand(DOWN).is_not_blank()
-    trace.Median_Consumption("Values given in range {}", var=excelRange(median))
-    
-    year = tab.name.replace('r', '')
-    trace.Period("Value given in name of tab as {}", var=year)
-    
-    domestic = 'no'
-    trace.Domestic_Use("Source file only contains Non-Domestic use observations")
-    
-    observations = pivot.shift(5, 0).expand(DOWN).is_not_blank()
-    
-    measure_type = 'Gas Consumption'
-    trace.Measure_Type('Hardcoded as: {}', var=measure_type)
-    
-    unit = 'kWh'
-    trace.Unit('Hardcoded as: {}', var=unit)
-    
-    dimensions = [
-            HDimConst('Period', year),
-            HDim(local_authority_code, 'Local Authority Code', DIRECTLY, LEFT),
-            HDim(MSOA_code, 'MSOA Code', DIRECTLY, LEFT),
-            HDim(number_of_meters, 'Number of Meters', DIRECTLY, LEFT),
-            HDimConst('Domestic Use', domestic),
-            HDim(mean, 'Mean Consumption', DIRECTLY, RIGHT),
-            HDim(median, 'Median Consumption', DIRECTLY, RIGHT),
-            HDimConst('Measure Type', measure_type),
-            HDimConst('Unit', unit)
-            ]
-    
-    tidy_sheet = ConversionSegment(tab, dimensions, observations)
-    trace.with_preview(tidy_sheet)
-
-    tab_title = pivot.shift(0, -1)
-
-    trace.store(tab.name + '_' + MSOANDdistribution.title, tidy_sheet.topandas())
-    tidied_sheets[tab.name + '_' + MSOANDdistribution.title] = tidy_sheet.topandas()
-    
 out = Path('out')
 out.mkdir(exist_ok=True)
 
