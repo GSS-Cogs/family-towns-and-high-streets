@@ -40,18 +40,6 @@
                 "value": "http://statistics.data.gov.uk/id/statistical-geography/{lower_layer_super_output_area}",
                 "description": "Lower Layer Super Output Areas (LSOAs) in England and Wales were built by zone-design software using 2011 Census data from groups of Output Areas (typically four to six) and were constrained by the Standard Table wards6 used for 2011 Census outputs. They have a minimum size of 1,000 residents or 400 households and have an average of 1,500 residents. Following the 2011 Census, there are now 34,753 LSOAs in England and Wales."
             },
-            "Total number of domestic electricity meters": {
-                "attribute": "http://gss-data.org.uk/def/attribute/total_number_of_domestic_electricity_meters",
-                "datatype": "integer"
-            },
-            "Mean Domestic electricity consumption kWh per meter": {
-                "attribute": "http://gss-data.org.uk/def/attribute/mean_domestic_electricity_consumption_kwh_per_meter",
-                "datatype": "double"
-            },
-            "Median domestic electricity consumption kWh per meter": {
-                "attribute": "http://gss-data.org.uk/def/attribute/median_domestic_electricity_consumption_kwh_per_meter",
-                "datatype": "double"
-            },
             "Value": {
                 "unit": "http://gss-data.org.uk/def/concept/measurement-units/kilowatt-hour",
                 "measure": "http://gss-data.org.uk/def/measure/kilowatt",
