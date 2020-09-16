@@ -233,8 +233,8 @@ df.head(10)
 
 
 # %%
-del df['Local Authority']
-del df['Middle Layer Super Output Area']
+#del df['Local Authority']
+#del df['Middle Layer Super Output Area']
 #### OUTPUTTING LSOA DATA AS A SINGLE DATASET
 
 # %%
