@@ -11,6 +11,9 @@ import json
 import os
 import string
 import re
+from zipfile import ZipFile, is_zipfile
+from io import BytesIO, TextIOWrapper
+
 def left(s, amount):
     return s[:amount]
 def right(s, amount):
@@ -151,253 +154,7 @@ print("Publisher: " + etl_publisher)
 print("Title: " + etl_title)
 
 scraper = Scraper(seed="info.json")
-scraper
-
-tidied_sheets = {}
-
-
-# %%
-
-
-trace = TransformTrace()
-
-
-# %%
-
-
-#LSAO domestic electricity 2010-18
-
-LSOAdistribution = scraper.distributions[0]
-display(LSOAdistribution)
-
-LSOAlink = LSOAdistribution.downloadURL
-
-
-# %%
-
-
-tabs = { tab: tab for tab in LSOAdistribution.as_databaker() }
-
-for tab in tabs:
-
-    if tab.name.lower().strip() not in ['title', 'annex sub-national publication']:
-
-        columns = ['Period', 'Local Authority Code', 'MSOA Code', 'LSOA Code', 'Total Number of Meters', 'Domestic Use', 'Mean Consumption', 'Median Consumption', 'Measure Type', 'Unit']
-        trace.start(LSOAdistribution.title, tab, columns, LSOAlink)
-
-        pivot = tab.filter(contains_string('Local Authority Name')).shift(DOWN)
-
-        localAuthorityCode = pivot.shift(RIGHT).expand(DOWN).is_not_blank()
-        trace.Local_Authority_Code("Values given in range {}", var = excelRange(localAuthorityCode))
-
-        MSOACode = pivot.shift(3, 0).expand(DOWN).is_not_blank()
-        trace.MSOA_Code("Values given in range {}", var = excelRange(MSOACode))
-
-        LSOACode = pivot.shift(5, 0).expand(DOWN).is_not_blank()
-        trace.LSOA_Code("Values given in range {}", var = excelRange(LSOACode))
-
-        meters = pivot.shift(6, 0).expand(DOWN).is_not_blank()
-        trace.Total_Number_of_Meters("Values given in range {}", var = excelRange(meters))
-
-        mean = pivot.shift(8, 0).expand(DOWN).is_not_blank()
-        trace.Mean_Consumption("Values given in range {}", var = excelRange(mean))
-
-        median = pivot.shift(9, 0).expand(DOWN).is_not_blank()
-        trace.Median_Consumption("Values given in range {}", var = excelRange(median))
-
-        year = tab.name.replace('r', '')
-        trace.Period("Value given in name of tab as {}", var = year)
-
-        domestic = 'yes'
-        trace.Domestic_Use("Source File only contains Domestic use observations")
-
-        observations = pivot.shift(7, 0).expand(DOWN).is_not_blank()
-
-        measureType = 'Electricity Consumption'
-        trace.Measure_Type('Hardcoded as: {}', var = measureType)
-
-        unit = 'kWh'
-        trace.Unit('Hardcoded as: {}', var = unit)
-
-        dimensions = [
-            HDimConst('Period', year),
-            HDim(localAuthorityCode, 'Local Authority Code', DIRECTLY, LEFT),
-            HDim(MSOACode, 'MSOA Code', DIRECTLY, LEFT),
-            HDim(LSOACode, 'LSOA Code', DIRECTLY, LEFT),
-            HDim(meters, 'Total Number of Meters', DIRECTLY, LEFT),
-            HDimConst('Domestic Use', domestic),
-            HDim(mean, 'Mean Consumption', DIRECTLY, RIGHT),
-            HDim(median, 'Median Consumption', DIRECTLY, RIGHT),
-            HDimConst('Measure Type', measureType),
-            HDimConst('Unit', unit)
-        ]
-
-        tidy_sheet = ConversionSegment(tab, dimensions, observations)
-        trace.with_preview(tidy_sheet)
-
-        tabTitle = pivot.shift(0, -1)
-
-        infoTransform(tab.name, cellCont(str(tabTitle)), columns)
-
-        trace.store(tab.name + '_' + LSOAdistribution.title, tidy_sheet.topandas())
-
-        tidied_sheets[tab.name + '_' + LSOAdistribution.title] = tidy_sheet.topandas()
-
-
-# %%
-
-
-#MSAO domestic electricity 2010-18
-
-MSOAdistribution = scraper.distributions[2]
-display(MSOAdistribution)
-
-MSOAlink = MSOAdistribution.downloadURL
-
-
-# %%
-
-
-tabs = { tab: tab for tab in MSOAdistribution.as_databaker() }
-
-for tab in tabs:
-
-    if tab.name.lower().strip() not in ['title', 'annex sub-national publications']:
-
-        columns = ['Period', 'Local Authority Code', 'MSOA Code', 'Total Number of Meters', 'Domestic Use', 'Mean Consumption', 'Median Consumption', 'Measure Type', 'Unit']
-        trace.start(MSOAdistribution.title, tab, columns, MSOAlink)
-
-        pivot = tab.filter(contains_string('Local Authority Name')).shift(DOWN)
-
-        localAuthorityCode = pivot.shift(RIGHT).expand(DOWN).is_not_blank()
-        trace.Local_Authority_Code("Values given in range {}", var = excelRange(localAuthorityCode))
-
-        MSOACode = pivot.shift(3, 0).expand(DOWN).is_not_blank()
-        trace.MSOA_Code("Values given in range {}", var = excelRange(MSOACode))
-
-        meters = pivot.shift(4, 0).expand(DOWN).is_not_blank()
-        trace.Total_Number_of_Meters("Values given in range {}", var = excelRange(meters))
-
-        mean = pivot.shift(6, 0).expand(DOWN).is_not_blank()
-        trace.Mean_Consumption("Values given in range {}", var = excelRange(mean))
-
-        median = pivot.shift(7, 0).expand(DOWN).is_not_blank()
-        trace.Median_Consumption("Values given in range {}", var = excelRange(median))
-
-        year = tab.name.replace('r', '')
-        trace.Period("Value given in name of tab as {}", var = year)
-
-        domestic = 'yes'
-        trace.Domestic_Use("Source File only contains Domestic use observations")
-
-        observations = pivot.shift(5, 0).expand(DOWN).is_not_blank()
-
-        measureType = 'Electricity Consumption'
-        trace.Measure_Type('Hardcoded as: {}', var = measureType)
-
-        unit = 'kWh'
-        trace.Unit('Hardcoded as: {}', var = unit)
-
-        dimensions = [
-            HDimConst('Period', year),
-            HDim(localAuthorityCode, 'Local Authority Code', DIRECTLY, LEFT),
-            HDim(MSOACode, 'MSOA Code', DIRECTLY, LEFT),
-            HDim(meters, 'Total Number of Meters', DIRECTLY, LEFT),
-            HDimConst('Domestic Use', domestic),
-            HDim(mean, 'Mean Consumption', DIRECTLY, RIGHT),
-            HDim(median, 'Median Consumption', DIRECTLY, RIGHT),
-            HDimConst('Measure Type', measureType),
-            HDimConst('Unit', unit)
-        ]
-
-        tidy_sheet = ConversionSegment(tab, dimensions, observations)
-        trace.with_preview(tidy_sheet)
-
-        tabTitle = pivot.shift(0, -1)
-
-        infoTransform(tab.name, cellCont(str(tabTitle)), columns)
-
-        trace.store(tab.name + '_' + MSOAdistribution.title, tidy_sheet.topandas())
-
-        tidied_sheets[tab.name + '_' + MSOAdistribution.title] = tidy_sheet.topandas()
-
-
-# %%
-
-
-#MSAO non-domestic electricity 2010-18
-
-MSOANDdistribution = scraper.distributions[4]
-display(MSOANDdistribution)
-
-MSOANDlink = MSOANDdistribution.downloadURL
-
-
-# %%
-
-
-tabs = { tab: tab for tab in MSOANDdistribution.as_databaker() }
-
-for tab in tabs:
-
-    if tab.name.lower().strip() not in ['title', 'annex sub-national publications']:
-
-        columns = ['Period', 'Local Authority Code', 'MSOA Code', 'Total Number of Meters', 'Domestic Use', 'Mean Consumption', 'Median Consumption', 'Measure Type', 'Unit']
-        trace.start(MSOANDdistribution.title, tab, columns, MSOANDlink)
-
-        pivot = tab.filter(contains_string('Local Authority Name')).shift(DOWN)
-
-        localAuthorityCode = pivot.shift(RIGHT).expand(DOWN).is_not_blank()
-        trace.Local_Authority_Code("Values given in range {}", var = excelRange(localAuthorityCode))
-
-        MSOACode = pivot.shift(3, 0).expand(DOWN).is_not_blank()
-        trace.MSOA_Code("Values given in range {}", var = excelRange(MSOACode))
-
-        meters = pivot.shift(4, 0).expand(DOWN).is_not_blank()
-        trace.Total_Number_of_Meters("Values given in range {}", var = excelRange(meters))
-
-        mean = pivot.shift(6, 0).expand(DOWN).is_not_blank()
-        trace.Mean_Consumption("Values given in range {}", var = excelRange(mean))
-
-        median = pivot.shift(7, 0).expand(DOWN).is_not_blank()
-        trace.Median_Consumption("Values given in range {}", var = excelRange(median))
-
-        year = tab.name.replace('r', '')
-        trace.Period("Value given in name of tab as {}", var = year)
-
-        domestic = 'no'
-        trace.Domestic_Use("Source File only contains Non-Domestic use observations")
-
-        observations = pivot.shift(5, 0).expand(DOWN).is_not_blank()
-
-        measureType = 'Electricity Consumption'
-        trace.Measure_Type('Hardcoded as: {}', var = measureType)
-
-        unit = 'kWh'
-        trace.Unit('Hardcoded as: {}', var = unit)
-
-        dimensions = [
-            HDimConst('Period', year),
-            HDim(localAuthorityCode, 'Local Authority Code', DIRECTLY, LEFT),
-            HDim(MSOACode, 'MSOA Code', DIRECTLY, LEFT),
-            HDim(meters, 'Total Number of Meters', DIRECTLY, LEFT),
-            HDimConst('Domestic Use', domestic),
-            HDim(mean, 'Mean Consumption', DIRECTLY, RIGHT),
-            HDim(median, 'Median Consumption', DIRECTLY, RIGHT),
-            HDimConst('Measure Type', measureType),
-            HDimConst('Unit', unit)
-        ]
-
-        tidy_sheet = ConversionSegment(tab, dimensions, observations)
-        trace.with_preview(tidy_sheet)
-
-        tabTitle = pivot.shift(0, -1)
-
-        infoTransform(tab.name, cellCont(str(tabTitle)), columns)
-
-        trace.store(tab.name + '_' + MSOANDdistribution.title, tidy_sheet.topandas())
-
-        tidied_sheets[tab.name + '_' + MSOANDdistribution.title] = tidy_sheet.topandas()
+#scraper.title
 
 
 # %%
@@ -406,12 +163,198 @@ for tab in tabs:
 out = Path('out')
 out.mkdir(exist_ok=True)
 
-pd.set_option('display.float_format', lambda x: '%.2f' % x)
+trace = TransformTrace()
 
-for key in tidied_sheets:
-    print("{}: {}".format(key, tidied_sheets[key]))
-    df = tidied_sheets[key]
-    df.drop_duplicates().to_csv(out / f'{key}.csv', index = False)
 
+# %%
+
+
+df = pd.DataFrame()
+
+datasetTitle = scraper.title
+
+for distribution in scraper.distributions:
+    if distribution.downloadURL.endswith('zip') and 'LSOA' in distribution.title:
+        print(distribution.title)
+        #datasetTitle = pathify(distribution.title)
+        with ZipFile(BytesIO(scraper.session.get(distribution.downloadURL).content)) as zip:
+            for name in zip.namelist()[1:]:
+                with zip.open(name, 'r') as file:
+
+                    link = distribution.downloadURL
+
+                    columns = ['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Lower Layer Super Output Area', 'Total number of domestic electricity meters', 'Mean domestic electricity consumption kWh per meter', 'Median domestic electricity consumption kWh per meter', 'Value']
+                    trace.start(datasetTitle, name, columns, link)
+
+                    print(name)
+                    table = pd.read_csv(file)
+
+                    table['Year'] = 'year/' + name[:-4][-4:]
+                    trace.Year("Value taken from CSV file name: {}", var = name[18:])
+                    trace.Local_Authority("Values taken from 'LACode' field")
+                    trace.Middle_Layer_Super_Output_Area("Values taken from 'MSOACode' field")
+                    trace.Lower_Layer_Super_Output_Area("Values taken from 'LSOACode' field")
+                    trace.Total_number_of_domestic_electricity_meters("Values taken from 'METERS' field")
+                    trace.Mean_domestic_electricity_consumption_kWh_per_meter("Values taken from 'MEAN' field")
+                    trace.Median_domestic_electricity_consumption_kWh_per_meter("Values taken from 'MEDIAN' field")
+                    trace.Value("Values taken from 'KWH' field")
+
+                    df = df.append(table, ignore_index = True)
+
+df = df.drop(['LAName', 'MSOAName', 'LSOAName'], axis=1)
+
+df = df.rename(columns={'LACode':'Local Authority',
+                        'MSOACode':'Middle Layer Super Output Area',
+                        'LSOACode':'Lower Layer Super Output Area',
+                        'METERS':'Total number of domestic electricity meters',
+                        'KWH':'Value',
+                        'MEAN':'Mean domestic electricity consumption kWh per meter',
+                        'MEDIAN':'Median domestic electricity consumption kWh per meter'})
+
+trace.Local_Authority("Rename column from 'LACode' to 'Local Authority'")
+trace.Middle_Layer_Super_Output_Area("Rename column from 'MSOACode' to 'Middle Layer Super Output Area'")
+trace.Lower_Layer_Super_Output_Area("Rename column from 'LSOACode' to 'Lower Layer Super Output Area'")
+trace.Total_number_of_domestic_electricity_meters("Rename column from 'METERS' to 'Total number of domestic electricity meters'")
+trace.Mean_domestic_electricity_consumption_kWh_per_meter("Rename column from 'MEAN' to 'Mean domestic electricity consumption kWh per meter'")
+trace.Median_domestic_electricity_consumption_kWh_per_meter("Rename column from 'MEDIAN' to 'Median domestic electricity consumption kWh per meter'")
+trace.Value("Rename column from 'KWH' to 'Value'")
+
+infoNotes("""
+Guidance documentation can be found here: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/853104/sub-national-methodology-guidance.pdf
+Year, Local Authority, Middle Layer Super Output Area, Lower Layer Super Output Area, Total number of domestic electricity meters, Mean Domestic electricity consumption kWh per meter, Median domestic electricity consumption kWh per meter, Value
+Or if having the three geography causes problems:
+Year, Lower Layer Super Output Area, Total number of domestic electricity meters, Mean Domestic electricity consumption kWh per meter, Median domestic electricity consumption kWh per meter, Value""")
+
+df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Lower Layer Super Output Area', 'Total number of domestic electricity meters', 'Mean domestic electricity consumption kWh per meter', 'Median domestic electricity consumption kWh per meter', 'Value']]
+
+#df.drop_duplicates().to_csv(out / 'observations.csv', index = False)
+
+df.head(10)
+
+
+# %%
+#del df['Local Authority']
+#del df['Middle Layer Super Output Area']
+#### OUTPUTTING LSOA DATA AS A SINGLE DATASET
+
+# %%
+import os
+from urllib.parse import urljoin
+
+notes = 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/853104/sub-national-methodology-guidance.pdf'
+
+csvName = 'lsoa_observations.csv'
+out = Path('out')
+out.mkdir(exist_ok=True)
+df.drop_duplicates().to_csv(out / csvName, index = False)
+#df.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+# Output a subset of the data to get the Mapping class to work
+#df[:10].to_csv(out / csvName, index = False)
+
+scraper.dataset.family = 'towns-high-streets'
+scraper.dataset.description = scraper.dataset.description + '\nGuidance documentation can be found here:\n' + notes
+scraper.dataset.comment = 'Total domestic electricity consumption, number of meters, mean and median consumption for LSOA regions across England, Wales & Scotland'
+scraper.dataset.title = 'Lower Super Output Areas (LSOA) electricity consumption'
+
+dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower()
+scraper.set_base_uri('http://gss-data.org.uk')
+scraper.set_dataset_id(dataset_path)
+
+
+csvw_transform = CSVWMapping()
+csvw_transform.set_csv(out / csvName)
+csvw_transform.set_mapping(json.load(open('info.json')))
+csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
+csvw_transform.write(out / f'{csvName}-metadata.json')
+# Remove subset of data
+#out / csvName).unlink()
+with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
+    metadata.write(scraper.generate_trig())
+
+# %%
+
+
+df = pd.DataFrame()
+
+for distribution in scraper.distributions:
+    if distribution.downloadURL.endswith('zip') and 'MSOA domestic' in distribution.title:
+        print(distribution.title)
+        #datasetTitle = pathify(distribution.title)
+        with ZipFile(BytesIO(scraper.session.get(distribution.downloadURL).content)) as zip:
+            for name in zip.namelist()[1:]:
+                with zip.open(name, 'r') as file:
+                    print(name)
+                    table = pd.read_csv(file)
+
+                    table['Year'] = 'year/' + name[:-4][-4:]
+
+                    df = df.append(table, ignore_index = True)
+
+df = df.drop(['LAName', 'MSOAName'], axis=1)
+
+df = df.rename(columns={'LACode':'Local Authority',
+                        'MSOACode':'Middle Layer Super Output Area',
+                        'METERS':'Total number of domestic electricity meters',
+                        'KWH':'Value',
+                        'MEAN':'Mean domestic electricity consumption kWh per meter',
+                        'MEDIAN':'Median domestic electricity consumption kWh per meter'})
+
+df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total number of domestic electricity meters', 'Mean domestic electricity consumption kWh per meter', 'Median domestic electricity consumption kWh per meter', 'Value']]
+
+#df.drop_duplicates().to_csv(out / f'{datasetTitle}_observations.csv', index = False)
+
+#df
+
+
+# %%
+
+
+df = pd.DataFrame()
+
+for distribution in scraper.distributions:
+    if distribution.downloadURL.endswith('zip') and 'MSOA non domestic' in distribution.title:
+        print(distribution.title)
+        #datasetTitle = pathify(distribution.title)
+        with ZipFile(BytesIO(scraper.session.get(distribution.downloadURL).content)) as zip:
+            for name in zip.namelist()[1:]:
+                with zip.open(name, 'r') as file:
+                    print(name)
+                    table = pd.read_csv(file)
+
+                    table['Year'] = 'year/' + name[:-4][-4:]
+
+                    df = df.append(table, ignore_index = True)
+
+df = df.drop(['LAName', 'MSOAName'], axis=1)
+
+df = df.rename(columns={'LACode':'Local Authority',
+                        'MSOACode':'Middle Layer Super Output Area',
+                        'METERS':'Total number of non domestic electricity meters',
+                        'KWH':'Value',
+                        'MEAN':'Mean non domestic electricity consumption kWh per meter',
+                        'MEDIAN':'Median non domestic electricity consumption kWh per meter'})
+
+df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total number of non domestic electricity meters', 'Mean non domestic electricity consumption kWh per meter', 'Median non domestic electricity consumption kWh per meter', 'Value']]
+
+#df.drop_duplicates().to_csv(out / f'{datasetTitle}_observations.csv', index = False)
+
+#df
+
+
+# %%
+
+
+# %%
+
+
+# %%
+#with open('out/lsoa_observations.csv-metadata.json') as jsonfile:
+#    data = json.load(jsonfile)
+#data
+
+
+# %%
+
+# %%
 
 # %%

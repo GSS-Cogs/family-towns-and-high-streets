@@ -1,0 +1,57 @@
+{
+    "title": "Population estimates by output areas, electoral, health and other geographies, England and Wales",
+    "publisher": "office-for-national-statistics",
+    "description": "National population estimates for Super Output Areas and experimental statistics for health geographies, electoral wards, Parliamentary constituencies and National Parks in England and Wales.",
+    "landingPageOLD": "https://www.nomisweb.co.uk/query/construct/summary.asp?mode=construct&version=0&dataset=2010",
+    "dataURL": "http://www.nomisweb.co.uk/api/v01/dataset/NM_2010_1.data.csv?geography=1254252436...1254252639,1254260020...1254260026&date=latest&gender=0...2&c_age=200...203,250,207...209&measures=20100&select=date_name,geography_name,geography_code,gender_name,c_age_name,measures_name,obs_value,obs_status_name.csv",
+    "datasetNotes": [
+        "On landing page select:",
+        "Geography - All 2011 output area",
+        "Date - All available dates",
+        "Age - All age groups available for labour market & Individual ages and 5 year age bands",
+        "Sex - All available options  ",
+        ""
+    ],
+    "published": "2020-09-09",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "NOMIS",
+        "stage": "Documented"
+    },
+    "transform": {
+        "stage": [
+            "Priority"
+        ],
+        "columns": {
+            "Date": {
+                "description": "",
+                "source": "",
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refPeriod",
+                "value": "http://reference.data.gov.uk/id/{+date}"
+            },
+            "Geography": {
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
+                "value": "http://statistics.data.gov.uk/id/statistical-geography/{geography}",
+                "description": "2011 Output Areas. Open linked data, geographical codes for areas of the UK"
+            },
+            "Age": "Age is derived from the date of birth question and is a person's age at their last birthday, at 27 March 2011. Dates of birth that imply an age over 115 are treated as invalid and the person's age is imputed. Infants less than one year old are classified as 0 years of age.",
+            "Gender": {
+                "dimension": "http://purl.org/linked-data/sdmx/2009/dimension#sex",
+                "value": "http://purl.org/linked-data/sdmx/2009/code#sex-{gender}",
+                "description": ""
+            },
+            "Value": {
+                "unit": "http://gss-data.org.uk/def/concept/measurement-units/persons",
+                "measure": "http://gss-data.org.uk/def/measure/count",
+                "datatype": "integer"
+            }
+        },
+        "codelists": ["Age"],
+        "airtable": "recSx2PWX4qStk055",
+        "main_issue": 16
+    },
+    "sizingNotes": "",
+    "notes": "An example of the extract is located here:\nhttps://drive.google.com/drive/u/0/folders/133olsp9xU6VyLoqw8-aGv7-eDP1nX9at\n\nHighest priority dataset as this has been requested by the Towns and High Streets ALP for their analysis and for a SPARQL demonstration piece"
+}
