@@ -248,6 +248,8 @@ out = Path('out')
 out.mkdir(exist_ok=True)
 #df.drop_duplicates().to_csv(out / csvName, index = False)
 df.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+# Output a subset of the data to get the Mapping class to work
+df[:10].to_csv(out / csvName, index = False)
 
 scraper.dataset.family = 'towns-high-streets'
 scraper.dataset.description = scraper.dataset.description + '\nGuidance documentation can be found here:\n' + notes
@@ -257,12 +259,15 @@ scraper.dataset.title = 'Lower Super Output Areas (LSOA) electricity consumption
 dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower()
 scraper.set_base_uri('http://gss-data.org.uk')
 scraper.set_dataset_id(dataset_path)
+
+
 csvw_transform = CSVWMapping()
 csvw_transform.set_csv(out / csvName)
 csvw_transform.set_mapping(json.load(open('info.json')))
 csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
 csvw_transform.write(out / f'{csvName}-metadata.json')
-
+# Remove subset of data
+(out / csvName).unlink()
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
 
