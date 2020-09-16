@@ -246,7 +246,8 @@ notes = 'https://assets.publishing.service.gov.uk/government/uploads/system/uplo
 csvName = 'lsoa_observations.csv'
 out = Path('out')
 out.mkdir(exist_ok=True)
-df.drop_duplicates().to_csv(out / csvName, index = False)
+#df.drop_duplicates().to_csv(out / csvName, index = False)
+df.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 
 scraper.dataset.family = 'towns-high-streets'
 scraper.dataset.description = scraper.dataset.description + '\nGuidance documentation can be found here:\n' + notes
