@@ -246,10 +246,10 @@ notes = 'https://assets.publishing.service.gov.uk/government/uploads/system/uplo
 csvName = 'lsoa_observations.csv'
 out = Path('out')
 out.mkdir(exist_ok=True)
-#df.drop_duplicates().to_csv(out / csvName, index = False)
-df.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+df.drop_duplicates().to_csv(out / csvName, index = False)
+#df.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 # Output a subset of the data to get the Mapping class to work
-df[:10].to_csv(out / csvName, index = False)
+#df[:10].to_csv(out / csvName, index = False)
 
 scraper.dataset.family = 'towns-high-streets'
 scraper.dataset.description = scraper.dataset.description + '\nGuidance documentation can be found here:\n' + notes
@@ -267,7 +267,7 @@ csvw_transform.set_mapping(json.load(open('info.json')))
 csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
 csvw_transform.write(out / f'{csvName}-metadata.json')
 # Remove subset of data
-(out / csvName).unlink()
+#out / csvName).unlink()
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
 
