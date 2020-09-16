@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
+# %%
 
-# In[171]:
+# %%
 
 
 from gssutils import *
@@ -156,7 +157,7 @@ scraper = Scraper(seed="info.json")
 #scraper.title
 
 
-# In[172]:
+# %%
 
 
 out = Path('out')
@@ -165,7 +166,7 @@ out.mkdir(exist_ok=True)
 trace = TransformTrace()
 
 
-# In[173]:
+# %%
 
 
 df = pd.DataFrame()
@@ -226,12 +227,45 @@ Year, Lower Layer Super Output Area, Total number of domestic electricity meters
 
 df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Lower Layer Super Output Area', 'Total number of domestic electricity meters', 'Mean domestic electricity consumption kWh per meter', 'Median domestic electricity consumption kWh per meter', 'Value']]
 
-df.drop_duplicates().to_csv(out / 'observations.csv', index = False)
+#df.drop_duplicates().to_csv(out / 'observations.csv', index = False)
 
-df
+df.head(10)
 
 
-# In[174]:
+# %%
+#del df['Local Authority']
+#del df['Middle Layer Super Output Area']
+#### OUTPUTTING LSOA DATA AS A SINGLE DATASET
+
+# %%
+import os
+from urllib.parse import urljoin
+
+notes = 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/853104/sub-national-methodology-guidance.pdf'
+
+csvName = 'lsoa_observations.csv'
+out = Path('out')
+out.mkdir(exist_ok=True)
+df.drop_duplicates().to_csv(out / csvName, index = False)
+
+scraper.dataset.family = 'towns-high-streets'
+scraper.dataset.description = scraper.dataset.description + '\nGuidance documentation can be found here:\n' + notes
+scraper.dataset.comment = 'Total domestic electricity consumption, number of meters, mean and median consumption for LSOA regions across England, Wales & Scotland'
+scraper.dataset.title = 'Lower Super Output Areas (LSOA) electricity consumption'
+
+dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower()
+scraper.set_base_uri('http://gss-data.org.uk')
+scraper.set_dataset_id(dataset_path)
+csvw_transform = CSVWMapping()
+csvw_transform.set_csv(out / csvName)
+csvw_transform.set_mapping(json.load(open('info.json')))
+csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
+csvw_transform.write(out / f'{csvName}-metadata.json')
+
+with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
+    metadata.write(scraper.generate_trig())
+
+# %%
 
 
 df = pd.DataFrame()
@@ -263,10 +297,10 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total num
 
 #df.drop_duplicates().to_csv(out / f'{datasetTitle}_observations.csv', index = False)
 
-df
+#df
 
 
-# In[175]:
+# %%
 
 
 df = pd.DataFrame()
@@ -298,28 +332,21 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total num
 
 #df.drop_duplicates().to_csv(out / f'{datasetTitle}_observations.csv', index = False)
 
-df
+#df
 
 
-# In[176]:
+# %%
 
 
-scraper.dataset.comment = scraper.description
-
-scraper.dataset.description = "Guidance documentation can be found here: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/853104/sub-national-methodology-guidance.pdf"
+# %%
 
 
-# In[177]:
-
-
-with open(out / 'observations.csv-metadata.trig', 'wb') as metadata:
-    metadata.write(scraper.generate_trig())
-
-trace.output()
-
-
-# In[177]:
+# %%
 
 
 
 
+
+# %%
+
+# %%

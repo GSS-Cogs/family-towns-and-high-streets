@@ -15,13 +15,13 @@
         "stage": "Documented"
     },
     "transform": {
+        "airtable": "recKiGSmk1HCIHdyu",
+        "main_issue": 3,
         "stage": [
             "To Do"
         ],
         "columns": {
             "Year": {
-                "description": "",
-                "source": "",
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refPeriod",
                 "value": "http://reference.data.gov.uk/id/{+year}"
             },
@@ -46,155 +46,557 @@
             },
             "Mean Domestic electricity consumption kWh per meter": {
                 "attribute": "http://gss-data.org.uk/def/attribute/mean-domestic-electricity-consumption-kwh-per-meter",
-                "datatype": "integer"
+                "datatype": "double"
             },
             "Median domestic electricity consumption kWh per meter": {
                 "attribute": "http://gss-data.org.uk/def/attribute/median-domestic-electricity-consumption-kwh-per-meter",
-                "datatype": "integer"
+                "datatype": "double"
             },
             "Value": {
                 "unit": "http://ontology.eil.utoronto.ca/ISO21972/iso21972#kilowatt_hour",
                 "measure": "http://ontology.eil.utoronto.ca/ISO21972/iso21972#kilowatt",
-                "datatype": "integer"
+                "datatype": "double"
             }
         },
-        "airtable": "recKiGSmk1HCIHdyu",
-        "main_issue": 3,
+        "Stage One Notes": "\nGuidance documentation can be found here: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/853104/sub-national-methodology-guidance.pdf\nYear, Local Authority, Middle Layer Super Output Area, Lower Layer Super Output Area, Total number of domestic electricity meters, Mean Domestic electricity consumption kWh per meter, Median domestic electricity consumption kWh per meter, Value\nOr if having the three geography causes problems:\nYear, Lower Layer Super Output Area, Total number of domestic electricity meters, Mean Domestic electricity consumption kWh per meter, Median domestic electricity consumption kWh per meter, Value",
         "transformStage": [
             {
-                "name": "2010r",
-                "title": "Local Authority Name",
-                "columns": {
-                    "Period": "2010",
-                    "Local Authority Code": "{B3-B8849}",
-                    "MSOA Code": "{D3-D8849}",
-                    "Total Number of Meters": "{E3-E8849}",
-                    "Domestic Use": "Not Applicable",
-                    "Mean Consumption": "{G3-G8849}",
-                    "Median Consumption": "{H3-H8849}",
-                    "Measure Type": "Electricity Consumption",
-                    "Unit": "kWh"
-                }
+                "source_name": "Lower and Middle Super Output Areas electricity consumption",
+                "identifier": "Lower and Middle Super Output Areas electricity consumption||LSOA_DOM_ELEC_csv/LSOA_ELEC_2010.csv||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip": ""
+                    }
+                ],
+                "title": "LSOA_DOM_ELEC_csv/LSOA_ELEC_2010.csv",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Year": "LSOA_ELEC_2010.csv"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Year": [
+                            "Value taken from CSV file name: LSOA_ELEC_2010.csv"
+                        ]
+                    },
+                    {
+                        "Local_Authority": [
+                            "Values taken from 'LACode' field"
+                        ]
+                    },
+                    {
+                        "Middle_Layer_Super_Output_Area": [
+                            "Values taken from 'MSOACode' field"
+                        ]
+                    },
+                    {
+                        "Lower_Layer_Super_Output_Area": [
+                            "Values taken from 'LSOACode' field"
+                        ]
+                    },
+                    {
+                        "Total_number_of_domestic_electricity_meters": [
+                            "Values taken from 'METERS' field"
+                        ]
+                    },
+                    {
+                        "Mean_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEAN' field"
+                        ]
+                    },
+                    {
+                        "Median_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEDIAN' field"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values taken from 'KWH' field"
+                        ]
+                    }
+                ]
             },
             {
-                "name": "2011r",
-                "title": "Local Authority Name",
-                "columns": {
-                    "Period": "2011",
-                    "Local Authority Code": "{B3-B8850}",
-                    "MSOA Code": "{D3-D8850}",
-                    "Total Number of Meters": "{E3-E8850}",
-                    "Domestic Use": "Not Applicable",
-                    "Mean Consumption": "{G3-G8850}",
-                    "Median Consumption": "{H3-H8850}",
-                    "Measure Type": "Electricity Consumption",
-                    "Unit": "kWh"
-                }
+                "source_name": "Lower and Middle Super Output Areas electricity consumption",
+                "identifier": "Lower and Middle Super Output Areas electricity consumption||LSOA_DOM_ELEC_csv/LSOA_ELEC_2011.csv||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip": ""
+                    }
+                ],
+                "title": "LSOA_DOM_ELEC_csv/LSOA_ELEC_2011.csv",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Year": "LSOA_ELEC_2011.csv"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Year": [
+                            "Value taken from CSV file name: LSOA_ELEC_2011.csv"
+                        ]
+                    },
+                    {
+                        "Local_Authority": [
+                            "Values taken from 'LACode' field"
+                        ]
+                    },
+                    {
+                        "Middle_Layer_Super_Output_Area": [
+                            "Values taken from 'MSOACode' field"
+                        ]
+                    },
+                    {
+                        "Lower_Layer_Super_Output_Area": [
+                            "Values taken from 'LSOACode' field"
+                        ]
+                    },
+                    {
+                        "Total_number_of_domestic_electricity_meters": [
+                            "Values taken from 'METERS' field"
+                        ]
+                    },
+                    {
+                        "Mean_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEAN' field"
+                        ]
+                    },
+                    {
+                        "Median_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEDIAN' field"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values taken from 'KWH' field"
+                        ]
+                    }
+                ]
             },
             {
-                "name": "2012r",
-                "title": "Local Authority Name",
-                "columns": {
-                    "Period": "2012",
-                    "Local Authority Code": "{B3-B8848}",
-                    "MSOA Code": "{D3-D8848}",
-                    "Total Number of Meters": "{E3-E8848}",
-                    "Domestic Use": "Not Applicable",
-                    "Mean Consumption": "{G3-G8848}",
-                    "Median Consumption": "{H3-H8848}",
-                    "Measure Type": "Electricity Consumption",
-                    "Unit": "kWh"
-                }
+                "source_name": "Lower and Middle Super Output Areas electricity consumption",
+                "identifier": "Lower and Middle Super Output Areas electricity consumption||LSOA_DOM_ELEC_csv/LSOA_ELEC_2012.csv||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip": ""
+                    }
+                ],
+                "title": "LSOA_DOM_ELEC_csv/LSOA_ELEC_2012.csv",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Year": "LSOA_ELEC_2012.csv"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Year": [
+                            "Value taken from CSV file name: LSOA_ELEC_2012.csv"
+                        ]
+                    },
+                    {
+                        "Local_Authority": [
+                            "Values taken from 'LACode' field"
+                        ]
+                    },
+                    {
+                        "Middle_Layer_Super_Output_Area": [
+                            "Values taken from 'MSOACode' field"
+                        ]
+                    },
+                    {
+                        "Lower_Layer_Super_Output_Area": [
+                            "Values taken from 'LSOACode' field"
+                        ]
+                    },
+                    {
+                        "Total_number_of_domestic_electricity_meters": [
+                            "Values taken from 'METERS' field"
+                        ]
+                    },
+                    {
+                        "Mean_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEAN' field"
+                        ]
+                    },
+                    {
+                        "Median_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEDIAN' field"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values taken from 'KWH' field"
+                        ]
+                    }
+                ]
             },
             {
-                "name": "2013r",
-                "title": "Local Authority Name",
-                "columns": {
-                    "Period": "2013",
-                    "Local Authority Code": "{B3-B8850}",
-                    "MSOA Code": "{D3-D8850}",
-                    "Total Number of Meters": "{E3-E8850}",
-                    "Domestic Use": "Not Applicable",
-                    "Mean Consumption": "{G3-G8850}",
-                    "Median Consumption": "{H3-H8850}",
-                    "Measure Type": "Electricity Consumption",
-                    "Unit": "kWh"
-                }
+                "source_name": "Lower and Middle Super Output Areas electricity consumption",
+                "identifier": "Lower and Middle Super Output Areas electricity consumption||LSOA_DOM_ELEC_csv/LSOA_ELEC_2013.csv||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip": ""
+                    }
+                ],
+                "title": "LSOA_DOM_ELEC_csv/LSOA_ELEC_2013.csv",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Year": "LSOA_ELEC_2013.csv"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Year": [
+                            "Value taken from CSV file name: LSOA_ELEC_2013.csv"
+                        ]
+                    },
+                    {
+                        "Local_Authority": [
+                            "Values taken from 'LACode' field"
+                        ]
+                    },
+                    {
+                        "Middle_Layer_Super_Output_Area": [
+                            "Values taken from 'MSOACode' field"
+                        ]
+                    },
+                    {
+                        "Lower_Layer_Super_Output_Area": [
+                            "Values taken from 'LSOACode' field"
+                        ]
+                    },
+                    {
+                        "Total_number_of_domestic_electricity_meters": [
+                            "Values taken from 'METERS' field"
+                        ]
+                    },
+                    {
+                        "Mean_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEAN' field"
+                        ]
+                    },
+                    {
+                        "Median_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEDIAN' field"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values taken from 'KWH' field"
+                        ]
+                    }
+                ]
             },
             {
-                "name": "2014r",
-                "title": "Local Authority Name",
-                "columns": {
-                    "Period": "2014",
-                    "Local Authority Code": "{B3-B8852}",
-                    "MSOA Code": "{D3-D8852}",
-                    "Total Number of Meters": "{E3-E8852}",
-                    "Domestic Use": "Not Applicable",
-                    "Mean Consumption": "{G3-G8852}",
-                    "Median Consumption": "{H3-H8852}",
-                    "Measure Type": "Electricity Consumption",
-                    "Unit": "kWh"
-                }
+                "source_name": "Lower and Middle Super Output Areas electricity consumption",
+                "identifier": "Lower and Middle Super Output Areas electricity consumption||LSOA_DOM_ELEC_csv/LSOA_ELEC_2014.csv||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip": ""
+                    }
+                ],
+                "title": "LSOA_DOM_ELEC_csv/LSOA_ELEC_2014.csv",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Year": "LSOA_ELEC_2014.csv"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Year": [
+                            "Value taken from CSV file name: LSOA_ELEC_2014.csv"
+                        ]
+                    },
+                    {
+                        "Local_Authority": [
+                            "Values taken from 'LACode' field"
+                        ]
+                    },
+                    {
+                        "Middle_Layer_Super_Output_Area": [
+                            "Values taken from 'MSOACode' field"
+                        ]
+                    },
+                    {
+                        "Lower_Layer_Super_Output_Area": [
+                            "Values taken from 'LSOACode' field"
+                        ]
+                    },
+                    {
+                        "Total_number_of_domestic_electricity_meters": [
+                            "Values taken from 'METERS' field"
+                        ]
+                    },
+                    {
+                        "Mean_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEAN' field"
+                        ]
+                    },
+                    {
+                        "Median_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEDIAN' field"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values taken from 'KWH' field"
+                        ]
+                    }
+                ]
             },
             {
-                "name": "2015r",
-                "title": "Local Authority Name",
-                "columns": {
-                    "Period": "2015",
-                    "Local Authority Code": "{B3-B8852}",
-                    "MSOA Code": "{D3-D8852}",
-                    "Total Number of Meters": "{E3-E8852}",
-                    "Domestic Use": "Not Applicable",
-                    "Mean Consumption": "{G3-G8852}",
-                    "Median Consumption": "{H3-H8852}",
-                    "Measure Type": "Electricity Consumption",
-                    "Unit": "kWh"
-                }
+                "source_name": "Lower and Middle Super Output Areas electricity consumption",
+                "identifier": "Lower and Middle Super Output Areas electricity consumption||LSOA_DOM_ELEC_csv/LSOA_ELEC_2015.csv||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip": ""
+                    }
+                ],
+                "title": "LSOA_DOM_ELEC_csv/LSOA_ELEC_2015.csv",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Year": "LSOA_ELEC_2015.csv"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Year": [
+                            "Value taken from CSV file name: LSOA_ELEC_2015.csv"
+                        ]
+                    },
+                    {
+                        "Local_Authority": [
+                            "Values taken from 'LACode' field"
+                        ]
+                    },
+                    {
+                        "Middle_Layer_Super_Output_Area": [
+                            "Values taken from 'MSOACode' field"
+                        ]
+                    },
+                    {
+                        "Lower_Layer_Super_Output_Area": [
+                            "Values taken from 'LSOACode' field"
+                        ]
+                    },
+                    {
+                        "Total_number_of_domestic_electricity_meters": [
+                            "Values taken from 'METERS' field"
+                        ]
+                    },
+                    {
+                        "Mean_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEAN' field"
+                        ]
+                    },
+                    {
+                        "Median_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEDIAN' field"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values taken from 'KWH' field"
+                        ]
+                    }
+                ]
             },
             {
-                "name": "2016r",
-                "title": "Local Authority Name",
-                "columns": {
-                    "Period": "2016",
-                    "Local Authority Code": "{B3-B8851}",
-                    "MSOA Code": "{D3-D8851}",
-                    "Total Number of Meters": "{E3-E8851}",
-                    "Domestic Use": "Not Applicable",
-                    "Mean Consumption": "{G3-G8851}",
-                    "Median Consumption": "{H3-H8851}",
-                    "Measure Type": "Electricity Consumption",
-                    "Unit": "kWh"
-                }
+                "source_name": "Lower and Middle Super Output Areas electricity consumption",
+                "identifier": "Lower and Middle Super Output Areas electricity consumption||LSOA_DOM_ELEC_csv/LSOA_ELEC_2016.csv||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip": ""
+                    }
+                ],
+                "title": "LSOA_DOM_ELEC_csv/LSOA_ELEC_2016.csv",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Year": "LSOA_ELEC_2016.csv"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Year": [
+                            "Value taken from CSV file name: LSOA_ELEC_2016.csv"
+                        ]
+                    },
+                    {
+                        "Local_Authority": [
+                            "Values taken from 'LACode' field"
+                        ]
+                    },
+                    {
+                        "Middle_Layer_Super_Output_Area": [
+                            "Values taken from 'MSOACode' field"
+                        ]
+                    },
+                    {
+                        "Lower_Layer_Super_Output_Area": [
+                            "Values taken from 'LSOACode' field"
+                        ]
+                    },
+                    {
+                        "Total_number_of_domestic_electricity_meters": [
+                            "Values taken from 'METERS' field"
+                        ]
+                    },
+                    {
+                        "Mean_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEAN' field"
+                        ]
+                    },
+                    {
+                        "Median_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEDIAN' field"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values taken from 'KWH' field"
+                        ]
+                    }
+                ]
             },
             {
-                "name": "2017r",
-                "title": "Local Authority Name",
-                "columns": {
-                    "Period": "2017",
-                    "Local Authority Code": "{B3-B8850}",
-                    "MSOA Code": "{D3-D8850}",
-                    "Total Number of Meters": "{E3-E8850}",
-                    "Domestic Use": "Not Applicable",
-                    "Mean Consumption": "{G3-G8850}",
-                    "Median Consumption": "{H3-H8850}",
-                    "Measure Type": "Electricity Consumption",
-                    "Unit": "kWh"
-                }
+                "source_name": "Lower and Middle Super Output Areas electricity consumption",
+                "identifier": "Lower and Middle Super Output Areas electricity consumption||LSOA_DOM_ELEC_csv/LSOA_ELEC_2017.csv||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip": ""
+                    }
+                ],
+                "title": "LSOA_DOM_ELEC_csv/LSOA_ELEC_2017.csv",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Year": "LSOA_ELEC_2017.csv"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Year": [
+                            "Value taken from CSV file name: LSOA_ELEC_2017.csv"
+                        ]
+                    },
+                    {
+                        "Local_Authority": [
+                            "Values taken from 'LACode' field"
+                        ]
+                    },
+                    {
+                        "Middle_Layer_Super_Output_Area": [
+                            "Values taken from 'MSOACode' field"
+                        ]
+                    },
+                    {
+                        "Lower_Layer_Super_Output_Area": [
+                            "Values taken from 'LSOACode' field"
+                        ]
+                    },
+                    {
+                        "Total_number_of_domestic_electricity_meters": [
+                            "Values taken from 'METERS' field"
+                        ]
+                    },
+                    {
+                        "Mean_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEAN' field"
+                        ]
+                    },
+                    {
+                        "Median_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEDIAN' field"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values taken from 'KWH' field"
+                        ]
+                    }
+                ]
             },
             {
-                "name": "2018",
-                "title": "Local Authority Name",
-                "columns": {
-                    "Period": "2018",
-                    "Local Authority Code": "{B3-B8850}",
-                    "MSOA Code": "{D3-D8850}",
-                    "Total Number of Meters": "{E3-E8850}",
-                    "Domestic Use": "Not Applicable",
-                    "Mean Consumption": "{G3-G8850}",
-                    "Median Consumption": "{H3-H8850}",
-                    "Measure Type": "Electricity Consumption",
-                    "Unit": "kWh"
-                }
+                "source_name": "Lower and Middle Super Output Areas electricity consumption",
+                "identifier": "Lower and Middle Super Output Areas electricity consumption||LSOA_DOM_ELEC_csv/LSOA_ELEC_2018.csv||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/868763/LSOA_DOM_ELEC_csv.zip": ""
+                    }
+                ],
+                "title": "LSOA_DOM_ELEC_csv/LSOA_ELEC_2018.csv",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Year": "LSOA_ELEC_2018.csv"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Year": [
+                            "Value taken from CSV file name: LSOA_ELEC_2018.csv"
+                        ]
+                    },
+                    {
+                        "Local_Authority": [
+                            "Values taken from 'LACode' field",
+                            "Rename column from 'LACode' to 'Local Authority'"
+                        ]
+                    },
+                    {
+                        "Middle_Layer_Super_Output_Area": [
+                            "Values taken from 'MSOACode' field",
+                            "Rename column from 'MSOACode' to 'Middle Layer Super Output Area'"
+                        ]
+                    },
+                    {
+                        "Lower_Layer_Super_Output_Area": [
+                            "Values taken from 'LSOACode' field",
+                            "Rename column from 'LSOACode' to 'Lower Layer Super Output Area'"
+                        ]
+                    },
+                    {
+                        "Total_number_of_domestic_electricity_meters": [
+                            "Values taken from 'METERS' field",
+                            "Rename column from 'METERS' to 'Total number of domestic electricity meters'"
+                        ]
+                    },
+                    {
+                        "Mean_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEAN' field",
+                            "Rename column from 'MEAN' to 'Mean domestic electricity consumption kWh per meter'"
+                        ]
+                    },
+                    {
+                        "Median_domestic_electricity_consumption_kWh_per_meter": [
+                            "Values taken from 'MEDIAN' field",
+                            "Rename column from 'MEDIAN' to 'Median domestic electricity consumption kWh per meter'"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values taken from 'KWH' field",
+                            "Rename column from 'KWH' to 'Value'"
+                        ]
+                    }
+                ]
             }
         ]
     },
