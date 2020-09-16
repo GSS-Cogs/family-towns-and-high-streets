@@ -342,10 +342,12 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total num
 
 
 # %%
+#with open('out/lsoa_observations.csv-metadata.json') as jsonfile:
+#    data = json.load(jsonfile)
+#data
 
 
-
-
+# %%
 
 # %%
 
