@@ -273,28 +273,28 @@ with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
 
 # %%
 
-newTxt = ''
+#newTxt = ''
 
-c1 = '#dimension/total-number-of-domestic-electricity-meters'
-c2 = '#dimension/mean-domestic-electricity-consumption-kwh-per-meter'
-c3 = '#dimension/median-domestic-electricity-consumption-khw-per-meter'
+#c1 = '#dimension/total-number-of-domestic-electricity-meters'
+#c2 = '#dimension/mean-domestic-electricity-consumption-kwh-per-meter'
+#c3 = '#dimension/median-domestic-electricity-consumption-khw-per-meter'
 
-cd = [c1,c2,c3]
+#cd = [c1,c2,c3]
 
-with open(f"out/{csvName}-metadata.json") as fp: 
-    for line in fp:
-        for c in cd:
-            if c in line.strip():
-                print(line)
-                line = line.replace('#dimension','#attribute')
-                print(line)
-                break
+#with open(f"out/{csvName}-metadata.json") as fp: 
+#    for line in fp:
+#        for c in cd:
+#            if c in line.strip():
+#                print(line)
+#                line = line.replace('#dimension','#attribute')
+#                print(line)
+#                break
                 
-        newTxt = newTxt + line
+#        newTxt = newTxt + line
             
-f = open(f"out/{csvName}-metadata.json", "w")
-f.write(newTxt)
-f.close()
+#f = open(f"out/{csvName}-metadata.json", "w")
+#f.write(newTxt)
+#f.close()
 
 # %%
 
