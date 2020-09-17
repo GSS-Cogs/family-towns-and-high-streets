@@ -235,6 +235,10 @@ df.head(10)
 # %%
 #del df['Local Authority']
 #del df['Middle Layer Super Output Area']
+
+del df['Total number of domestic electricity meters']
+del df['Mean domestic electricity consumption kWh per meter']
+del df['Median domestic electricity consumption kWh per meter']
 #### OUTPUTTING LSOA DATA AS A SINGLE DATASET
 
 # %%
