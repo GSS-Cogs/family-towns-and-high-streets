@@ -14,11 +14,12 @@ scraper.dataset.comment = 'Estimates of the population for England and Wales by 
 scraper.dataset.publisher = GOV['office-for-national-statistics']
 scraper.dataset.creator = scraper.dataset.publisher
 scraper.dataset.family = 'towns-high-streets'
+scraper.dataset.title = 'Population estimates by output area geographies, England and Wales'
 scraper.dataset
 
 joined_dat = pd.read_csv("data.csv")
 joined_dat = joined_dat[['DATE', 'GEOGRAPHY_CODE','GENDER_NAME','C_AGE_NAME','C_AGE_TYPE', 'OBS_VALUE']]
-joined_dat.head(10)
+#joined_dat.head(10)
 
 joined_dat = joined_dat.rename(columns={
     'DATE': 'Date',
@@ -30,11 +31,16 @@ joined_dat = joined_dat.rename(columns={
 })
 joined_dat['Value'] = pd.to_numeric(joined_dat['Value'], downcast='integer')
 
+# +
 joined_dat['Age'] = joined_dat['Age'].apply(pathify)
 joined_dat['Age Type'] = joined_dat['Age Type'].apply(pathify)
 joined_dat['Gender'] = joined_dat['Gender'].replace({'Total': 'T', 'Male': 'M', 'Female': 'F'})
 joined_dat['Date'] = 'year/' + joined_dat['Date'].astype(str)
+
+del joined_dat['Age Type']
+
 joined_dat.head(10)
+# -
 
 # Output the data to CSV
 csvName = 'observations.csv'
