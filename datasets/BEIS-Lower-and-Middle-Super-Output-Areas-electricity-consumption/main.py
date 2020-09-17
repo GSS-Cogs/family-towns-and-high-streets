@@ -277,7 +277,7 @@ with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
 
 # %%
-
+"""
 df = pd.DataFrame()
 
 for distribution in scraper.distributions:
@@ -308,21 +308,23 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total num
 #df.drop_duplicates().to_csv(out / f'{datasetTitle}_observations.csv', index = False)
 
 #df
+"""
 
 
 # %%
 #del df['Local Authority']
 #del df['Middle Layer Super Output Area']
 
-del df['Total number of domestic electricity meters']
-del df['Mean domestic electricity consumption kWh per meter']
-del df['Median domestic electricity consumption kWh per meter']
+#del df['Total number of domestic electricity meters']
+#del df['Mean domestic electricity consumption kWh per meter']
+#del df['Median domestic electricity consumption kWh per meter']
 #### OUTPUTTING LSOA DATA AS A SINGLE DATASET
 
 # %%
-df.head(10)
+#df.head(10)
 
 # %%
+"""
 import os
 from urllib.parse import urljoin
 
@@ -356,10 +358,10 @@ csvw_transform.write(out / f'{csvName}-metadata.json')
 #out / csvName).unlink()
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
+"""
 
 # %%
-
-
+"""
 df = pd.DataFrame()
 
 for distribution in scraper.distributions:
@@ -390,22 +392,8 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total num
 #df.drop_duplicates().to_csv(out / f'{datasetTitle}_observations.csv', index = False)
 
 #df
+"""
 
 
 # %%
 
-
-# %%
-
-
-# %%
-#with open('out/lsoa_observations.csv-metadata.json') as jsonfile:
-#    data = json.load(jsonfile)
-#data
-
-
-# %%
-
-# %%
-
-# %%
