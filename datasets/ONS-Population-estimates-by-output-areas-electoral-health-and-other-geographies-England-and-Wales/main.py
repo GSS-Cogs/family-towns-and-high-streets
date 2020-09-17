@@ -16,6 +16,7 @@ scraper.dataset.creator = scraper.dataset.publisher
 scraper.dataset.family = 'towns-high-streets'
 scraper.dataset.title = 'Population estimates by output area geographies, England and Wales'
 scraper.dataset
+#print(scraper.dataset.issued )
 
 joined_dat = pd.read_csv("data.csv")
 joined_dat = joined_dat[['DATE', 'GEOGRAPHY_CODE','GENDER_NAME','C_AGE_NAME','C_AGE_TYPE', 'OBS_VALUE']]
