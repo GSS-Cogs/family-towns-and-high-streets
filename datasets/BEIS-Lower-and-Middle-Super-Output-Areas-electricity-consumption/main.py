@@ -257,7 +257,8 @@ df.drop_duplicates().to_csv(out / csvName, index = False)
 
 scraper.dataset.family = 'towns-high-streets'
 scraper.dataset.description = scraper.dataset.description + '\nGuidance documentation can be found here:\n' + notes
-scraper.dataset.comment = 'Total domestic electricity consumption, number of meters, mean and median consumption for LSOA regions across England, Wales & Scotland'
+#scraper.dataset.comment = 'Total domestic electricity consumption, number of meters, mean and median consumption for LSOA regions across England, Wales & Scotland'
+scraper.dataset.comment = 'Total domestic electricity consumption for LSOA regions across England, Wales & Scotland'
 scraper.dataset.title = 'Lower Super Output Areas (LSOA) electricity consumption'
 
 dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower()
@@ -274,31 +275,6 @@ csvw_transform.write(out / f'{csvName}-metadata.json')
 #out / csvName).unlink()
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
-
-# %%
-
-#newTxt = ''
-
-#c1 = '#dimension/total-number-of-domestic-electricity-meters'
-#c2 = '#dimension/mean-domestic-electricity-consumption-kwh-per-meter'
-#c3 = '#dimension/median-domestic-electricity-consumption-khw-per-meter'
-
-#cd = [c1,c2,c3]
-
-#with open(f"out/{csvName}-metadata.json") as fp: 
-#    for line in fp:
-#        for c in cd:
-#            if c in line.strip():
-#                print(line)
-#                line = line.replace('#dimension','#attribute')
-#                print(line)
-#                break
-                
-#        newTxt = newTxt + line
-            
-#f = open(f"out/{csvName}-metadata.json", "w")
-#f.write(newTxt)
-#f.close()
 
 # %%
 
@@ -333,6 +309,53 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total num
 
 #df
 
+
+# %%
+#del df['Local Authority']
+#del df['Middle Layer Super Output Area']
+
+del df['Total number of domestic electricity meters']
+del df['Mean domestic electricity consumption kWh per meter']
+del df['Median domestic electricity consumption kWh per meter']
+#### OUTPUTTING LSOA DATA AS A SINGLE DATASET
+
+# %%
+df.head(10)
+
+# %%
+import os
+from urllib.parse import urljoin
+
+notes = 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/853104/sub-national-methodology-guidance.pdf'
+
+csvName = 'msoa_observations.csv'
+out = Path('out')
+out.mkdir(exist_ok=True)
+df.drop_duplicates().to_csv(out / csvName, index = False)
+#df.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+# Output a subset of the data to get the Mapping class to work
+#df[:10].to_csv(out / csvName, index = False)
+
+scraper.dataset.family = 'towns-high-streets'
+scraper.dataset.description = scraper.dataset.description + '\nGuidance documentation can be found here:\n' + notes
+#scraper.dataset.comment = 'Total domestic electricity consumption, number of meters, mean and median consumption for MSOA regions across England, Wales & Scotland'
+scraper.dataset.comment = 'Total domestic electricity consumption for MSOA regions across England, Wales & Scotland'
+scraper.dataset.title = 'Middle Super Output Areas (MSOA) electricity consumption'
+
+dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower()
+scraper.set_base_uri('http://gss-data.org.uk')
+scraper.set_dataset_id(dataset_path)
+
+
+csvw_transform = CSVWMapping()
+csvw_transform.set_csv(out / csvName)
+csvw_transform.set_mapping(json.load(open('info.json')))
+csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
+csvw_transform.write(out / f'{csvName}-metadata.json')
+# Remove subset of data
+#out / csvName).unlink()
+with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
+    metadata.write(scraper.generate_trig())
 
 # %%
 
