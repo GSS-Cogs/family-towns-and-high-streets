@@ -15,6 +15,7 @@ df = pd.read_csv(path)
 
 
 df['Field Code'] = df['Field Code'].apply(pathify)
+df['Year'] = 'year/' + df['Year'].astype(str)
 df.head(10)
 
 # +
@@ -68,5 +69,7 @@ for cl in codelistcreation:
         df[cl] = df[cl].str.capitalize()
         codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd() + datasetExtraName).name.lower())
 """
+
+df['Field Code'].unique()
 
 
