@@ -1,0 +1,82 @@
+Label,Notation,Parent Notation,Sort Priority
+"""Travel time in minutes to nearest employment centre with 100 to 499 jobs by PT/walk""",100empptt,,1
+"""Number of employment centres with 100 to 499 jobs available by PT/walk within 15 minutes""",100emppt15n,,2
+"""Number of employment centres with 100 to 499 jobs available by PT/walk within 30 minutes""",100emppt30n,,3
+"""Number of employment centres with 100 to 499 jobs available by PT/walk within 45 minutes""",100emppt45n,,4
+"""Number of employment centres with 100 to 499 jobs available by PT/walk within 60 minutes""",100emppt60n,,5
+"""% users within 15 minutes of employment centres with 100 to 499 jobs available by PT/walk""",100emppt15pct,,6
+"""% users within 30 minutes of employment centres with 100 to 499 jobs available by PT/walk""",100emppt30pct,,7
+"""% users within 45 minutes of employment centres with 100 to 499 jobs available by PT/walk""",100emppt45pct,,8
+"""% users within 60 minutes of employment centres with 100 to 499 jobs available by PT/walk""",100emppt60pct,,9
+"""Travel time in minutes to nearest employment centre with 100 to 499 jobs by cycle""",100empcyct,,10
+"""Number of employment centres with 100 to 499 jobs available by cycle within 15 minutes""",100empcyc15n,,11
+"""Number of employment centres with 100 to 499 jobs available by cycle within 30 minutes""",100empcyc30n,,12
+"""Number of employment centres with 100 to 499 jobs available by cycle within 45 minutes""",100empcyc45n,,13
+"""Number of employment centres with 100 to 499 jobs available by cycle within 60 minutes""",100empcyc60n,,14
+"""% users within 15 minutes of employment centres with 100 to 499 jobs available by cycle""",100empcyc15pct,,15
+"""% users within 30 minutes of employment centres with 100 to 499 jobs available by cycle""",100empcyc30pct,,16
+"""% users within 45 minutes of employment centres with 100 to 499 jobs available by cycle""",100empcyc45pct,,17
+"""% users within 60 minutes of employment centres with 100 to 499 jobs available by cycle""",100empcyc60pct,,18
+"""Travel time in minutes to nearest employment centre with 100 to 499 jobs by car""",100empcart,,19
+"""Number of employment centres with 100 to 499 jobs available by car within 15 minutes""",100empcar15n,,20
+"""Number of employment centres with 100 to 499 jobs available by car within 30 minutes""",100empcar30n,,21
+"""Number of employment centres with 100 to 499 jobs available by car within 45 minutes""",100empcar45n,,22
+"""Number of employment centres with 100 to 499 jobs available by car within 60 minutes""",100empcar60n,,23
+"""% users within 15 minutes of employment centres with 100 to 499 jobs available by car""",100empcar15pct,,24
+"""% users within 30 minutes of employment centres with 100 to 499 jobs available by car""",100empcar30pct,,25
+"""% users within 45 minutes of employment centres with 100 to 499 jobs available by car""",100empcar45pct,,26
+"""% users within 60 minutes of employment centres with 100 to 499 jobs available by car""",100empcar60pct,,27
+"""Travel time in minutes to nearest employment centre with 500 to 4999 jobs by PT/walk""",500empptt,,28
+"""Number of employment centres with 500 to 4999 jobs available by PT/walk within 15 minutes""",500emppt15n,,29
+"""Number of employment centres with 500 to 4999 jobs available by PT/walk within 30 minutes""",500emppt30n,,30
+"""Number of employment centres with 500 to 4999 jobs available by PT/walk within 45 minutes""",500emppt45n,,31
+"""Number of employment centres with 500 to 4999 jobs available by PT/walk within 60 minutes""",500emppt60n,,32
+"""% users within 15 minutes of employment centres with 500 to 4999 jobs available by PT/walk""",500emppt15pct,,33
+"""% users within 30 minutes of employment centres with 500 to 4999 jobs available by PT/walk""",500emppt30pct,,34
+"""% users within 45 minutes of employment centres with 500 to 4999 jobs available by PT/walk""",500emppt45pct,,35
+"""% users within 60 minutes of employment centres with 500 to 4999 jobs available by PT/walk""",500emppt60pct,,36
+"""Travel time in minutes to nearest employment centre with 500 to 4999 jobs by cycle""",500empcyct,,37
+"""Number of employment centres with 500 to 4999 jobs available by cycle within 15 minutes""",500empcyc15n,,38
+"""Number of employment centres with 500 to 4999 jobs available by cycle within 30 minutes""",500empcyc30n,,39
+"""Number of employment centres with 500 to 4999 jobs available by cycle within 45 minutes""",500empcyc45n,,40
+"""Number of employment centres with 500 to 4999 jobs available by cycle within 60 minutes""",500empcyc60n,,41
+"""% users within 15 minutes of employment centres with 500 to 4999 jobs available by cycle""",500empcyc15pct,,42
+"""% users within 30 minutes of employment centres with 500 to 4999 jobs available by cycle""",500empcyc30pct,,43
+"""% users within 45 minutes of employment centres with 500 to 4999 jobs available by cycle""",500empcyc45pct,,44
+"""% users within 60 minutes of employment centres with 500 to 4999 jobs available by cycle""",500empcyc60pct,,45
+"""Travel time in minutes to nearest employment centre with 500 to 4999 jobs by car""",500empcart,,46
+"""Number of employment centres with 500 to 4999 jobs available by car within 15 minutes""",500empcar15n,,47
+"""Number of employment centres with 500 to 4999 jobs available by car within 30 minutes""",500empcar30n,,48
+"""Number of employment centres with 500 to 4999 jobs available by car within 45 minutes""",500empcar45n,,49
+"""Number of employment centres with 500 to 4999 jobs available by car within 60 minutes""",500empcar60n,,50
+"""% users within 15 minutes of employment centres with 500 to 4999 jobs available by car""",500empcar15pct,,51
+"""% users within 30 minutes of employment centres with 500 to 4999 jobs available by car""",500empcar30pct,,52
+"""% users within 45 minutes of employment centres with 500 to 4999 jobs available by car""",500empcar45pct,,53
+"""% users within 60 minutes of employment centres with 500 to 4999 jobs available by car""",500empcar60pct,,54
+"""Travel time in minutes to nearest employment centre with at least 5000 jobs by PT/walk""",5000empptt,,55
+"""Number of employment centres with at least 5000 jobs available by PT/walk within 15 minutes""",5000emppt15n,,56
+"""Number of employment centres with at least 5000 jobs available by PT/walk within 30 minutes""",5000emppt30n,,57
+"""Number of employment centres with at least 5000 jobs available by PT/walk within 45 minutes""",5000emppt45n,,58
+"""Number of employment centres with at least 5000 jobs available by PT/walk within 60 minutes""",5000emppt60n,,59
+"""% users within 15 minutes of employment centres with at least 5000 jobs available by PT/walk""",5000emppt15pct,,60
+"""% users within 30 minutes of employment centres with at least 5000 jobs available by PT/walk""",5000emppt30pct,,61
+"""% users within 45 minutes of employment centres with  at least 5000 jobs available by PT/walk""",5000emppt45pct,,62
+"""% users within 60 minutes of employment centres with at least 5000 jobs available by PT/walk""",5000emppt60pct,,63
+"""Travel time in minutes to nearest employment centre with at least 5000 jobs by cycle""",5000empcyct,,64
+"""Number of employment centres with at least 5000 jobs available by cycle within 15 minutes""",5000empcyc15n,,65
+"""Number of employment centres with at least 5000 jobs available by cycle within 30 minutes""",5000empcyc30n,,66
+"""Number of employment centres with at least 5000 jobs available by cycle within 45 minutes""",5000empcyc45n,,67
+"""Number of employment centres with at least 5000 jobs available by cycle within 60 minutes""",5000empcyc60n,,68
+"""% users within 15 minutes of employment centres with at least 5000 jobs available by cycle""",5000empcyc15pct,,69
+"""% users within 30 minutes of employment centres with at least 5000 jobs available by cycle""",5000empcyc30pct,,70
+"""% users within 45 minutes of employment centres with  at least 5000 jobs available by cycle""",5000empcyc45pct,,71
+"""% users within 60 minutes of employment centres with at least 5000 jobs available by cycle""",5000empcyc60pct,,72
+"""Travel time in minutes to nearest employment centre with at least 5000 jobs by car""",5000empcart,,73
+"""Number of employment centres with at least 5000 jobs available by car within 15 minutes""",5000empcar15n,,74
+"""Number of employment centres with at least 5000 jobs available by car within 30 minutes""",5000empcar30n,,75
+"""Number of employment centres with at least 5000 jobs available by car within 45 minutes""",5000empcar45n,,76
+"""Number of employment centres with at least 5000 jobs available by car within 60 minutes""",5000empcar60n,,77
+"""% users within 15 minutes of employment centres with at least 5000 jobs available by car""",5000empcar15pct,,78
+"""% users within 30 minutes of employment centres with at least 5000 jobs available by car""",5000empcar30pct,,79
+"""% users within 45 minutes of employment centres with  at least 5000 jobs available by car""",5000empcar45pct,,80
+"""% users within 60 minutes of employment centres with at least 5000 jobs available by car""",5000empcar60pct,,81
