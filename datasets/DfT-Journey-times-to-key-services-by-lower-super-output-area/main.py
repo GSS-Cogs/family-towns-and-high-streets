@@ -41,7 +41,7 @@ scraper.dataset.description = scraper.dataset.description + notes
 scraper.dataset.comment = 'Travel time, destination and origin indicators for Employment centres by mode of travel, Lower Super Output Area (LSOA), England'
 scraper.dataset.title = 'Journey times for Employment centres by lower super output area (LSOA) - JTS05'
 
-dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + datasetExtraName
+dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() #+ datasetExtraName
 scraper.set_base_uri('http://gss-data.org.uk')
 scraper.set_dataset_id(dataset_path)
 
@@ -53,10 +53,10 @@ csvw_transform.write(out / f'{csvName}-metadata.json')
 
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
-# -
 
 
-"""
+# +
+###
 info = json.load(open('info.json')) 
 codelistcreation = info['transform']['codelists'] 
 print(codelistcreation)
@@ -67,8 +67,8 @@ for cl in codelistcreation:
     if cl in df.columns:
         df[cl] = df[cl].str.replace("-"," ")
         df[cl] = df[cl].str.capitalize()
-        codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd() + datasetExtraName).name.lower())
-"""
+        codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower() + datasetExtraName)
+###
 
 # +
 #df['Field Code'].unique()
