@@ -51,6 +51,7 @@
  	15th June 2017 – 15th June 2018
    	2018
 	15th May 2018 – 15th May 2019
+	Distinguish the dates for each year but can be joined into one cube. 
  	
 
 #### Table Structure
