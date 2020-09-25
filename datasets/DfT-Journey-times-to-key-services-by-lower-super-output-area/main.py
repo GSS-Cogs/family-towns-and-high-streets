@@ -52,24 +52,25 @@ csvw_transform.write(out / f'{csvName}-metadata.json')
 
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
-
-
 # -
 
-""""
+
+"""
 info = json.load(open('info.json')) 
 codelistcreation = info['transform']['codelists'] 
 print(codelistcreation)
-print(\"-------------------------------------------------------\")
+print("-------------------------------------------------------")
 
 codeclass = CSVCodelists()
 for cl in codelistcreation:
     if cl in df.columns:
-        df[cl] = df[cl].str.replace(\"-\",\" \")
+        df[cl] = df[cl].str.replace("-"," ")
         df[cl] = df[cl].str.capitalize()
         codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd() + datasetExtraName).name.lower())
 """
 
-df['Field Code'].unique()
+# +
+#df['Field Code'].unique()
+# -
 
 
