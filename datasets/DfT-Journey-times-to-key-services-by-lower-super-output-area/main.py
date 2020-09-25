@@ -16,7 +16,7 @@ df = pd.read_csv(path)
 
 df['Field Code'] = df['Field Code'].apply(pathify)
 df['Year'] = 'year/' + df['Year'].astype(str)
-df = df.head(10)
+#df = df.head(10)
 df.head(60)
 
 # +
