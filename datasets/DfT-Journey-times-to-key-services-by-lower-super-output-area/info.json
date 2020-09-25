@@ -33,11 +33,7 @@
                 "value": "http://statistics.data.gov.uk/id/statistical-geography/{lower_layer_super_output_area}",
                 "description": "Lower Layer Super Output Areas (LSOAs) in England and Wales were built by zone-design software using 2011 Census data from groups of Output Areas (typically four to six) and were constrained by the Standard Table wards6 used for 2011 Census outputs. They have a minimum size of 1,000 residents or 400 households and have an average of 1,500 residents. Following the 2011 Census, there are now 34,753 LSOAs in England and Wales."
             },
-            "Field Code": {
-                "dimension": "http://gss-data.org.uk/data/gss_data/towns-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area-travel-time#dimension/field-code",
-            "value": "http://gss-data.org.uk/data/gss_data/towns-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area#concept/field-code/{field_code}",
-                "description": "Destination source: ONS Business Employment Survey (BRES) - employment centres are defined as 2011 Census Lower Super Output Areas. Service users source: Census and updates from ONS mid year population estimates."
-            },
+            "Field Code": "Destination source: ONS Business Employment Survey (BRES) - employment centres are defined as 2011 Census Lower Super Output Areas. Service users source: Census and updates from ONS mid year population estimates.",
             "Value": {
                 "unit": "http://gss-data.org.uk/def/concept/measurement-units/minutes",
                 "measure": "http://gss-data.org.uk/def/measure/travel-time",
