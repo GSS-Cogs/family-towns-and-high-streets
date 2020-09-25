@@ -35,7 +35,7 @@ out = Path('out')
 out.mkdir(exist_ok=True)
 df.drop_duplicates().to_csv(out / csvName, index = False)
 
-datasetExtraName = '-travel-time'
+datasetExtraName = '/travel-time'
 scraper.dataset.family = 'towns-and-high-streets'
 scraper.dataset.description = scraper.dataset.description + notes
 scraper.dataset.comment = 'Travel time, destination and origin indicators for Employment centres by mode of travel, Lower Super Output Area (LSOA), England'
