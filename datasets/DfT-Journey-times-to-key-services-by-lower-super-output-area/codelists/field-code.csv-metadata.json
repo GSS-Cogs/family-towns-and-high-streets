@@ -1,6 +1,6 @@
 {
   "@context": "http://www.w3.org/ns/csvw",
-  "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area-travel-time#schema",
+  "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area#schema",
   "url": "field-code.csv",
   "tableSchema": {
     "columns": [
@@ -30,7 +30,7 @@
         },
         "required": false,
         "propertyUrl": "skos:broader",
-        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area-travel-time#concept/field-code/{parent_notation}"
+        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area#concept/field-code/{parent_notation}"
       },
       {
         "titles": "Sort Priority",
@@ -54,16 +54,15 @@
       {
         "virtual": true,
         "propertyUrl": "skos:inScheme",
-        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area-travel-time#scheme/field-code"
+        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area#scheme/field-code"
       }
     ],
     "primaryKey": "notation",
-    "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area-travel-time#concept/field-code/{notation}"
+    "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area#concept/field-code/{notation}"
   },
   "prov:hadDerivation": {
-    "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area-travel-time#scheme/field-code",
+    "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area#scheme/field-code",
     "@type": "skos:ConceptScheme",
-    "rdfs:label": "Field Code",
-    "skos:hasTopConcept": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area-travel-time#concept/field-code/all"
+    "rdfs:label": "Field Code"
   }
 }
