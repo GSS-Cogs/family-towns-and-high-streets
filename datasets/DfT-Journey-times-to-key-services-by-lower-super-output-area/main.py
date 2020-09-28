@@ -92,6 +92,7 @@ csvw_transform = CSVWMapping()
 csvw_transform.set_csv(out / csvName)
 csvw_transform.set_mapping(json.load(open('info.json')))
 csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
+csvw_transform.set_registry(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
 csvw_transform.write(out / f'{csvName}-metadata.json')
 
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
@@ -113,5 +114,30 @@ for cl in codelistcreation:
         codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())
 """
 #scraper._dataset_id
+
+# +
+d_path = '<' + scraper._base_uri + '/graph/' + pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + '/> . '
+n_path = '<' + scraper._base_uri + '/graph/' + pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + datasetExtraName + '/> .'
+#print(d_path)
+#print(n_path)
+test_path = '@prefix ns1: ' + d_path
+#print(test_path)
+newTxt = '' 
+filename = 'out/primary_schools_observations.csv-metadata.trig'
+with open(filename) as fp: 
+    for line in fp: 
+        if test_path.strip() == line.strip():
+            print(line)
+            newTxt = newTxt + '@prefix ns1: ' + n_path + '\n'
+        else:
+            newTxt += line
+ 
+f = open(filename, "w")
+f.write(newTxt)
+f.close()
+
+# -
+
+
 
 
