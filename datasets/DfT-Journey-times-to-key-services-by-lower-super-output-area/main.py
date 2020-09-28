@@ -117,5 +117,6 @@ for cl in codelistcreation:
         df[cl] = df[cl].str.capitalize()
         codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())
 """
+#scraper._dataset_id
 
 
