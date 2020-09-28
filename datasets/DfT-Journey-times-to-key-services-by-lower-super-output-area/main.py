@@ -17,7 +17,7 @@ df = pd.read_csv(path)
 
 df['Field Code'] = df['Field Code'].apply(pathify)
 df['Year'] = 'year/' + df['Year'].astype(str)
-#df = df.head(10)
+df = df.head(10)
 df.head(60)
 
 # +
@@ -70,7 +70,8 @@ df['Year'] = 'year/' + df['Year'].astype(str)
 df = df.head(10)
 df.head(10)
 
-"""
+# +
+
 import os
 from urllib.parse import urljoin
 
@@ -98,7 +99,8 @@ csvw_transform.write(out / f'{csvName}-metadata.json')
 
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
-"""
+
+# -
 
 """
 d_path = '<' + scraper._base_uri + '/graph/' + pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + '/> . '
