@@ -68,16 +68,9 @@ df['Year'] = 'year/' + df['Year'].astype(str)
 df = df.head(10)
 df.head(10)
 
-# +
+"""
 import os
 from urllib.parse import urljoin
-
-notes = """
-    2017 journey times have been influenced by changes to the network of walking paths being used for the calculations. The network is more extensive in 2017 reflecting changes to the underlying Ordnance Survey
-    Urban Paths data set which is used (this has the effect of reducing the time taken for some trips where a relevant path has been added to the dataset).
-    Full details of the datasets for the production of all the estimates are provided in the accompanying guidance note - 
-    https://www.gov.uk/government/publications/journey-time-statistics-guidance.
-"""
 
 csvName = "primary_schools_observations.csv"
 out = Path('out')
@@ -86,7 +79,7 @@ df.drop_duplicates().to_csv(out / csvName, index = False)
 
 datasetExtraName = '/primary-schools'
 scraper.dataset.family = 'towns-and-high-streets'
-scraper.dataset.description = scraper.dataset.description + notes
+#scraper.dataset.description = scraper.dataset.description + notes
 scraper.dataset.comment = 'Travel time, destination and origin indicators for Primary Schools by mode of travel, Lower Super Output Area (LSOA), England (5 to 10 year old)'
 scraper.dataset.title = 'Journey times to key services by lower super output area: Primary Schools - JTS0502'
 
@@ -102,7 +95,7 @@ csvw_transform.write(out / f'{csvName}-metadata.json')
 
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
-# -
+"""
 
 """
 info = json.load(open('info.json')) 
