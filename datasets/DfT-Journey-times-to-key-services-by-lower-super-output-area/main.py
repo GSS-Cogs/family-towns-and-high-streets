@@ -20,15 +20,15 @@ df['Year'] = 'year/' + df['Year'].astype(str)
 df = df.head(10)
 df.head(60)
 
-# +
+"""
 import os
 from urllib.parse import urljoin
 
 notes = """
-    2017 journey times have been influenced by changes to the network of walking paths being used for the calculations. The network is more extensive in 2017 reflecting changes to the underlying Ordnance Survey
-    Urban Paths data set which is used (this has the effect of reducing the time taken for some trips where a relevant path has been added to the dataset).
-    Full details of the datasets for the production of all the estimates are provided in the accompanying guidance note - 
-    https://www.gov.uk/government/publications/journey-time-statistics-guidance.
+#    2017 journey times have been influenced by changes to the network of walking paths being used for the calculations. The network is more extensive in 2017 reflecting changes to the underlying Ordnance Survey
+#    Urban Paths data set which is used (this has the effect of reducing the time taken for some trips where a relevant path has been added to the dataset).
+#    Full details of the datasets for the production of all the estimates are provided in the accompanying guidance note - 
+#    https://www.gov.uk/government/publications/journey-time-statistics-guidance.
 """
 
 csvName = "employment_centres_observations.csv"
@@ -54,7 +54,7 @@ csvw_transform.write(out / f'{csvName}-metadata.json')
 
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
-# -
+"""
 
 
 # PRIMARY SCHOOLS
@@ -68,7 +68,8 @@ df['Year'] = 'year/' + df['Year'].astype(str)
 df = df.head(10)
 df.head(10)
 
-"""
+# +
+
 import os
 from urllib.parse import urljoin
 
@@ -95,7 +96,8 @@ csvw_transform.write(out / f'{csvName}-metadata.json')
 
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
-"""
+
+# -
 
 """
 info = json.load(open('info.json')) 
