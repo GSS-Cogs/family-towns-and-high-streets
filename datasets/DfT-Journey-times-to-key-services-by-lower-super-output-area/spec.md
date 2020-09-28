@@ -34,14 +34,14 @@
 			5000EmpCyct
 			5000EmpCart
 		'Field Code' codelist has been created within ref_common and reference made to it in info.json
-		Measure Type and Unit have been definesd in info.json
+		Measure Type and Unit have been defined in info.json
 			Measure Type = Travel Time
 			Unit = Minutes
 
 		Family = 'towns-and-high-streets'
 		Comment = 'Travel time, destination and origin indicators for Employment centres by mode of travel, Lower Super Output Area (LSOA), England'
 		Dataset Title = 'Journey times for Employment centres by lower super output area (LSOA) - JTS05'
-		Dataset Path = add '/travel-time' to end
+		Dataset Path = add '/employment-centres' to end
 
 #### Dataset: JTS0503: Travel time, destination and origin indicators for Secondary schools by mode of travel, Lower Super Output Area (LSOA), England (ODS, 23MB)
 
