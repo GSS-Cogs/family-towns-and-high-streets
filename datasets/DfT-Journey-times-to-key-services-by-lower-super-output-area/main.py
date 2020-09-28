@@ -17,7 +17,7 @@ df = pd.read_csv(path)
 
 df['Field Code'] = df['Field Code'].apply(pathify)
 df['Year'] = 'year/' + df['Year'].astype(str)
-df = df.head(10)
+#df = df.head(10)
 df.head(60)
 
 # +
@@ -56,27 +56,8 @@ csvw_transform.write(out / f'{csvName}-metadata.json')
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
 
-
-
-# +
-d_path = '<' + scraper._base_uri + '/graph/' + pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + '/> . '
-n_path = '<' + scraper._base_uri + '/graph/' + pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + datasetExtraName + '/> .'
-
-test_path = '@prefix ns1: ' + d_path
-newTxt = '' 
-filename = 'out/employment_centres_observations.csv-metadata.trig'
-with open(filename) as fp: 
-    for line in fp: 
-        if test_path.strip() == line.strip():
-            print(line)
-            newTxt = newTxt + '@prefix ns1: ' + n_path + '\n'
-        else:
-            newTxt += line
- 
-f = open(filename, "w")
-f.write(newTxt)
-f.close()
 # -
+
 
 # PRIMARY SCHOOLS
 # Observations are alreay transformed on Google drive\n",
@@ -89,8 +70,7 @@ df['Year'] = 'year/' + df['Year'].astype(str)
 df = df.head(10)
 df.head(10)
 
-# +
-
+"""
 import os
 from urllib.parse import urljoin
 
@@ -118,9 +98,9 @@ csvw_transform.write(out / f'{csvName}-metadata.json')
 
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
+"""
 
-
-# +
+"""
 d_path = '<' + scraper._base_uri + '/graph/' + pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + '/> . '
 n_path = '<' + scraper._base_uri + '/graph/' + pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + datasetExtraName + '/> .'
 
@@ -138,7 +118,7 @@ with open(filename) as fp:
 f = open(filename, "w")
 f.write(newTxt)
 f.close()
-# -
+"""
 
 """
 info = json.load(open('info.json')) 
@@ -154,5 +134,9 @@ for cl in codelistcreation:
         codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())
 """
 #scraper._dataset_id
+
+
+
+
 
 
