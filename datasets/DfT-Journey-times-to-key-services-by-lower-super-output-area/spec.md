@@ -39,7 +39,7 @@
 			Unit = Minutes
 
 		Family = 'towns-and-high-streets'
-		Comment = 'Travel time, destination and origin indicators for Employment centres by mode of travel, Lower Super Output Area (LSOA), England'
+		Comment = 'Travel time, destination and origin indicators for Employment centres by mode of travel, Lower Super Output Area (LSOA), England (16 to 74 year old)'
 		Dataset Title = 'Journey times for Employment centres by lower super output area (LSOA) - JTS05'
 		Dataset Path = add '/employment-centres' to end
 
