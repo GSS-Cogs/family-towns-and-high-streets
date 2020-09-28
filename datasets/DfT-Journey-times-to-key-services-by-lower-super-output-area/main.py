@@ -20,15 +20,16 @@ df['Year'] = 'year/' + df['Year'].astype(str)
 df = df.head(10)
 df.head(60)
 
-"""
+# +
+
 import os
 from urllib.parse import urljoin
 
 notes = """
-#    2017 journey times have been influenced by changes to the network of walking paths being used for the calculations. The network is more extensive in 2017 reflecting changes to the underlying Ordnance Survey
-#    Urban Paths data set which is used (this has the effect of reducing the time taken for some trips where a relevant path has been added to the dataset).
-#    Full details of the datasets for the production of all the estimates are provided in the accompanying guidance note - 
-#    https://www.gov.uk/government/publications/journey-time-statistics-guidance.
+    2017 journey times have been influenced by changes to the network of walking paths being used for the calculations. The network is more extensive in 2017 reflecting changes to the underlying Ordnance Survey
+    Urban Paths data set which is used (this has the effect of reducing the time taken for some trips where a relevant path has been added to the dataset).
+    Full details of the datasets for the production of all the estimates are provided in the accompanying guidance note - 
+    https://www.gov.uk/government/publications/journey-time-statistics-guidance.
 """
 
 csvName = "employment_centres_observations.csv"
@@ -54,8 +55,28 @@ csvw_transform.write(out / f'{csvName}-metadata.json')
 
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
-"""
 
+
+
+# +
+d_path = '<' + scraper._base_uri + '/graph/' + pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + '/> . '
+n_path = '<' + scraper._base_uri + '/graph/' + pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + datasetExtraName + '/> .'
+
+test_path = '@prefix ns1: ' + d_path
+newTxt = '' 
+filename = 'out/employment_centres_observations.csv-metadata.trig'
+with open(filename) as fp: 
+    for line in fp: 
+        if test_path.strip() == line.strip():
+            print(line)
+            newTxt = newTxt + '@prefix ns1: ' + n_path + '\n'
+        else:
+            newTxt += line
+ 
+f = open(filename, "w")
+f.write(newTxt)
+f.close()
+# -
 
 # PRIMARY SCHOOLS
 # Observations are alreay transformed on Google drive\n",
@@ -98,6 +119,25 @@ csvw_transform.write(out / f'{csvName}-metadata.json')
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
 
+
+# +
+d_path = '<' + scraper._base_uri + '/graph/' + pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + '/> . '
+n_path = '<' + scraper._base_uri + '/graph/' + pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + datasetExtraName + '/> .'
+
+test_path = '@prefix ns1: ' + d_path
+newTxt = '' 
+filename = 'out/primary_schools_observations.csv-metadata.trig'
+with open(filename) as fp: 
+    for line in fp: 
+        if test_path.strip() == line.strip():
+            print(line)
+            newTxt = newTxt + '@prefix ns1: ' + n_path + '\n'
+        else:
+            newTxt += line
+ 
+f = open(filename, "w")
+f.write(newTxt)
+f.close()
 # -
 
 """
@@ -114,30 +154,5 @@ for cl in codelistcreation:
         codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())
 """
 #scraper._dataset_id
-
-# +
-d_path = '<' + scraper._base_uri + '/graph/' + pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + '/> . '
-n_path = '<' + scraper._base_uri + '/graph/' + pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + datasetExtraName + '/> .'
-#print(d_path)
-#print(n_path)
-test_path = '@prefix ns1: ' + d_path
-#print(test_path)
-newTxt = '' 
-filename = 'out/primary_schools_observations.csv-metadata.trig'
-with open(filename) as fp: 
-    for line in fp: 
-        if test_path.strip() == line.strip():
-            print(line)
-            newTxt = newTxt + '@prefix ns1: ' + n_path + '\n'
-        else:
-            newTxt += line
- 
-f = open(filename, "w")
-f.write(newTxt)
-f.close()
-
-# -
-
-
 
 
