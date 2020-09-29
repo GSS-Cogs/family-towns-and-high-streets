@@ -36,7 +36,7 @@ pipeline {
                         if (fileExists("${DATASET_DIR}/main.py")) {
                             sh "jupytext --to notebook ${DATASET_DIR}/*.py"
                         }
-                        sh "jupyter-nbconvert --output-dir=${DATASET_DIR}/out --ExecutePreprocessor.timeout=None --execute '${DATASET_DIR}/main.ipynb'"
+                        sh "jupyter-nbconvert --to html --output-dir=${DATASET_DIR}/out --ExecutePreprocessor.timeout=None --execute '${DATASET_DIR}/main.ipynb'"
                     }
                 }
             }
