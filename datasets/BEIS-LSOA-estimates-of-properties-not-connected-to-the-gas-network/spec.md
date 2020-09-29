@@ -42,7 +42,17 @@
 
 #### Dataset Name: LSOA estimates of properties not connected to the gas network 2015-18 
 
-	Add column with Period as year (CHECKING if it runs from mid May to mid May) and merge all sheets into one cube.
+	Add column with Period with the following dates:
+	2015
+ 	1st October 2014 - 31st September 2015
+   	2016
+ 	15th July 2016 – 15th July 2018
+   	2017
+ 	15th June 2017 – 15th June 2018
+   	2018
+	15th May 2018 – 15th May 2019
+	Distinguish the dates for each year but can be joined into one cube. 
+ 	
 
 #### Table Structure
 	Period, Local Authority Name, Local Authority Code, MSOA Name, Middle Layer Super Output Area (MSOA) Code, 
@@ -50,7 +60,7 @@
 	Measure Type, Unit, Value, Marker
 
 ##### Footnotes
-	Add XXX as link to methodology 
+	Add https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/920993/sub-national-consumption-methodology-guidance-2020.pdf as link to methodology 
 	Add Contacts: 
 	Statistician Responsible:
 	Adam Bricknell
@@ -65,10 +75,11 @@
 
 ##### DM Notes
 
-		notes
+		
 
 <!-- #endregion -->
 
 ```python
 
 ```
+https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/920993/sub-national-consumption-methodology-guidance-2020.pdfhttps://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/920993/sub-national-consumption-methodology-guidance-2020.pdf

@@ -18,6 +18,33 @@
         "stage": [
             "To Do"
         ],
+        "columns": {
+            "Year": {
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refPeriod",
+                "value": "http://reference.data.gov.uk/id/{+year}"
+            },
+            "Local Authority": {
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
+                "value": "http://statistics.data.gov.uk/id/statistical-geography/{local_authority}",
+                "description": "A local authority is an administrative body in local government. There are 317 local authorities in England, 22 local authorities in Wales and 32 local authorities in Scotland. There are 11 district councils in Northern Ireland. This level of disaggregation is similar to the local authority level for Great Britain."
+            },
+            "Lower Layer Super Output Area": {
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
+                "value": "http://statistics.data.gov.uk/id/statistical-geography/{lower_layer_super_output_area}",
+                "description": "Lower Layer Super Output Areas (LSOAs) in England and Wales were built by zone-design software using 2011 Census data from groups of Output Areas (typically four to six) and were constrained by the Standard Table wards6 used for 2011 Census outputs. They have a minimum size of 1,000 residents or 400 households and have an average of 1,500 residents. Following the 2011 Census, there are now 34,753 LSOAs in England and Wales."
+            },
+            "Field Code": {
+                "parent": "http://gss-data.org.uk/def/concept/components#field-code",
+                "value": "http://gss-data.org.uk/def/concept-scheme/components#concept/field-code/{field_code}",
+                "description": "Destination source: ONS Business Employment Survey (BRES) - employment centres are defined as 2011 Census Lower Super Output Areas. Service users source: Census and updates from ONS mid year population estimates."
+            },
+            "Value": {
+                "unit": "http://gss-data.org.uk/def/concept/measurement-units/minutes",
+                "measure": "http://gss-data.org.uk/def/measure/travel-time",
+                "datatype": "double"
+            }
+        },
+        "codelists": ["Field Code"],
         "airtable": "recDAoCnPa88oblxQ",
         "main_issue": 2,
         "transformStage": [

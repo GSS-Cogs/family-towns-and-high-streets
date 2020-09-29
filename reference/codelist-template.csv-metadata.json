@@ -63,7 +63,6 @@
   "prov:hadDerivation": {
     "@id": "http://gss-data.org.uk/data/gss_data/{family}/{transformname}#scheme/{codelist}",
     "@type": "skos:ConceptScheme",
-    "rdfs:label": "{codelistlabel}",
-    "skos:hasTopConcept": "http://gss-data.org.uk/data/gss_data/{family}/{transformname}#concept/{codelist}/all"
+    "rdfs:label": "{codelistlabel}"
   }
 }
