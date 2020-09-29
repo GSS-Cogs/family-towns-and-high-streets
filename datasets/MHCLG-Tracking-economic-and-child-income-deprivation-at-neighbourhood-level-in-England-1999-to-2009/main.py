@@ -42,9 +42,6 @@ list_of_wanted_datasets = [
     'Economic deprivation index: score',
     'Total population used to calculate local authority district and economic deprivation index summary measure'
 ]
-list_of_wanted_datasets = [
-    'Economic deprivation index: rank'
-]
 
 tidied_sheets = {} # to be filled with each tab of data
 for distribution in scraper.distributions:
