@@ -92,7 +92,7 @@ out = Path('out')
 out.mkdir(exist_ok=True)
 base = 'gs://pipeline-stream-population-estimates/'
 # 0 to 19
-for i in range(0, 20):
+for i in range(21, 22):
     fle = str(i) + '_CensusPop_LMA_ages.csv'
     print (base + fle)
     dat = pd.read_csv(base + fle)
@@ -114,26 +114,40 @@ for i in range(0, 20):
         'aged-50-to-64':'Y50T64',
         'aged-65':'Y_GE65'
     })
-    
+    # Get rid of all the rows with 'Percent' in Measure Type column
     dat = dat[dat['Measure Type'] == 'Value']
     del dat['Measure Type']
     
     csvName = 'observations' + str(i) + '.csv'
-    #dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
-
+    print('Original file row count: ' + str(dat['Date'].count()))
+    dat = dat.drop_duplicates()
+    print('Original file row count after dropping duplicates: ' + str(dat['Date'].count()))
+    dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
     if i == 0:
         joined_dat = dat
-        for c in dat.columns:
-            if c != 'Value':
-                print(c)
-                print(dat[c].unique())
-                print('-----------------------------------------------------------')
+        #for c in dat.columns:
+        #    if c != 'Value':
+        #        print(c)
+        #        print(dat[c].unique())
+        #        print('-----------------------------------------------------------')
     else:
         joined_dat = pd.concat([joined_dat,dat])
-        
-    dat.head(2)
+    
+    print('Joined Data count AFTER Concat: ' + str(joined_dat['Date'].count()))
+    print('---------------------------------------------------------------------')
     del dat
     
 joined_dat.drop_duplicates().to_csv(out / ('observations.csv.gz'), index = False, compression='gzip')
-"""
+
 #--------------------------------------------------------------------------------------------------------------
+"""
+
+# +
+#joined_dat['Geography Code'].unique()
+
+# +
+#joined_dat['Date'].count()
+
+# +
+#code1 = 'E00000005'
+#code2 = 'E00094862'
