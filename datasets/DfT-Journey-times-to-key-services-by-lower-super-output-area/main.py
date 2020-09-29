@@ -102,42 +102,47 @@ with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
 
 # -
 
-"""
-d_path = '<' + scraper._base_uri + '/graph/' + pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + '/> . '
-n_path = '<' + scraper._base_uri + '/graph/' + pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + datasetExtraName + '/> .'
+# SECONDARY SCHOOLS
+# Observations are already transformed on Google drive\n",
+url = 'https://drive.google.com/file/d/1f9TshV-To_t913j6lfMIajmFLpK_X86Q/view?usp=download'
+path = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
+df = pd.read_csv(path)
 
-test_path = '@prefix ns1: ' + d_path
-newTxt = '' 
-filename = 'out/primary_schools_observations.csv-metadata.trig'
-with open(filename) as fp: 
-    for line in fp: 
-        if test_path.strip() == line.strip():
-            print(line)
-            newTxt = newTxt + '@prefix ns1: ' + n_path + '\n'
-        else:
-            newTxt += line
- 
-f = open(filename, "w")
-f.write(newTxt)
-f.close()
-"""
+df['Field Code'] = df['Field Code'].apply(pathify)
+df['Year'] = 'year/' + df['Year'].astype(str)
+df = df.head(10)
+df.head(10)
 
-"""
-info = json.load(open('info.json')) 
-codelistcreation = info['transform']['codelists'] 
-print(codelistcreation)
-print("-------------------------------------------------------")
+# +
 
-codeclass = CSVCodelists()
-for cl in codelistcreation:
-    if cl in df.columns:
-        df[cl] = df[cl].str.replace("-"," ")
-        df[cl] = df[cl].str.capitalize()
-        codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())
-"""
-#scraper._dataset_id
+import os
+from urllib.parse import urljoin
 
+csvName = "secondary_schools_observations.csv"
+out = Path('out')
+out.mkdir(exist_ok=True)
+df.drop_duplicates().to_csv(out / csvName, index = False)
 
+datasetExtraName = '/secondary-schools'
+scraper.dataset.family = 'towns-and-high-streets'
+#scraper.dataset.description = scraper.dataset.description + notes
+scraper.dataset.comment = 'Travel time, destination and origin indicators for Secondary Schools by mode of travel, Lower Super Output Area (LSOA), England (11 to 15 year old)'
+scraper.dataset.title = 'Journey times to key services by lower super output area: Secondary Schools - JTS0503'
+
+dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + datasetExtraName
+scraper.set_base_uri('http://gss-data.org.uk')
+scraper.set_dataset_id(dataset_path)
+
+csvw_transform = CSVWMapping()
+csvw_transform.set_csv(out / csvName)
+csvw_transform.set_mapping(json.load(open('info.json')))
+csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
+csvw_transform.set_registry(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
+csvw_transform.write(out / f'{csvName}-metadata.json')
+
+with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
+    metadata.write(scraper.generate_trig())
+# -
 
 
 
