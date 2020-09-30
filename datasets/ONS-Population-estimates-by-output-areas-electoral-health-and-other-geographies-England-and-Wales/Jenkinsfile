@@ -13,14 +13,6 @@ pipeline {
         JOB_ID = util.getJobID()
     }
     stages {
-        stage('Clean') {
-            steps {
-                script {
-                    FAILED_STAGE = env.STAGE_NAME
-                    sh "rm -rf ${DATASET_DIR}/out"
-                }
-            }
-        }
         stage('Tidy CSV') {
             agent {
                 docker {
@@ -236,7 +228,7 @@ pipeline {
     }
     post {
         always {
-            archiveArtifacts '${DATASET_DIR}/out/'
+            archiveArtifacts "${DATASET_DIR}/out/"
         }
     }
 }

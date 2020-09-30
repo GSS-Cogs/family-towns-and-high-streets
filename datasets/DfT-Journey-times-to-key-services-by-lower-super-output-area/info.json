@@ -4,7 +4,7 @@
     "description": "LSOA Data about the number of journey times.",
     "landingPage": "https://www.gov.uk/government/statistical-data-sets/journey-time-statistics-data-tables-jts",
     "datasetNotes": [
-        "On landing page, croll down to heading \"Journey times to key services by lower super output area (JTS05)\" where dataset consists of several ODS files."
+        "On landing page, scroll down to heading \"Journey times to key services by lower super output area (JTS05)\" where dataset consists of several ODS files."
     ],
     "published": "2019-08-19",
     "families": [
@@ -44,7 +44,9 @@
                 "datatype": "double"
             }
         },
-        "codelists": ["Field Code"],
+        "codelists": [
+            "Field Code"
+        ],
         "airtable": "recDAoCnPa88oblxQ",
         "main_issue": 2,
         "transformStage": [
