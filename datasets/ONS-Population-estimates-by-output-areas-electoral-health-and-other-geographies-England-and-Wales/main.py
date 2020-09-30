@@ -85,14 +85,15 @@ csvw_transform.write(out / f'{csvName}-metadata.json')
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
 # -
+"""
 #--------------------------------------------------------------------------------------------------------------
 # This section is for converting the data that Mike A extracted into a suitable datacude and zipped files
-"""
+
 out = Path('out')
 out.mkdir(exist_ok=True)
 base = 'gs://pipeline-stream-population-estimates/'
 # 0 to 19
-for i in range(21, 22):
+for i in range(0, 22):
     fle = str(i) + '_CensusPop_LMA_ages.csv'
     print (base + fle)
     dat = pd.read_csv(base + fle)
@@ -104,7 +105,7 @@ for i in range(21, 22):
     dat['Age'] = dat['Age'].replace({
         'All Ages':'all-ages',
         'aged-0-to-15':'Y0T15',
-        'aged-16':'Y_E16',
+        'aged-16':'Y_GE16',
         'aged-16-to-64':'Y16T64',
         'aged-16-to-24':'Y16T24',
         'aged-16-to-17':'Y16T17',
@@ -137,10 +138,12 @@ for i in range(21, 22):
     print('---------------------------------------------------------------------')
     del dat
     
+joined_dat['Value'] = pd.to_numeric(joined_dat['Value'], downcast='integer')
 joined_dat.drop_duplicates().to_csv(out / ('observations.csv.gz'), index = False, compression='gzip')
 
 #--------------------------------------------------------------------------------------------------------------
 """
+
 
 # +
 #joined_dat['Geography Code'].unique()
