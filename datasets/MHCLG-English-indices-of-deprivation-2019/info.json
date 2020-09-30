@@ -19,5 +19,6 @@
         "main_issue": 1
     },
     "sizingNotes": "Simple table and structure in CSV format.",
-    "notes": ""
+    "notes": "",
+    "dataURL": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/845345/File_7_-_All_IoD2019_Scores__Ranks__Deciles_and_Population_Denominators_3.csv"
 }
