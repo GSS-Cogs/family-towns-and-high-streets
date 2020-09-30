@@ -24,8 +24,25 @@ def excelRange(bag):
     bottom_right_cell = xypath.contrib.excel.excel_location(bag.filter(lambda x: x.x == max_x and x.y == max_y))
     return f"{top_left_cell}:{bottom_right_cell}"
     
+def PeriodFromColumnName(value):
+    # returns just the year from the column name -> which contains the dataset name
+    year = value.split(',')[-1].strip()
+    return year
+
+def ScoreOrRank(value):
+    # tidies up dimension within list_of_transform_type_2 datasets
+    if value.lower().startswith('average score'):
+        return 'Average Score'
+    elif value.lower().startswith('rank of average score'):
+        return 'Rank of Average Score'
+    elif value.lower().startswith('average rank'):
+        return 'Average Rank'
+    elif value.lower().startswith('rank of average rank'):
+        return 'Rank of Average Rank'
     
-list_of_wanted_datasets = [
+    
+# there are 2 distinct types of format
+list_of_transform_type_1 = [
     'Economic deprivation index: rank',
     'Economic deprivation index: income deprivation domain score',
     'Economic deprivation index: income deprivation domain rank',
@@ -43,10 +60,15 @@ list_of_wanted_datasets = [
     'Total population used to calculate local authority district and economic deprivation index summary measure'
 ]
 
+list_of_transform_type_2 = [
+    'Local authority district: economic deprivation index and domains average ranks and scores',
+    'Local authority district: children in income-deprived households index average ranks and scores'
+]
+
 tidied_sheets = {} # to be filled with each tab of data
 for distribution in scraper.distributions:
     
-    if distribution.title in list_of_wanted_datasets:
+    if distribution.title in list_of_transform_type_1:
         tabs = distribution.as_databaker()
         tabs = [tab for tab in tabs if 'metadata' not in tab.name.lower()] # unwanted tabs
         
@@ -104,8 +126,7 @@ for distribution in scraper.distributions:
                     cs_list.append(cs_iteration) # add to list
                     tidy_sheet_list.append(tidy_sheet_iteration) # add to list
                     
-            tidy_sheet = pd.concat(tidy_sheet_list) # dataframe for the whole tab
-            tidied_sheets[unique_identifier] = tidy_sheet 
+            tidy_sheet = pd.concat(tidy_sheet_list, sort=False) # dataframe for the whole tab
             
             # trace
             # tracing is more hardcoded
@@ -115,8 +136,81 @@ for distribution in scraper.distributions:
             trace.lauacode('Value taken from column "lauacode" - C2 expanded down')
             trace.lauaname('Value taken from column "lsoacode" - D2 expanded down')
             trace.Value('Value taken from period columns - E2:O2 expanded down')
+            trace.with_preview(cs_list[0])
+            
+            # some tidying up
+            tidy_sheet = tidy_sheet.rename(columns={'OBS':'Value', 'DATAMARKER':'Marker'})
+            trace.Value('Renamed "OBS" column as "Value"')
+            tidy_sheet['Period'] = tidy_sheet['Period'].apply(PeriodFromColumnName)
+            trace.Period('Value changed to only include the year')
+            
+            if 'Marker' in tidy_sheet.columns:
+                trace.add_column('Marker')
+                trace.Marker('Value taken from "Value" where a value is surpressed')
+                trace.Marker('Renamed "DATAMARKER" column as "Marker"')
+                tidy_sheet = tidy_sheet[[
+                        'Period', 'lsoacode', 'lsoaname', 'lauacode', 'lauaname', 'Marker', 'Value'
+                        ]]
+            else:
+                tidy_sheet = tidy_sheet[[
+                        'Period', 'lsoacode', 'lsoaname', 'lauacode', 'lauaname', 'Value'
+                        ]]
+            
             trace.store(unique_identifier, tidy_sheet)
-            trace.with_preview(cs_list[0]) # seems to create the whole preview passing just one iteration
+            tidied_sheets[unique_identifier] = tidy_sheet
+            
+            
+    elif distribution.title in list_of_transform_type_2:
+        tabs = distribution.as_databaker()
+        tabs = [tab for tab in tabs if 'metadata' not in tab.name.lower()] # unwanted tabs
+        
+        for tab in tabs:
+            # trace info
+            unique_identifier = distribution.title + ' - ' + tab.name
+            link = distribution.downloadURL
+            columns = ['Period', 'lauacode', 'lauaname', 'Dimension 1', 'Value']
+            trace.start(scraper.title, unique_identifier, columns, link)
+            
+            pivot = tab.filter(contains_string('lauacode'))
+            lauacode = pivot.fill(DOWN).is_not_blank()
+            lauaname = lauacode.shift(1, 0)
+            period = pivot.shift(0, -1).expand(RIGHT).is_not_blank()
+            score_rank = pivot.shift(2, 0).expand(RIGHT).is_not_blank()
+            obs = lauacode.waffle(score_rank)
+
+            dimensions = [
+                    HDim(lauacode, 'lauacode', DIRECTLY, LEFT),
+                    HDim(lauaname, 'lauaname', DIRECTLY, LEFT),
+                    HDim(period, 'Period', CLOSEST, LEFT),
+                    HDim(score_rank, 'Dimension 1', DIRECTLY, ABOVE)
+                    ]
+
+            cs = ConversionSegment(tab, dimensions, obs)
+            tidy_sheet = cs.topandas()
+            trace.with_preview(cs)
+            
+            # trace
+            trace.Period('Values given in range {}', excelRange(period))
+            trace.lauacode('Values given in range {}', excelRange(lauacode))
+            trace.lauaname('Values given in range {}', excelRange(lauaname))
+            trace.Dimension_1('Values given in range {}', excelRange(score_rank))
+            trace.Value('Values given in range {}', excelRange(obs))
+            
+            # some tidying up
+            tidy_sheet = tidy_sheet.rename(columns={'OBS':'Value'})
+            trace.Value('Renamed "OBS" column as "Value"')
+            tidy_sheet['Period'] = tidy_sheet['Period'].apply(lambda x: int(float(x))) # removing the '.0'
+            trace.Period('Removed ".0" from year')
+            tidy_sheet['Dimension 1'] = tidy_sheet['Dimension 1'].apply(ScoreOrRank)
+            trace.Dimension_1('Tidied up dimensions to take one of the values \
+                              ["Average Score", "Rank of Average Score", "Average Rank", "Rank of Average Rank"]')
+            tidy_sheet = tidy_sheet[[
+                    'Period', 'lauacode', 'lauaname', 'Dimension 1', 'Value'
+                    ]]
+
+            trace.store(unique_identifier, tidy_sheet)
+            tidied_sheets[unique_identifier] = tidy_sheet 
+            
             
             
 out = Path('out')
@@ -128,4 +222,14 @@ for key in tidied_sheets:
     df.drop_duplicates().to_csv(out / f'{key}.csv', index=False)
 '''
 
+for key in tidied_sheets:
+    print(key)
+
 trace.render("spec_v1.html") 
+
+"""
+Was unsure on a dimension name for the score/rank dimension within the datasets:
+'Local authority district: economic deprivation index and domains average ranks and scores'
+'Local authority district: children in income-deprived households index average ranks and scores'
+so dimension is called 'Dimension 1'
+"""
