@@ -12,11 +12,11 @@
     ],
     "extract": {
         "source": "CSV",
-        "stage": "Documented"
+        "stage": "Not Required"
     },
     "transform": {
         "stage": [
-            "To Do"
+            "Hold"
         ],
         "airtable": "recuF1idhAX8h9GR7",
         "main_issue": 15,

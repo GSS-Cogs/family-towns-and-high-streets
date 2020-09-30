@@ -1,6 +1,6 @@
 {
     "title": "Population estimates by output areas, electoral, health and other geographies, England and Wales",
-    "publisher": "office-for-national-statistics",
+    "publisher": "Office for National Statistics",
     "description": "National population estimates for Super Output Areas and experimental statistics for health geographies, electoral wards, Parliamentary constituencies and National Parks in England and Wales.",
     "landingPageOLD": "https://www.nomisweb.co.uk/query/construct/summary.asp?mode=construct&version=0&dataset=2010",
     "dataURL": "http://www.nomisweb.co.uk/api/v01/dataset/NM_2010_1.data.csv?geography=1254252436...1254252639,1254260020...1254260026&date=latest&gender=0...2&c_age=200...203,250,207...209&measures=20100&select=date_name,geography_name,geography_code,gender_name,c_age_name,measures_name,obs_value,obs_status_name.csv",
@@ -52,10 +52,13 @@
                 "datatype": "integer"
             }
         },
-        "codelists": ["Age"],
+        "codelists": [
+            "Age"
+        ],
         "airtable": "recSx2PWX4qStk055",
         "main_issue": 16
     },
     "sizingNotes": "",
-    "notes": "An example of the extract is located here:\nhttps://drive.google.com/drive/u/0/folders/133olsp9xU6VyLoqw8-aGv7-eDP1nX9at\n\nHighest priority dataset as this has been requested by the Towns and High Streets ALP for their analysis and for a SPARQL demonstration piece"
+    "notes": "An example of the extract is located here:\nhttps://drive.google.com/drive/u/0/folders/133olsp9xU6VyLoqw8-aGv7-eDP1nX9at\n\nHighest priority dataset as this has been requested by the Towns and High Streets ALP for their analysis and for a SPARQL demonstration piece\n\nThe title of this dataset in PMD is now Population estimates by output area geographies, England and Wales.",
+    "landingPage": "https://www.nomisweb.co.uk/query/construct/summary.asp?mode=construct&version=0&dataset=2010"
 }
