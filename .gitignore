@@ -1,0 +1,5 @@
+.idea
+datasets/*/.cache
+datasets/*/.ipynb_checkpoints
+!datasets//ONS-Population-estimates-by-output-areas-electoral-health-and-other-geographies-England-and-Wales/out/*.gz
+datasets/*/out
