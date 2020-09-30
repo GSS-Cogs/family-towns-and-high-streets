@@ -26,8 +26,6 @@
         ],
         "columns": {
             "Date": {
-                "description": "",
-                "source": "",
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refPeriod",
                 "value": "http://reference.data.gov.uk/id/{+date}"
             },
@@ -37,14 +35,13 @@
                 "description": "2011 Output Areas. Open linked data, geographical codes for areas of the UK"
             },
             "Age": {
-                "parent": "http://gss-data.org.uk/def/concept/components#labour-market-age-categories",
-                "value": "http://gss-data.org.uk/def/concept-scheme/components#concept/labour-market-age-categories/{age}",
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#age",
+                "value": "http://gss-data.org.uk/def/concept/labour-market-age-categories/{age}",
                 "description": "These categories are commonly used for Labour Market analysis. Age is derived from the date of birth question and is a person's age at their last birthday, at 27 March 2011. Dates of birth that imply an age over 115 are treated as invalid and the person's age is imputed. Infants less than one year old are classified as 0 years of age."
             },
             "Gender": {
                 "dimension": "http://purl.org/linked-data/sdmx/2009/dimension#sex",
                 "value": "http://purl.org/linked-data/sdmx/2009/code#sex-{gender}",
-                "description": ""
             },
             "Value": {
                 "unit": "http://gss-data.org.uk/def/concept/measurement-units/persons",
