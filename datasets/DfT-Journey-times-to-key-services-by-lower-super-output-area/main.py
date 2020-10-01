@@ -13,21 +13,33 @@ uris = [
     "https://drive.google.com/file/d/1cPkyBV-YdqaA6z15ew-M_qEW1pL5yDNS/view?usp=download",
     "https://drive.google.com/file/d/1f9TshV-To_t913j6lfMIajmFLpK_X86Q/view?usp=download",
     "https://drive.google.com/file/d/1Y0nMpj9b8rftTT4I7h3IGIvGUzkin4zr/view?usp=download",
-    "https://drive.google.com/file/d/15KNDFI7WYcEmfj-6yTAO8LrzTZlC7NUE/view?usp=download"
+    "https://drive.google.com/file/d/15KNDFI7WYcEmfj-6yTAO8LrzTZlC7NUE/view?usp=download",
+    "https://drive.google.com/file/d/1sl301ieObzhPiHAIRRVyETH6ucyvjOBC/view?usp=download",
+    "https://drive.google.com/file/d/1hwAQuZAazD6xEQcG9OdKiOWIpL7RkRjQ/view?usp=download",
+    "https://drive.google.com/file/d/1xmoeawBJ2rB24Nn1GpwvjaOej2lvC6XA/view?usp=download",
+    "https://drive.google.com/file/d/1lcFBa3KUsaBd4P0wJdobD5uCjxcXbq4I/view?usp=download"
 ]
 dn = [
     "Employment Centres",
     "Primary Schools",
     "Secondary Schools",
     "Further Education",
-    "Hospitals"
+    "General Practices",
+    "Hospitals",
+    "Food Stores",
+    "Town Centre",
+    "Pharmacies"
 ]
 ag = [
     "(16 to 74 year old)",
     "(5 to 10 year old)",
     "(11 to 15 year old)",
     "(16 to 19 year old)",
-    "(Households)"
+    "(All households)",
+    "(All households)",
+    "(All households)",
+    "(All households)",
+    "(All households)"
 ]
 
 # +
@@ -80,6 +92,8 @@ for u in uris:
         metadata.write(scraper.generate_trig())
     i = i + 1
 # -
+
+
 
 
 
