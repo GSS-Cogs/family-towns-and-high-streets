@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # +
 from gssutils import *
 import json
@@ -41,6 +42,17 @@ ag = [
     "(All households)",
     "(All households)"
 ]
+no = [
+    "Employment centres: Data used are the number of jobs in a Lower Super Output Area (LSOA). The data tables include results for employment centres of 3 different sizes (100-499 jobs, 500-4,999 jobs and at least 5,000 jobs). For the key services average, the 500-4,999 jobs defnition is used for employment.",
+    "Education: Locations of all open Primary schools, Secondary schools, Further Education and Sixth Form Colleges",
+    "Education: Locations of all open Primary schools, Secondary schools, Further Education andSixth Form Colleges",
+    "Education: Locations of all open Primary schools, Secondary schools, Further Education andSixth Form Colleges",
+    "General Practice (GP) surgeries: For 2017 based on the Patients Registered at a GP Practice dataset released by NHS Digital – previously this was based on a fltered dataset of NHS prescribers released by NHS Digital.",
+    "Hospitals: Based on hospitals that are registered with the Care Quality Commission (CQC) and are managed by Acute Trusts.",
+    "Food stores: Locations of grocery, supermarkets or convenience stores.",
+    "Town centres: Locations of Town centres using a central focal point for the town mapped to the nearest road.",
+    ""
+]
 
 # +
 import os
@@ -55,8 +67,9 @@ notes = """
     2017 journey times have been influenced by changes to the network of walking paths being used for the calculations. The network is more extensive in 2017 reflecting changes to the underlying Ordnance Survey
     Urban Paths data set which is used (this has the effect of reducing the time taken for some trips where a relevant path has been added to the dataset).
     Full details of the datasets for the production of all the estimates are provided in the accompanying guidance note - 
-    https://www.gov.uk/government/publications/journey-time-statistics-guidance.
+    https://www.gov.uk/government/publications/journey-time-statistics-guidance.\n
 """
+originalDescription = scraper.dataset.description + notes
 
 i = 0
 for u in uris:
@@ -88,8 +101,7 @@ for u in uris:
 
     datasetExtraName = '/' + pathify(dn[i])
     
-    if i == 0:
-        scraper.dataset.description = scraper.dataset.description + notes
+    scraper.dataset.description = originalDescription + no[i]
         
     scraper.dataset.comment = f'Travel time, destination and origin indicators for {dn[i]} by mode of travel, Lower Super Output Area (LSOA), England {ag[i]}'
     scraper.dataset.title = f'Journey times to key services by lower super output area: {dn[i]} - JTS050{str(i+1)}'
