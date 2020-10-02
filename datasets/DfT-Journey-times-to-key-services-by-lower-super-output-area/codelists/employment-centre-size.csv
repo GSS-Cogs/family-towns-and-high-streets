@@ -1,0 +1,4 @@
+Label,Notation,Parent Notation,Sort Priority
+Employment centre with 100 to 499 jobs,employment-centre-with-100-to-499-jobs,,1
+Employment centre with 500 to 4999 jobs,employment-centre-with-500-to-4999-jobs,,2
+Employment centre with at least 5000 jobs,employment-centre-with-at-least-5000-jobs,,3

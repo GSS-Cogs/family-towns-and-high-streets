@@ -62,11 +62,27 @@ i = 0
 for u in uris:
     path = 'https://drive.google.com/uc?export=download&id='+u.split('/')[-2]
     df = pd.read_csv(path)
-    
-    df['Field Code'] = df['Field Code'].apply(pathify)
+    df = df.rename(columns={'Field Code': 'Mode of Travel'})
+    df['Mode of Travel'] = df['Mode of Travel'].apply(pathify)
     df['Year'] = 'year/' + df['Year'].astype(str)
     #df = df.head(10)
-
+    
+    if dn[i] == "Employment Centres":
+        df['Employment Centre Size'] = df['Mode of Travel']
+        df['Employment Centre Size'] = df['Employment Centre Size'].replace({
+            "100empptt": "employment centre with 100 to 499 jobs",
+            "100empcyct": "employment centre with 100 to 499 jobs",
+            "100empcart": "employment centre with 100 to 499 jobs",
+            "500empptt": "employment centre with 500 to 4999 jobs",
+            "500empcyct": "employment centre with 500 to 4999 jobs",
+            "500empcart": "employment centre with 500 to 4999 jobs",
+            "5000empptt": "employment centre with at least 5000 jobs",
+            "5000empcyct": "employment centre with at least 5000 jobs",
+            "5000empcart": "employment centre with at least 5000 jobs"
+            })
+        df['Employment Centre Size'] = df['Employment Centre Size'].apply(pathify)
+        df = df[['Year','Lower Layer Super Output Area','Local Authority','Employment Centre Size','Mode of Travel','Value']]
+    
     csvName = pathify(dn[i]).replace("-","_") + "_observations.csv"
     df.drop_duplicates().to_csv(out / csvName, index = False)
 
@@ -91,9 +107,16 @@ for u in uris:
     with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
         metadata.write(scraper.generate_trig())
     i = i + 1
+# +
+#info = json.load(open('info.json')) 
+#codelistcreation = ['Employment Centre Size'] 
+
+#codeclass = CSVCodelists()
+#for cl in codelistcreation:
+#    if cl in df.columns:
+#        df[cl] = df[cl].str.replace("-"," ")
+#        df[cl] = df[cl].str.capitalize()
+#        codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())
 # -
-
-
-
 
 
