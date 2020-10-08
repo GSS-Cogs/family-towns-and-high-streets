@@ -29,7 +29,7 @@
 		Scraper:
 			Title: Scottish Index of Multiple Deprivation - Ranks
 			Comment: Scottish Index of Multiple Deprivation 2020 - Ranks. A tool for identifying areas with relatively high levels of deprivation.
-			Description: The Scottish Index of Multiple Deprivation is a relative measure of deprivation across 6,976 small areas (called data zones). If an area is identified as ‘deprived’, this can relate to people having a low income but it can also mean fewer resources or opportunities. SIMD looks at the extent to which an area is deprived across seven domains: income, employment, education, health, access to services, crime and housing.
+			Description: Already good description in scraper
 			Family: towns-high-streets
 			Output filename: ranks-observations.csv
 
@@ -56,7 +56,7 @@
 		Scraper:
 			Title: Scottish Index of Multiple Deprivation - Indicators
 			Comment: Scottish Index of Multiple Deprivation 2020 - Indicators. A tool for identifying areas with relatively high levels of deprivation
-			Description: The Scottish Index of Multiple Deprivation is a relative measure of deprivation across 6,976 small areas (called data zones). If an area is identified as ‘deprived’, this can relate to people having a low income but it can also mean fewer resources or opportunities. SIMD looks at the extent to which an area is deprived across seven domains: income, employment, education, health, access to services, crime and housing.
+			Description: Already good description in scraper
 			Family: towns-high-streets
 			Output filename: indicators-observations.csv
 			

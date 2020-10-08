@@ -1,0 +1,9 @@
+Label,Notation,Parent Notation,Sort Priority
+SIMD2020v2 Rank,simd2020v2-rank,,1
+SIMD2020v2 Income Domain Rank,simd2020v2-income-domain-rank,,2
+SIMD2020 Employment Domain Rank,simd2020-employment-domain-rank,,3
+SIMD2020 Health Domain Rank,simd2020-health-domain-rank,,4
+SIMD2020 Education Domain Rank,simd2020-education-domain-rank,,5
+SIMD2020 Access Domain Rank,simd2020-access-domain-rank,,6
+SIMD2020 Crime Domain Rank,simd2020-crime-domain-rank,,7
+SIMD2020 Housing Domain Rank,simd2020-housing-domain-rank,,8

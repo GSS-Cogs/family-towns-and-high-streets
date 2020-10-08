@@ -1,6 +1,6 @@
 {
     "title": "Scottish Index of Multiple Deprivation 2020",
-    "publisher": "Scottish Government",
+    "publisher": "scottish-government",
     "description": "The Scottish Index of Multiple Deprivation is a relative measure of deprivation across 6,976 small areas (called data zones). If an area is identified as \u2018deprived\u2019, this can relate to people having a low income but it can also mean fewer resources or opportunities. SIMD looks at the extent to which an area is deprived across seven domains: income, employment, education, health, access to services, crime and housing.",
     "landingPage": "https://www.gov.scot/collections/scottish-index-of-multiple-deprivation-2020/",
     "dataURL": "https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/01/scottish-index-of-multiple-deprivation-2020-ranks-and-domain-ranks/documents/scottish-index-of-multiple-deprivation-2020-ranks-and-domain-ranks/scottish-index-of-multiple-deprivation-2020-ranks-and-domain-ranks/govscot%3Adocument/SIMD%2B2020v2%2B-%2Branks.xlsx",
@@ -17,7 +17,25 @@
     },
     "transform": {
         "airtable": "recM395IXEFnnHarh",
-        "main_issue": 7
+        "main_issue": 7,
+        "columns": {
+            "Data Zone": {
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
+                "value": "http://statistics.data.gov.uk/id/statistical-geography/{data_zone}",
+                "description": "The Scottish Government introduced Data Zones in 2004 as their preferred small area geography. ISD has used these as a replacement for postcode sectors. Data Zones have been designed to cover the whole of Scotland, nesting within council area (also known as local authority) boundaries. Data Zones are a composite geography based on aggregates of 2001 Census output areas and originally had a population of between 500 and 1,000 people per Data Zone. Where possible, they have been made to respect physical boundaries and natural communities, have a regular shape and contain households with similar social characteristics."
+            },
+            "Total population": {
+                "attribute": "http://gss-data.org.uk/data/gss_data/covid-19/sg-scottish-index-of-multiple-deprivation-2020/ranks/concept-scheme/total-population"
+            },
+            "Working age population": {
+               "attribute": "http://gss-data.org.uk/data/gss_data/covid-19/sg-scottish-index-of-multiple-deprivation-2020/ranks/concept-scheme/working-age-population"
+            },
+            "Value": {
+                "unit": "http://gss-data.org.uk/def/concept/measurement-units/deprivation",
+                "measure": "http://gss-data.org.uk/def/measure/ranks",
+                "datatype": "integer"
+            }
+        }
     },
     "sizingNotes": "Although tables are simple in structure, they are spread across two separate files. May require split into two simple datasets, one for \"ranks\" and one for \"indicators\".",
     "notes": ""
