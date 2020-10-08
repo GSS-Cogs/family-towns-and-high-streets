@@ -124,7 +124,7 @@ co = [
 ]
 # Description
 de = [
-    '',
+    'SIMD ranks data zones from most deprived (ranked 1) to least deprived (ranked 6,976). People using SIMD will often focus on the data zones below a certain rank, for example, the 5%, 10%, 15% or 20% most deprived data zones in Scotland.',
     ''
 ]
 # Title
@@ -165,7 +165,7 @@ for s in sn:
     joined_dat.drop_duplicates().to_csv(out / csvName, index = False)
 
     scraper.dataset.family = 'towns-high-streets'
-    #scraper.dataset.description = scraper.dataset.description
+    scraper.dataset.description = scraper.dataset.description + '\n' + de[i]
     scraper.dataset.comment = co[i]
     scraper.dataset.title = ti[i]
 
