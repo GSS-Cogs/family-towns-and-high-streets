@@ -158,7 +158,6 @@ for s in sn:
         k = k + 1
         
     joined_dat['Deprivation Rank'] = joined_dat['Deprivation Rank'].apply(pathify)
-    joined_dat['Value'] = pd.to_numeric(joined_dat['Value'], downcast='integer')
     
     csvName = fn[i]
     out = Path('out')
@@ -187,9 +186,8 @@ for s in sn:
     i = i + 1
     break
 
-# +
-#joined_dat.head(10)
-#joined_dat['Deprivation Rank'].unique()
+joined_dat.head(10)
+joined_dat['Value'].unique()
 
 # +
 #codelistcreation = ['Deprivation Rank'] 
