@@ -1,6 +1,6 @@
 {
   "@context": "http://www.w3.org/ns/csvw",
-  "@id": "http://gss-data.org.uk/data/gss_data/covid-19/sg-scottish-index-of-multiple-deprivation-2020/ranks#schema",
+  "@id": "#table",
   "url": "deprivation-rank.csv",
   "tableSchema": {
     "columns": [
@@ -30,7 +30,7 @@
         },
         "required": false,
         "propertyUrl": "skos:broader",
-        "valueUrl": "http://gss-data.org.uk/data/gss_data/covid-19/sg-scottish-index-of-multiple-deprivation-2020/ranks#concept/deprivation-rank/{parent_notation}"
+        "valueUrl": "http://gss-data.org.uk/data/gss_data/covid-19/sg-scottish-index-of-multiple-deprivation-2020/concept/deprivation-rank/{parent_notation}"
       },
       {
         "titles": "Sort Priority",
@@ -54,14 +54,14 @@
       {
         "virtual": true,
         "propertyUrl": "skos:inScheme",
-        "valueUrl": "http://gss-data.org.uk/data/gss_data/covid-19/sg-scottish-index-of-multiple-deprivation-2020/ranks#scheme/deprivation-rank"
+        "valueUrl": "http://gss-data.org.uk/data/gss_data/covid-19/sg-scottish-index-of-multiple-deprivation-2020/concept-scheme/deprivation-rank"
       }
     ],
     "primaryKey": "notation",
-    "aboutUrl": "http://gss-data.org.uk/data/gss_data/covid-19/sg-scottish-index-of-multiple-deprivation-2020/ranks#concept/deprivation-rank/{notation}"
+    "aboutUrl": "http://gss-data.org.uk/data/gss_data/covid-19/sg-scottish-index-of-multiple-deprivation-2020/concept/deprivation-rank/{notation}"
   },
   "prov:hadDerivation": {
-    "@id": "http://gss-data.org.uk/data/gss_data/covid-19/sg-scottish-index-of-multiple-deprivation-2020/ranks#scheme/deprivation-rank",
+    "@id": "http://gss-data.org.uk/data/gss_data/covid-19/sg-scottish-index-of-multiple-deprivation-2020/concept-scheme/deprivation-rank",
     "@type": "skos:ConceptScheme",
     "rdfs:label": "Deprivation Rank"
   }

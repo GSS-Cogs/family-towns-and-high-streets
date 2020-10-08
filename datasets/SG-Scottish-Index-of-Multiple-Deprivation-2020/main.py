@@ -187,7 +187,7 @@ for s in sn:
     break
 
 joined_dat.head(10)
-joined_dat['Value'].unique()
+#joined_dat['Value'].unique()
 
 # +
 #codelistcreation = ['Deprivation Rank'] 
