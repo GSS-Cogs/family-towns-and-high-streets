@@ -119,7 +119,7 @@ sn = ['SIMD 2020v2 ranks','']
 fn = ['ranks-observations.csv','']
 # Comments
 co = [
-    'Rank data relating to the Scottish Index of Multiple Deprivation - a tool for identifying areas with relatively high levels of deprivation.',
+    '2020 Rank data relating to the Scottish Index of Multiple Deprivation - a tool for identifying areas with relatively high levels of deprivation.',
     ''
 ]
 # Description
