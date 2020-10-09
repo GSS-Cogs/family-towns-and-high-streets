@@ -47,7 +47,8 @@
 			'Working_Age_Population' -> 'Working Age Population'
 			Cannot show attributes correctly in PMD4 at the moment so might have to remove for now
 		Dimensions:
-			'Deprivation Indicator': see sheet Indicator descriptions column A (codelist)
+			'Deprivation Indicator': see sheet Indicator descriptions column B (codelist)
+			'High Level Domain': see sheet Indicator descriptions column A (codelist)
 			'Indicator Type': see sheet Indicator descriptions column C (codelist) (used to get around the problem of multiple measures)
 		Measures (info.json)
 			Measure Type = Deprivation
@@ -62,7 +63,7 @@
 			
 #### Table Structure
 
-		Data Zone, Total Population, Working Age Population, Deprivation Indicator, Indicator Type, Value
+		Data Zone, Total Population, Working Age Population, Deprivation Indicator, High Level Domain, Indicator Type, Value
 
 ##### Footnotes
 
