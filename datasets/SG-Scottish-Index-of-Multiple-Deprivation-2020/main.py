@@ -129,8 +129,8 @@ de = [
 ]
 # Title
 ti = [
-    'Scottish Index of Multiple Deprivation - Ranks', 'Scottish Index of Multiple Deprivation - Ranks',
-    'Scottish Index of Multiple Deprivation - Ranks', 'Scottish Index of Multiple Deprivation - Indicators'
+    'Scottish Index of Multiple Deprivation - Ranks',
+    'Scottish Index of Multiple Deprivation - Indicators'
 ]
 # Paths
 pa = ['/ranks', '/indicators']
@@ -307,7 +307,7 @@ try:
     joined_dat['Marker'][joined_dat['Value'] == '*'] = 'suppressed-or-population-zero'
     joined_dat['Value'][joined_dat['Value'] == '*'] = 0
     
-    jouned_dat = joined_dat[['Data Zone','Deprivation Indicator','Indicator Type','High Level Indicator','Total population','Working age population','Marker','Value']]
+    joined_dat = joined_dat[['Data Zone','Deprivation Indicator','Indicator Type','High Level Indicator','Total population','Working age population','Marker','Value']]
     
     csvName = fn[i]
     out = Path('out')
@@ -335,9 +335,9 @@ try:
 
 except Exception as s:
     print(str(s))
-# -
 
-joined_dat.head(20)
+# +
+#joined_dat.head(20)
 
 # +
 # Need to change the dataURL back to the RANK URL ready for the next run
