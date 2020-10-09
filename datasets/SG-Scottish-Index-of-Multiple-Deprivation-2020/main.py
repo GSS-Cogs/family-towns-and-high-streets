@@ -228,7 +228,7 @@ try:
         k = k + 1
 
     joined_dat["Indicator Type"] = joined_dat["Deprivation Indicator"]
-    joined_dat["High Level Indicator"] = joined_dat["Deprivation Indicator"]
+    joined_dat["High Level Domain"] = joined_dat["Deprivation Indicator"]
 
     joined_dat['Indicator Type'] = joined_dat['Indicator Type'].replace({
         'Income rate':'Percentage',
@@ -265,7 +265,7 @@ try:
         'nocentralheat rate':'Percentage'
      })
 
-    joined_dat['High Level Indicator'] = joined_dat['High Level Indicator'].replace({
+    joined_dat['High Level Domain'] = joined_dat['High Level Domain'].replace({
         'Income rate':'Income',
         'Income count':'Income',
         'Employment rate':'Employment',
@@ -301,13 +301,13 @@ try:
      })
     joined_dat['Deprivation Indicator'] = joined_dat['Deprivation Indicator'].apply(pathify)
     joined_dat['Indicator Type'] = joined_dat['Indicator Type'].apply(pathify)
-    joined_dat['High Level Indicator'] = joined_dat['High Level Indicator'].apply(pathify)
+    joined_dat['High Level Domain'] = joined_dat['High Level Domain'].apply(pathify)
 
     joined_dat['Marker'] = ''
     joined_dat['Marker'][joined_dat['Value'] == '*'] = 'suppressed-or-population-zero'
     joined_dat['Value'][joined_dat['Value'] == '*'] = 0
     
-    joined_dat = joined_dat[['Data Zone','Deprivation Indicator','Indicator Type','High Level Indicator','Total population','Working age population','Marker','Value']]
+    joined_dat = joined_dat[['Data Zone','Deprivation Indicator','Indicator Type','High Level Domain','Total population','Working age population','Marker','Value']]
     
     csvName = fn[i]
     out = Path('out')
