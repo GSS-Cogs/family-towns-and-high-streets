@@ -185,6 +185,8 @@ try:
 except Exception as s:
     print(str(s))
 
+del joined_dat
+
 # +
 # need to change the dataURLa to the indicators one
 with open("info.json", "r") as jsonFile:
@@ -301,6 +303,11 @@ try:
     joined_dat['Indicator Type'] = joined_dat['Indicator Type'].apply(pathify)
     joined_dat['High Level Indicator'] = joined_dat['High Level Indicator'].apply(pathify)
 
+    joined_dat['Marker'] = ''
+    joined_dat['Marker'][joined_dat['Value'] == '*'] = 'suppressed or population zero'
+    joined_dat['Value'][joined_dat['Value'] == '*'] = 0
+    
+    jouned_dat = joined_dat[['Data Zone','Deprivation Indicator','Indicator Type','High Level Indicator','Total population','Working age population','Marker','Value']]
     
     csvName = fn[i]
     out = Path('out')
@@ -328,6 +335,9 @@ try:
 
 except Exception as s:
     print(str(s))
+# -
+
+joined_dat.head(20)
 
 # +
 # Need to change the dataURL back to the RANK URL ready for the next run
