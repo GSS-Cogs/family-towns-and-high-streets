@@ -153,7 +153,10 @@ out = Path('out')
 out.mkdir(exist_ok=True)
 
 trace.render("spec_v1.html")
+"""
 for key in tidied_data:
     df = tidied_data[key]
     df.drop_duplicates().to_csv(out / f'{key}.csv', index=False)
-    
+"""
+for key in tidied_data:
+    print(key)
