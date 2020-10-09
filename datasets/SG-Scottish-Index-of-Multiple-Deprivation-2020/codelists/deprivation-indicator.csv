@@ -1,0 +1,33 @@
+Label,Notation,Parent Notation,Sort Priority
+"Percentage of people who are income deprived",income-rate,,1
+"Number of people who are income deprived",income-count,,2
+"Percentage of people who are employment deprived",employment-rate,,3
+"Number of people who are employment deprived",employment-count,,4
+"Comparative Illness Factor: standardised ratio",cif,,5
+"Hospital stays related to alcohol use: standardised ratio",alcohol,,6
+"Hospital stays related to drug use: standardised ratio",drug,,7
+"Standardised mortality ratio",smr,,8
+"Proportion of population being prescribed drugs for anxiety, depression or psychosis",depress,,9
+"Proportion of live singleton births of low birth weight",lbwt,,10
+"Emergency stays in hospital: standardised ratio",emerg,,11
+"School pupil attendance",attendance,,12
+"Attainment of school leavers",attainment,,13
+"Working age people with no qualifications: standardised ratio",no-qualifications,,14
+"Proportion of people aged 16-19 not participating in education, employment or training",not-participating,,15
+"Proportion of 17-21 year olds entering university",university,,16
+"Average drive time to a petrol station in minutes",drive-petrol,,17
+"Average drive time to a GP surgery in minutes",drive-gp,,18
+"Average drive time to a post office in minutes",drive-post,,19
+"Average drive time to a primary school in minutes",drive-primary,,20
+"Average drive time to a retail centre in minutes",drive-retail,,21
+"Average drive time to a secondary school in minutes",drive-secondary,,22
+"Public transport travel time to a GP surgery in minutes",pt-gp,,23
+"Public transport travel time to a post office in minutes",pt-post,,24
+"Public transport travel time to a retail centre in minutes",pt-retail,,25
+"Percentage of premises without access to superfast broadband (at least 30Mb/s download speed)",broadband,,26
+"Number of recorded crimes of violence, sexual offences, domestic housebreaking, vandalism, drugs offences, and common assault",crime-count,,27
+"Recorded crimes of violence, sexual offences, domestic housebreaking, vandalism, drugs offences, and common assault per 10,000 people",crime-rate,,28
+"Number of people in households that are overcrowded",overcrowded-count,,29
+"Number of people in households without central heating",nocentralheat-count,,30
+"Percentage of people in households that are overcrowded",overcrowded-rate,,31
+"Percentage of people in households without central heating",nocentralheat-rate,,32

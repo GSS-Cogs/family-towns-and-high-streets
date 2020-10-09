@@ -1,0 +1,8 @@
+Label,Notation,Parent Notation,Sort Priority
+Income,income,,1
+Employment,employment,,2
+Health,health,,3
+"Education, skills and training",education-skills-and-training,,4
+Geographic access to services,geographic-access-to-services,,5
+Crime,crime,,6
+Housing,housing,,7

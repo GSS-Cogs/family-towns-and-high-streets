@@ -1,0 +1,7 @@
+Label,Notation,Parent Notation,Sort Priority
+Percentage,percentage,,1
+Count,count,,2
+Standardised ratio,standardised-ratio,,3
+Score,score,,4
+Time (minutes),time-minutes,,5
+"Rate per 10,000 population",rate-per-10-000-population,,6
