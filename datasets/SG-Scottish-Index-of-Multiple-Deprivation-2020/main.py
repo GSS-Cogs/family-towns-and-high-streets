@@ -304,7 +304,7 @@ try:
     joined_dat['High Level Indicator'] = joined_dat['High Level Indicator'].apply(pathify)
 
     joined_dat['Marker'] = ''
-    joined_dat['Marker'][joined_dat['Value'] == '*'] = 'suppressed or population zero'
+    joined_dat['Marker'][joined_dat['Value'] == '*'] = 'suppressed-or-population-zero'
     joined_dat['Value'][joined_dat['Value'] == '*'] = 0
     
     jouned_dat = joined_dat[['Data Zone','Deprivation Indicator','Indicator Type','High Level Indicator','Total population','Working age population','Marker','Value']]
