@@ -5,6 +5,18 @@ import requests
 import os
 from urllib.parse import urljoin
 
+# +
+# Make sure the dataURL and Unit values are correctb to begin with
+with open("info.json", "r") as jsonFile:
+    data = json.load(jsonFile)
+
+data["dataURL"] = "https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/01/scottish-index-of-multiple-deprivation-2020-ranks-and-domain-ranks/documents/scottish-index-of-multiple-deprivation-2020-ranks-and-domain-ranks/scottish-index-of-multiple-deprivation-2020-ranks-and-domain-ranks/govscot%3Adocument/SIMD%2B2020v2%2B-%2Branks.xlsx"
+data["transform"]["columns"]["Value"]["unit"] = "http://gss-data.org.uk/def/concept/measurement-units/ranks"
+
+with open("info.json", "w") as jsonFile:
+    json.dump(data, jsonFile)
+# -
+
 trace = TransformTrace()
 tidied_sheets = {}
 scraper = Scraper(seed="info.json")   
