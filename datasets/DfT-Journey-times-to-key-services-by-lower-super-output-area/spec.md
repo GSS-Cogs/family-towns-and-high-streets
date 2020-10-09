@@ -5,43 +5,19 @@
 
 ----------
 
-## BEIS Lower and Middle Super Output Areas electricity consumption
+## DfT Journey times to key services by lower super output area
 
 [Landing Page](https://www.gov.uk/government/statistical-data-sets/journey-time-statistics-data-tables-jts)
 
 ----------
 
-### ONLY THE FIRST DATASET IS BEING UPLOADED (YEAR 2017) TO PMD AT THE MOMENT. TRANSFORM HAS BEEN RUN ON OWN PC AND OUTPUT SAVED IN GOOGLE DOCS:
+### **Due to the size of the data and how slow the transform takes to run we have processed the data offline and then uploaded the output files to google docs. The Jenkins pipeline then processes these files instead. This will cause problems with future runs but the DE are testing out different methods of speeding things up.**
+Dataset one example - employment centres
 [observations_01.csv](https://drive.google.com/file/d/1SeekTbw2ShjSws_I5G5bTG8va0hhJ5wg/view?usp=sharing)
-### THE CODE CURRENTLY PULLS IN THIS FILE AND UPLOADS
 
 ### Stage 2. Alignment
 
 #### Dataset: JTS0502: Travel time, destination and origin indicators for Primary schools by mode of travel, Lower Super Output Area (LSOA), England (ODS, 11.7MB)
-
-		Remove columns 'Region', 'LA_Name'
-		Rename columns:
-			LSOA_code = Lower Super Output Area
-			LA_Code = Local Authority
-		Only pull in the travel time columns and flatten into new column 'Field Code':
-			100EmpPTt
-			100EmpCyct
-			100EmpCart
-			500EmpPTt
-			500EmpCyct
-			500EmpCart
-			5000EmpPTt
-			5000EmpCyct
-			5000EmpCart
-		'Field Code' codelist has been created within ref_common and reference made to it in info.json
-		Measure Type and Unit have been defined in info.json
-			Measure Type = Travel Time
-			Unit = Minutes
-
-		Family = 'towns-and-high-streets'
-		Comment = 'Travel time, destination and origin indicators for Employment centres by mode of travel, Lower Super Output Area (LSOA), England (16 to 74 year old)'
-		Dataset Title = 'Journey times for Employment centres by lower super output area (LSOA) - JTS05'
-		Dataset Path = add '/employment-centres' to end
 
 #### Dataset: JTS0503: Travel time, destination and origin indicators for Secondary schools by mode of travel, Lower Super Output Area (LSOA), England (ODS, 23MB)
 
@@ -56,6 +32,24 @@
 #### Dataset: JTS0508: Travel time, destination and origin indicators for town centres by mode of travel, Lower Super Output Area (LSOA), England (ODS, 27.7MB)
 
 #### Dataset: JTS0509: Travel time, destination and origin indicators to Pharmacies by cycle and car, Lower Super Output Area (LSOA), England (ODS, 3.96MB
+
+		Remove columns 'Region', 'LA_Name'
+		Rename columns:
+			LSOA_code = Lower Super Output Area
+			LA_Code = Local Authority
+		Only pull in the travel time columns and flatten into new column 'Field Code':
+			columns ending in PTt, Cyct, Cart
+		Other columns will have to be processed at a later date
+			
+		'Field Code' codelist has been created within ref_common and reference made to it in info.json
+		Measure Type and Unit have been defined in info.json
+			Measure Type = Travel Time
+			Unit = Minutes
+
+		Family = 'towns-and-high-streets'
+		Comment = 'Travel time, destination and origin indicators for Employment centres by mode of travel, Lower Super Output Area (LSOA), England (16 to 74 year old)'
+		Dataset Title = 'Journey times for Employment centres by lower super output area (LSOA) - JTS05'
+		Dataset Path = add '/employment-centres' to end
 
 ----------
 

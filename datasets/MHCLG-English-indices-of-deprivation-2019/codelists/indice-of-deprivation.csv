@@ -1,0 +1,54 @@
+Label,Notation,Parent Notation,Sort Priority
+Index of multiple deprivation (imd) score,index-of-multiple-deprivation-imd-score,,1
+Index of multiple deprivation (imd) rank (where 1 is most deprived),index-of-multiple-deprivation-imd-rank-where-1-is-most-deprived,,2
+Index of multiple deprivation (imd) decile (where 1 is most deprived 10% of lsoas),index-of-multiple-deprivation-imd-decile-where-1-is-most-deprived-10-of-lsoas,,3
+Income score (rate),income-score-rate,,4
+Income rank (where 1 is most deprived),income-rank-where-1-is-most-deprived,,5
+Income decile (where 1 is most deprived 10% of lsoas),income-decile-where-1-is-most-deprived-10-of-lsoas,,6
+Employment score (rate),employment-score-rate,,7
+Employment rank (where 1 is most deprived),employment-rank-where-1-is-most-deprived,,8
+Employment decile (where 1 is most deprived 10% of lsoas),employment-decile-where-1-is-most-deprived-10-of-lsoas,,9
+"Education, skills and training score",education-skills-and-training-score,,10
+"Education, skills and training rank (where 1 is most deprived)",education-skills-and-training-rank-where-1-is-most-deprived,,11
+"Education, skills and training decile (where 1 is most deprived 10% of lsoas)",education-skills-and-training-decile-where-1-is-most-deprived-10-of-lsoas,,12
+Health deprivation and disability score,health-deprivation-and-disability-score,,13
+Health deprivation and disability rank (where 1 is most deprived),health-deprivation-and-disability-rank-where-1-is-most-deprived,,14
+Health deprivation and disability decile (where 1 is most deprived 10% of lsoas),health-deprivation-and-disability-decile-where-1-is-most-deprived-10-of-lsoas,,15
+Crime score,crime-score,,16
+Crime rank (where 1 is most deprived),crime-rank-where-1-is-most-deprived,,17
+Crime decile (where 1 is most deprived 10% of lsoas),crime-decile-where-1-is-most-deprived-10-of-lsoas,,18
+Barriers to housing and services score,barriers-to-housing-and-services-score,,19
+Barriers to housing and services rank (where 1 is most deprived),barriers-to-housing-and-services-rank-where-1-is-most-deprived,,20
+Barriers to housing and services decile (where 1 is most deprived 10% of lsoas),barriers-to-housing-and-services-decile-where-1-is-most-deprived-10-of-lsoas,,21
+Living environment score,living-environment-score,,22
+Living environment rank (where 1 is most deprived),living-environment-rank-where-1-is-most-deprived,,23
+Living environment decile (where 1 is most deprived 10% of lsoas),living-environment-decile-where-1-is-most-deprived-10-of-lsoas,,24
+Income deprivation affecting children index (idaci) score (rate),income-deprivation-affecting-children-index-idaci-score-rate,,25
+Income deprivation affecting children index (idaci) rank (where 1 is most deprived),income-deprivation-affecting-children-index-idaci-rank-where-1-is-most-deprived,,26
+Income deprivation affecting children index (idaci) decile (where 1 is most deprived 10% of lsoas),income-deprivation-affecting-children-index-idaci-decile-where-1-is-most-deprived-10-of-lsoas,,27
+Income deprivation affecting older people (idaopi) score (rate),income-deprivation-affecting-older-people-idaopi-score-rate,,28
+Income deprivation affecting older people (idaopi) rank (where 1 is most deprived),income-deprivation-affecting-older-people-idaopi-rank-where-1-is-most-deprived,,29
+Income deprivation affecting older people (idaopi) decile (where 1 is most deprived 10% of lsoas),income-deprivation-affecting-older-people-idaopi-decile-where-1-is-most-deprived-10-of-lsoas,,30
+Children and young people sub domain score,children-and-young-people-sub-domain-score,,31
+Children and young people sub domain rank (where 1 is most deprived),children-and-young-people-sub-domain-rank-where-1-is-most-deprived,,32
+Children and young people sub domain decile (where 1 is most deprived 10% of lsoas),children-and-young-people-sub-domain-decile-where-1-is-most-deprived-10-of-lsoas,,33
+Adult skills sub domain score,adult-skills-sub-domain-score,,34
+Adult skills sub domain rank (where 1 is most deprived),adult-skills-sub-domain-rank-where-1-is-most-deprived,,35
+Adult skills sub domain decile (where 1 is most deprived 10% of lsoas),adult-skills-sub-domain-decile-where-1-is-most-deprived-10-of-lsoas,,36
+Geographical barriers sub domain score,geographical-barriers-sub-domain-score,,37
+Geographical barriers sub domain rank (where 1 is most deprived),geographical-barriers-sub-domain-rank-where-1-is-most-deprived,,38
+Geographical barriers sub domain decile (where 1 is most deprived 10% of lsoas),geographical-barriers-sub-domain-decile-where-1-is-most-deprived-10-of-lsoas,,39
+Wider barriers sub domain score,wider-barriers-sub-domain-score,,40
+Wider barriers sub domain rank (where 1 is most deprived),wider-barriers-sub-domain-rank-where-1-is-most-deprived,,41
+Wider barriers sub domain decile (where 1 is most deprived 10% of lsoas),wider-barriers-sub-domain-decile-where-1-is-most-deprived-10-of-lsoas,,42
+Indoors sub domain score,indoors-sub-domain-score,,43
+Indoors sub domain rank (where 1 is most deprived),indoors-sub-domain-rank-where-1-is-most-deprived,,44
+Indoors sub domain decile (where 1 is most deprived 10% of lsoas),indoors-sub-domain-decile-where-1-is-most-deprived-10-of-lsoas,,45
+Outdoors sub domain score,outdoors-sub-domain-score,,46
+Outdoors sub domain rank (where 1 is most deprived),outdoors-sub-domain-rank-where-1-is-most-deprived,,47
+Outdoors sub domain decile (where 1 is most deprived 10% of lsoas),outdoors-sub-domain-decile-where-1-is-most-deprived-10-of-lsoas,,48
+Total population: mid 2015 (excluding prisoners),total-population-mid-2015-excluding-prisoners,,49
+Dependent children aged 0 15: mid 2015 (excluding prisoners),dependent-children-aged-0-15-mid-2015-excluding-prisoners,,50
+Population aged 16 59: mid 2015 (excluding prisoners),population-aged-16-59-mid-2015-excluding-prisoners,,51
+Older population aged 60 and over: mid 2015 (excluding prisoners),older-population-aged-60-and-over-mid-2015-excluding-prisoners,,52
+Working age population 18 59/64: for use with employment deprivation domain (excluding prisoners) ,working-age-population-18-59/64-for-use-with-employment-deprivation-domain-excluding-prisoners,,53

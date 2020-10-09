@@ -1,5 +1,6 @@
 from gssutils import * 
 import json
+import math
 
 info = json.load(open('info.json')) 
 #etl_title = info["Name"] 
@@ -11,227 +12,314 @@ scraper = Scraper(seed="info.json")
 scraper 
 
 
+tidied_sheets = []
+trace = TransformTrace()
+df = pd.DataFrame()
+
 # +
-#Local authority prepayment electricity meters distribution
+# #### Distribution 1 : Local authority prepayment electricity meters distribution
+#KEY: lapem2017 = Local authority prepayment electricity meters 2017
+
 datasetTitle1 = 'BEIS Electric Prepayment Meter Statistics'
 lapem2017_tabs = { tab.name: tab for tab in scraper.distributions[0].as_databaker() }
 wanted_lapem2017_tabs = lapem2017_tabs["2017"]
 
-tidied_sheets = []
-
-trace1 = TransformTrace()
-df1 = pd.DataFrame()
-
-
-lapem2017_columns = ["PERIOD", "REGION", "LOCAL AUTHORITY", "LA CODE", "LAU1", "METERS", "MEASURE TYPES"]
-trace1.start(datasetTitle1, wanted_lapem2017_tabs, lapem2017_columns, scraper.distributions[0].downloadURL)
+lapem2017_columns = ["PERIOD", "REGION", "LOCAL AUTHORITY", "LA CODE", "LAU1", "METERS", "MEASURE TYPES", "UNIT"]
+trace.start(datasetTitle1, wanted_lapem2017_tabs, lapem2017_columns, scraper.distributions[0].downloadURL)
 
 lapem2017_region = wanted_lapem2017_tabs.excel_ref("A4").expand(DOWN).is_not_blank()
-trace1.REGION("Selected as all non-blank values from cell ref A4 down.")
+trace.REGION("Selected as all non-blank values from cell ref A4 down.")
 
 lapem2017_local_authority = wanted_lapem2017_tabs.excel_ref("B4").expand(DOWN).is_not_blank()
-trace1.LOCAL_AUTHORITY("Selected as all non-blank values from cell ref B4 down.")
+trace.LOCAL_AUTHORITY("Selected as all non-blank values from cell ref B4 down.")
 
 lapem2017_la_code = wanted_lapem2017_tabs.excel_ref("C4").expand(DOWN).is_not_blank()
-trace1.LA_CODE("Selected as all non-blank values from cell ref C4 down.")
+trace.LA_CODE("Selected as all non-blank values from cell ref C4 down.")
 
 lapem2017_lau1 = wanted_lapem2017_tabs.excel_ref("D4").expand(DOWN).is_not_blank()
-trace1.LAU1("Selected as all non-blank values from cell ref D4 down.")
+trace.LAU1("Selected as all non-blank values from cell ref D4 down.")
 
 lapem2017_meters = wanted_lapem2017_tabs.excel_ref("E4").expand(DOWN).is_not_blank()
-trace1.METERS("Selected as all non-blank values from cell ref E4 down.")
+trace.METERS("Selected as all non-blank values from cell ref E4 down.")
 
 lapem2017_kilowatt_hours = wanted_lapem2017_tabs.excel_ref("F3").expand(RIGHT).is_not_blank()
-trace1.MEASURE_TYPES("Selected as all non-blank values from cell ref F3 going right/across.")
+trace.MEASURE_TYPES("Selected as all non-blank values from cell ref F3 going right/across.")
 
 lapem2017_period = "2017" #Would be better if this was taken directly from the tab title
-trace1.PERIOD("Hardcoded but could have been taken from the dataset title or tab title.")
+trace.PERIOD("Hardcoded but could have been taken from the dataset title or tab title.")
+
+lapem2017_unit = "kWh"
+trace.UNIT("Hardcoded but could have been taken from the measure type's heading.")
 
 lapem2017_observations = wanted_lapem2017_tabs.excel_ref("F4").expand(RIGHT).expand(DOWN).is_not_blank()
 
 lapem2017_dimensions = [
-    HDimConst('PERIOD', lapem2017_period),
-    HDim(lapem2017_region, "REGION", CLOSEST, ABOVE),
-    HDim(lapem2017_local_authority, "LOCAL AUTHORITY", CLOSEST, ABOVE),
-    HDim(lapem2017_la_code, "LA CODE", CLOSEST, ABOVE),
+    HDimConst("Period", lapem2017_period),
+    HDim(lapem2017_region, "Region", CLOSEST, ABOVE),
+    HDim(lapem2017_local_authority, "Local Authority", CLOSEST, ABOVE),
+    HDim(lapem2017_la_code, "LA Code", CLOSEST, ABOVE),
     HDim(lapem2017_lau1, "LAU1", CLOSEST, ABOVE),
-    HDim(lapem2017_meters, "METERS", CLOSEST, ABOVE),
-    HDim(lapem2017_kilowatt_hours, "MEASURE TYPES", DIRECTLY, ABOVE)
+    HDim(lapem2017_meters, "Meters", CLOSEST, ABOVE),
+    HDim(lapem2017_kilowatt_hours, "Measure Types", DIRECTLY, ABOVE),
+    HDimConst("Unit", lapem2017_unit)
 ]
 
 lapem2017_tidy_sheet = ConversionSegment(wanted_lapem2017_tabs, lapem2017_dimensions, lapem2017_observations)
-trace1.with_preview(lapem2017_tidy_sheet)
+trace.with_preview(lapem2017_tidy_sheet)
 #savepreviewhtml(lapem2017_tidy_sheet)
-trace1.store("combined_dataframe", lapem2017_tidy_sheet.topandas())
+trace.store("combined_dataframe_1", lapem2017_tidy_sheet.topandas())
 
-tidied_sheets.append(lapem2017_tidy_sheet.topandas())
+df = trace.combine_and_trace(datasetTitle1, "combined_dataframe_1")
+df.rename(columns={'OBS' : 'Value'}, inplace=True)
+trace.output()
 
-final_sheet = pd.concat(tidied_sheets)
-    
-final_sheet
+tidy_d1 = df[["Period", "Region", "Local Authority", "LA Code", "LAU1", "Meters", "Measure Types", "Unit", "Value"]]
+tidy_d1
+
 
 # +
-#MSOA prepayment electricity meters 2017
+# #### DISTRIBUTION 2 : MSOA prepayment electricity meters 2017
 datasetTitle2 = "Middle Layer Super Output Area (MSOA) prepayment electricity meter consumption, 2017"
 msoa2017_tabs = { tab.name: tab for tab in scraper.distributions[1].as_databaker() }
 wanted_msoa2017_tabs = msoa2017_tabs["MSOA Domestic Electricity 2017"]
 
-trace2 = TransformTrace()
-df2 = pd.DataFrame()
+msoa2017_tidy_sheet_list = [] # list of dataframes for each iteration
+msoa2017_tidy_sheet_iteration = []
+msoa2017_cs_list = [] # list of conversionsegments for each iteration
 
-msoa2017_columns = ["PERIOD", "LA NAME", "LA CODE", "MSOA NAME", "MSOA CODE", "METERS", "MEASURE TYPES"]
-trace2.start(datasetTitle2, wanted_msoa2017_tabs, msoa2017_columns, scraper.distributions[1].downloadURL)
+msoa2017_columns = ["PERIOD", "LA NAME", "LA CODE", "MSOA NAME", "MSOA CODE", "METERS", "MEASURE TYPES", "UNIT"]
+trace.start(datasetTitle2, wanted_msoa2017_tabs, msoa2017_columns, scraper.distributions[1].downloadURL)
 
-msoa2017_la_name = wanted_msoa2017_tabs.excel_ref("A4").expand(DOWN).is_not_blank()
-trace2.LA_NAME("Selected as all non-blank values from cell ref A4 down.")
-
-msoa2017_la_code = wanted_msoa2017_tabs.excel_ref("B4").expand(DOWN).is_not_blank()
-trace2.LA_CODE("Selected as all non-blank values from cell ref B4 down.")
-
-msoa2017_msoa_name = wanted_msoa2017_tabs.excel_ref("C4").expand(DOWN).is_not_blank()
-trace2.MSOA_NAME("Selected as all non-blank values from cell ref C4 down.")
-
-msoa2017_msoa_code = wanted_msoa2017_tabs.excel_ref("D4").expand(DOWN).is_not_blank()
-trace2.MSOA_CODE("Selected as all non-blank values from cell ref D4 down.")
-
-msoa2017_meters = wanted_msoa2017_tabs.excel_ref("E4").expand(DOWN).is_not_blank()
-trace2.METERS("Selected as all non-blank values from cell ref E4 down.")
-
-msoa2017_kilowatt_hours = wanted_msoa2017_tabs.excel_ref("F3").expand(RIGHT).is_not_blank()
-trace2.MEASURE_TYPES("Selected as all non-blank values from cell ref F3 going right/across.")
-
-msoa2017_period = "2017"
-trace2.PERIOD("Hardcoded but could have been taken from the dataset title or tab title.")
-
-msoa2017_observations = wanted_msoa2017_tabs.excel_ref("F4").expand(RIGHT).expand(DOWN).is_not_blank()
-
-msoa2017_dimensions = [
-    HDimConst('PERIOD', msoa2017_period),
-    HDim(msoa2017_la_name, "LA NAME", CLOSEST, ABOVE),
-    HDim(msoa2017_la_code, "LA CODE", CLOSEST, ABOVE),
-    HDim(msoa2017_msoa_name, "MSOA NAME", CLOSEST, ABOVE),
-    HDim(msoa2017_msoa_code, "MSOA CODE", CLOSEST, ABOVE),
-    HDim(msoa2017_meters, "METERS", CLOSEST, ABOVE),
-    HDim(msoa2017_kilowatt_hours, "MEASURE TYPES", DIRECTLY, ABOVE)
-]
-
-msoa2017_tidy_sheet = ConversionSegment(wanted_msoa2017_tabs, msoa2017_dimensions, msoa2017_observations)
-trace2.with_preview(msoa2017_tidy_sheet)
-#savepreviewhtml(msoa2017_tidy_sheet)
-trace2.store("combined_dataframe", msoa2017_tidy_sheet.topandas())
-
-tidied_sheets.append(msoa2017_tidy_sheet.topandas())
-
-final_sheet = pd.concat(tidied_sheets)
+tab_length = len(wanted_msoa2017_tabs.excel_ref('A')) # number of rows of data
+batch_number = 10 # iterates over this many rows at a time
+number_of_iterations = math.ceil(tab_length/batch_number) # databaking will iterate this many times
+            
+for i in range(0, number_of_iterations):
+    Min = str(4 + batch_number * i)  # data starts on row 4
+    Max = str(int(Min) + batch_number - 1)
     
-final_sheet
+    msoa2017_la_name = wanted_msoa2017_tabs.excel_ref("A"+Min+":A"+Max).is_not_blank()
+    
+    msoa2017_la_code = wanted_msoa2017_tabs.excel_ref("B"+Min+":B"+Max).is_not_blank()
+    
+    msoa2017_msoa_name = wanted_msoa2017_tabs.excel_ref("C"+Min+":C"+Max).is_not_blank()
+    
+    msoa2017_msoa_code = wanted_msoa2017_tabs.excel_ref("D"+Min+":D"+Max).is_not_blank()
+    
+    msoa2017_meters = wanted_msoa2017_tabs.excel_ref("E"+Min+":E"+Max).is_not_blank()
+    
+    msoa2017_kilowatt_hours = wanted_msoa2017_tabs.excel_ref("F3").expand(RIGHT).is_not_blank()
+
+    msoa2017_period = "2017"
+    
+    msoa2017_unit = "kWh"    
+
+    msoa2017_observations = wanted_msoa2017_tabs.excel_ref("F"+Min+":H"+Max).is_not_blank()
+    #msoa2017_observations = msoa2017_meters.waffle(msoa2017_kilowatt_hours) #This doubles the expected number of returned rows
+
+    msoa2017_dimensions = [
+        HDimConst('Period', msoa2017_period),
+        HDim(msoa2017_la_name, "LA Name", CLOSEST, ABOVE),
+        HDim(msoa2017_la_code, "LA Code", CLOSEST, ABOVE),
+        HDim(msoa2017_msoa_name, "MSOA Name", CLOSEST, ABOVE),
+        HDim(msoa2017_msoa_code, "MSOA Code", CLOSEST, ABOVE),
+        HDim(msoa2017_meters, "Meters", CLOSEST, ABOVE),
+        HDim(msoa2017_kilowatt_hours, "Measure Types", DIRECTLY, ABOVE),
+        HDimConst("Unit", msoa2017_unit)
+    ]
+
+    if len(msoa2017_observations) != 0: # only use ConversionSegment if there is data
+        msoa2017_cs_iteration = ConversionSegment(wanted_msoa2017_tabs, msoa2017_dimensions, msoa2017_observations) # creating the conversionsegment
+        msoa2017_tidy_sheet_iteration = msoa2017_cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
+        msoa2017_cs_list.append(msoa2017_cs_iteration) # add to list
+        msoa2017_tidy_sheet_list.append(msoa2017_tidy_sheet_iteration) # add to list
+                    
+msoa2017_tidy_sheet = pd.concat(msoa2017_tidy_sheet_list, sort=False) # dataframe for the whole tab
+
+trace.LA_NAME("Selected as all non-blank values from cell ref A4 down.")
+trace.LA_CODE("Selected as all non-blank values from cell ref B4 down.")
+trace.MSOA_NAME("Selected as all non-blank values from cell ref C4 down.")
+trace.MSOA_CODE("Selected as all non-blank values from cell ref D4 down.")
+trace.METERS("Selected as all non-blank values from cell ref E4 down.")
+trace.MEASURE_TYPES("Selected as all non-blank values from cell ref F3 going right/across.")
+trace.PERIOD("Hardcoded but could have been taken from the dataset title or tab title.")
+trace.UNIT("Hardcoded but could have been taken from the measure type's heading.")
+
+trace.store("combined_dataframe_2", msoa2017_tidy_sheet)
+
+df = trace.combine_and_trace(datasetTitle2, "combined_dataframe_2")
+df.rename(columns={'OBS' : 'Value'}, inplace=True)
+trace.output()
+
+tidy_d2 = df[["Period", "LA Name", "LA Code", "MSOA Name", "MSOA Code", "Meters", "Measure Types", "Unit", "Value"]]
+tidy_d2
+
+
 # +
-#LSOA prepayment electricity meters 2017
+# #### DISTRIBUTION 3 : LSOA prepayment electricity meters 2017
+
 datasetTitle3 = "Lower Layer Super Output Area (LSOA)  prepayment electricity meter consumption, 2017"
 lsoa2017_tabs = { tab.name: tab for tab in scraper.distributions[2].as_databaker() }
 wanted_lsoa2017_tabs = lsoa2017_tabs["LSOA Dom Elec 2017"]
 
-trace3 = TransformTrace()
-df3 = pd.DataFrame()
+lsoa2017_tidy_sheet_list = [] # list of dataframes for each iteration
+lsoa2017_tidy_sheet_iteration = []
+lsoa2017_cs_list = [] # list of conversionsegments for each iteration
 
-lsoa2017_columns = ["PERIOD", "LA NAME", "LA CODE", "MSOA NAME", "MSOA CODE", "LSOA NAME", "LSOA CODE", "METERS", "MEASURE TYPES"]
-trace3.start(datasetTitle3, wanted_lsoa2017_tabs, lsoa2017_columns, scraper.distributions[2].downloadURL)
+lsoa2017_columns = ["PERIOD", "LA NAME", "LA CODE", "MSOA NAME", "MSOA CODE", "LSOA NAME", "LSOA CODE", "METERS", "MEASURE TYPES", "UNIT"]
+trace.start(datasetTitle3, wanted_lsoa2017_tabs, lsoa2017_columns, scraper.distributions[2].downloadURL)
 
-lsoa2017_la_name = wanted_lsoa2017_tabs.excel_ref("A3").expand(DOWN).is_not_blank()
-trace3.LA_NAME("Selected as all non-blank values from cell ref A3 down.")
+tab_length = len(wanted_lsoa2017_tabs.excel_ref('A')) # number of rows of data
+batch_number = 10 # iterates over this many rows at a time
+number_of_iterations = math.ceil(tab_length/batch_number) # databaking will iterate this many times
 
-lsoa2017_la_code = wanted_lsoa2017_tabs.excel_ref("B3").expand(DOWN).is_not_blank()
-trace3.LA_CODE("Selected as all non-blank values from cell ref B3 down.")
+for i in range(0, number_of_iterations):
+    Min = str(3 + batch_number * i)  # data starts on row 3
+    Max = str(int(Min) + batch_number - 1)
 
-lsoa2017_msoa_name = wanted_lsoa2017_tabs.excel_ref("C3").expand(DOWN).is_not_blank()
-trace3.MSOA_NAME("Selected as all non-blank values from cell ref C3 down.")
-
-lsoa2017_msoa_code = wanted_lsoa2017_tabs.excel_ref("D3").expand(DOWN).is_not_blank()
-trace3.MSOA_CODE("Selected as all non-blank values from cell ref D3 down.")
-
-lsoa2017_lsoa_name = wanted_lsoa2017_tabs.excel_ref("E3").expand(DOWN).is_not_blank()
-trace3.LSOA_NAME("Selected as all non-blank values from cell ref E3 down.")
-
-lsoa2017_lsoa_code = wanted_lsoa2017_tabs.excel_ref("F3").expand(DOWN).is_not_blank()
-trace3.LSOA_CODE("Selected as all non-blank values from cell ref F3 down.")
-
-lsoa2017_meters = wanted_lsoa2017_tabs.excel_ref("H3").expand(DOWN).is_not_blank()
-trace3.METERS("Selected as all non-blank values from cell ref H3 down.")
-
-lsoa2017_kilowatt_hours = wanted_lsoa2017_tabs.excel_ref("2").filter(contains_string("(kWh)")).is_not_blank()
-trace3.MEASURE_TYPES("Selected as all non-blank values from cell ref (row) 2 and filtering for all values containing the string '(kWh)'.")
-
-lsoa2017_period = "2017"
-trace3.REGION("Hardcoded but could have been taken from the dataset title or tab title.")
-
-lsoa2017_observations = wanted_lsoa2017_tabs.excel_ref("2").filter(contains_string("(kWh)")).fill(DOWN).is_not_blank()
-
-lsoa2017_dimensions = [
-    HDimConst('PERIOD', lsoa2017_period),
-    HDim(lsoa2017_la_name, "LA NAME", CLOSEST, ABOVE),
-    HDim(lsoa2017_la_code, "LA CODE", CLOSEST, ABOVE),
-    HDim(lsoa2017_msoa_name, "MSOA NAME", CLOSEST, ABOVE),
-    HDim(lsoa2017_msoa_code, "MSOA CODE", CLOSEST, ABOVE),
-    HDim(lsoa2017_lsoa_name, "LSOA NAME", CLOSEST, ABOVE),
-    HDim(lsoa2017_lsoa_code, "LSOA CODE", CLOSEST, ABOVE),
-    HDim(lsoa2017_meters, "METERS", CLOSEST, ABOVE),
-    HDim(lsoa2017_kilowatt_hours, "MEASURE TYPES", DIRECTLY, ABOVE)
-]
-
-lsoa2017_tidy_sheet = ConversionSegment(wanted_lsoa2017_tabs, lsoa2017_dimensions, lsoa2017_observations)
-trace3.with_preview(lsoa2017_tidy_sheet)
-#savepreviewhtml(lsoa2017_tidy_sheet)
-trace3.store("combined_dataframe", lsoa2017_tidy_sheet.topandas())
-
-tidied_sheets.append(lsoa2017_tidy_sheet.topandas())
-
-final_sheet = pd.concat(tidied_sheets)
+    lsoa2017_la_name = wanted_lsoa2017_tabs.excel_ref("A"+Min+":A"+Max).is_not_blank()
     
-final_sheet
+    lsoa2017_la_code = wanted_lsoa2017_tabs.excel_ref("B"+Min+":B"+Max).is_not_blank()
+    
+    lsoa2017_msoa_name = wanted_lsoa2017_tabs.excel_ref("C"+Min+":C"+Max).is_not_blank()
+    
+    lsoa2017_msoa_code = wanted_lsoa2017_tabs.excel_ref("D"+Min+":D"+Max).is_not_blank()
+    
+    lsoa2017_lsoa_name = wanted_lsoa2017_tabs.excel_ref("E"+Min+":E"+Max).is_not_blank()
+    
+    lsoa2017_lsoa_code = wanted_lsoa2017_tabs.excel_ref("F"+Min+":F"+Max).is_not_blank()
+    
+    lsoa2017_meters = wanted_lsoa2017_tabs.excel_ref("H"+Min+":H"+Max).is_not_blank()
+    
+    lsoa2017_kilowatt_hours = wanted_lsoa2017_tabs.excel_ref("2").filter(contains_string("(kWh)")).is_not_blank()
+    
+    lsoa2017_period = "2017"
+    
+    lsoa2017_unit = "kWh"
+    
+    #Note: Alternative observation extraction methods kept for my own benifit to be referred back to later.
+    lsoa2017_observations = wanted_lsoa2017_tabs.excel_ref("G"+Min+":G"+Max) | wanted_lsoa2017_tabs.excel_ref("I"+Min+":J"+Max)
+    #lsoa2017_observations = wanted_lsoa2017_tabs.excel_ref("G"+Min+":J"+Max) - wanted_lsoa2017_tabs.excel_ref("H") #This doubles the expected number of returned rows
+    #lsoa2017_observations = lsoa2017_lsoa_code.waffle(lsoa2017_kilowatt_hours) #This triples the expected number of returned rows
+    
+    lsoa2017_dimensions = [
+        HDimConst("Period", lsoa2017_period),
+        HDim(lsoa2017_la_name, "LA Name", CLOSEST, ABOVE),
+        HDim(lsoa2017_la_code, "LA Code", CLOSEST, ABOVE),
+        HDim(lsoa2017_msoa_name, "MSOA Name", CLOSEST, ABOVE),
+        HDim(lsoa2017_msoa_code, "MSOA Code", CLOSEST, ABOVE),
+        HDim(lsoa2017_lsoa_name, "LSOA Name", CLOSEST, ABOVE),
+        HDim(lsoa2017_lsoa_code, "LSOA Code", CLOSEST, ABOVE),
+        HDim(lsoa2017_meters, "Meters", CLOSEST, ABOVE),
+        HDim(lsoa2017_kilowatt_hours, "Measure Types", DIRECTLY, ABOVE),
+        HDimConst("Unit", lsoa2017_unit)
+    ]
+    
+    if len(lsoa2017_observations) != 0: # only use ConversionSegment if there is data
+        lsoa2017_cs_iteration = ConversionSegment(wanted_lsoa2017_tabs, lsoa2017_dimensions, lsoa2017_observations) # creating the conversionsegment
+        lsoa2017_tidy_sheet_iteration = lsoa2017_cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
+        lsoa2017_cs_list.append(lsoa2017_cs_iteration) # add to list
+        lsoa2017_tidy_sheet_list.append(lsoa2017_tidy_sheet_iteration) # add to list
+
+lsoa2017_tidy_sheet = pd.concat(lsoa2017_tidy_sheet_list, sort=False) # dataframe for the whole tab
+
+trace.LA_NAME("Selected as all non-blank values from cell ref A3 down.")
+trace.LA_CODE("Selected as all non-blank values from cell ref B3 down.")
+trace.MSOA_NAME("Selected as all non-blank values from cell ref C3 down.")    
+trace.MSOA_CODE("Selected as all non-blank values from cell ref D3 down.")
+trace.LSOA_NAME("Selected as all non-blank values from cell ref E3 down.")
+trace.LSOA_CODE("Selected as all non-blank values from cell ref F3 down.")
+trace.METERS("Selected as all non-blank values from cell ref H3 down.")
+trace.MEASURE_TYPES("Selected as all non-blank values from cell ref (row) 2 and filtering for all values containing the string '(kWh)'.")
+trace.PERIOD("Hardcoded but could have been taken from the dataset title or tab title.")
+trace.UNIT("Hardcoded but could have been taken from the measure type's heading.")
+
+trace.store("combined_dataframe_3", lsoa2017_tidy_sheet)
+
+df = trace.combine_and_trace(datasetTitle3, "combined_dataframe_3")
+df.rename(columns={'OBS' : 'Value'}, inplace=True)
+trace.output()
+
+tidy_d3 = df[["Period", "LA Name", "LA Code", "MSOA Name", "LSOA Code", "Meters", "Measure Types", "Unit", "Value"]]
+tidy_d3
+
 # +
-#Postcode prepayment electricity meters 2017
+# #### DISTRIBUTION 4 : Postcode prepayment electricity meters 2017
+#KEY: plpem2017 = Postcode prepayment electricity meters 2017
+
 datasetTitle4 = "Postcode level prepayment electric meter consumption, 2017"
 plpem2017_tabs = { tab.name: tab for tab in scraper.distributions[3].as_databaker() }
 wanted_plpem2017_tabs = plpem2017_tabs["Postcode-prepayment-electricity"]
 
-trace4 = TransformTrace()
-df4 = pd.DataFrame()
+plpem2017_tidy_sheet_list = [] # list of dataframes for each iteration
+plpem2017_tidy_sheet_iteration = []
+plpem2017_cs_list = [] # list of conversionsegments for each iteration
 
-plpem2017_columns = ["PERIOD", "POSTCODES", "METERS", "MEASURE TYPES"]
-trace4.start(datasetTitle4, wanted_plpem2017_tabs, plpem2017_columns, scraper.distributions[3].downloadURL)
+plpem2017_columns = ["PERIOD", "POSTCODES", "METERS", "MEASURE TYPES", "UNIT"]
+trace.start(datasetTitle4, wanted_plpem2017_tabs, plpem2017_columns, scraper.distributions[3].downloadURL)
 
-plpem2017_postcodes = wanted_plpem2017_tabs.excel_ref("A2").expand(DOWN).is_not_blank()
-trace4.POSTCODES("Selected as all non-blank values from cell ref A2 down.")
+tab_length = len(wanted_plpem2017_tabs.excel_ref('A')) # number of rows of data
+batch_number = 10 # iterates over this many rows at a time
+number_of_iterations = math.ceil(tab_length/batch_number) # databaking will iterate this many times
+            
+for i in range(0, number_of_iterations):
+    Min = str(2 + batch_number * i)  # data starts on row 2
+    Max = str(int(Min) + batch_number - 1)
 
-plpem2017_meters = wanted_plpem2017_tabs.excel_ref("B2").expand(DOWN).is_not_blank()
-trace4.METERS("Selected as all non-blank values from cell ref B2 down.")
-
-plpem2017_kilowatt_hours = wanted_plpem2017_tabs.excel_ref("C1").expand(RIGHT).is_not_blank()
-trace4.MEASURE_TYPES("Selected as all non-blank values from cell ref C1 going right/across.")
-
-plpem2017_period = "2017"
-trace4.PERIOD("Hardcoded but could have been taken from the dataset title.")
-
-plpem2017_observations = wanted_plpem2017_tabs.excel_ref("C2").expand(RIGHT).expand(DOWN).is_not_blank()
-
-plpem2017_dimensions = [
-    HDimConst('PERIOD', plpem2017_period),
-    HDim(plpem2017_postcodes, "POSTCODES", CLOSEST, ABOVE),
-    HDim(plpem2017_meters, "METERS", CLOSEST, ABOVE),
-    HDim(plpem2017_kilowatt_hours, "MEASURE TYPES", DIRECTLY, ABOVE),
-]
-
-plpem2017_tidy_sheet = ConversionSegment(wanted_plpem2017_tabs, plpem2017_dimensions, plpem2017_observations)
-trace4.with_preview(plpem2017_tidy_sheet)
-#savepreviewhtml(plpem2017_tidy_sheet)
-trace4.store("combined_dataframe", plpem2017_tidy_sheet.topandas())
-
-tidied_sheets.append(plpem2017_tidy_sheet.topandas())
-
-final_sheet = pd.concat(tidied_sheets)
+    plpem2017_postcodes = wanted_plpem2017_tabs.excel_ref("A"+Min+":A"+Max).is_not_blank()
     
-final_sheet
-# -
+    plpem2017_meters = wanted_plpem2017_tabs.excel_ref("B"+Min+":B"+Max).is_not_blank()
+    
+    plpem2017_kilowatt_hours = wanted_plpem2017_tabs.excel_ref("C1").expand(RIGHT).is_not_blank()
+    
+    plpem2017_period = "2017"
+    
+    plpem2017_unit = "kWh"
+    
+    #plpem2017_observations = wanted_plpem2017_tabs.excel_ref("C2").expand(RIGHT).expand(DOWN).is_not_blank()
+    plpem2017_observations = wanted_plpem2017_tabs.excel_ref("C"+Min+":E"+Max).is_not_blank()
+    #plpem2017_observations = plpem2017_meters.waffle(plpem2017_kilowatt_hours)
 
+    plpem2017_dimensions = [
+        HDimConst("Period", plpem2017_period),
+        HDim(plpem2017_postcodes, "Postcodes", CLOSEST, ABOVE),
+        HDim(plpem2017_meters, "Meters", CLOSEST, ABOVE),
+        HDim(plpem2017_kilowatt_hours, "Measure Types", DIRECTLY, ABOVE),
+        HDimConst("Unit", plpem2017_unit)
+    ]
+
+    if len(plpem2017_observations) != 0: # only use ConversionSegment if there is data
+        plpem2017_cs_iteration = ConversionSegment(wanted_plpem2017_tabs, plpem2017_dimensions, plpem2017_observations) # creating the conversionsegment
+        plpem2017_tidy_sheet_iteration = plpem2017_cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
+        plpem2017_cs_list.append(plpem2017_cs_iteration) # add to list
+        plpem2017_tidy_sheet_list.append(plpem2017_tidy_sheet_iteration) # add to list
+
+plpem2017_tidy_sheet = pd.concat(plpem2017_tidy_sheet_list, sort=False) # dataframe for the whole tab
+
+trace.POSTCODES("Selected as all non-blank values from cell ref A2 down.")
+trace.METERS("Selected as all non-blank values from cell ref B2 down.")
+trace.MEASURE_TYPES("Selected as all non-blank values from cell ref C1 going right/across.")
+trace.PERIOD("Hardcoded but could have been taken from the dataset title.")
+trace.UNIT("Hardcoded but could have been taken from the measure type's heading.")
+
+trace.store("combined_dataframe_4", plpem2017_tidy_sheet)
+
+df = trace.combine_and_trace(datasetTitle4, "combined_dataframe_4")
+df.rename(columns={'OBS' : 'Value'}, inplace=True)
+trace.output()
+
+tidy_d4 = df[["Period", "Postcodes", "Meters", "Measure Types", "Unit", "Value"]]
+tidy_d4
+
+# +
+#Outputs:
+    #tidy_d1 = Local authority prepayment electricity meters 2017
+    #tidy_d1 = MSOA prepayment electricity meters 2017
+    #tidy_d1 = LSOA prepayment electricity meters 2017
+    #tidy_d1 = Postcode prepayment electricity meters 2017
+    
+#Notes:
+    #When running each tab, a large number of blank lines will be printed before the completed table.
+# -
 
 
