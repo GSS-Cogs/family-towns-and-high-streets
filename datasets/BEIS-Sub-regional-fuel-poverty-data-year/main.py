@@ -341,8 +341,8 @@ yr = '2020'
 csvName = 'observations.csv'
 out = Path('out')
 out.mkdir(exist_ok=True)
-#all_dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
-all_dat.drop_duplicates().to_csv(out / csvName, index = False)
+all_dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+#all_dat.drop_duplicates().to_csv(out / csvName, index = False)
 
 notes = """
 Report available here:
