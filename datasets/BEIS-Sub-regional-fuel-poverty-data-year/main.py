@@ -341,7 +341,8 @@ yr = '2020'
 csvName = 'observations.csv'
 out = Path('out')
 out.mkdir(exist_ok=True)
-all_dat.drop_duplicates().to_csv(out / csvName, index = False)
+all_dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+#all_dat.drop_duplicates().to_csv(out / csvName, index = False)
 
 scraper.dataset.family = 'towns-high-streets'
 scraper.dataset.description = scraper.dataset.description + '\nReport available here:\n' + 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/882192/fuel-poverty-sub-regional-2020.pdf'
