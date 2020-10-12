@@ -16,7 +16,19 @@
     },
     "transform": {
         "airtable": "recpFOfrH0XefjfbJ",
-        "main_issue": 13
+        "main_issue": 13,
+        "columns": {
+            "Geography Code": {
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
+                "value": "http://statistics.data.gov.uk/id/statistical-geography/{geography_code}",
+                "description": "ONS Geography code by English Region, Local Authority, Lower layer super output area, County and Parliamentary Constituency"
+            },
+            "Value": {
+                "unit": "http://gss-data.org.uk/def/concept/measurement-units/households",
+                "measure": "http://gss-data.org.uk/def/measure/count",
+                "datatype": "integer"
+            }
+        }
     },
     "sizingNotes": "Simple table structure, straightforward dimensions with some footnotes.",
     "notes": ""
