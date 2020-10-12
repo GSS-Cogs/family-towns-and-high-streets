@@ -103,7 +103,8 @@ https://www.gov.uk/government/publications/english-indices-of-deprivation-2019-t
 csvName = 'observations.csv'
 out = Path('out')
 out.mkdir(exist_ok=True)
-joined_dat.drop_duplicates().to_csv(out / csvName, index = False)
+#joined_dat.drop_duplicates().to_csv(out / csvName, index = False)
+joined_dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 
 scraper.dataset.family = 'towns-high-streets'
 scraper.dataset.description = notes
