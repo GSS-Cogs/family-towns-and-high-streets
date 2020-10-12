@@ -341,11 +341,25 @@ yr = '2020'
 csvName = 'observations.csv'
 out = Path('out')
 out.mkdir(exist_ok=True)
-all_dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
-#all_dat.drop_duplicates().to_csv(out / csvName, index = False)
+#all_dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+all_dat.drop_duplicates().to_csv(out / csvName, index = False)
+
+notes = """
+Report available here:
+
+https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/882192/fuel-poverty-sub-regional-2020.pdf
+
+Household and fuel poverty numbers at region level come from the national fuel poverty statistics, 2018
+
+Geographies are based on pre-2012 geography codes. More information on geography code changes can be found at the ONS website
+
+Estimates should only be used to look at general trends and identify areas of particularly high or low fuel poverty. See Sub-regional fuel poverty report, 2020
+
+Estimates of fuel poverty at Lower Super Output Area (LSOA) should be treated with caution. The estimates should only be used to look at general trends and identify areas of particularly high or low fuel poverty. They should not be used to identify trends over time within an LSOA, or to compare LSOAs with similar fuel poverty levels due to very small sample sizes and consequent instability in estimates at this level. See Sub-regional fuel poverty report, 2020
+"""
 
 scraper.dataset.family = 'towns-high-streets'
-scraper.dataset.description = scraper.dataset.description + '\nReport available here:\n' + 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/882192/fuel-poverty-sub-regional-2020.pdf'
+scraper.dataset.description = scraper.dataset.description + notes
 scraper.dataset.comment = f'Fuel poverty data measured as low income high costs {yr} - Region, Local Authority, LSOA, County and Parliamentary Constituency'
 scraper.dataset.title = 'Sub-regional fuel poverty data - England'
 
