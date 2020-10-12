@@ -174,8 +174,9 @@ try:
     csvName = fn[i]
     out = Path('out')
     out.mkdir(exist_ok=True)
-    joined_dat.drop_duplicates().to_csv(out / csvName, index = False)
-
+    #joined_dat.drop_duplicates().to_csv(out / csvName, index = False)
+    joined_dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+    
     scraper.dataset.family = 'towns-high-streets'
     scraper.dataset.description = scraper.dataset.description + '\n' + de[i]
     scraper.dataset.comment = co[i]
@@ -324,8 +325,9 @@ try:
     csvName = fn[i]
     out = Path('out')
     out.mkdir(exist_ok=True)
-    joined_dat.drop_duplicates().to_csv(out / csvName, index = False)
-
+    #joined_dat.drop_duplicates().to_csv(out / csvName, index = False)
+    joined_dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+    
     scraper.dataset.family = 'towns-high-streets'
     scraper.dataset.description = scraper.dataset.description + '\n' + de[i]
     scraper.dataset.comment = co[i]
