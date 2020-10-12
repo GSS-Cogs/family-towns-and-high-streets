@@ -312,13 +312,13 @@ except Exception as s:
 i = 0
 all_dat = pd.DataFrame(columns=['Geography Code', 'Geography Level', 'Household Measure', 'Value'])
 for j in joined_dat:
-    print('Joined data ' + str(i+1) + ': ' + str(j['Value'].count()))
+    #print('Joined data ' + str(i+1) + ': ' + str(j['Value'].count()))
     j.insert(1, 'Geography Level', j.columns[0])
     j = j.rename(columns={j.columns[0]:'Geography Code'})
-    print(list(j.columns))
+    #print(list(j.columns))
     
     all_dat = pd.concat([all_dat,j])
-    print(all_dat['Value'].count())
+    #print(all_dat['Value'].count())
     i = i + 1
 
 # region
@@ -332,9 +332,8 @@ all_dat['Household Measure'] = all_dat['Household Measure'].str.strip().replace(
 all_dat = all_dat[all_dat['Household Measure'] != 'Proportion of households fuel poor']
 all_dat['Household Measure'] = all_dat['Household Measure'].apply(pathify)
 all_dat['Geography Level'] = all_dat['Geography Level'].apply(pathify)
-all_dat['Household Measure'].unique()
-all_dat.head(20)
-
+#all_dat['Household Measure'].unique()
+#all_dat.head(20)
 # endregion
 
 # region
@@ -352,7 +351,6 @@ scraper.dataset.title = 'Sub-regional fuel poverty data - England'
 dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower()
 scraper.set_base_uri('http://gss-data.org.uk')
 scraper.set_dataset_id(dataset_path)
-
 
 csvw_transform = CSVWMapping()
 csvw_transform.set_csv(out / csvName)
