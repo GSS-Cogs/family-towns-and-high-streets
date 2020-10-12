@@ -255,7 +255,7 @@ try:
     tab = scraper.distributions[0].as_pandas(sheet_name=sn[i])
     tab = tab[tab['Unnamed: 1'].notna()]
     tbls = []
-    print(tab.columns)
+
     for x in range(2, len(tab.columns)):
         cols = [0,x]
         tab = tab.rename(columns={tab.columns[x]: tab.iloc[0,x], tab.columns[0]:'County Code'})
