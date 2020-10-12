@@ -58,7 +58,7 @@ tbls = []
 for x in range(4, len(tab.columns)):
     cols = [0,2,x]
     dat = tab.iloc[:, cols]
-    dat['Indice of Deprivation'] = dat.columns[2]
+    dat['Indices of Deprivation'] = dat.columns[2]
     dat = dat.rename(columns={dat.columns[2]:'Value','LSOA code (2011)':'Lower Layer Super Output Area','Local Authority District code (2019)':'Local Authority'})
     dat = dat[[dat.columns[0],dat.columns[1],dat.columns[3],dat.columns[2]]]
     tbls.append(dat)
@@ -74,7 +74,7 @@ for t in tbls:
     i = i + 1
 
 # %%
-joined_dat['Indice of Deprivation'] = joined_dat['Indice of Deprivation'].apply(pathify)
+joined_dat['Indices of Deprivation'] = joined_dat['Indices of Deprivation'].apply(pathify)
 #joined_dat.head(20)
 
 # %%
