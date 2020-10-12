@@ -97,7 +97,8 @@ for u in uris:
         df = df[['Year','Lower Layer Super Output Area','Local Authority','Employment Centre Size','Mode of Travel','Value']]
     
     csvName = pathify(dn[i]).replace("-","_") + "_observations.csv"
-    df.drop_duplicates().to_csv(out / csvName, index = False)
+    #df.drop_duplicates().to_csv(out / csvName, index = False)
+    df.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 
     datasetExtraName = '/' + pathify(dn[i])
     
