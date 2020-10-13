@@ -74,7 +74,7 @@ df.rename(columns={'OBS' : 'Value'}, inplace=True)
 trace.output()
 
 tidy_d1 = df[["Period", "Region", "Local Authority", "LA Code", "LAU1", "Meters", "Measure Types", "Unit", "Value"]]
-tidy_d1
+#tidy_d1
 
 
 # +
@@ -152,7 +152,7 @@ df.rename(columns={'OBS' : 'Value'}, inplace=True)
 trace.output()
 
 tidy_d2 = df[["Period", "LA Name", "LA Code", "MSOA Name", "MSOA Code", "Meters", "Measure Types", "Unit", "Value"]]
-tidy_d2
+#tidy_d2
 
 
 # +
@@ -241,7 +241,7 @@ df.rename(columns={'OBS' : 'Value'}, inplace=True)
 trace.output()
 
 tidy_d3 = df[["Period", "LA Name", "LA Code", "MSOA Name", "LSOA Code", "Meters", "Measure Types", "Unit", "Value"]]
-tidy_d3
+#tidy_d3
 
 # +
 # #### DISTRIBUTION 4 : Postcode prepayment electricity meters 2017
@@ -309,7 +309,7 @@ df.rename(columns={'OBS' : 'Value'}, inplace=True)
 trace.output()
 
 tidy_d4 = df[["Period", "Postcodes", "Meters", "Measure Types", "Unit", "Value"]]
-tidy_d4
+#tidy_d4
 
 # +
 #Outputs:
@@ -320,6 +320,27 @@ tidy_d4
     
 #Notes:
     #When running each tab, a large number of blank lines will be printed before the completed table.
-# -
+# +
+#tidy_d1.head(10)
 
 
+# +
+#tidy_d2.head(10)
+
+# +
+#tidy_d3.head(10)
+
+# +
+#tidy_d4.head(10)
+
+# +
+# Codelist creation through gss-utils
+#scraper.dataset.family = 'towns-high-streets'
+#codelistcreation = ['Postcodes'] 
+#df = tidy_d4
+#codeclass = CSVCodelists()
+#for cl in codelistcreation:
+#    if cl in df.columns:
+#        df[cl] = df[cl].str.replace("-"," ")
+#        df[cl] = df[cl].str.capitalize()
+#        codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())

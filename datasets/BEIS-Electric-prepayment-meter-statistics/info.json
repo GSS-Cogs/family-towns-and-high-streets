@@ -16,7 +16,431 @@
     },
     "transform": {
         "airtable": "recLBeRBKtCPBphqq",
-        "main_issue": 4
+        "main_issue": 4,
+        "columns": {
+            "Year": {
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refPeriod",
+                "value": "http://reference.data.gov.uk/id/{+year}"
+            },
+            "Geography Code": {
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
+                "value": "http://statistics.data.gov.uk/id/statistical-geography/{geography_code}",
+                "description": ""
+            },
+            "Meters": {
+                "attribute": "http://gss-data.org.uk/data/gss_data/towns-high-streets/sg-scottish-index-of-multiple-deprivation-2020/ranks/concept-scheme/meters"},
+            "Post Codes": {
+                "parent": "http://gss-data.org.uk/def/concept-scheme/post-codes",
+                "value": "http://gss-data.org.uk/def/concept/post-codes/{post_codes}",
+                "description": ""
+            },
+            "Value": {
+                "unit": "http://gss-data.org.uk/def/concept/measurement-units/kilowatt-hour",
+                "measure": "http://gss-data.org.uk/def/measure/sales",
+                "datatype": "double"
+            }
+        },
+        "transformStage": [
+            {
+                "source_name": "BEIS Electric Prepayment Meter Statistics",
+                "identifier": "BEIS Electric Prepayment Meter Statistics||2017||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/793447/Local-authority-prepayment-electricity-statistics-2017.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/793447/Local-authority-prepayment-electricity-statistics-2017.xlsx": ""
+                    }
+                ],
+                "title": "2017",
+                "preview": "documentation/previews/202eea2d-6009-452e-a2c9-c8bf762f87a0.html",
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "PERIOD": [
+                            "Hardcoded but could have been taken from the dataset title or tab title.",
+                            "Added to dataframe 'combined_dataframe_1'"
+                        ]
+                    },
+                    {
+                        "REGION": [
+                            "Selected as all non-blank values from cell ref A4 down.",
+                            "Added to dataframe 'combined_dataframe_1'"
+                        ]
+                    },
+                    {
+                        "LOCAL_AUTHORITY": [
+                            "Selected as all non-blank values from cell ref B4 down.",
+                            "Added to dataframe 'combined_dataframe_1'"
+                        ]
+                    },
+                    {
+                        "LA_CODE": [
+                            "Selected as all non-blank values from cell ref C4 down.",
+                            "Added to dataframe 'combined_dataframe_1'"
+                        ]
+                    },
+                    {
+                        "LAU1": [
+                            "Selected as all non-blank values from cell ref D4 down.",
+                            "Added to dataframe 'combined_dataframe_1'"
+                        ]
+                    },
+                    {
+                        "METERS": [
+                            "Selected as all non-blank values from cell ref E4 down.",
+                            "Added to dataframe 'combined_dataframe_1'"
+                        ]
+                    },
+                    {
+                        "MEASURE_TYPES": [
+                            "Selected as all non-blank values from cell ref F3 going right/across.",
+                            "Added to dataframe 'combined_dataframe_1'"
+                        ]
+                    },
+                    {
+                        "UNIT": [
+                            "Hardcoded but could have been taken from the measure type's heading.",
+                            "Added to dataframe 'combined_dataframe_1'"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "BEIS Electric Prepayment Meter Statistics",
+                "identifier": "BEIS Electric Prepayment Meter Statistics||combined_dataframe_1||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/793447/Local-authority-prepayment-electricity-statistics-2017.xlsx : 2017",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/793447/Local-authority-prepayment-electricity-statistics-2017.xlsx": "2017"
+                    }
+                ],
+                "title": "combined_dataframe_1",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "PERIOD": []
+                    },
+                    {
+                        "REGION": []
+                    },
+                    {
+                        "LOCAL_AUTHORITY": []
+                    },
+                    {
+                        "LA_CODE": []
+                    },
+                    {
+                        "LAU1": []
+                    },
+                    {
+                        "METERS": []
+                    },
+                    {
+                        "MEASURE_TYPES": []
+                    },
+                    {
+                        "UNIT": []
+                    }
+                ]
+            },
+            {
+                "source_name": "Middle Layer Super Output Area (MSOA) prepayment electricity meter consumption, 2017",
+                "identifier": "Middle Layer Super Output Area (MSOA) prepayment electricity meter consumption, 2017||MSOA Domestic Electricity 2017||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/789332/MSOA-prepayment-electricity-2017.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/789332/MSOA-prepayment-electricity-2017.xlsx": ""
+                    }
+                ],
+                "title": "MSOA Domestic Electricity 2017",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "PERIOD": [
+                            "Hardcoded but could have been taken from the dataset title or tab title.",
+                            "Added to dataframe 'combined_dataframe_2'"
+                        ]
+                    },
+                    {
+                        "LA_NAME": [
+                            "Selected as all non-blank values from cell ref A4 down.",
+                            "Added to dataframe 'combined_dataframe_2'"
+                        ]
+                    },
+                    {
+                        "LA_CODE": [
+                            "Selected as all non-blank values from cell ref B4 down.",
+                            "Added to dataframe 'combined_dataframe_2'"
+                        ]
+                    },
+                    {
+                        "MSOA_NAME": [
+                            "Selected as all non-blank values from cell ref C4 down.",
+                            "Added to dataframe 'combined_dataframe_2'"
+                        ]
+                    },
+                    {
+                        "MSOA_CODE": [
+                            "Selected as all non-blank values from cell ref D4 down.",
+                            "Added to dataframe 'combined_dataframe_2'"
+                        ]
+                    },
+                    {
+                        "METERS": [
+                            "Selected as all non-blank values from cell ref E4 down.",
+                            "Added to dataframe 'combined_dataframe_2'"
+                        ]
+                    },
+                    {
+                        "MEASURE_TYPES": [
+                            "Selected as all non-blank values from cell ref F3 going right/across.",
+                            "Added to dataframe 'combined_dataframe_2'"
+                        ]
+                    },
+                    {
+                        "UNIT": [
+                            "Hardcoded but could have been taken from the measure type's heading.",
+                            "Added to dataframe 'combined_dataframe_2'"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Middle Layer Super Output Area (MSOA) prepayment electricity meter consumption, 2017",
+                "identifier": "Middle Layer Super Output Area (MSOA) prepayment electricity meter consumption, 2017||combined_dataframe_2||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/789332/MSOA-prepayment-electricity-2017.xlsx : MSOA Domestic Electricity 2017",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/789332/MSOA-prepayment-electricity-2017.xlsx": "MSOA Domestic Electricity 2017"
+                    }
+                ],
+                "title": "combined_dataframe_2",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "PERIOD": []
+                    },
+                    {
+                        "LA_NAME": []
+                    },
+                    {
+                        "LA_CODE": []
+                    },
+                    {
+                        "MSOA_NAME": []
+                    },
+                    {
+                        "MSOA_CODE": []
+                    },
+                    {
+                        "METERS": []
+                    },
+                    {
+                        "MEASURE_TYPES": []
+                    },
+                    {
+                        "UNIT": []
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA)  prepayment electricity meter consumption, 2017",
+                "identifier": "Lower Layer Super Output Area (LSOA)  prepayment electricity meter consumption, 2017||LSOA Dom Elec 2017||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/789329/LSOA-prepayment-electricity-2017.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/789329/LSOA-prepayment-electricity-2017.xlsx": ""
+                    }
+                ],
+                "title": "LSOA Dom Elec 2017",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "PERIOD": [
+                            "Hardcoded but could have been taken from the dataset title or tab title.",
+                            "Added to dataframe 'combined_dataframe_3'"
+                        ]
+                    },
+                    {
+                        "LA_NAME": [
+                            "Selected as all non-blank values from cell ref A3 down.",
+                            "Added to dataframe 'combined_dataframe_3'"
+                        ]
+                    },
+                    {
+                        "LA_CODE": [
+                            "Selected as all non-blank values from cell ref B3 down.",
+                            "Added to dataframe 'combined_dataframe_3'"
+                        ]
+                    },
+                    {
+                        "MSOA_NAME": [
+                            "Selected as all non-blank values from cell ref C3 down.",
+                            "Added to dataframe 'combined_dataframe_3'"
+                        ]
+                    },
+                    {
+                        "MSOA_CODE": [
+                            "Selected as all non-blank values from cell ref D3 down.",
+                            "Added to dataframe 'combined_dataframe_3'"
+                        ]
+                    },
+                    {
+                        "LSOA_NAME": [
+                            "Selected as all non-blank values from cell ref E3 down.",
+                            "Added to dataframe 'combined_dataframe_3'"
+                        ]
+                    },
+                    {
+                        "LSOA_CODE": [
+                            "Selected as all non-blank values from cell ref F3 down.",
+                            "Added to dataframe 'combined_dataframe_3'"
+                        ]
+                    },
+                    {
+                        "METERS": [
+                            "Selected as all non-blank values from cell ref H3 down.",
+                            "Added to dataframe 'combined_dataframe_3'"
+                        ]
+                    },
+                    {
+                        "MEASURE_TYPES": [
+                            "Selected as all non-blank values from cell ref (row) 2 and filtering for all values containing the string '(kWh)'.",
+                            "Added to dataframe 'combined_dataframe_3'"
+                        ]
+                    },
+                    {
+                        "UNIT": [
+                            "Hardcoded but could have been taken from the measure type's heading.",
+                            "Added to dataframe 'combined_dataframe_3'"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA)  prepayment electricity meter consumption, 2017",
+                "identifier": "Lower Layer Super Output Area (LSOA)  prepayment electricity meter consumption, 2017||combined_dataframe_3||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/789329/LSOA-prepayment-electricity-2017.xlsx : LSOA Dom Elec 2017",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/789329/LSOA-prepayment-electricity-2017.xlsx": "LSOA Dom Elec 2017"
+                    }
+                ],
+                "title": "combined_dataframe_3",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "PERIOD": []
+                    },
+                    {
+                        "LA_NAME": []
+                    },
+                    {
+                        "LA_CODE": []
+                    },
+                    {
+                        "MSOA_NAME": []
+                    },
+                    {
+                        "MSOA_CODE": []
+                    },
+                    {
+                        "LSOA_NAME": []
+                    },
+                    {
+                        "LSOA_CODE": []
+                    },
+                    {
+                        "METERS": []
+                    },
+                    {
+                        "MEASURE_TYPES": []
+                    },
+                    {
+                        "UNIT": []
+                    }
+                ]
+            },
+            {
+                "source_name": "Postcode level prepayment electric meter consumption, 2017",
+                "identifier": "Postcode level prepayment electric meter consumption, 2017||Postcode-prepayment-electricity||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/789345/postcode-prepayment-electricity-2017.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/789345/postcode-prepayment-electricity-2017.xlsx": ""
+                    }
+                ],
+                "title": "Postcode-prepayment-electricity",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "PERIOD": [
+                            "Hardcoded but could have been taken from the dataset title.",
+                            "Added to dataframe 'combined_dataframe_4'"
+                        ]
+                    },
+                    {
+                        "POSTCODES": [
+                            "Selected as all non-blank values from cell ref A2 down.",
+                            "Added to dataframe 'combined_dataframe_4'"
+                        ]
+                    },
+                    {
+                        "METERS": [
+                            "Selected as all non-blank values from cell ref B2 down.",
+                            "Added to dataframe 'combined_dataframe_4'"
+                        ]
+                    },
+                    {
+                        "MEASURE_TYPES": [
+                            "Selected as all non-blank values from cell ref C1 going right/across.",
+                            "Added to dataframe 'combined_dataframe_4'"
+                        ]
+                    },
+                    {
+                        "UNIT": [
+                            "Hardcoded but could have been taken from the measure type's heading.",
+                            "Added to dataframe 'combined_dataframe_4'"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Postcode level prepayment electric meter consumption, 2017",
+                "identifier": "Postcode level prepayment electric meter consumption, 2017||combined_dataframe_4||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/789345/postcode-prepayment-electricity-2017.xlsx : Postcode-prepayment-electricity",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/789345/postcode-prepayment-electricity-2017.xlsx": "Postcode-prepayment-electricity"
+                    }
+                ],
+                "title": "combined_dataframe_4",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "PERIOD": []
+                    },
+                    {
+                        "POSTCODES": []
+                    },
+                    {
+                        "METERS": []
+                    },
+                    {
+                        "MEASURE_TYPES": []
+                    },
+                    {
+                        "UNIT": []
+                    }
+                ]
+            }
+        ]
     },
     "sizingNotes": "Several tables but simple  structure and in CSV format.",
     "notes": ""

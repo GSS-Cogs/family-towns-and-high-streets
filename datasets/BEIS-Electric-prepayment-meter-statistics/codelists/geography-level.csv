@@ -1,0 +1,7 @@
+Label,Notation,Parent Notation,Sort Priority
+Region,region,,1
+Local authority,local-authority,,2
+Lower layer super output area,lower-layer-super-output-area,,3
+Middle layer super output area,middle-layer-super-output-area,,4
+County code,county-code,,5
+Parliamentary constituency,parliamentary-constituency,,6
