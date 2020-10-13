@@ -16,7 +16,1073 @@
     },
     "transform": {
         "airtable": "recTqQcBA4pozZk4x",
-        "main_issue": 11
+        "main_issue": 11,
+        "columns": {
+            "Year": {
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refPeriod",
+                "value": "http://reference.data.gov.uk/id/{+year}"
+            },
+            "Local Authority": {
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
+                "value": "http://statistics.data.gov.uk/id/statistical-geography/{local_authority}",
+                "description": "A local authority is an administrative body in local government. There are 317 local authorities in England, 22 local authorities in Wales and 32 local authorities in Scotland. There are 11 district councils in Northern Ireland. This level of disaggregation is similar to the local authority level for Great Britain."
+            },
+            "Lower Layer Super Output Area": {
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
+                "value": "http://statistics.data.gov.uk/id/statistical-geography/{lower_layer_super_output_area}",
+                "description": "Lower Layer Super Output Areas (LSOAs) in England and Wales were built by zone-design software using 2011 Census data from groups of Output Areas (typically four to six) and were constrained by the Standard Table wards6 used for 2011 Census outputs. They have a minimum size of 1,000 residents or 400 households and have an average of 1,500 residents. Following the 2011 Census, there are now 34,753 LSOAs in England and Wales."
+            },
+            "Value": {
+                "unit": "http://gss-data.org.uk/def/concept/measurement-units/rank",
+                "measure": "http://gss-data.org.uk/def/measure/deprivation",
+                "datatype": "double"
+            }
+        },
+        "transformStage": [
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Economic deprivation index: rank - EDI rank||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36500/Economic_Deprivation_Index_rank.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36500/Economic_Deprivation_Index_rank.xls": ""
+                    }
+                ],
+                "title": "Economic deprivation index: rank - EDI rank",
+                "preview": "documentation/previews/d0ee43c7-712d-4882-8705-8d71fba75930.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "E1:O1"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range E1:O1",
+                            "Value changed to only include the year"
+                        ]
+                    },
+                    {
+                        "lsoacode": [
+                            "Value taken from column \"lsoacode\" - A2 expanded down"
+                        ]
+                    },
+                    {
+                        "lsoaname": [
+                            "Value taken from column \"lsoaname\" - B2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Value taken from column \"lauacode\" - C2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Value taken from column \"lsoacode\" - D2 expanded down"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Value taken from period columns - E2:O2 expanded down",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Economic deprivation index: income deprivation domain score - IDD score||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36501/EDI_Income_Deprivation_Domain_score.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36501/EDI_Income_Deprivation_Domain_score.xls": ""
+                    }
+                ],
+                "title": "Economic deprivation index: income deprivation domain score - IDD score",
+                "preview": "documentation/previews/0c95c772-833b-49b0-9222-b2b2adc1609b.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "E1:O1"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range E1:O1",
+                            "Value changed to only include the year"
+                        ]
+                    },
+                    {
+                        "lsoacode": [
+                            "Value taken from column \"lsoacode\" - A2 expanded down"
+                        ]
+                    },
+                    {
+                        "lsoaname": [
+                            "Value taken from column \"lsoaname\" - B2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Value taken from column \"lauacode\" - C2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Value taken from column \"lsoacode\" - D2 expanded down"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Value taken from period columns - E2:O2 expanded down",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    },
+                    {
+                        "Marker": [
+                            "Value taken from \"Value\" where a value is surpressed",
+                            "Renamed \"DATAMARKER\" column as \"Marker\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Economic deprivation index: income deprivation domain rank - IDD rank||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36508/EDI_Income_Deprivation_Domain_rank.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36508/EDI_Income_Deprivation_Domain_rank.xls": ""
+                    }
+                ],
+                "title": "Economic deprivation index: income deprivation domain rank - IDD rank",
+                "preview": "documentation/previews/5985aba2-5345-4825-a5ef-ba3f5f3072a0.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "E1:O1"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range E1:O1",
+                            "Value changed to only include the year"
+                        ]
+                    },
+                    {
+                        "lsoacode": [
+                            "Value taken from column \"lsoacode\" - A2 expanded down"
+                        ]
+                    },
+                    {
+                        "lsoaname": [
+                            "Value taken from column \"lsoaname\" - B2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Value taken from column \"lauacode\" - C2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Value taken from column \"lsoacode\" - D2 expanded down"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Value taken from period columns - E2:O2 expanded down",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Economic deprivation index: employment deprivation domain score - EDD score||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36509/EDI_Employment_Deprivation_Domain_score.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36509/EDI_Employment_Deprivation_Domain_score.xls": ""
+                    }
+                ],
+                "title": "Economic deprivation index: employment deprivation domain score - EDD score",
+                "preview": "documentation/previews/e6174793-873c-4ea2-829a-5a2987c3340d.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "E1:O1"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range E1:O1",
+                            "Value changed to only include the year"
+                        ]
+                    },
+                    {
+                        "lsoacode": [
+                            "Value taken from column \"lsoacode\" - A2 expanded down"
+                        ]
+                    },
+                    {
+                        "lsoaname": [
+                            "Value taken from column \"lsoaname\" - B2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Value taken from column \"lauacode\" - C2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Value taken from column \"lsoacode\" - D2 expanded down"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Value taken from period columns - E2:O2 expanded down",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    },
+                    {
+                        "Marker": [
+                            "Value taken from \"Value\" where a value is surpressed",
+                            "Renamed \"DATAMARKER\" column as \"Marker\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Economic deprivation index: employment deprivation domain rank - EDD rank||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36518/EDI_Employment_Deprivation_Domain_rank.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36518/EDI_Employment_Deprivation_Domain_rank.xls": ""
+                    }
+                ],
+                "title": "Economic deprivation index: employment deprivation domain rank - EDD rank",
+                "preview": "documentation/previews/155608da-8f01-482e-9864-a90a8877153b.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "E1:O1"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range E1:O1",
+                            "Value changed to only include the year"
+                        ]
+                    },
+                    {
+                        "lsoacode": [
+                            "Value taken from column \"lsoacode\" - A2 expanded down"
+                        ]
+                    },
+                    {
+                        "lsoaname": [
+                            "Value taken from column \"lsoaname\" - B2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Value taken from column \"lauacode\" - C2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Value taken from column \"lsoacode\" - D2 expanded down"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Value taken from period columns - E2:O2 expanded down",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Children in income-deprived households index: score - CIDI score||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36519/CIDI_score.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36519/CIDI_score.xls": ""
+                    }
+                ],
+                "title": "Children in income-deprived households index: score - CIDI score",
+                "preview": "documentation/previews/23b8e67b-b24c-43a6-9a13-b6ffc3f49944.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "E1:O1"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range E1:O1",
+                            "Value changed to only include the year"
+                        ]
+                    },
+                    {
+                        "lsoacode": [
+                            "Value taken from column \"lsoacode\" - A2 expanded down"
+                        ]
+                    },
+                    {
+                        "lsoaname": [
+                            "Value taken from column \"lsoaname\" - B2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Value taken from column \"lauacode\" - C2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Value taken from column \"lsoacode\" - D2 expanded down"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Value taken from period columns - E2:O2 expanded down",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    },
+                    {
+                        "Marker": [
+                            "Value taken from \"Value\" where a value is surpressed",
+                            "Renamed \"DATAMARKER\" column as \"Marker\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Children in income-deprived households index: rank - CIDI rank||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36526/CIDI_rank.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36526/CIDI_rank.xls": ""
+                    }
+                ],
+                "title": "Children in income-deprived households index: rank - CIDI rank",
+                "preview": "documentation/previews/e25228d9-f382-4478-9d64-661b8a68753e.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "E1:O1"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range E1:O1",
+                            "Value changed to only include the year"
+                        ]
+                    },
+                    {
+                        "lsoacode": [
+                            "Value taken from column \"lsoacode\" - A2 expanded down"
+                        ]
+                    },
+                    {
+                        "lsoaname": [
+                            "Value taken from column \"lsoaname\" - B2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Value taken from column \"lauacode\" - C2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Value taken from column \"lsoacode\" - D2 expanded down"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Value taken from period columns - E2:O2 expanded down",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Economic deprivation index: income deprivation domain numerator - IDD numerator||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36530/EDI_Income_Deprivation_Domain_numerator.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36530/EDI_Income_Deprivation_Domain_numerator.xls": ""
+                    }
+                ],
+                "title": "Economic deprivation index: income deprivation domain numerator - IDD numerator",
+                "preview": "documentation/previews/ceb99a3e-b938-4e6d-a566-48bc9b4ff433.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "E1:O1"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range E1:O1",
+                            "Value changed to only include the year"
+                        ]
+                    },
+                    {
+                        "lsoacode": [
+                            "Value taken from column \"lsoacode\" - A2 expanded down"
+                        ]
+                    },
+                    {
+                        "lsoaname": [
+                            "Value taken from column \"lsoaname\" - B2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Value taken from column \"lauacode\" - C2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Value taken from column \"lsoacode\" - D2 expanded down"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Value taken from period columns - E2:O2 expanded down",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    },
+                    {
+                        "Marker": [
+                            "Value taken from \"Value\" where a value is surpressed",
+                            "Renamed \"DATAMARKER\" column as \"Marker\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Economic deprivation index: income deprivation domain denominator - IDD denominator||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36531/EDI_Income_Deprivation_Domain_denominator.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36531/EDI_Income_Deprivation_Domain_denominator.xls": ""
+                    }
+                ],
+                "title": "Economic deprivation index: income deprivation domain denominator - IDD denominator",
+                "preview": "documentation/previews/700fae8e-cbd9-4f49-8906-3b89bf3edd90.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "E1:O1"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range E1:O1",
+                            "Value changed to only include the year"
+                        ]
+                    },
+                    {
+                        "lsoacode": [
+                            "Value taken from column \"lsoacode\" - A2 expanded down"
+                        ]
+                    },
+                    {
+                        "lsoaname": [
+                            "Value taken from column \"lsoaname\" - B2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Value taken from column \"lauacode\" - C2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Value taken from column \"lsoacode\" - D2 expanded down"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Value taken from period columns - E2:O2 expanded down",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Economic deprivation index: employment deprivation domain numerator - EDD numerator||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36532/EDI_Employment_Deprivation_Domain_numerator.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36532/EDI_Employment_Deprivation_Domain_numerator.xls": ""
+                    }
+                ],
+                "title": "Economic deprivation index: employment deprivation domain numerator - EDD numerator",
+                "preview": "documentation/previews/3f0fef26-0059-48de-b7c0-167200bbdd7f.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "E1:O1"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range E1:O1",
+                            "Value changed to only include the year"
+                        ]
+                    },
+                    {
+                        "lsoacode": [
+                            "Value taken from column \"lsoacode\" - A2 expanded down"
+                        ]
+                    },
+                    {
+                        "lsoaname": [
+                            "Value taken from column \"lsoaname\" - B2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Value taken from column \"lauacode\" - C2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Value taken from column \"lsoacode\" - D2 expanded down"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Value taken from period columns - E2:O2 expanded down",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    },
+                    {
+                        "Marker": [
+                            "Value taken from \"Value\" where a value is surpressed",
+                            "Renamed \"DATAMARKER\" column as \"Marker\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Economic deprivation index: employment deprivation domain denominator - EDD denominator||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36533/EDI_Employment_Deprivation_Domain_denominator.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36533/EDI_Employment_Deprivation_Domain_denominator.xls": ""
+                    }
+                ],
+                "title": "Economic deprivation index: employment deprivation domain denominator - EDD denominator",
+                "preview": "documentation/previews/103d64da-12d1-4657-926b-261ac2ba7502.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "E1:O1"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range E1:O1",
+                            "Value changed to only include the year"
+                        ]
+                    },
+                    {
+                        "lsoacode": [
+                            "Value taken from column \"lsoacode\" - A2 expanded down"
+                        ]
+                    },
+                    {
+                        "lsoaname": [
+                            "Value taken from column \"lsoaname\" - B2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Value taken from column \"lauacode\" - C2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Value taken from column \"lsoacode\" - D2 expanded down"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Value taken from period columns - E2:O2 expanded down",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Children in income-deprived households index: numerator - CIDI numerator||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36534/CIDI_numerator.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36534/CIDI_numerator.xls": ""
+                    }
+                ],
+                "title": "Children in income-deprived households index: numerator - CIDI numerator",
+                "preview": "documentation/previews/54d17f71-6d8c-43de-a905-f4957bd19488.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "E1:O1"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range E1:O1",
+                            "Value changed to only include the year"
+                        ]
+                    },
+                    {
+                        "lsoacode": [
+                            "Value taken from column \"lsoacode\" - A2 expanded down"
+                        ]
+                    },
+                    {
+                        "lsoaname": [
+                            "Value taken from column \"lsoaname\" - B2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Value taken from column \"lauacode\" - C2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Value taken from column \"lsoacode\" - D2 expanded down"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Value taken from period columns - E2:O2 expanded down",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    },
+                    {
+                        "Marker": [
+                            "Value taken from \"Value\" where a value is surpressed",
+                            "Renamed \"DATAMARKER\" column as \"Marker\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Children in income-deprived households index: denominator - CIDI denominator||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36535/CIDI_denominator.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36535/CIDI_denominator.xls": ""
+                    }
+                ],
+                "title": "Children in income-deprived households index: denominator - CIDI denominator",
+                "preview": "documentation/previews/746e4508-9122-44a6-8125-bd81c630f27d.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "E1:O1"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range E1:O1",
+                            "Value changed to only include the year"
+                        ]
+                    },
+                    {
+                        "lsoacode": [
+                            "Value taken from column \"lsoacode\" - A2 expanded down"
+                        ]
+                    },
+                    {
+                        "lsoaname": [
+                            "Value taken from column \"lsoaname\" - B2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Value taken from column \"lauacode\" - C2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Value taken from column \"lsoacode\" - D2 expanded down"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Value taken from period columns - E2:O2 expanded down",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    },
+                    {
+                        "Marker": [
+                            "Value taken from \"Value\" where a value is surpressed",
+                            "Renamed \"DATAMARKER\" column as \"Marker\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Economic deprivation index: score - EDI score||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36538/EDI_score.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36538/EDI_score.xls": ""
+                    }
+                ],
+                "title": "Economic deprivation index: score - EDI score",
+                "preview": "documentation/previews/1c4a460d-33cf-47f4-9cb3-42117346ba97.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "E1:O1"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range E1:O1",
+                            "Value changed to only include the year"
+                        ]
+                    },
+                    {
+                        "lsoacode": [
+                            "Value taken from column \"lsoacode\" - A2 expanded down"
+                        ]
+                    },
+                    {
+                        "lsoaname": [
+                            "Value taken from column \"lsoaname\" - B2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Value taken from column \"lauacode\" - C2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Value taken from column \"lsoacode\" - D2 expanded down"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Value taken from period columns - E2:O2 expanded down",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Total population used to calculate local authority district and economic deprivation index summary measure - Total Population (all ages)||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36539/Total_population_used_to_calculate_LAD_EDI_summary_measure.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36539/Total_population_used_to_calculate_LAD_EDI_summary_measure.xls": ""
+                    }
+                ],
+                "title": "Total population used to calculate local authority district and economic deprivation index summary measure - Total Population (all ages)",
+                "preview": "documentation/previews/e8aed3ac-6791-4dc4-860b-57c5d05966db.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "E1:O1"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range E1:O1",
+                            "Value changed to only include the year"
+                        ]
+                    },
+                    {
+                        "lsoacode": [
+                            "Value taken from column \"lsoacode\" - A2 expanded down"
+                        ]
+                    },
+                    {
+                        "lsoaname": [
+                            "Value taken from column \"lsoaname\" - B2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Value taken from column \"lauacode\" - C2 expanded down"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Value taken from column \"lsoacode\" - D2 expanded down"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Value taken from period columns - E2:O2 expanded down",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Local authority district: economic deprivation index and domains average ranks and scores - EDI average score & rank||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36542/LAD_EDI_and_Domains_average_ranks_and_scores.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36542/LAD_EDI_and_Domains_average_ranks_and_scores.xls": ""
+                    }
+                ],
+                "title": "Local authority district: economic deprivation index and domains average ranks and scores - EDI average score & rank",
+                "preview": "documentation/previews/2f1aa577-abac-4fcd-9bb6-35055e01ceae.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "D6:BB6"
+                    },
+                    {
+                        "lauacode": "A8:A333"
+                    },
+                    {
+                        "lauaname": "B8:B333"
+                    },
+                    {
+                        "Dimension 1": "D7:BE7"
+                    },
+                    {
+                        "Value": "D8:BE333"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range D6:BB6",
+                            "Removed \".0\" from year"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Values given in range A8:A333"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Values given in range B8:B333"
+                        ]
+                    },
+                    {
+                        "Dimension_1": [
+                            "Values given in range D7:BE7",
+                            "Tidied up dimensions to take one of the values                               [\"Average Score\", \"Rank of Average Score\", \"Average Rank\", \"Rank of Average Rank\"]"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range D8:BE333",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Local authority district: economic deprivation index and domains average ranks and scores - Income Domain av score & rank||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36542/LAD_EDI_and_Domains_average_ranks_and_scores.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36542/LAD_EDI_and_Domains_average_ranks_and_scores.xls": ""
+                    }
+                ],
+                "title": "Local authority district: economic deprivation index and domains average ranks and scores - Income Domain av score & rank",
+                "preview": "documentation/previews/9aff0470-ce45-43cf-9056-2d35759c1c87.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "D6:BB6"
+                    },
+                    {
+                        "lauacode": "A8:A333"
+                    },
+                    {
+                        "lauaname": "B8:B333"
+                    },
+                    {
+                        "Dimension 1": "D7:BE7"
+                    },
+                    {
+                        "Value": "D8:BE333"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range D6:BB6",
+                            "Removed \".0\" from year"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Values given in range A8:A333"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Values given in range B8:B333"
+                        ]
+                    },
+                    {
+                        "Dimension_1": [
+                            "Values given in range D7:BE7",
+                            "Tidied up dimensions to take one of the values                               [\"Average Score\", \"Rank of Average Score\", \"Average Rank\", \"Rank of Average Rank\"]"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range D8:BE333",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Local authority district: economic deprivation index and domains average ranks and scores - Employmt Domain av score & rank||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36542/LAD_EDI_and_Domains_average_ranks_and_scores.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36542/LAD_EDI_and_Domains_average_ranks_and_scores.xls": ""
+                    }
+                ],
+                "title": "Local authority district: economic deprivation index and domains average ranks and scores - Employmt Domain av score & rank",
+                "preview": "documentation/previews/ebf60fd3-7e14-434f-823d-df530bd76bc8.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "D6:BB6"
+                    },
+                    {
+                        "lauacode": "A8:A333"
+                    },
+                    {
+                        "lauaname": "B8:B333"
+                    },
+                    {
+                        "Dimension 1": "D7:BE7"
+                    },
+                    {
+                        "Value": "D8:BE333"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range D6:BB6",
+                            "Removed \".0\" from year"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Values given in range A8:A333"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Values given in range B8:B333"
+                        ]
+                    },
+                    {
+                        "Dimension_1": [
+                            "Values given in range D7:BE7",
+                            "Tidied up dimensions to take one of the values                               [\"Average Score\", \"Rank of Average Score\", \"Average Rank\", \"Rank of Average Rank\"]"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range D8:BE333",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009",
+                "identifier": "Tracking economic and child income deprivation at neighbourhood level in England: 1999 to 2009||Local authority district: children in income-deprived households index average ranks and scores - CIDI average score and rank||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36543/LAD_CIDI_average_ranks_and_scores.xls",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36543/LAD_CIDI_average_ranks_and_scores.xls": ""
+                    }
+                ],
+                "title": "Local authority district: children in income-deprived households index average ranks and scores - CIDI average score and rank",
+                "preview": "documentation/previews/78219b46-a4be-4874-a7fa-17a500fdc97e.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Period": "D6:BB6"
+                    },
+                    {
+                        "lauacode": "A8:A333"
+                    },
+                    {
+                        "lauaname": "B8:B333"
+                    },
+                    {
+                        "Dimension 1": "D7:BE7"
+                    },
+                    {
+                        "Value": "D8:BE333"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values given in range D6:BB6",
+                            "Removed \".0\" from year"
+                        ]
+                    },
+                    {
+                        "lauacode": [
+                            "Values given in range A8:A333"
+                        ]
+                    },
+                    {
+                        "lauaname": [
+                            "Values given in range B8:B333"
+                        ]
+                    },
+                    {
+                        "Dimension_1": [
+                            "Values given in range D7:BE7",
+                            "Tidied up dimensions to take one of the values                               [\"Average Score\", \"Rank of Average Score\", \"Average Rank\", \"Rank of Average Rank\"]"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range D8:BE333",
+                            "Renamed \"OBS\" column as \"Value\""
+                        ]
+                    }
+                ]
+            }
+        ]
     },
     "sizingNotes": "Simple tables and structures but spread over several files (though similar framework).",
     "notes": ""

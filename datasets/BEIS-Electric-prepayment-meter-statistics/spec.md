@@ -155,6 +155,7 @@
 ##### DM Notes
 
 	Codelist for Post Codes have been created and referenced in info.json. Codelist in ref_common rather than local
+	Attribute 'Meters' has been referenced in info.json but will not currently work as Mapping class is not set up to process them.
 	
 	
 
