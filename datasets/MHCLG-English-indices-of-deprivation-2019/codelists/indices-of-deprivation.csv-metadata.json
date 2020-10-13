@@ -1,7 +1,7 @@
 {
   "@context": "http://www.w3.org/ns/csvw",
   "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-english-indices-of-deprivation-2019#schema",
-  "url": "indice-of-deprivation.csv",
+  "url": "indices-of-deprivation.csv",
   "tableSchema": {
     "columns": [
       {
@@ -30,7 +30,7 @@
         },
         "required": false,
         "propertyUrl": "skos:broader",
-        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-english-indices-of-deprivation-2019#concept/indice-of-deprivation/{parent_notation}"
+        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-english-indices-of-deprivation-2019#concept/indices-of-deprivation/{parent_notation}"
       },
       {
         "titles": "Sort Priority",
@@ -54,15 +54,15 @@
       {
         "virtual": true,
         "propertyUrl": "skos:inScheme",
-        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-english-indices-of-deprivation-2019#scheme/indice-of-deprivation"
+        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-english-indices-of-deprivation-2019#scheme/indices-of-deprivation"
       }
     ],
     "primaryKey": "notation",
-    "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-english-indices-of-deprivation-2019#concept/indice-of-deprivation/{notation}"
+    "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-english-indices-of-deprivation-2019#concept/indices-of-deprivation/{notation}"
   },
   "prov:hadDerivation": {
-    "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-english-indices-of-deprivation-2019#scheme/indice-of-deprivation",
+    "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-english-indices-of-deprivation-2019#scheme/indices-of-deprivation",
     "@type": "skos:ConceptScheme",
-    "rdfs:label": "Indice of Deprivation"
+    "rdfs:label": "Indices of Deprivation"
   }
 }

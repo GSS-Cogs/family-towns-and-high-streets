@@ -125,7 +125,7 @@ with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
 
 # %%
-#codelistcreation = ['Indice of Deprivation'] 
+#codelistcreation = ['Indices of Deprivation'] 
 #df = joined_dat
 #codeclass = CSVCodelists()
 #for cl in codelistcreation:
