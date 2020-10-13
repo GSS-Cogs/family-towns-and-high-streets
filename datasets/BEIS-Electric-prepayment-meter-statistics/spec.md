@@ -26,6 +26,7 @@
 	Attributes
 		'Meters'
 	Measures (info.json)
+		Marker: disclosive - set Value to 0
 		Split into 3 datasets (remove kWh)
 			Sales 
 			Mean Consumption
@@ -44,6 +45,7 @@
 	Attributes
 		'Meters'
 	Measures (info.json)
+		Marker: disclosive - set Value to 0
 		Split into 3 datasets (remove kWh)
 			Sales
 			Mean Consumption
@@ -62,6 +64,7 @@
 	Attributes
 		'Meters'
 	Measures (info.json)
+		Marker: disclosive - set Value to 0
 		Split into 3 datasets (remove kWh)
 			Sales (change from Total Consumption (kWh))
 			Mean Consumption
@@ -112,7 +115,7 @@
 
 #### Table Structure
 
-		Period, Geography Code, Geography Level, Meters, Value
+		Year, Geography Code, Geography Level, Meters, Marker, Value
 
 #### Sheet: Post Code (tidy_d4) Separated out as Post Codes are not part of the ONS Geography Code dataset
 
@@ -123,6 +126,7 @@
 	Attributes
 		'Meters'
 	Measures (info.json)
+		Marker: disclosive - set Value to 0
 		Split into 3 datasets (remove kWh)
 			Sales (change from Total Consumption (kWh))
 			Mean Consumption
@@ -146,7 +150,7 @@
 
 #### Table Structure
 
-		Period, Post Codes, Meters, Value
+		Year, Post Codes, Meters, Marker, Value
 		
 ##### Footnotes
 
