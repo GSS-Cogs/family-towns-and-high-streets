@@ -29,11 +29,6 @@
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
                 "value": "http://statistics.data.gov.uk/id/statistical-geography/{geography_code}"
             },
-            "Post Codes": {
-                "parent": "http://gss-data.org.uk/def/concept-scheme/post-codes",
-                "value": "http://gss-data.org.uk/def/concept/post-codes/{post_codes}",
-                "description": ""
-            },
             "Age": {
                 "parent": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept-scheme/age", 
                 "value": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept/age/{age}", 
