@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[19]:
+# In[3]:
 
 
 # # LSOA estimates of properties not connected to the gas network
@@ -10,10 +10,16 @@ from gssutils import *
 import json
 
 info = json.load(open('info.json'))
-scraper = Scraper(seed="info.json")
+#scraper = Scraper(seed="info.json")
+scraper = Scraper(info['landingPage'])
 scraper
 
+
+# In[4]:
+
+
 datasetTitle = 'LSOA estimates of properties not connected to the gas network'
+
 tabs = { tab.name: tab for tab in scraper.distributions[0].as_databaker() }
 list(tabs)
 
@@ -113,7 +119,7 @@ for column in tidy:
 tidy
 
 
-# In[20]:
+# In[5]:
 
 
 out = Path('out')
@@ -135,10 +141,10 @@ scraper.dataset.contactPoint = "mailto:EnergyEfficiency.Stats@beis.gov.uk"
 with open(out / 'observations.csv-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
 
-trace.output()
+trace.render()
 
 
-# In[20]:
+# In[5]:
 
 
 
