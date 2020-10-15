@@ -19,7 +19,345 @@
             "To Do"
         ],
         "airtable": "recLX3k2ygAUQNAVh",
-        "main_issue": 5
+        "main_issue": 5,
+        "columns": {
+            "Period": {
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refPeriod",
+                "value": "http://reference.data.gov.uk/id/{+period}"
+            },
+            "ONS Code": {
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
+                "value": "http://statistics.data.gov.uk/id/ons-ccg-code/{ons_ccg_code}",
+                "description": ""
+            },
+            "Post Code": {
+                "parent": "http://www.w3.org/2000/01/rdf-schema#label",
+                "value": "http://statistics.data.gov.uk/id/postcode/unit/post-code/{post_code}",
+                "description": ""
+            },
+            "ORG Code": {
+                "parent": "http://gss-data.org.uk/def/concept-scheme/nhs-organisation-codes",
+                "value": "http://gss-data.org.uk/def/concept/nhs-organisation-codes/{org_code}",
+                "description": "Primary Care Network (PCN); Sustainability and transformation partnership (STP); Clinical Commissioning Group (CCG) and NHS England Commissioning Region level codes. Organisational mapping data is available to derive STP; PCN; CCG and Commissioning Region associated with a GP practice"
+            },
+            "Practice Code": {
+                "parent": "http://gss-data.org.uk/def/concept-scheme/nhs-general-practice-code",
+                "value": "http://gss-data.org.uk/def/concept/nhs-general-practice-code/{practice_code}",
+                "description": "Codes for General Practices within the NHS"
+            },
+            "Value": {
+                "unit": "http://gss-data.org.uk/def/concept/measurement-units/patients",
+                "measure": "http://gss-data.org.uk/def/measure/count",
+                "datatype": "integer"
+            }
+        },
+        "transformStage": [
+            {
+                "source_name": "Patients Registered at a GP Practice\r\nOctober 2020",
+                "identifier": "Patients Registered at a GP Practice\r\nOctober 2020||Totals (GP practice-all persons)||https://files.digital.nhs.uk/C4/648996/gp-reg-pat-prac-all.csv",
+                "source": [
+                    {
+                        "https://files.digital.nhs.uk/C4/648996/gp-reg-pat-prac-all.csv": ""
+                    }
+                ],
+                "title": "Totals (GP practice-all persons)",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values taken from \"EXTRACT_DATE\" column",
+                            "Rename column from \"EXTRACT_DATE\" to \"Period\"",
+                            "Values have been formatted to \"yyyy-mm-dd\""
+                        ]
+                    },
+                    {
+                        "PUBLICATION": [
+                            "Values taken from \"PUBLICATION\" column"
+                        ]
+                    },
+                    {
+                        "TYPE": [
+                            "Values taken from \"TYPE\" column"
+                        ]
+                    },
+                    {
+                        "CCG_CODE": [
+                            "Values taken from \"CCG_CODE\" column"
+                        ]
+                    },
+                    {
+                        "ONS_CCG_CODE": [
+                            "Values taken from \"ONS_CCG_CODE\" column"
+                        ]
+                    },
+                    {
+                        "CODE": [
+                            "Values taken from \"CODE\" column"
+                        ]
+                    },
+                    {
+                        "POSTCODE": [
+                            "Values taken from \"POSTCODE\" column"
+                        ]
+                    },
+                    {
+                        "SEX": [
+                            "Values taken from \"SEX\" column"
+                        ]
+                    },
+                    {
+                        "AGE": [
+                            "Values taken from \"AGE\" column"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values taken from \"NUMBER_OF_PATIENTS\" column",
+                            "Rename column from \"NUMBER_OF_PATIENTS\" to \"Value\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Patients Registered at a GP Practice\r\nOctober 2020",
+                "identifier": "Patients Registered at a GP Practice\r\nOctober 2020||Single year of age (Commissioning Regions-STPs-CCGs-PCNs)||https://files.digital.nhs.uk/0A/99309C/gp-reg-pat-prac-sing-age-regions.csv",
+                "source": [
+                    {
+                        "https://files.digital.nhs.uk/0A/99309C/gp-reg-pat-prac-sing-age-regions.csv": ""
+                    }
+                ],
+                "title": "Single year of age (Commissioning Regions-STPs-CCGs-PCNs)",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values taken from \"EXTRACT_DATE\" column",
+                            "Rename column from \"EXTRACT_DATE\" to \"Period\"",
+                            "Values have been formatted to \"yyyy-mm-dd\""
+                        ]
+                    },
+                    {
+                        "PUBLICATION": [
+                            "Values taken from \"PUBLICATION\" column"
+                        ]
+                    },
+                    {
+                        "ORG_TYPE": [
+                            "Values taken from \"ORG_TYPE\" column"
+                        ]
+                    },
+                    {
+                        "ORG_CODE": [
+                            "Values taken from \"ORG_CODE\" column"
+                        ]
+                    },
+                    {
+                        "ONS_CODE": [
+                            "Values taken from \"ONS_CODE\" column"
+                        ]
+                    },
+                    {
+                        "SEX": [
+                            "Values taken from \"SEX\" column"
+                        ]
+                    },
+                    {
+                        "AGE": [
+                            "Values taken from \"AGE\" column"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values taken from \"NUMBER_OF_PATIENTS\" column",
+                            "Rename column from \"NUMBER_OF_PATIENTS\" to \"Value\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Patients Registered at a GP Practice\r\nOctober 2020",
+                "identifier": "Patients Registered at a GP Practice\r\nOctober 2020||Single year of age (GP practice-females)||https://files.digital.nhs.uk/15/B13283/gp-reg-pat-prac-sing-age-female.csv",
+                "source": [
+                    {
+                        "https://files.digital.nhs.uk/15/B13283/gp-reg-pat-prac-sing-age-female.csv": ""
+                    }
+                ],
+                "title": "Single year of age (GP practice-females)",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values taken from \"EXTRACT_DATE\" column",
+                            "Rename column from \"EXTRACT_DATE\" to \"Period\"",
+                            "Values have been formatted to \"yyyy-mm-dd\""
+                        ]
+                    },
+                    {
+                        "CCG_CODE": [
+                            "Values taken from \"CCG_CODE\" column"
+                        ]
+                    },
+                    {
+                        "ONS_CCG_CODE": [
+                            "Values taken from \"ONS_CCG_CODE\" column"
+                        ]
+                    },
+                    {
+                        "ORG_CODE": [
+                            "Values taken from \"ORG_CODE\" column"
+                        ]
+                    },
+                    {
+                        "POSTCODE": [
+                            "Values taken from \"POSTCODE\" column"
+                        ]
+                    },
+                    {
+                        "SEX": [
+                            "Values taken from \"SEX\" column"
+                        ]
+                    },
+                    {
+                        "AGE": [
+                            "Values taken from \"AGE\" column"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values taken from \"NUMBER_OF_PATIENTS\" column",
+                            "Rename column from \"NUMBER_OF_PATIENTS\" to \"Value\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Patients Registered at a GP Practice\r\nOctober 2020",
+                "identifier": "Patients Registered at a GP Practice\r\nOctober 2020||Single year of age (GP practice-males)||https://files.digital.nhs.uk/4D/4AABAF/gp-reg-pat-prac-sing-age-male.csv",
+                "source": [
+                    {
+                        "https://files.digital.nhs.uk/4D/4AABAF/gp-reg-pat-prac-sing-age-male.csv": ""
+                    }
+                ],
+                "title": "Single year of age (GP practice-males)",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values taken from \"EXTRACT_DATE\" column",
+                            "Rename column from \"EXTRACT_DATE\" to \"Period\"",
+                            "Values have been formatted to \"yyyy-mm-dd\""
+                        ]
+                    },
+                    {
+                        "CCG_CODE": [
+                            "Values taken from \"CCG_CODE\" column"
+                        ]
+                    },
+                    {
+                        "ONS_CCG_CODE": [
+                            "Values taken from \"ONS_CCG_CODE\" column"
+                        ]
+                    },
+                    {
+                        "ORG_CODE": [
+                            "Values taken from \"ORG_CODE\" column"
+                        ]
+                    },
+                    {
+                        "POSTCODE": [
+                            "Values taken from \"POSTCODE\" column"
+                        ]
+                    },
+                    {
+                        "SEX": [
+                            "Values taken from \"SEX\" column"
+                        ]
+                    },
+                    {
+                        "AGE": [
+                            "Values taken from \"AGE\" column"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values taken from \"NUMBER_OF_PATIENTS\" column",
+                            "Rename column from \"NUMBER_OF_PATIENTS\" to \"Value\""
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Patients Registered at a GP Practice\r\nOctober 2020",
+                "identifier": "Patients Registered at a GP Practice\r\nOctober 2020||5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice)||https://files.digital.nhs.uk/F4/728CF9/gp-reg-pat-prac-quin-age.csv",
+                "source": [
+                    {
+                        "https://files.digital.nhs.uk/F4/728CF9/gp-reg-pat-prac-quin-age.csv": ""
+                    }
+                ],
+                "title": "5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice)",
+                "preview": null,
+                "observation_selection": null,
+                "columns": [],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Values taken from \"EXTRACT_DATE\" column",
+                            "Rename column from \"EXTRACT_DATE\" to \"Period\"",
+                            "Values have been formatted to \"yyyy-mm-dd\""
+                        ]
+                    },
+                    {
+                        "PUBLICATION": [
+                            "Values taken from \"PUBLICATION\" column"
+                        ]
+                    },
+                    {
+                        "ORG_TYPE": [
+                            "Values taken from \"ORG_TYPE\" column"
+                        ]
+                    },
+                    {
+                        "ORG_CODE": [
+                            "Values taken from \"ORG_CODE\" column"
+                        ]
+                    },
+                    {
+                        "ONS_CODE": [
+                            "Values taken from \"ONS_CODE\" column"
+                        ]
+                    },
+                    {
+                        "POSTCODE": [
+                            "Values taken from \"POSTCODE\" column"
+                        ]
+                    },
+                    {
+                        "SEX": [
+                            "Values taken from \"SEX\" column"
+                        ]
+                    },
+                    {
+                        "AGE_GROUP_5": [
+                            "Values taken from \"AGE_GROUP_5\" column"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values taken from \"NUMBER_OF_PATIENTS\" column",
+                            "Rename column from \"NUMBER_OF_PATIENTS\" to \"Value\""
+                        ]
+                    }
+                ]
+            }
+        ]
     },
     "sizingNotes": "Simple table and structure in CSV format.",
     "notes": "Prioritised as valuable data, presented in simple structure, but broken into multiple files, structural metadata available on the page, postcode rather than area, so potentially interesting for DataViz demonstration"
