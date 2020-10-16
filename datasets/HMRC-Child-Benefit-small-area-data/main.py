@@ -22,497 +22,749 @@ scraper
 scraper.select_dataset(title=lambda x: x.lower().startswith('child benefit small area statistics: august 2019'))
 scraper
 
-ditributions_required_set_1 = [
-    '2019 - East Midlands',
-    '2019 - East of England',
-    '2019 - London',
-    '2019 - North East',
-    '2019 - North West',
-    '2019 - Scottish Data Zone',
-    '2019 - South East',
-    '2019 - South West',
-    '2019 - Wales',
-    '2019 - West Midlands ',
-    '2019 - Yorkshire and the Humber',
-    #'Number of families and children in a live Child Benefit award by electoral ward'
-]
 
-ditributions_required_set_2 = [
-    'Number of families and children in a live Child Benefit award'
-]
 
-#Large, takes slighly longer to run
-ditributions_required_set_3 = [
-    'Number of families and children in a live Child Benefit award by electoral ward'
-]
+""
 
-"""
-#### Firstly Transforming data for :
-     Child Benefit small area statistics: Number of children for whom Child Benefit is received
-          Table structure : Period', 'Area Code', 'Age', 'Gender', 'Measure Type', 'Unit', 'Value', 'Measure Type', 'Unit'
-"""
-
-tidied_sheets = {} # to be filled with each tab of data from each distribution
-for distribution in scraper.distributions:
-    
-    if distribution.title in ditributions_required_set_1:
-        tabs = distribution.as_databaker()
-        
-        for tab in tabs:
-                        
-            unique_identifier = distribution.title + ' - ' + tab.name # title of dataset + tab name
-            link = distribution.downloadURL
-            columns = ['Period', 'Area Code', 'Age', 'Gender', 'Measure Type', 'Unit', 'Value', 'Measure Type', 'Unit']
-            trace.start(scraper.title, unique_identifier, columns, link)
-            
-            tidy_sheet_list = [] # list of dataframes for each iteration
-            cs_list = [] # list of conversionsegments for each iteration
-            
-            '''Iterating the databaking process'''
-            tab_length = len(tab.excel_ref('A')) # number of rows of data
-            batch_number = 10 # iterates over this many rows at a time
-            number_of_iterations = math.ceil(tab_length/batch_number) # databaking will iterate this many times
- 
-            period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
-            trace.Period("Period year taken from sheet name : " )
-                   
-            defined_by = tab.filter(contains_string('All Children')).expand(RIGHT)
-            age_gender = tab.filter(contains_string('All Children')).shift(0,1).expand(RIGHT) - tab.filter(contains_string('All Families')).shift(0,1).expand(RIGHT)
-            
-            trace.Age("Defined in cells J6 to M6")
-            trace.Gender("Defined in cells O6 to A6")
-
-            for i in range(0, number_of_iterations):
-                Min = str(8 + batch_number * i)  # data starts on row 10
-                Max = str(int(Min) + batch_number - 1) 
-               
-                if tab.name == 'Scotland':
-                    area_code = tab.excel_ref('F'+Min+':F'+Max).is_not_blank()
-                    trace.Area_Code('Value taken from column "Data Zone name" - F7 expanded down')
-                    temp_missing_area_codes = tab.excel_ref('C'+Min+':C'+Max).is_not_blank()
-                    observations = area_code.waffle(age_gender) 
-                else:    
-                    area_code = tab.excel_ref('F'+Min+':F'+Max).is_not_blank()
-                    trace.Area_Code('Value taken from column "LSOA name" - F7 expanded down')
-                    temp_missing_area_codes = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
-                    observations = area_code.waffle(age_gender) 
-                    
-                dimensions = [
-                    HDim(period, 'Period', CLOSEST, LEFT),
-                    HDim(area_code, 'Area Code', DIRECTLY, LEFT),
-                    HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
-                    HDim(age_gender, 'TEMP - AGE, GENDER', DIRECTLY, ABOVE),
-                    HDim(temp_missing_area_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
-                ]
-                
-                if len(observations) != 0: # only use ConversionSegment if there is data
-                    cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
-                    tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
-                    cs_list.append(cs_iteration) # add to list
-                    tidy_sheet_list.append(tidy_sheet_iteration) # add to list
-                    
-            df_1 = pd.concat(tidy_sheet_list, sort=False)
-               
-            #Store
-            trace.store(unique_identifier, df_1)
-            tidied_sheets[unique_identifier] = df_1 
-            
-            # trace
-            trace.with_preview(cs_list[0])
-
-    elif distribution.title in ditributions_required_set_2: 
-        
-        tabs = distribution.as_databaker()
-        tabs = [tab for tab in tabs if 'metadata' not in tab.name.lower()] # unwanted tabs
-        
-        for tab in tabs:
-                        
-            unique_identifier = distribution.title + ' - ' + tab.name # title of dataset + tab name
-            link = distribution.downloadURL
-            columns = ['Period', 'Area Code', 'Age', 'Gender', 'Measure Type', 'Unit', 'Value', 'Measure Type', 'Unit']
-            trace.start(scraper.title, unique_identifier, columns, link)
-            
-            period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
-            trace.Period("Period year taken from sheet name : " )
-
-            if tab.name == 'Regions (GB) ':
-                area_code = tab.filter(contains_string('Area Code1')).shift(0,4).expand(DOWN)
-                temp_missing_area_codes = tab.excel_ref('C7').expand(DOWN).is_not_blank()
-                defined_by = tab.filter(contains_string('All children')).expand(RIGHT)
-                age_gender = tab.filter(contains_string('All children')).shift(0,1).expand(RIGHT) - tab.filter(contains_string('All families')).shift(0,1).expand(RIGHT)
-                trace.Age("Defined in cells J6 to M6")
-                trace.Gender("Defined in cells O6 to A6")
-                observations = area_code.shift(1,0).waffle(age_gender) 
-                
-            dimensions = [
-                HDim(period, 'Period', CLOSEST, LEFT),
-                HDim(area_code, 'Area Code', DIRECTLY, LEFT),
-                HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
-                HDim(age_gender, 'TEMP - AGE, GENDER', DIRECTLY, ABOVE),
-                HDim(temp_missing_area_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
-            ]
-            cs = ConversionSegment(tab, dimensions, observations)
-            df_2 = cs.topandas()
-            trace.with_preview(cs) 
-            
-    
-
-###############################################################################
-# Disttribution : 'Number of families and children in a live Child Benefit award by electoral ward'
-# - seems to run faster when done seperately. 
-
-tidied_sheets = {} # to be filled with each tab of data from each distribution
-for distribution in scraper.distributions:    
-    if distribution.title in ditributions_required_set_3:
-        tabs = distribution.as_databaker()
-        
-        for tab in tabs:
-            print(tab.name)
-            unique_identifier = distribution.title + ' - ' + tab.name # title of dataset + tab name
-            link = distribution.downloadURL
-            columns = ['Period', 'Area Code', 'Family Size', 'Measure Type', 'Unit', 'Value', 'Measure Type', 'Unit']
-            trace.start(scraper.title, unique_identifier, columns, link)
-
-            tidy_sheet_list = [] # list of dataframes for each iteration
-            cs_list = [] # list of conversionsegments for each iteration
-
-            '''Iterating the databaking process'''
-            tab_length = len(tab.excel_ref('B'))
-            batch_number = 10 
-            number_of_iterations = math.ceil(tab_length/batch_number)
-
-            period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
-            trace.Period("Period year taken from sheet name : " )
-
-            for i in range(0, number_of_iterations):
-                Min = str(8 + batch_number * i)  # data starts on row 8
-                Max = str(int(Min) + batch_number - 1) 
-                   
-                area_code = tab.excel_ref('D'+Min+':D'+Max).is_not_blank()
-                trace.Area_Code('Value taken from column "Area Code 1" - D7 expanded down')
-                temp_missing_area_codes = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
-                defined_by = tab.filter(contains_string('All children')).expand(RIGHT)
-                age_gender = tab.filter(contains_string('All children')).shift(0,1).expand(RIGHT) - tab.filter(contains_string('All families')).shift(0,1).expand(RIGHT)
-                observations = area_code.waffle(age_gender)
-
-                dimensions = [
-                    HDim(period, 'Period', CLOSEST, LEFT),
-                    HDim(area_code, 'Area Code', DIRECTLY, LEFT),
-                    HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
-                    HDim(age_gender, 'TEMP - AGE, GENDER', DIRECTLY, ABOVE),
-                    HDim(temp_missing_area_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
-                ]
-
-                if len(observations) != 0: # only use ConversionSegment if there is data
-                    cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
-                    tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
-                    cs_list.append(cs_iteration) # add to list
-                    tidy_sheet_list.append(tidy_sheet_iteration) # add to list
-
-            df_3 = pd.concat(tidy_sheet_list, sort=False)
-
-            #Store
-            trace.store(unique_identifier, df_3)
-            tidied_sheets[unique_identifier] = df_3 
-
-            # trace
-            trace.with_preview(cs_list[0])
 
 ""
 # #Post processing
-combined_data = [df_1, df_2, df_3]
 
-for df in combined_data:
+def post_processing_dataframe(df):
     df.rename(columns={'OBS' : 'Value', 'DATAMARKER' : 'Marker'}, inplace=True)
     df['Period'] = df['Period'].str[-4:]
     df["Period"] = df["Period"].map(lambda x: "2019" if x == "gdom" else "2019")
-
-    f1=((df['TEMP - DEFINED BY'] =='All Children'))
-    df.loc[f1,'TEMP - AGE, GENDER'] = 'All Children'
-    df['Area Code'] = np.where(df['Area Code'] == "", df['TEMP - Missing area code'], df['Area Code'])
-
+    #fill in missing Geography codes with values
+    df['Geography Code'] = np.where(df['Geography Code'] == "", df['TEMP - Missing area code'], df['Geography Code'])
     #removing hidden cells 
-    df.drop(df[((df['TEMP - DEFINED BY'] =='') & (df['TEMP - AGE, GENDER'] =='') &( df['Area Code']  == "") &( df['Value']  == 0))].index, inplace = True) 
-    df.drop(df[(( df['Value']  == "") | ((df['Value'] == 0) & (df['TEMP - AGE, GENDER'] == "" )))].index, inplace = True) 
+    df.drop(df[((df['TEMP - DEFINED BY'] =='') & (df['TEMP - AGE, GENDER, FAMILY SIZE'] =='') &( df['Geography Code']  == "") &( df['Value']  == 0))].index, inplace = True) 
+    df.drop(df[(( df['Value']  == "") | ((df['Value'] == 0) & (df['TEMP - AGE, GENDER, FAMILY SIZE'] == "" )))].index, inplace = True) 
 
-    df["Age"] = df["TEMP - AGE, GENDER"].map(lambda x: "total" if x == "All Children" else ("under-5" if x == "Under 5" 
+    df["Age"] = df["TEMP - AGE, GENDER, FAMILY SIZE"].map(lambda x: "total" if x == "All Children" else ("under-5" if x == "Under 5" 
                                                                                                       else ("11-to-15" if x == "11 to 15" else ("16-to-19" if x == "16 to 19" else "total"))))
-    df["Gender"] = df["TEMP - AGE, GENDER"].map(lambda x: "M" if x == "Boys" else ("F" if x == "Girls" 
+    df["Gender"] = df["TEMP - AGE, GENDER, FAMILY SIZE"].map(lambda x: "M" if x == "Boys" else ("F" if x == "Girls" 
                                                                                                       else ("U" if x == "Unknown" else "T")))
-    df['Unit'] = "Number of children for whom Child Benefit is received"
-    trace.Unit("Defined in cells H4 as : Number of children for whom Child Benefit is received")
-    df["Measure Type"] = "Count"
-    trace.Measure_Type('Hardcoded as Count')
-
-    # drop temp columns 
-    df = df.drop(['TEMP - DEFINED BY', 'TEMP - AGE, GENDER','TEMP - Missing area code' ], axis=1)
-
-join = pd.concat([df_1, df_2, df_3])
-tidy_children_stats = join[['Period', 'Area Code', 'Age', 'Gender', 'Measure Type', 'Unit', 'Value']]
-tidy_children_stats   
-
-""
-csvName = "number-of-children-for-whom-child-benefit-is-received"
-out = Path('out')
-out.mkdir(exist_ok=True)
-tidy_children_stats.drop_duplicates().to_csv(out / csvName, index = False)
-
-###############################################################################
-# ________________________________________________________________________________________________________________
-
-###############################################################################
-#
-# #### Secondaly Transforming data for :
-#      Child Benefit small area statistics: Number of families in receipt of Child Benefit
-#      
-#      Table structure : Period', 'Area Code', 'Family Size 'Measure Type', 'Unit', 'Value', 'Measure Type', 'Unit'
-
-tidied_sheets = {} # to be filled with each tab of data from each distribution
-for distribution in scraper.distributions:
-    
-    if distribution.title in ditributions_required_set_1:
-        tabs = distribution.as_databaker()
-        
-        for tab in tabs:
-                        
-            unique_identifier = distribution.title + ' - ' + tab.name # title of dataset + tab name
-            link = distribution.downloadURL
-            columns = ['Period', 'Area Code', 'Family Size', 'Measure Type', 'Unit', 'Value', 'Measure Type', 'Unit']
-            trace.start(scraper.title, unique_identifier, columns, link)
-            
-            tidy_sheet_list = [] # list of dataframes for each iteration
-            cs_list = [] # list of conversionsegments for each iteration
-            
-            '''Iterating the databaking process'''
-            tab_length = len(tab.excel_ref('A')) # number of rows of data
-            batch_number = 10 # iterates over this many rows at a time
-            number_of_iterations = math.ceil(tab_length/batch_number) # databaking will iterate this many times
  
-            period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
-            trace.Period("Period year taken from sheet name : " )
-            
-            defined_by = tab.filter(contains_string('All Families')).expand(RIGHT)
-            family_size = tab.filter(contains_string('All Families')).shift(0,1).expand(RIGHT)
-            trace.Family_Size("Defined in cells M6 across")
-
-            for i in range(0, number_of_iterations):
-                Min = str(7 + batch_number * i)  # data starts on row 7
-                Max = str(int(Min) + batch_number - 1) 
-               
-                if tab.name == "Scotland":    
-                    area_code = tab.excel_ref('F'+Min+':F'+Max).is_not_blank()
-                    temp_missing_area_codes = tab.excel_ref('C8')
-                    observations = area_code.shift(11,0).waffle(family_size)       
-                else:    
-                    area_code = tab.excel_ref('F'+Min+':F'+Max)#.is_not_blank()
-                    trace.Area_Code('Value taken from column "LSOA name" - F7 expanded down')
-                    temp_missing_area_codes = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
-                    defined_by = tab.filter(contains_string('All Families')).expand(RIGHT)
-                    family_size = tab.filter(contains_string('All Families')).shift(0,1).expand(RIGHT)
-                    if tab.name == "East of England":
-                        observations = area_code.shift(8,0).waffle(family_size) 
-                    else:   
-                        observations = area_code.shift(11,0).waffle(family_size) 
-                     
-                dimensions = [
-                    HDim(period, 'Period', CLOSEST, LEFT),
-                    HDim(area_code, 'Area Code', DIRECTLY, LEFT),
-                    HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
-                    HDim(family_size, 'Family Size', DIRECTLY, ABOVE),
-                    HDim(temp_missing_area_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
-                ]
-                
-                if len(observations) != 0: # only use ConversionSegment if there is data
-                    cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
-                    tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
-                    cs_list.append(cs_iteration) # add to list
-                    tidy_sheet_list.append(tidy_sheet_iteration) # add to list
-                    
-            df_4 = pd.concat(tidy_sheet_list, sort=False)
-               
-            #Store
-            trace.store(unique_identifier, df_4)
-            tidied_sheets[unique_identifier] = df_4 
-            
-            # trace
-            trace.with_preview(cs_list[0])
-
-    elif distribution.title in ditributions_required_set_2: 
-        
-        tabs = distribution.as_databaker()
-        
-        for tab in tabs:
-                        
-            unique_identifier = distribution.title + ' - ' + tab.name # title of dataset + tab name
-            link = distribution.downloadURL
-            columns = ['Period', 'Area Code', 'Family Size', 'Measure Type', 'Unit', 'Value', 'Measure Type', 'Unit']
-            trace.start(scraper.title, unique_identifier, columns, link)
-            
-            period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
-            trace.Period("Period year taken from sheet name : " )
-
-            if tab.name == 'Regions (GB) ':
-                area_code = tab.filter(contains_string('Area Code1')).shift(0,4).expand(DOWN)
-                temp_missing_area_codes = tab.excel_ref('C7').expand(DOWN).is_not_blank()
-                defined_by = tab.filter(contains_string('All families')).expand(RIGHT)
-                family_size = tab.filter(contains_string('All families')).shift(0,1).expand(RIGHT) 
-                trace.Family_Size("Defined in cells M6 across")
-            else:
-                continue
-            
-            observations = family_size.shift(0,1).fill(DOWN)
-                
-            dimensions = [
-                HDim(period, 'Period', CLOSEST, LEFT),
-                HDim(area_code, 'Area Code', DIRECTLY, LEFT),
-                HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
-                HDim(family_size, 'Family Size', DIRECTLY, ABOVE),
-                HDim(temp_missing_area_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
-            ]
-            cs = ConversionSegment(tab, dimensions, observations)
-            df_5 = cs.topandas()
-            trace.with_preview(cs) 
-
-            
-
-###############################################################################
-# Disttribution : 'Number of families and children in a live Child Benefit award by electoral ward'
-# - seems to run faster when done seperately. 
-
-tidied_sheets = {} # to be filled with each tab of data from each distribution
-for distribution in scraper.distributions:    
-    if distribution.title in ditributions_required_set_3:
-        tabs = distribution.as_databaker()
-        
-        for tab in tabs:
-            print(tab.name)
-            unique_identifier = distribution.title + ' - ' + tab.name # title of dataset + tab name
-            link = distribution.downloadURL
-            columns = ['Period', 'Area Code', 'Family Size', 'Measure Type', 'Unit', 'Value', 'Measure Type', 'Unit']
-            trace.start(scraper.title, unique_identifier, columns, link)
-
-            tidy_sheet_list = [] # list of dataframes for each iteration
-            cs_list = [] # list of conversionsegments for each iteration
-
-            '''Iterating the databaking process'''
-            tab_length = len(tab.excel_ref('B'))
-            batch_number = 10 
-            number_of_iterations = math.ceil(tab_length/batch_number)
-
-            period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
-            trace.Period("Period year taken from sheet name : " )
-
-            for i in range(0, number_of_iterations):
-                Min = str(8 + batch_number * i)  # data starts on row 8
-                Max = str(int(Min) + batch_number - 1) 
-                   
-                area_code = tab.excel_ref('D'+Min+':D'+Max)#.is_not_blank()
-                temp_missing_area_codes = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
-                defined_by = tab.filter(contains_string('All Families')).expand(RIGHT)
-                family_size = tab.excel_ref('Q6').expand(RIGHT)
-                temp_obs_placement = tab.excel_ref('P'+Min+':P'+Max).is_not_blank()
-                observations = temp_obs_placement.waffle(family_size)
-
-                dimensions = [
-                    HDim(period, 'Period', CLOSEST, LEFT),
-                    HDim(area_code, 'Area Code', DIRECTLY, LEFT),
-                    HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
-                    HDim(family_size, 'Family Size', DIRECTLY, ABOVE),
-                    HDim(temp_missing_area_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
-                ]
-
-                if len(observations) != 0: # only use ConversionSegment if there is data
-                    cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
-                    tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
-                    cs_list.append(cs_iteration) # add to list
-                    tidy_sheet_list.append(tidy_sheet_iteration) # add to list
-
-            df_6 = pd.concat(tidy_sheet_list, sort=False)
-
-            #Store
-            trace.store(unique_identifier, df_6)
-            tidied_sheets[unique_identifier] = df_6 
-
-            # trace
-            trace.with_preview(cs_list[0])
-
-""
- #Post processing
-combined_data_2 = [df_4, df_5, df_6]
-
-for df in combined_data_2:
-    df.rename(columns={'OBS' : 'Value', 'DATAMARKER' : 'Marker'}, inplace=True)
-    df['Period'] = df['Period'].str[-4:]
-    df["Period"] = df["Period"].map(lambda x: "2019" if x == "gdom" else "2019")
-    df['Area Code'] = np.where(df['Area Code'] == "", df['TEMP - Missing area code'], df['Area Code'])
-
-    #removing hidden cells 
-    df.drop(df[((df['TEMP - DEFINED BY'] =='') & (df['Family Size'] =='') &( df['Area Code']  == "") &( df['Value']  == 0))].index, inplace = True) 
-    df.drop(df[(( df['Value']  == "") | ((df['Value'] == 0) & (df['Family Size'] == "" )))].index, inplace = True) 
 
 
-    df["Family Size"] = df["Family Size"].map(lambda x: "total" if x == "All Families" 
-                                                              else ("one-child" if x == "One child" else ("two-children" if x == "Two children" 
-                                                                                                          else ("three-or-more-children" if x == "Three or more\nchildren" else "total"  ))))
+    df["Family Size"] = df["TEMP - AGE, GENDER, FAMILY SIZE"].map(lambda x: "total" if x == " " 
+                                                                  else ("one-child" if x == "One child" 
+                                                                        else("two-children" if x == "Two children" 
+                                                                             else("three-or-more-children" if x == "Three or more\nchildren" else "total")))) 
     
+
+
+    df["Geography Level"] = df["Geography Level"].map(lambda x: "lower-layer-super-output-area" if x == "LSOA code" 
+                                                      else ("data-zone" if x == "Data Zone code" 
+                                                            else ("region" if x == "Area Code1"else "unknown"  )))
     
-    df["Unit"] = "Number of families in receipt of Child Benefit"
-    trace.Unit("Defined in cells H4 as : Number of children for whom Child Benefit is received")
+    df["Unit"] = df["Unit"].map(lambda x: "children" if x == "Number of children for whom Child Benefit is received" else ("families" if x == "Number of families in receipt of Child Benefit" else  "UNKNOWN"))
+                                                           
+    
     df["Measure Type"] = "Count"
-    trace.Measure_Type('Hardcoded as Count')
+    return df
+
+""
+
+
+""
+#Distribution 2: 2019 - Number of families and children in a live Child Benefit award by electoral ward
+# RUNNING LAST DUE TO SIZE 
+
+""
+#Distribution 3: 2019 - Number of families and children in a live Child Benefit award
+tabs_region = { tab.name: tab for tab in scraper.distributions[2].as_databaker() }
+tab = tabs_region["Regions (GB) "]
+
+period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
+defined_by = tab.excel_ref('E5').expand(RIGHT).is_not_blank()
+age_gender_family_size = tab.excel_ref('E6').expand(RIGHT)
+geography_code = tab.filter(contains_string('Area Code1')).shift(0,4).expand(DOWN)
+temp_missing_geography_codes = tab.excel_ref('C7').expand(DOWN).is_not_blank()
+geography_level = tab.excel_ref('B4')
+unit = tab.excel_ref('D4').expand(RIGHT).is_not_blank()
+observations = age_gender_family_size.fill(DOWN).is_not_blank()
+
     
-    # drop temp columns 
-    df = df.drop(['TEMP - DEFINED BY','TEMP - Missing area code' ], axis=1)
+dimensions = [
+    HDim(period, 'Period', CLOSEST, LEFT),
+    HDim(geography_code, 'Geography Code', DIRECTLY, LEFT),
+    HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
+    HDim(age_gender_family_size, 'TEMP - AGE, GENDER, FAMILY SIZE', DIRECTLY, ABOVE),
+    HDim(temp_missing_geography_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
+    HDim(geography_level, "Geography Level", CLOSEST, LEFT),
+    HDim(unit, "Unit", CLOSEST, LEFT),
+    ]
 
-join_2 = pd.concat([df_4, df_5, df_6])
-tidy_families_stats = join_2[['Period', 'Area Code', 'Family Size', 'Measure Type', 'Unit', 'Value']]
-tidy_families_stats
-
-""
-csvName = "number-of-families-in-receipt-of-child-benefit"
-out = Path('out')
-out.mkdir(exist_ok=True)
-tidy_families_stats.drop_duplicates().to_csv(out / csvName, index = False)
-
-""
-
+cs = ConversionSegment(tab, dimensions, observations)
+region = cs.topandas()
+post_processing_dataframe(region)
 
 ""
+#Distribution 4: 2019 - East Midlands 
+tabs_east_midlands = { tab.name: tab for tab in scraper.distributions[3].as_databaker() }
+tab = tabs_east_midlands["East Midlands"]
+tidied_sheets = {}
+tidy_sheet_list = [] 
+cs_list = [] 
+            
+tab_length = len(tab.excel_ref('A')) 
+batch_number = 10 
+number_of_iterations = math.ceil(tab_length/batch_number) 
 
+for i in range(0, number_of_iterations):
+    Min = str(7 + batch_number * i)  # data starts on row 4
+    Max = str(int(Min) + batch_number - 1)
+
+    period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
+    defined_by = tab.filter(contains_string('All Children')).expand(RIGHT)
+    age_gender_family_size = tab.filter(contains_string('All Children')).shift(0,1).expand(RIGHT) 
+    geography_code = tab.excel_ref('E'+Min+':E'+Max).is_not_blank()
+    temp_missing_geography_codes = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
+    geography_level = tab.excel_ref('E4')
+    unit = tab.excel_ref('H4').expand(RIGHT).is_not_blank()
+    observations = geography_code.waffle(age_gender_family_size) 
+    
+    dimensions = [
+        HDim(period, 'Period', CLOSEST, LEFT),
+        HDim(geography_code, 'Geography Code', DIRECTLY, LEFT),
+        HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
+        HDim(age_gender_family_size, 'TEMP - AGE, GENDER, FAMILY SIZE', DIRECTLY, ABOVE),
+        HDim(temp_missing_geography_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
+        HDim(geography_level, "Geography Level", CLOSEST, LEFT),
+        HDim(unit, "Unit", CLOSEST, LEFT),
+        ]
+                
+    if len(observations) != 0: # only use ConversionSegment if there is data
+        cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
+        tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
+        cs_list.append(cs_iteration) # add to list
+        tidy_sheet_list.append(tidy_sheet_iteration) # add to list
+
+east_midlands = pd.concat(tidy_sheet_list, sort=False)
+post_processing_dataframe(east_midlands)
+
+""
+#Distribution 5: 2019 - East of England 
+tabs_east_of_england = { tab.name: tab for tab in scraper.distributions[4].as_databaker() }
+tab = tabs_east_of_england["East of England"]
+tidied_sheets = {}
+tidy_sheet_list = [] 
+cs_list = [] 
+            
+tab_length = len(tab.excel_ref('A')) 
+batch_number = 10 
+number_of_iterations = math.ceil(tab_length/batch_number) 
+
+for i in range(0, number_of_iterations):
+    Min = str(7 + batch_number * i)  # data starts on row 4
+    Max = str(int(Min) + batch_number - 1)
+
+    period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
+    defined_by = tab.filter(contains_string('All Children')).expand(RIGHT)
+    age_gender_family_size = tab.filter(contains_string('All Children')).shift(0,1).expand(RIGHT) 
+    geography_code = tab.excel_ref('E'+Min+':E'+Max).is_not_blank()
+    temp_missing_geography_codes = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
+    geography_level = tab.excel_ref('E4')
+    unit = tab.excel_ref('F4').expand(RIGHT).is_not_blank()
+    #savepreviewhtml(unit, fname= tab.name + ".html") 
+    observations = geography_code.waffle(age_gender_family_size) 
+    
+    dimensions = [
+        HDim(period, 'Period', CLOSEST, LEFT),
+        HDim(geography_code, 'Geography Code', DIRECTLY, LEFT),
+        HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
+        HDim(age_gender_family_size, 'TEMP - AGE, GENDER, FAMILY SIZE', DIRECTLY, ABOVE),
+        HDim(temp_missing_geography_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
+        HDim(geography_level, "Geography Level", CLOSEST, LEFT),
+        HDim(unit, "Unit", CLOSEST, LEFT),
+        ]
+                
+    if len(observations) != 0: # only use ConversionSegment if there is data
+        cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
+        tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
+        cs_list.append(cs_iteration) # add to list
+        tidy_sheet_list.append(tidy_sheet_iteration) # add to list
+
+east_of_england = pd.concat(tidy_sheet_list, sort=False)
+post_processing_dataframe(east_of_england)
+
+""
+#Distribution 6: 2019 - London
+tabs_london = { tab.name: tab for tab in scraper.distributions[5].as_databaker() }
+tab = tabs_london["London"]
+tidied_sheets = {}
+tidy_sheet_list = [] 
+cs_list = [] 
+            
+tab_length = len(tab.excel_ref('A')) 
+batch_number = 10 
+number_of_iterations = math.ceil(tab_length/batch_number) 
+
+for i in range(0, number_of_iterations):
+    Min = str(7 + batch_number * i)  # data starts on row 4
+    Max = str(int(Min) + batch_number - 1)
+
+    period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
+    defined_by = tab.filter(contains_string('All Children')).expand(RIGHT)
+    age_gender_family_size = tab.filter(contains_string('All Children')).shift(0,1).expand(RIGHT) 
+    geography_code = tab.excel_ref('E'+Min+':E'+Max).is_not_blank()
+    temp_missing_geography_codes = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
+    geography_level = tab.excel_ref('E4')
+    unit = tab.excel_ref('G4').expand(RIGHT).is_not_blank()
+    #savepreviewhtml(unit, fname= tab.name + ".html") 
+    observations = geography_code.waffle(age_gender_family_size) 
+    
+    dimensions = [
+        HDim(period, 'Period', CLOSEST, LEFT),
+        HDim(geography_code, 'Geography Code', DIRECTLY, LEFT),
+        HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
+        HDim(age_gender_family_size, 'TEMP - AGE, GENDER, FAMILY SIZE', DIRECTLY, ABOVE),
+        HDim(temp_missing_geography_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
+        HDim(geography_level, "Geography Level", CLOSEST, LEFT),
+        HDim(unit, "Unit", CLOSEST, LEFT),
+        ]
+                
+    if len(observations) != 0: # only use ConversionSegment if there is data
+        cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
+        tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
+        cs_list.append(cs_iteration) # add to list
+        tidy_sheet_list.append(tidy_sheet_iteration) # add to list
+
+london = pd.concat(tidy_sheet_list, sort=False)
+post_processing_dataframe(london)
+
+""
+#Distribution 7: 2019 - North East
+tabs_north_east = { tab.name: tab for tab in scraper.distributions[6].as_databaker() }
+tab = tabs_north_east["North East "]
+tidied_sheets = {}
+tidy_sheet_list = [] 
+cs_list = [] 
+            
+tab_length = len(tab.excel_ref('A')) 
+batch_number = 10 
+number_of_iterations = math.ceil(tab_length/batch_number) 
+
+for i in range(0, number_of_iterations):
+    Min = str(7 + batch_number * i)  # data starts on row 4
+    Max = str(int(Min) + batch_number - 1)
+
+    period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
+    defined_by = tab.filter(contains_string('All Children')).expand(RIGHT)
+    age_gender_family_size = tab.filter(contains_string('All Children')).shift(0,1).expand(RIGHT) 
+    geography_code = tab.excel_ref('E'+Min+':E'+Max).is_not_blank()
+    temp_missing_geography_codes = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
+    geography_level = tab.excel_ref('E4')
+    unit = tab.excel_ref('F4').expand(RIGHT).is_not_blank()
+    #savepreviewhtml(unit, fname= tab.name + ".html") 
+    observations = geography_code.waffle(age_gender_family_size) 
+    
+    dimensions = [
+        HDim(period, 'Period', CLOSEST, LEFT),
+        HDim(geography_code, 'Geography Code', DIRECTLY, LEFT),
+        HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
+        HDim(age_gender_family_size, 'TEMP - AGE, GENDER, FAMILY SIZE', DIRECTLY, ABOVE),
+        HDim(temp_missing_geography_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
+        HDim(geography_level, "Geography Level", CLOSEST, LEFT),
+        HDim(unit, "Unit", CLOSEST, LEFT),
+        ]
+                
+    if len(observations) != 0: # only use ConversionSegment if there is data
+        cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
+        tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
+        cs_list.append(cs_iteration) # add to list
+        tidy_sheet_list.append(tidy_sheet_iteration) # add to list
+
+north_east = pd.concat(tidy_sheet_list, sort=False)
+post_processing_dataframe(north_east)
+
+""
+#Distribution 8: 2019 - North West
+tabs_north_west = { tab.name: tab for tab in scraper.distributions[7].as_databaker() }
+tab = tabs_north_west["North West "]
+tidied_sheets = {}
+tidy_sheet_list = [] 
+cs_list = [] 
+            
+tab_length = len(tab.excel_ref('A')) 
+batch_number = 10 
+number_of_iterations = math.ceil(tab_length/batch_number) 
+
+for i in range(0, number_of_iterations):
+    Min = str(7 + batch_number * i)  # data starts on row 4
+    Max = str(int(Min) + batch_number - 1)
+
+    period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
+    defined_by = tab.filter(contains_string('All Children')).expand(RIGHT)
+    age_gender_family_size = tab.filter(contains_string('All Children')).shift(0,1).expand(RIGHT) 
+    geography_code = tab.excel_ref('E'+Min+':E'+Max).is_not_blank()
+    temp_missing_geography_codes = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
+    geography_level = tab.excel_ref('E4')
+    unit = tab.excel_ref('F4').expand(RIGHT).is_not_blank()
+    #savepreviewhtml(unit, fname= tab.name + ".html") 
+    observations = geography_code.waffle(age_gender_family_size) 
+    
+    dimensions = [
+        HDim(period, 'Period', CLOSEST, LEFT),
+        HDim(geography_code, 'Geography Code', DIRECTLY, LEFT),
+        HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
+        HDim(age_gender_family_size, 'TEMP - AGE, GENDER, FAMILY SIZE', DIRECTLY, ABOVE),
+        HDim(temp_missing_geography_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
+        HDim(geography_level, "Geography Level", CLOSEST, LEFT),
+        HDim(unit, "Unit", CLOSEST, LEFT),
+        ]
+                
+    if len(observations) != 0: # only use ConversionSegment if there is data
+        cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
+        tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
+        cs_list.append(cs_iteration) # add to list
+        tidy_sheet_list.append(tidy_sheet_iteration) # add to list
+
+north_west = pd.concat(tidy_sheet_list, sort=False)
+post_processing_dataframe(north_west)
+
+""
+#Distribution 9 - Scottish Data Zone 
+tabs_scotland = { tab.name: tab for tab in scraper.distributions[8].as_databaker() }
+tab = tabs_scotland["Scotland"]
+tidied_sheets = {}
+tidy_sheet_list = [] 
+cs_list = [] 
+            
+tab_length = len(tab.excel_ref('A')) 
+batch_number = 10 
+number_of_iterations = math.ceil(tab_length/batch_number) 
+
+for i in range(0, number_of_iterations):
+    Min = str(7 + batch_number * i)  # data starts on row 4
+    Max = str(int(Min) + batch_number - 1)
+
+    period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
+    defined_by = tab.filter(contains_string('All Children')).expand(RIGHT)
+    age_gender_family_size = tab.filter(contains_string('All Children')).shift(0,1).expand(RIGHT) 
+    geography_code = tab.excel_ref('E'+Min+':E'+Max).is_not_blank()
+    temp_missing_geography_codes = tab.excel_ref('C'+Min+':C'+Max).is_not_blank()
+    geography_level = tab.excel_ref('E4')
+    unit = tab.excel_ref('G4').expand(RIGHT).is_not_blank()
+    observations = geography_code.waffle(age_gender_family_size) 
+        
+    dimensions = [
+        HDim(period, 'Period', CLOSEST, LEFT),
+        HDim(geography_code, 'Geography Code', DIRECTLY, LEFT),
+        HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
+        HDim(age_gender_family_size, 'TEMP - AGE, GENDER, FAMILY SIZE', DIRECTLY, ABOVE),
+        HDim(temp_missing_geography_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
+        HDim(geography_level, "Geography Level", CLOSEST, LEFT),
+        HDim(unit, "Unit", CLOSEST, LEFT),
+        ]
+                
+    if len(observations) != 0: # only use ConversionSegment if there is data
+        cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
+        tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
+        cs_list.append(cs_iteration) # add to list
+        tidy_sheet_list.append(tidy_sheet_iteration) # add to list
+
+scotland = pd.concat(tidy_sheet_list, sort=False)
+post_processing_dataframe(scotland)
+
+""
+#Distribution 10: 2019 - South East
+tabs_south_east = { tab.name: tab for tab in scraper.distributions[9].as_databaker() }
+tab = tabs_south_east["South East"]
+tidied_sheets = {}
+tidy_sheet_list = [] 
+cs_list = [] 
+            
+tab_length = len(tab.excel_ref('A')) 
+batch_number = 10 
+number_of_iterations = math.ceil(tab_length/batch_number) 
+
+for i in range(0, number_of_iterations):
+    Min = str(7 + batch_number * i)  # data starts on row 4
+    Max = str(int(Min) + batch_number - 1)
+
+    period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
+    defined_by = tab.filter(contains_string('All Children')).expand(RIGHT)
+    age_gender_family_size = tab.filter(contains_string('All Children')).shift(0,1).expand(RIGHT) 
+    geography_code = tab.excel_ref('E'+Min+':E'+Max).is_not_blank()
+    temp_missing_geography_codes = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
+    geography_level = tab.excel_ref('E4')
+    unit = tab.excel_ref('F4').expand(RIGHT).is_not_blank()
+    #savepreviewhtml(unit, fname= tab.name + ".html") 
+    observations = geography_code.waffle(age_gender_family_size) 
+    
+    dimensions = [
+        HDim(period, 'Period', CLOSEST, LEFT),
+        HDim(geography_code, 'Geography Code', DIRECTLY, LEFT),
+        HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
+        HDim(age_gender_family_size, 'TEMP - AGE, GENDER, FAMILY SIZE', DIRECTLY, ABOVE),
+        HDim(temp_missing_geography_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
+        HDim(geography_level, "Geography Level", CLOSEST, LEFT),
+        HDim(unit, "Unit", CLOSEST, LEFT),
+        ]
+                
+    if len(observations) != 0: # only use ConversionSegment if there is data
+        cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
+        tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
+        cs_list.append(cs_iteration) # add to list
+        tidy_sheet_list.append(tidy_sheet_iteration) # add to list
+
+south_east = pd.concat(tidy_sheet_list, sort=False)
+post_processing_dataframe(south_east)
+
+""
+ #Distribution 11: 2019 - South West
+tabs_south_west = { tab.name: tab for tab in scraper.distributions[10].as_databaker() }
+tab = tabs_south_west["South West"]
+tidied_sheets = {}
+tidy_sheet_list = [] 
+cs_list = [] 
+            
+tab_length = len(tab.excel_ref('A')) 
+batch_number = 10 
+number_of_iterations = math.ceil(tab_length/batch_number) 
+
+for i in range(0, number_of_iterations):
+    Min = str(7 + batch_number * i)  # data starts on row 4
+    Max = str(int(Min) + batch_number - 1)
+
+    period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
+    defined_by = tab.filter(contains_string('All Children')).expand(RIGHT)
+    age_gender_family_size = tab.filter(contains_string('All Children')).shift(0,1).expand(RIGHT) 
+    geography_code = tab.excel_ref('E'+Min+':E'+Max).is_not_blank()
+    temp_missing_geography_codes = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
+    geography_level = tab.excel_ref('E4')
+    unit = tab.excel_ref('F4').expand(RIGHT).is_not_blank()
+    #savepreviewhtml(unit, fname= tab.name + ".html") 
+    observations = geography_code.waffle(age_gender_family_size) 
+    
+    dimensions = [
+        HDim(period, 'Period', CLOSEST, LEFT),
+        HDim(geography_code, 'Geography Code', DIRECTLY, LEFT),
+        HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
+        HDim(age_gender_family_size, 'TEMP - AGE, GENDER, FAMILY SIZE', DIRECTLY, ABOVE),
+        HDim(temp_missing_geography_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
+        HDim(geography_level, "Geography Level", CLOSEST, LEFT),
+        HDim(unit, "Unit", CLOSEST, LEFT),
+        ]
+                
+    if len(observations) != 0: # only use ConversionSegment if there is data
+        cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
+        tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
+        cs_list.append(cs_iteration) # add to list
+        tidy_sheet_list.append(tidy_sheet_iteration) # add to list
+
+south_west = pd.concat(tidy_sheet_list, sort=False)
+post_processing_dataframe(south_west)
 
 ""
 
 
-#########################################################################################################
-# ### CODE BELOW HAS NOT BEEN TESTED ####
-# ########################################################################################################
-# ##############################################################################
-# out = Path('out')
-# out.mkdir(exist_ok=True)
-# merged.to_csv(out / 'observations.csv', index = False)
-#
-# scraper.dataset.family = 'towns-and-high-streets'
-#
-# scraper.dataset.theme = THEME[scraper.dataset.family]
-#
-# scraper.dataset.description = scraper.dataset.description + 
-#     """
-#         \nArea codes implemented in line with GSS Coding and Naming policy
-#         \nThe figures have been independently rounded to the nearest 5. This can lead to components as shown not summing totals as shown
-#     """
-# scraper.dataset.title = 'Child Benefit small area statistics'
-# scraper.dataset.comment = 'Annual geographical estimates at Lower Super Output Area and Data Zone of the number of families and children claiming Child Benefit as at specified date.'
-# dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name))
-# scraper.set_base_uri('http://gss-data.org.uk')
-# scraper.set_dataset_id(dataset_path)
-#
-# csvw_transform = CSVWMapping()
-# csvw_transform.set_csv(out / 'observations.csv')
-# csvw_transform.set_mapping(json.load(open('info.json')))
-# csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
-# csvw_transform.write(out / 'observations.csv-metadata.json')
-# with open(out / 'observations.csv-metadata.trig', 'wb') as metadata:
-#     metadata.write(scraper.generate_trig())
+""
+#Distribution 12: 2019 - Wales
+tabs_wales = { tab.name: tab for tab in scraper.distributions[11].as_databaker() }
+tab = tabs_wales["Wales "]
+tidied_sheets = {}
+tidy_sheet_list = [] 
+cs_list = [] 
+            
+tab_length = len(tab.excel_ref('A')) 
+batch_number = 10 
+number_of_iterations = math.ceil(tab_length/batch_number) 
+
+for i in range(0, number_of_iterations):
+    Min = str(7 + batch_number * i)  # data starts on row 4
+    Max = str(int(Min) + batch_number - 1)
+
+    period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
+    defined_by = tab.filter(contains_string('All Children')).expand(RIGHT)
+    age_gender_family_size = tab.filter(contains_string('All Children')).shift(0,1).expand(RIGHT) 
+    geography_code = tab.excel_ref('E'+Min+':E'+Max).is_not_blank()
+    temp_missing_geography_codes = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
+    geography_level = tab.excel_ref('E4')
+    unit = tab.excel_ref('F4').expand(RIGHT).is_not_blank()
+    #savepreviewhtml(unit, fname= tab.name + ".html") 
+    observations = geography_code.waffle(age_gender_family_size) 
+    
+    dimensions = [
+        HDim(period, 'Period', CLOSEST, LEFT),
+        HDim(geography_code, 'Geography Code', DIRECTLY, LEFT),
+        HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
+        HDim(age_gender_family_size, 'TEMP - AGE, GENDER, FAMILY SIZE', DIRECTLY, ABOVE),
+        HDim(temp_missing_geography_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
+        HDim(geography_level, "Geography Level", CLOSEST, LEFT),
+        HDim(unit, "Unit", CLOSEST, LEFT),
+        ]
+                
+    if len(observations) != 0: # only use ConversionSegment if there is data
+        cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
+        tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
+        cs_list.append(cs_iteration) # add to list
+        tidy_sheet_list.append(tidy_sheet_iteration) # add to list
+
+wales = pd.concat(tidy_sheet_list, sort=False)
+post_processing_dataframe(wales)
+
+""
+#Distribution 13: 2019 - West Midlands
+tabs_west_midlands = { tab.name: tab for tab in scraper.distributions[12].as_databaker() }
+tab = tabs_west_midlands["West Midlands"]
+tidied_sheets = {}
+tidy_sheet_list = [] 
+cs_list = [] 
+            
+tab_length = len(tab.excel_ref('A')) 
+batch_number = 10 
+number_of_iterations = math.ceil(tab_length/batch_number) 
+
+for i in range(0, number_of_iterations):
+    Min = str(7 + batch_number * i)  # data starts on row 4
+    Max = str(int(Min) + batch_number - 1)
+
+    period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
+    defined_by = tab.filter(contains_string('All Children')).expand(RIGHT)
+    age_gender_family_size = tab.filter(contains_string('All Children')).shift(0,1).expand(RIGHT) 
+    geography_code = tab.excel_ref('E'+Min+':E'+Max).is_not_blank()
+    temp_missing_geography_codes = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
+    geography_level = tab.excel_ref('E4')
+    unit = tab.excel_ref('F4').expand(RIGHT).is_not_blank()
+    #savepreviewhtml(unit, fname= tab.name + ".html") 
+    observations = geography_code.waffle(age_gender_family_size) 
+    
+    dimensions = [
+        HDim(period, 'Period', CLOSEST, LEFT),
+        HDim(geography_code, 'Geography Code', DIRECTLY, LEFT),
+        HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
+        HDim(age_gender_family_size, 'TEMP - AGE, GENDER, FAMILY SIZE', DIRECTLY, ABOVE),
+        HDim(temp_missing_geography_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
+        HDim(geography_level, "Geography Level", CLOSEST, LEFT),
+        HDim(unit, "Unit", CLOSEST, LEFT),
+        ]
+                
+    if len(observations) != 0: # only use ConversionSegment if there is data
+        cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
+        tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
+        cs_list.append(cs_iteration) # add to list
+        tidy_sheet_list.append(tidy_sheet_iteration) # add to list
+
+west_midlands = pd.concat(tidy_sheet_list, sort=False)
+post_processing_dataframe(west_midlands)
+
+""
+#Distribution 14: 2019 - Yorkshire and the Humber
+tabs_yorkshire_humber = { tab.name: tab for tab in scraper.distributions[13].as_databaker() }
+tab = tabs_yorkshire_humber["Yorkshire and the Humber"]
+tidied_sheets = {}
+tidy_sheet_list = [] 
+cs_list = [] 
+            
+tab_length = len(tab.excel_ref('A')) 
+batch_number = 10 
+number_of_iterations = math.ceil(tab_length/batch_number) 
+
+for i in range(0, number_of_iterations):
+    Min = str(7 + batch_number * i)  # data starts on row 4
+    Max = str(int(Min) + batch_number - 1)
+
+    period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
+    defined_by = tab.filter(contains_string('All Children')).expand(RIGHT)
+    age_gender_family_size = tab.filter(contains_string('All Children')).shift(0,1).expand(RIGHT) 
+    geography_code = tab.excel_ref('E'+Min+':E'+Max).is_not_blank()
+    temp_missing_geography_codes = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
+    geography_level = tab.excel_ref('E4')
+    unit = tab.excel_ref('F4').expand(RIGHT).is_not_blank()
+    #savepreviewhtml(unit, fname= tab.name + ".html") 
+    observations = geography_code.waffle(age_gender_family_size) 
+    
+    dimensions = [
+        HDim(period, 'Period', CLOSEST, LEFT),
+        HDim(geography_code, 'Geography Code', DIRECTLY, LEFT),
+        HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
+        HDim(age_gender_family_size, 'TEMP - AGE, GENDER, FAMILY SIZE', DIRECTLY, ABOVE),
+        HDim(temp_missing_geography_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
+        HDim(geography_level, "Geography Level", CLOSEST, LEFT),
+        HDim(unit, "Unit", CLOSEST, LEFT),
+        ]
+                
+    if len(observations) != 0: # only use ConversionSegment if there is data
+        cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
+        tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
+        cs_list.append(cs_iteration) # add to list
+        tidy_sheet_list.append(tidy_sheet_iteration) # add to list
+
+yorkshire_humber = pd.concat(tidy_sheet_list, sort=False)
+post_processing_dataframe(yorkshire_humber)
+
+""
+#Distribution 2: 2019 - Number of families and children in a live Child Benefit award by electoral ward
+tabs_electoral_ward = { tab.name: tab for tab in scraper.distributions[1].as_databaker() }
+tab = tabs_electoral_ward["Electoral Ward"]
+tidied_sheets = {}
+tidy_sheet_list = [] 
+cs_list = [] 
+            
+tab_length = len(tab.excel_ref('A')) 
+batch_number = 10 
+number_of_iterations = math.ceil(tab_length/batch_number) 
+
+for i in range(0, number_of_iterations):
+    Min = str(7 + batch_number * i)  # data starts on row 4
+    Max = str(int(Min) + batch_number - 1)
+
+    period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
+    defined_by = tab.excel_ref('F5').expand(RIGHT).is_not_blank()
+    age_gender_family_size = tab.excel_ref('F6').expand(RIGHT) 
+    geography_code = tab.excel_ref('D'+Min+':D'+Max).is_not_blank()
+    temp_missing_geography_codes = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
+    geography_level = tab.excel_ref('D4')
+    unit = tab.excel_ref('E4').expand(RIGHT).is_not_blank()
+    observations = geography_code.waffle(age_gender_family_size) 
+    
+    dimensions = [
+        HDim(period, 'Period', CLOSEST, LEFT),
+        HDim(geography_code, 'Geography Code', DIRECTLY, LEFT),
+        HDim(defined_by, 'TEMP - DEFINED BY', CLOSEST, LEFT),
+        HDim(age_gender_family_size, 'TEMP - AGE, GENDER, FAMILY SIZE', DIRECTLY, ABOVE),
+        HDim(temp_missing_geography_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
+        HDim(geography_level, "Geography Level", CLOSEST, LEFT),
+        HDim(unit, "Unit", CLOSEST, LEFT),
+        ]
+                
+    if len(observations) != 0: # only use ConversionSegment if there is data
+        cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
+        tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
+        cs_list.append(cs_iteration) # add to list
+        tidy_sheet_list.append(tidy_sheet_iteration) # add to list
+
+electoral_ward = pd.concat(tidy_sheet_list, sort=False)
+post_processing_dataframe(electoral_ward)
+
+""
+#concatenating all the distributions togther - Easy to output all data togther once multiple measure types can be handeld
+merged_data = pd.concat([region, east_midlands , east_of_england, london,  north_east, north_west, scotland, south_east, south_west, wales, west_midlands, yorkshire_humber, electoral_ward], ignore_index=True)
+
+""
+#checking for peace of mind (expecting total 605950, children : 406454 and families : 199496)
+numOfRows = merged_data.shape[0]
+print ("Number of rows in dataframe : ", numOfRows)
+# row in which value of 'Unit' column is children
+seriesObj = merged_data.apply(lambda x: True if x['Unit'] == "children" else False , axis=1)
+# Count number of True in series
+numOfRows = len(seriesObj[seriesObj == True].index)
+print('Number of Rows in dataframe in which Unit = children : ', numOfRows)
+# row in which value of 'Unit' column is families
+seriesObj = merged_data.apply(lambda x: True if x['Unit'] == "families" else False , axis=1)
+# Count number of True in series
+numOfRows = len(seriesObj[seriesObj == True].index)
+print('Number of Rows in dataframe in which Unit = families : ', numOfRows)
+
+""
+#seperating out into two datasets depending on families and children unit
+
+#create unique list of Unit's (children, familes)
+unique_units = merged_data.Unit.unique()
+print(unique_units)
+
+#create a data frame dictionary to store data frames
+DataFrameDict = {elem : pd.DataFrame for elem in unique_units}
+
+for key in DataFrameDict.keys():
+    DataFrameDict[key] = merged_data[:][merged_data.Unit == key]
+tidy_children_stats_df = DataFrameDict['children']
+tidy_families_stats_df = DataFrameDict['families']
+
+""
+tidy_children_stats_df = tidy_children_stats_df[['Period', 'Geography Code', 'Geography Level', 'Age', 'Gender', 'Value']]
+tidy_families_stats_df = tidy_families_stats_df[['Period', 'Geography Code', 'Geography Level', 'Family Size', 'Value']]
+
+
+""
+# Output filenames
+fn = ['children-observations.csv','families-observations.csv']
+# Comments
+co = [
+    'Annual geographical estimates at Lower Super Output Area and Data Zone of the number of children claiming Child Benefit',
+    'Annual geographical estimates at Lower Super Output Area and Data Zone of the number of families claiming Child Benefit'
+]
+# Description
+de = [
+    'Annual geographical estimates at Lower Super Output Area and Data Zone of the number of children claiming Child Benefit.',
+    'Annual geographical estimates at Lower Super Output Area and Data Zone of the number of families claiming Child Benefit.'
+]
+# Title
+ti = [
+    'Child Benefit small area statistics - Children receiving Child benefit',
+    'Child Benefit small area statistics - Families in receipt of Child benefit'
+]
+# Paths
+pa = ['/children', '/families']
+
+""
+try:
+    i = 0
+    csvName = fn[i]
+    out = Path('out')
+    out.mkdir(exist_ok=True)
+    tidy_children_stats_df.drop_duplicates().to_csv(out / csvName, index = False)
+    tidy_children_stats_df.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+    
+    scraper.dataset.family = 'towns-high-streets'
+    scraper.dataset.description = scraper.dataset.description + '\n' + de[i]
+    scraper.dataset.comment = co[i]
+    scraper.dataset.title = ti[i]
+
+    dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + pa[i]
+    scraper.set_base_uri('http://gss-data.org.uk')
+    scraper.set_dataset_id(dataset_path)
+
+    csvw_transform = CSVWMapping()
+    csvw_transform.set_csv(out / csvName)
+    csvw_transform.set_mapping(json.load(open('info.json')))
+    csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
+    csvw_transform.write(out / f'{csvName}-metadata.json')
+
+    with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
+        metadata.write(scraper.generate_trig())
+except Exception as s:
+    print(str(s))
+
+""
+#changing unit to families for second output 
+with open("info.json", "r") as read_file:
+    data = json.load(read_file)
+    print("Unit: ", data["transform"]["columns"]["Value"]["unit"] )
+    data["transform"]["columns"]["Value"]["unit"] = "http://gss-data.org.uk/def/concept/measurement-units/families" 
+    print("Unit changed to: ", data["transform"]["columns"]["Value"]["unit"] )
+
+""
+try:
+    i = 1
+    csvName = fn[i]
+    out = Path('out')
+    out.mkdir(exist_ok=True)
+    tidy_families_stats_df.drop_duplicates().to_csv(out / csvName, index = False)
+    tidy_families_stats_df.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+    
+    scraper.dataset.family = 'towns-high-streets'
+    scraper.dataset.description = scraper.dataset.description + '\n' + de[i]
+    scraper.dataset.comment = co[i]
+    scraper.dataset.title = ti[i]
+
+    dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + pa[i]
+    scraper.set_base_uri('http://gss-data.org.uk')
+    scraper.set_dataset_id(dataset_path)
+
+    csvw_transform = CSVWMapping()
+    csvw_transform.set_csv(out / csvName)
+    csvw_transform.set_mapping(data)
+    csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
+    csvw_transform.write(out / f'{csvName}-metadata.json')
+
+    with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
+        metadata.write(scraper.generate_trig())
+except Exception as s:
+    print(str(s))
 
 ""
 
