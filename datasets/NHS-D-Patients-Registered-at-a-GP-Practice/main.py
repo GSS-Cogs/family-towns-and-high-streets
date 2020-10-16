@@ -219,7 +219,7 @@ tidied_data['5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice
     'SEX': 'Sex',
     'AGE_GROUP_5': 'Age'
 })
-tidied_data['5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice)']
+#tidied_data['5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice)']
 
 # +
 # In the 5 year age group only GP data has a post code so extract it and add to the GP dataset
@@ -242,16 +242,7 @@ del un['count']
 
 gp5yr['ONS CCG Code'] = gp5yr['Practice Code'].map(un.set_index('Practice Code')['ONS CCG Code'])
 #gp5yr['CCG Code'] = gp5yr['Practice Code'].map(od.set_index('Practice Code')['CCG Code'])
-gp5yr
-
-# +
-#print('Main: ' + str(tidied_data['Totals (GP practice-all persons)'].count()))
-#print('Female: ' + str(tidied_data['Single year of age (GP practice-females)'].count()))
-#print('Males: ' + str(tidied_data['Single year of age (GP practice-males)'].count()))
-#tidied_data['Single year of age (GP practice-females)']['Sex'].unique()
-#print('Males: ' + str(tidied_data['Single year of age (GP practice-males)'].count()))
-#tidied_data['Single year of age (GP practice-females)'].head(10)
-#gp_practice.head(10)
+#gp5yr
 # -
 
 gp_practice = pd.concat([tidied_data['Totals (GP practice-all persons)'],
@@ -260,8 +251,8 @@ gp_practice = pd.concat([tidied_data['Totals (GP practice-all persons)'],
                          gp5yr], sort=True)
 #gp_practice['CCG Code'] = gp_practice['CCG Code'].apply(pathify)
 gp_practice['Practice Code'] = gp_practice['Practice Code'].apply(pathify)
-gp_practice['Age'] = gp_practice['Age'].str.replace('_','-') 
-gp_practice['Age'] = gp_practice['Age'].apply(pathify)
+gp_practice['Age'] = gp_practice['Age'].str.replace('_','T') 
+gp_practice['Age'] = 'Y' + gp_practice['Age'].astype(str)
 gp_practice['Sex'] = gp_practice['Sex'].replace({
     'ALL':'T',
     'FEMALE':'F',
@@ -283,6 +274,7 @@ gp_practice = gp_practice[['Period','ONS CCG Code','Post Code','Practice Code','
 #        print('Row count: ' + str(gp_practice[c].count()))
 #        print(list(gp_practice[c].unique()))
 #        print("#######################################")
+
 
 # +
 import os
@@ -386,10 +378,13 @@ print('Org data count after before removing PCN data: ' + str(org_practice['Age'
 del org_practice['ORG Code']
 org_practice['ORG Type'] = org_practice['ORG Type'].apply(pathify)
 org_practice = org_practice.rename(columns={'ONS Code': 'ONS ORG Code'})
-org_practice['Age'] = org_practice['Age'].str.replace('_','-') 
-org_practice['Age'] = org_practice['Age'].apply(pathify)
+org_practice['Age'] = org_practice['Age'].str.replace('_','T') 
+org_practice['Age'] = 'Y' + org_practice['Age'].astype(str)
 org_practice['Period'] = 'day/' + org_practice['Period'].astype(str)
-org_practice.head(10)
+org_practice = org_practice[['Period','ONS ORG Code','ORG Type','Age','Sex','Value']]
+
+org_practice['Age'].unique()
+#org_practice.head(10)
 
 # +
 notes = f"""
@@ -426,11 +421,12 @@ with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
 
 del pcn_practice['ONS Code']
 pcn_practice = pcn_practice.rename(columns={'ORG Code': 'PCN Code'})
-pcn_practice['Age'] = pcn_practice['Age'].str.replace('_','-') 
-pcn_practice['Age'] = pcn_practice['Age'].apply(pathify)
+pcn_practice['Age'] = pcn_practice['Age'].str.replace('_','T') 
+pcn_practice['Age'] = 'Y' + pcn_practice['Age'].astype(str)
 pcn_practice['ORG Type'] = pcn_practice['ORG Type'].apply(pathify)
 pcn_practice['Period'] = 'day/' + pcn_practice['Period'].astype(str)
-pcn_practice.head()
+pcn_practice = pcn_practice[['Period','PCN Code','ORG Type','Age','Sex','Value']]
+#pcn_practice.head()
 
 # +
 notes = f"""
@@ -500,6 +496,15 @@ org_dat
 """
 
 
-
+# +
+# Mapping code form csv file, not neede but just keeping it hear for reference
+#print('Main: ' + str(tidied_data['Totals (GP practice-all persons)'].count()))
+#print('Female: ' + str(tidied_data['Single year of age (GP practice-females)'].count()))
+#print('Males: ' + str(tidied_data['Single year of age (GP practice-males)'].count()))
+#tidied_data['Single year of age (GP practice-females)']['Sex'].unique()
+#print('Males: ' + str(tidied_data['Single year of age (GP practice-males)'].count()))
+#tidied_data['Single year of age (GP practice-females)'].head(10)
+#gp_practice.head(10)
+# -
 
 

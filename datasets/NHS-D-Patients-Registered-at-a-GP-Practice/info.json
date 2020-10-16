@@ -28,7 +28,7 @@
             "ONS CCG Code": {
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
                 "value": "http://statistics.data.gov.uk/id/ons-ccg-code/{ons_ccg_code}",
-                "description": "ONS Geography codes for HNS Clinical COmmissioning Groups"
+                "description": "ONS Geography codes for HNS Clinical Commissioning Groups"
             },
             "ONS ORG Code": {
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
