@@ -22,11 +22,6 @@ scraper
 scraper.select_dataset(title=lambda x: x.lower().startswith('child benefit small area statistics: august 2019'))
 scraper
 
-
-
-""
-
-
 ""
 # #Post processing
 
@@ -62,6 +57,7 @@ def post_processing_dataframe(df):
                                                            
     
     df["Measure Type"] = "Count"
+    df['Value'] = df['Value'].astype(int)
     return df
 
 ""
@@ -85,7 +81,7 @@ geography_level = tab.excel_ref('B4')
 unit = tab.excel_ref('D4').expand(RIGHT).is_not_blank()
 observations = age_gender_family_size.fill(DOWN).is_not_blank()
 
-    
+
 dimensions = [
     HDim(period, 'Period', CLOSEST, LEFT),
     HDim(geography_code, 'Geography Code', DIRECTLY, LEFT),
@@ -107,7 +103,7 @@ tab = tabs_east_midlands["East Midlands"]
 tidied_sheets = {}
 tidy_sheet_list = [] 
 cs_list = [] 
-            
+
 tab_length = len(tab.excel_ref('A')) 
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
@@ -151,7 +147,7 @@ tab = tabs_east_of_england["East of England"]
 tidied_sheets = {}
 tidy_sheet_list = [] 
 cs_list = [] 
-            
+
 tab_length = len(tab.excel_ref('A')) 
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
@@ -196,7 +192,7 @@ tab = tabs_london["London"]
 tidied_sheets = {}
 tidy_sheet_list = [] 
 cs_list = [] 
-            
+
 tab_length = len(tab.excel_ref('A')) 
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
@@ -241,7 +237,7 @@ tab = tabs_north_east["North East "]
 tidied_sheets = {}
 tidy_sheet_list = [] 
 cs_list = [] 
-            
+
 tab_length = len(tab.excel_ref('A')) 
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
@@ -286,7 +282,7 @@ tab = tabs_north_west["North West "]
 tidied_sheets = {}
 tidy_sheet_list = [] 
 cs_list = [] 
-            
+
 tab_length = len(tab.excel_ref('A')) 
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
@@ -331,7 +327,7 @@ tab = tabs_scotland["Scotland"]
 tidied_sheets = {}
 tidy_sheet_list = [] 
 cs_list = [] 
-            
+
 tab_length = len(tab.excel_ref('A')) 
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
@@ -375,7 +371,7 @@ tab = tabs_south_east["South East"]
 tidied_sheets = {}
 tidy_sheet_list = [] 
 cs_list = [] 
-            
+
 tab_length = len(tab.excel_ref('A')) 
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
@@ -420,7 +416,7 @@ tab = tabs_south_west["South West"]
 tidied_sheets = {}
 tidy_sheet_list = [] 
 cs_list = [] 
-            
+
 tab_length = len(tab.excel_ref('A')) 
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
@@ -468,7 +464,7 @@ tab = tabs_wales["Wales "]
 tidied_sheets = {}
 tidy_sheet_list = [] 
 cs_list = [] 
-            
+
 tab_length = len(tab.excel_ref('A')) 
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
@@ -513,7 +509,7 @@ tab = tabs_west_midlands["West Midlands"]
 tidied_sheets = {}
 tidy_sheet_list = [] 
 cs_list = [] 
-            
+
 tab_length = len(tab.excel_ref('A')) 
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
@@ -558,7 +554,7 @@ tab = tabs_yorkshire_humber["Yorkshire and the Humber"]
 tidied_sheets = {}
 tidy_sheet_list = [] 
 cs_list = [] 
-            
+
 tab_length = len(tab.excel_ref('A')) 
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
@@ -603,7 +599,7 @@ tab = tabs_electoral_ward["Electoral Ward"]
 tidied_sheets = {}
 tidy_sheet_list = [] 
 cs_list = [] 
-            
+
 tab_length = len(tab.excel_ref('A')) 
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
