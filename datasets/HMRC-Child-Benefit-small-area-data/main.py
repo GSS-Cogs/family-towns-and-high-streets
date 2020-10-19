@@ -35,8 +35,8 @@ def post_processing_dataframe(df):
     df.drop(df[((df['TEMP - DEFINED BY'] =='') & (df['TEMP - AGE, GENDER, FAMILY SIZE'] =='') &( df['Geography Code']  == "") &( df['Value']  == 0))].index, inplace = True) 
     df.drop(df[(( df['Value']  == "") | ((df['Value'] == 0) & (df['TEMP - AGE, GENDER, FAMILY SIZE'] == "" )))].index, inplace = True) 
 
-    df["Age"] = df["TEMP - AGE, GENDER, FAMILY SIZE"].map(lambda x: "total" if x == "All Children" else ("under-5" if x == "Under 5" 
-                                                                                                      else ("11-to-15" if x == "11 to 15" else ("16-to-19" if x == "16 to 19" else "total"))))
+    df["Age"] = df["TEMP - AGE, GENDER, FAMILY SIZE"].map(lambda x: "total" if x == "All Children" else ("under-5" if x == "Under 5" else ("5-to-10" if x == "5 to 10"
+                                                                                                      else ("11-to-15" if x == "11 to 15" else ("16-to-19" if x == "16 to 19" else "total")))))
     df["Gender"] = df["TEMP - AGE, GENDER, FAMILY SIZE"].map(lambda x: "M" if x == "Boys" else ("F" if x == "Girls" 
                                                                                                       else ("U" if x == "Unknown" else "T")))
  
@@ -45,7 +45,9 @@ def post_processing_dataframe(df):
     df["Family Size"] = df["TEMP - AGE, GENDER, FAMILY SIZE"].map(lambda x: "total" if x == " " 
                                                                   else ("one-child" if x == "One child" 
                                                                         else("two-children" if x == "Two children" 
-                                                                             else("three-or-more-children" if x == "Three or more\nchildren" else "total")))) 
+                                                                             else("three-or-more-children" if x == "Three or more\nchildren" 
+                                                                                  else ("three-or-more-children" if x == "Three or more children" 
+                                                                                        else "total" if x == "All families" else "total")))))
     
 
 
