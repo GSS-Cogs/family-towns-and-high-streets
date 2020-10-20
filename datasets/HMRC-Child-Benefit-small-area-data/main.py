@@ -29,19 +29,24 @@ def post_processing_dataframe(df):
     df.rename(columns={'OBS' : 'Value', 'DATAMARKER' : 'Marker'}, inplace=True)
     df['Period'] = df['Period'].str[-4:]
     df["Period"] = df["Period"].map(lambda x: "2019" if x == "gdom" else "2019")
-    #fill in missing Geography codes with values
-    df['Geography Code'] = np.where(df['Geography Code'] == "", df['TEMP - Missing area code'], df['Geography Code'])
+    
     #removing hidden cells 
-    df.drop(df[((df['TEMP - DEFINED BY'] =='') & (df['TEMP - AGE, GENDER, FAMILY SIZE'] =='') &( df['Geography Code']  == "") &( df['Value']  == 0))].index, inplace = True) 
     df.drop(df[(( df['Value']  == "") | ((df['Value'] == 0) & (df['TEMP - AGE, GENDER, FAMILY SIZE'] == "" )))].index, inplace = True) 
-
-    df["Age"] = df["TEMP - AGE, GENDER, FAMILY SIZE"].map(lambda x: "total" if x == "All Children" else ("under-5" if x == "Under 5" else ("5-to-10" if x == "5 to 10"
-                                                                                                      else ("11-to-15" if x == "11 to 15" else ("16-to-19" if x == "16 to 19" else "total")))))
-    df["Gender"] = df["TEMP - AGE, GENDER, FAMILY SIZE"].map(lambda x: "M" if x == "Boys" else ("F" if x == "Girls" 
-                                                                                                      else ("U" if x == "Unknown" else "T")))
- 
+    df.drop(df[(( df['TEMP - DEFINED BY']  == "") & (df['TEMP - AGE, GENDER, FAMILY SIZE'] == ""))].index, inplace = True)
 
 
+    df['Age'] = df["TEMP - AGE, GENDER, FAMILY SIZE"].map(lambda x: "total" if x == "" 
+                                                          else ("under-5" if x == "Under 5"
+                                                               else ("5-to-10" if x == "5 to 10"
+                                                                    else ('11-to-15' if x == "11 to 15" 
+                                                                          else("16-to-19" if x == "16 to 19" else "total")))))
+                                                                         
+    
+    df["Gender"] = df["TEMP - AGE, GENDER, FAMILY SIZE"].map(lambda x: "T" if x == "" 
+                                                             else ("M" if x == "Boys"
+                                                                  else ("F" if x == "Girls" 
+                                                                        else "U" if x == "Unknown" else "T")))
+                                                            
     df["Family Size"] = df["TEMP - AGE, GENDER, FAMILY SIZE"].map(lambda x: "total" if x == " " 
                                                                   else ("one-child" if x == "One child" 
                                                                         else("two-children" if x == "Two children" 
@@ -55,15 +60,11 @@ def post_processing_dataframe(df):
                                                       else ("data-zone" if x == "Data Zone code" 
                                                             else ("region" if x == "Area Code1"else "unknown"  )))
     
-    df["Unit"] = df["Unit"].map(lambda x: "children" if x == "Number of children for whom Child Benefit is received" else ("families" if x == "Number of families in receipt of Child Benefit" else  "UNKNOWN"))
-                                                           
     
+    df["Unit"] = df["Unit"].map(lambda x: "children" if x == "Number of children for whom Child Benefit is received" else ("families" if x == "Number of families in receipt of Child Benefit" else  "UNKNOWN"))
     df["Measure Type"] = "Count"
     df['Value'] = df['Value'].astype(int)
     return df
-
-""
-
 
 ""
 #Distribution 2: 2019 - Number of families and children in a live Child Benefit award by electoral ward
@@ -93,7 +94,6 @@ dimensions = [
     HDim(geography_level, "Geography Level", CLOSEST, LEFT),
     HDim(unit, "Unit", CLOSEST, LEFT),
     ]
-
 cs = ConversionSegment(tab, dimensions, observations)
 region = cs.topandas()
 post_processing_dataframe(region)
@@ -110,6 +110,7 @@ tab_length = len(tab.excel_ref('A'))
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
 
+# +
 for i in range(0, number_of_iterations):
     Min = str(7 + batch_number * i)  # data starts on row 4
     Max = str(int(Min) + batch_number - 1)
@@ -140,7 +141,9 @@ for i in range(0, number_of_iterations):
         tidy_sheet_list.append(tidy_sheet_iteration) # add to list
 
 east_midlands = pd.concat(tidy_sheet_list, sort=False)
-post_processing_dataframe(east_midlands)
+post_processing_dataframe(east_midlands)        
+        
+# -
 
 ""
 #Distribution 5: 2019 - East of England 
@@ -154,6 +157,7 @@ tab_length = len(tab.excel_ref('A'))
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
 
+# +
 for i in range(0, number_of_iterations):
     Min = str(7 + batch_number * i)  # data starts on row 4
     Max = str(int(Min) + batch_number - 1)
@@ -183,11 +187,11 @@ for i in range(0, number_of_iterations):
         tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
         cs_list.append(cs_iteration) # add to list
         tidy_sheet_list.append(tidy_sheet_iteration) # add to list
-
+        
 east_of_england = pd.concat(tidy_sheet_list, sort=False)
 post_processing_dataframe(east_of_england)
+# -
 
-""
 #Distribution 6: 2019 - London
 tabs_london = { tab.name: tab for tab in scraper.distributions[5].as_databaker() }
 tab = tabs_london["London"]
@@ -195,22 +199,22 @@ tidied_sheets = {}
 tidy_sheet_list = [] 
 cs_list = [] 
 
-tab_length = len(tab.excel_ref('A')) 
+tab_length = len(tab.excel_ref('B')) 
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
 
+# +
 for i in range(0, number_of_iterations):
-    Min = str(7 + batch_number * i)  # data starts on row 4
+    Min = str(7 + batch_number * i)  # data starts on row 7
     Max = str(int(Min) + batch_number - 1)
 
     period = tab.excel_ref('B2') #TAKEN FROM SHEET TITLE
-    defined_by = tab.filter(contains_string('All Children')).expand(RIGHT)
-    age_gender_family_size = tab.filter(contains_string('All Children')).shift(0,1).expand(RIGHT) 
+    defined_by = tab.excel_ref('G5').expand(RIGHT)
+    age_gender_family_size = tab.excel_ref('G6').expand(RIGHT)
     geography_code = tab.excel_ref('E'+Min+':E'+Max).is_not_blank()
     temp_missing_geography_codes = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
     geography_level = tab.excel_ref('E4')
     unit = tab.excel_ref('G4').expand(RIGHT).is_not_blank()
-    #savepreviewhtml(unit, fname= tab.name + ".html") 
     observations = geography_code.waffle(age_gender_family_size) 
     
     dimensions = [
@@ -221,16 +225,20 @@ for i in range(0, number_of_iterations):
         HDim(temp_missing_geography_codes, "TEMP - Missing area code", CLOSEST, ABOVE),
         HDim(geography_level, "Geography Level", CLOSEST, LEFT),
         HDim(unit, "Unit", CLOSEST, LEFT),
-        ]
-                
+        ]    
+    
     if len(observations) != 0: # only use ConversionSegment if there is data
         cs_iteration = ConversionSegment(tab, dimensions, observations) # creating the conversionsegment
         tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
         cs_list.append(cs_iteration) # add to list
         tidy_sheet_list.append(tidy_sheet_iteration) # add to list
 
+
 london = pd.concat(tidy_sheet_list, sort=False)
 post_processing_dataframe(london)
+# -
+
+
 
 ""
 #Distribution 7: 2019 - North East
@@ -244,6 +252,7 @@ tab_length = len(tab.excel_ref('A'))
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
 
+# +
 for i in range(0, number_of_iterations):
     Min = str(7 + batch_number * i)  # data starts on row 4
     Max = str(int(Min) + batch_number - 1)
@@ -273,9 +282,10 @@ for i in range(0, number_of_iterations):
         tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
         cs_list.append(cs_iteration) # add to list
         tidy_sheet_list.append(tidy_sheet_iteration) # add to list
-
+        
 north_east = pd.concat(tidy_sheet_list, sort=False)
 post_processing_dataframe(north_east)
+# -
 
 ""
 #Distribution 8: 2019 - North West
@@ -289,6 +299,7 @@ tab_length = len(tab.excel_ref('A'))
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
 
+# +
 for i in range(0, number_of_iterations):
     Min = str(7 + batch_number * i)  # data starts on row 4
     Max = str(int(Min) + batch_number - 1)
@@ -321,6 +332,7 @@ for i in range(0, number_of_iterations):
 
 north_west = pd.concat(tidy_sheet_list, sort=False)
 post_processing_dataframe(north_west)
+# -
 
 ""
 #Distribution 9 - Scottish Data Zone 
@@ -334,6 +346,7 @@ tab_length = len(tab.excel_ref('A'))
 batch_number = 10 
 number_of_iterations = math.ceil(tab_length/batch_number) 
 
+# +
 for i in range(0, number_of_iterations):
     Min = str(7 + batch_number * i)  # data starts on row 4
     Max = str(int(Min) + batch_number - 1)
@@ -362,9 +375,10 @@ for i in range(0, number_of_iterations):
         tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
         cs_list.append(cs_iteration) # add to list
         tidy_sheet_list.append(tidy_sheet_iteration) # add to list
-
+        
 scotland = pd.concat(tidy_sheet_list, sort=False)
-post_processing_dataframe(scotland)
+post_processing_dataframe(scotland)        
+# -
 
 ""
 #Distribution 10: 2019 - South East
@@ -643,7 +657,7 @@ post_processing_dataframe(electoral_ward)
 merged_data = pd.concat([region, east_midlands , east_of_england, london,  north_east, north_west, scotland, south_east, south_west, wales, west_midlands, yorkshire_humber, electoral_ward], ignore_index=True)
 
 ""
-#checking for peace of mind (expecting total 605950, children : 406454 and families : 199496)
+#checking for peace of mind 
 numOfRows = merged_data.shape[0]
 print ("Number of rows in dataframe : ", numOfRows)
 # row in which value of 'Unit' column is children
