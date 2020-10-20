@@ -652,6 +652,8 @@ for i in range(0, number_of_iterations):
 electoral_ward = pd.concat(tidy_sheet_list, sort=False)
 post_processing_dataframe(electoral_ward)
 
+electoral_ward['Geography Level'] = "electoral-ward"
+
 ""
 #concatenating all the distributions togther - Easy to output all data togther once multiple measure types can be handeld
 merged_data = pd.concat([region, east_midlands , east_of_england, london,  north_east, north_west, scotland, south_east, south_west, wales, west_midlands, yorkshire_humber, electoral_ward], ignore_index=True)
