@@ -47,7 +47,7 @@
             },
             "Post Code": {
                 "parent": "http://www.w3.org/2000/01/rdf-schema#label",
-                "value": "http://statistics.data.gov.uk/id/postcode/{post_code}",
+                "value": "http://statistics.data.gov.uk/id/postcode/unit/{post_code}",
                 "description": "Post Codes for GP Practices"
             },
             "Practice Code": {
