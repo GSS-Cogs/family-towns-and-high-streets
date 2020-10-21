@@ -250,7 +250,7 @@ gp_practice = pd.concat([tidied_data['Totals (GP practice-all persons)'],
                          tidied_data['Single year of age (GP practice-males)'],
                          gp5yr], sort=True)
 #gp_practice['CCG Code'] = gp_practice['CCG Code'].apply(pathify)
-#gp_practice['Practice Code'] = gp_practice['Practice Code'].apply(pathify)
+gp_practice['Practice Code'] = gp_practice['Practice Code'].apply(pathify)
 gp_practice['Age'] = gp_practice['Age'].str.replace('_','T') 
 gp_practice['Age'] = 'Y' + gp_practice['Age'].astype(str)
 gp_practice['Sex'] = gp_practice['Sex'].replace({
@@ -424,6 +424,7 @@ pcn_practice = pcn_practice.rename(columns={'ORG Code': 'PCN Code'})
 pcn_practice['Age'] = pcn_practice['Age'].str.replace('_','T') 
 pcn_practice['Age'] = 'Y' + pcn_practice['Age'].astype(str)
 pcn_practice['ORG Type'] = pcn_practice['ORG Type'].apply(pathify)
+pcn_practice['PCN Code'] = pcn_practice['PCN Code'].apply(pathify)
 pcn_practice['Period'] = 'day/' + pcn_practice['Period'].astype(str)
 pcn_practice = pcn_practice[['Period','PCN Code','ORG Type','Age','Sex','Value']]
 #pcn_practice.head()
