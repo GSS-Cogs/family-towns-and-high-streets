@@ -28,7 +28,7 @@ scraper
 def post_processing_dataframe(df):
     df.rename(columns={'OBS' : 'Value', 'DATAMARKER' : 'Marker'}, inplace=True)
     df['Period'] = df['Period'].str[-4:]
-    df["Period"] = df["Period"].map(lambda x: "2019" if x == "gdom" else "2019")
+    df["Period"] = df["Period"].map(lambda x: "year/2019" if x == "gdom" else "year/2019")
     
     #removing hidden cells 
     df.drop(df[(( df['Value']  == "") | ((df['Value'] == 0) & (df['TEMP - AGE, GENDER, FAMILY SIZE'] == "" )))].index, inplace = True) 
@@ -58,7 +58,28 @@ def post_processing_dataframe(df):
 
     df["Geography Level"] = df["Geography Level"].map(lambda x: "lower-layer-super-output-area" if x == "LSOA code" 
                                                       else ("data-zone" if x == "Data Zone code" 
-                                                            else ("region" if x == "Area Code1"else "unknown"  )))
+                                                            else ("electoral-ward" if x == "Area Code1"else "unknown"  )))
+    
+
+    
+    df['Geography Level'] = df.apply(lambda x: 'country' if x['TEMP - Missing area code']== "United Kingdom" 
+                                             else ( 'country' if x['TEMP - Missing area code']== "Great Britain"
+                                                   else ( 'country' if x['TEMP - Missing area code']== "England and Wales"
+                                                         else ( 'country' if x['TEMP - Missing area code']== "England"
+                                                               else ( 'country' if x['TEMP - Missing area code']== "Wales"
+                                                                     else ( 'country' if x['TEMP - Missing area code']== "Scotland"
+                                                                           else ( 'country' if x['TEMP - Missing area code']== "Northern Ireland"
+                                                                                 else x['Geography Level'] )))))), axis=1)
+    
+    df['Geography Level'] = df.apply(lambda x: 'region' if x['TEMP - Missing area code']== "North East" 
+                                             else ( 'region' if x['TEMP - Missing area code']== "North West"
+                                                   else ( 'region' if x['TEMP - Missing area code']== "Yorkshire and the Humber"
+                                                         else ( 'region' if x['TEMP - Missing area code']== "East Midlands"
+                                                               else ( 'region' if x['TEMP - Missing area code']== "West Midlands"
+                                                                     else ( 'region' if x['TEMP - Missing area code']== "East of England"
+                                                                           else ( 'region' if x['TEMP - Missing area code']== "London"
+                                                                                 else ( 'region' if x['TEMP - Missing area code']== "South West"
+                                                                                     else x['Geography Level'] ))))))), axis=1)
     
     
     df["Unit"] = df["Unit"].map(lambda x: "children" if x == "Number of children for whom Child Benefit is received" else ("families" if x == "Number of families in receipt of Child Benefit" else  "UNKNOWN"))
@@ -652,8 +673,6 @@ for i in range(0, number_of_iterations):
 electoral_ward = pd.concat(tidy_sheet_list, sort=False)
 post_processing_dataframe(electoral_ward)
 
-electoral_ward['Geography Level'] = "electoral-ward"
-
 ""
 #concatenating all the distributions togther - Easy to output all data togther once multiple measure types can be handeld
 merged_data = pd.concat([region, east_midlands , east_of_england, london,  north_east, north_west, scotland, south_east, south_west, wales, west_midlands, yorkshire_humber, electoral_ward], ignore_index=True)
@@ -691,6 +710,19 @@ tidy_families_stats_df = DataFrameDict['families']
 ""
 tidy_children_stats_df = tidy_children_stats_df[['Period', 'Geography Code', 'Geography Level', 'Age', 'Gender', 'Value']]
 tidy_families_stats_df = tidy_families_stats_df[['Period', 'Geography Code', 'Geography Level', 'Family Size', 'Value']]
+
+
+tidy_children_stats_df = tidy_children_stats_df.drop_duplicates()
+tidy_families_stats_df = tidy_families_stats_df.drop_duplicates()
+
+print("Duplicates children")
+duplicateDFRow = tidy_children_stats_df[tidy_children_stats_df.duplicated()]
+print(duplicateDFRow)
+
+print("Duplicates families")
+duplicateDFRow = tidy_families_stats_df[tidy_families_stats_df.duplicated()]
+print(duplicateDFRow)
+
 
 
 ""
