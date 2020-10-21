@@ -28,7 +28,8 @@
                 "description": ""
             },
             "Meters": {
-                "attribute": "http://gss-data.org.uk/data/gss_data/towns-high-streets/sg-scottish-index-of-multiple-deprivation-2020/ranks/concept-scheme/meters"},
+                "attribute": "http://gss-data.org.uk/data/gss_data/towns-high-streets/sg-scottish-index-of-multiple-deprivation-2020/ranks/concept-scheme/meters"
+            },
             "Post Codes": {
                 "parent": "http://gss-data.org.uk/def/concept-scheme/post-codes",
                 "value": "http://gss-data.org.uk/def/concept/post-codes/{post_codes}",
@@ -440,6 +441,9 @@
                     }
                 ]
             }
+        ],
+        "stage": [
+            "To Do"
         ]
     },
     "sizingNotes": "Several tables but simple  structure and in CSV format.",

@@ -28,7 +28,10 @@
                 "measure": "http://gss-data.org.uk/def/measure/count",
                 "datatype": "integer"
             }
-        }
+        },
+        "stage": [
+            "To Do"
+        ]
     },
     "sizingNotes": "Simple table structure, straightforward dimensions with some footnotes.",
     "notes": ""
