@@ -250,7 +250,7 @@ gp_practice = pd.concat([tidied_data['Totals (GP practice-all persons)'],
                          tidied_data['Single year of age (GP practice-males)'],
                          gp5yr], sort=True)
 #gp_practice['CCG Code'] = gp_practice['CCG Code'].apply(pathify)
-gp_practice['Practice Code'] = gp_practice['Practice Code'].apply(pathify)
+#gp_practice['Practice Code'] = gp_practice['Practice Code'].apply(pathify)
 gp_practice['Age'] = gp_practice['Age'].str.replace('_','T') 
 gp_practice['Age'] = 'Y' + gp_practice['Age'].astype(str)
 gp_practice['Sex'] = gp_practice['Sex'].replace({
