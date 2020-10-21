@@ -1,6 +1,6 @@
 {
   "@context": "http://www.w3.org/ns/csvw",
-  "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/HMRC-Child-Benefit-small-area-data#schema",
+  "@id": "#table",
   "url": "family-size.csv",
   "tableSchema": {
     "columns": [
@@ -30,7 +30,7 @@
         },
         "required": false,
         "propertyUrl": "skos:broader",
-        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/HMRC-Child-Benefit-small-area-data/family-size/{parent_notation}"
+        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/hmrc-child-benefit-small-area-data/concept/family-size/{parent_notation}"
       },
       {
         "titles": "Sort Priority",
@@ -54,16 +54,16 @@
       {
         "virtual": true,
         "propertyUrl": "skos:inScheme",
-        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/HMRC-Child-Benefit-small-area-data#scheme/family-size"
+        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/hmrc-child-benefit-small-area-data/concept-scheme/family-size"
       }
     ],
     "primaryKey": "notation",
-    "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/HMRC-Child-Benefit-small-area-data#concept/family-size/{notation}"
+    "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/hmrc-child-benefit-small-area-data/concept/family-size/{notation}"
   },
   "prov:hadDerivation": {
-    "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/HMRC-Child-Benefit-small-area-data#scheme/family-size",
+    "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/hmrc-child-benefit-small-area-data/concept-scheme/family-size",
     "@type": "skos:ConceptScheme",
     "rdfs:label": "Family Size",
-    "skos:hasTopConcept": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/HMRC-Child-Benefit-small-area-data#concept/family-size/total"
+    "skos:hasTopConcept": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/hmrc-child-benefit-small-area-data/concept/family-size/total"
   }
 }
