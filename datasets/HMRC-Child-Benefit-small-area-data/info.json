@@ -34,6 +34,11 @@
                 "value": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept/age/{age}",
                 "description": ""
             },
+            "Geography Level": {
+                "parent": "http://gss-data.org.uk/def/concept-scheme/geography-level",
+                "value": "http://gss-data.org.uk/def/concept/geography-level/{geography_level}",
+                "description": ""
+            },
             "Gender": {
                 "dimension": "http://purl.org/linked-data/sdmx/2009/dimension#sex",
                 "value": "http://purl.org/linked-data/sdmx/2009/code#sex-{gender}"
