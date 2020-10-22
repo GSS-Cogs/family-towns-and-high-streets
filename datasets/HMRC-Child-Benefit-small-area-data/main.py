@@ -103,7 +103,12 @@ geography_code = tab.filter(contains_string('Area Code1')).shift(0,4).expand(DOW
 temp_missing_geography_codes = tab.excel_ref('C7').expand(DOWN).is_not_blank()
 geography_level = tab.excel_ref('B4')
 unit = tab.excel_ref('D4').expand(RIGHT).is_not_blank()
-observations = age_gender_family_size.fill(DOWN).is_not_blank()
+########################### values removed for now causing duplication
+remove = tab.excel_ref('E7').expand(RIGHT) 
+remove_dups_for_now = remove.fill(DOWN).is_not_blank() - tab.excel_ref('B13').expand(RIGHT).expand(DOWN)
+#################################
+observations = age_gender_family_size.fill(DOWN).is_not_blank() - remove_dups_for_now
+#savepreviewhtml(observations) 
 
 
 dimensions = [
