@@ -1,0 +1,68 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix cogsgit: <https://github.com/GSS-Cogs/> .
+@prefix cogs: <http://gss-cogs.uk/def/arch/> .
+
+<http://gss-cogs.uk/def/arch> a owl:Ontology;
+  rdfs:label "COGS COVID-19 Transform Mapping" ;
+.
+
+cogs:SoftwarePackage a owl:Class ;
+  rdfs:label "Software package" ;
+.
+cogs:SoftwarePackage a owl:Class ;
+  rdfs:label2 "Label2" ;
+.
+cogs:LandingPage a owl:Class ;
+  rdfs:subClassOf cogs:SoftwarePackage ;
+  rdfs:label "Landing Page" ;
+.
+cogs:Datasets a owl:Class ;
+  rdfs:subClassOf cogs:SoftwarePackage ;
+  rdfs:label "Output Dataset" ;
+.
+cogs:Sheets a owl:Class ;
+  rdfs:subClassOf cogs:SoftwarePackage ;
+  rdfs:label "Sheet Name";
+.
+cogs:Columns a owl:Class ;
+  rdfs:subClassOf cogs:SoftwarePackage ;
+  rdfs:label "Table" ;
+.
+cogs:PMD a owl:Class ;
+  rdfs:subClassOf cogs:SoftwarePackage ;
+  rdfs:label "PMD" ;
+.
+cogs:Rename a owl:Class ;
+  rdfs:subClassOf cogs:SoftwarePackage ;
+  rdfs:label "Rename & Add" ;
+.
+###########################################################################################################
+
+cogsgit:top-level a cogs:LandingPage ;
+  rdfs:label "Landing Page" ;
+  rdfs:label2 "<b>Patients Registered at a GP Practice</b>" ;
+  rdfs:comment <https://digital.nhs.uk/data-and-information/publications/statistical/patients-registered-at-a-gp-practice>;
+  cogs:scrape cogsgit:sheet1, cogsgit:sheet2, cogsgit:sheet3, cogsgit:sheet4, cogsgit:sheet5 ;
+.
+
+cogsgit:sheet1 a cogs:Sheets ; rdfs:label "Totals (GP practice-all persons)" ; rdfs:comment "Patients registered at GP Practices by CCG, Practice and Post Code" ; cogs:transforms cogsgit:dataset1 ; .
+cogsgit:sheet2 a cogs:Sheets ; rdfs:label "Single year of age (GP practice-females)" ; rdfs:comment "Female patients registered at GP Practices by Age" ; cogs:transforms cogsgit:dataset1 ; .
+cogsgit:sheet3 a cogs:Sheets ; rdfs:label "Single year of age (GP practice-males)" ; rdfs:comment "Male patients registered at GP Practices by Age" ; cogs:transforms cogsgit:dataset1 ; .
+cogsgit:sheet4 a cogs:Sheets ; rdfs:label "5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice)" ; rdfs:comment "Patients registered at GP Practices by 5-year Age groups & STPs-CCGs-PCNs-GP<br><br>GP data split out and added to GP dataset<br>PCN data split out and added to PCN dataset" ; cogs:transforms cogsgit:dataset1, cogsgit:dataset2, cogsgit:dataset3 ; .
+cogsgit:sheet5 a cogs:Sheets ; rdfs:label "Single year of age (Commissioning Regions-STPs-CCGs-PCNs)" ; rdfs:comment "Patients registered at GP Practices Age & STPs-CCGs-PCNs.<br><br>PCN data split out and added to PCN dataset" ; cogs:transforms cogsgit:dataset2, cogsgit:dataset3 ; .
+
+cogsgit:dataset1 a cogs:Datasets ; rdfs:label "Patients Registered at a GP Practice - GP" ;  rdfs:comment "GP - General Practice data" ;  cogs:outputs cogsgit:columns1 ; .
+cogsgit:dataset2 a cogs:Datasets ; rdfs:label "Patients Registered at a GP Practice - CCG, STP, Comm Region" ;  rdfs:comment "CCG - Clinical Commissioning Groups<br>STP - Sustainability and transformation partnership<br>Comm Region - NHS England Commissioning Region" ;  cogs:outputs cogsgit:columns2 ; . 
+cogsgit:dataset3 a cogs:Datasets ; rdfs:label "Patients Registered at a GP Practice - PCN" ;  rdfs:comment "PCN - Primary Care Network" ;  cogs:outputs cogsgit:columns3 ; . 
+
+cogsgit:columns1 a cogs:Columns ; rdfs:label "Output Table" ; rdfs:comment "Period, ONS CCG Code, Post Code, Practice Code, Age, Sex, Value" ; cogs:uploads cogsgit:pmd1 ; .
+cogsgit:columns2 a cogs:Columns ; rdfs:label "Output Table" ; rdfs:comment "Period, ONS ORG Code, ORG Type, Age, Sex, Value" ; cogs:uploads cogsgit:pmd1 ; .
+cogsgit:columns3 a cogs:Columns ; rdfs:label "Output Table" ; rdfs:comment "Period, PCN Code, ORG Type, Age, Sex, Value" ; cogs:uploads cogsgit:pmd1 ; .
+
+cogsgit:pmd1 a cogs:PMD ;
+  rdfs:label "PMD" ;
+  rdfs:comment <https://staging.gss-data.org.uk/datasets?columns=http%3A%2F%2Fpurl.org%2Fdc%2Fterms%2Fpublisher> ;
+.
+###################################################################################################
