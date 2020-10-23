@@ -441,7 +441,7 @@ to_output.append([tidied_sheets[9],
                   "post_code_sales", 
                   "Electric prepayment meter statistics by Post Code - Sales", 
                   "sales", 
-                  "/sales", 
+                  "/postcode-sales", 
                   "Annual prepayment meter electricity sales statistics by Post Code in England, Wales and Scotland."])
 
 #tidy_sales
@@ -484,7 +484,8 @@ for i in to_output:
     scraper.dataset.comment = i[5]
     scraper.dataset.title = i[2]
 
-    dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}' + i[4]))
+    #dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}' + i[4]))
+    dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name) + i[4]).lower()
     scraper.set_base_uri('http://gss-data.org.uk')
     scraper.set_dataset_id(dataset_path)
 
