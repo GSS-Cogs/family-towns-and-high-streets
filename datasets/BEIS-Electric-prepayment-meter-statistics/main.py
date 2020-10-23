@@ -464,6 +464,9 @@ from urllib.parse import urljoin
 import os
 
 for i in to_output:
+    
+    i[0]['Year'] = 'year/' + i[0]['Year'].astype(str)
+    
     csvName = i[1] + "_observations.csv"
     out = Path("out")
     out.mkdir(exist_ok=True)
