@@ -82,6 +82,8 @@ trace.output()
 #Getting rid of the final rows which display "Unallocated" geography.
 df.drop(df.index[-3:], inplace=True)
 
+df["Geography Level"] = 'local-authority'
+
 #tidy_d1 = df[["Year", "Region", "Local Authority", "Geography Code", "LAU1", "Meters", "Measure Types", "Unit", "Value"]]
 tidy_d1 = df[["Year", "Geography Level", "Geography Code", "Meters", "Measure Type", "Unit", "Value"]]
 
@@ -170,6 +172,8 @@ df["Measure Type"] = df["Measure Type"].map({"Sales (kWh)": "Sales", "Mean consu
 trace.output()
 
 df.drop(df.index[-3:], inplace=True)
+
+df["Geography Level"] = 'middle-layer-super-output-area'
 
 tidy_d2 = df[["Year", "Geography Level", "Geography Code", "Meters", "Measure Type", "Unit", "Value"]]
 
@@ -268,6 +272,8 @@ df["Measure Type"] = df["Measure Type"].map({"Total consumption (kWh)": "Sales",
 trace.output()
 
 df.drop(df.index[-3:], inplace=True)
+
+df["Geography Level"] = 'lower-layer-super-output-area'
 
 tidy_d3 = df[["Year", "Geography Level", "Geography Code", "Meters", "Measure Type", "Unit", "Value"]]
 
@@ -392,40 +398,66 @@ tidy_mean_consumption = pd.concat([tidied_sheets[1], tidied_sheets[4], tidied_sh
 
 tidy_median_consumption = pd.concat([tidied_sheets[2], tidied_sheets[5], tidied_sheets[8]])
 
+# +
+# As we only have one Measure and Unit type they are defined within the info.json file so can be deleted from the tables
+# Also remove the space from Post Code and rename as to just 'Post Code'
+del tidy_sales['Measure Type']
+del tidy_sales['Unit']
+
+del tidy_mean_consumption['Measure Type']
+del tidy_mean_consumption['Unit']
+
+del tidy_median_consumption['Measure Type']
+del tidy_median_consumption['Unit']
+
+del tidied_sheets[9]['Measure Type']
+del tidied_sheets[9]['Unit']
+
+tidied_sheets[9]['Post Codes'] = tidied_sheets[9]['Post Codes'].str.replace(' ', '')
+tidied_sheets[9] = tidied_sheets[9].rename(columns={'Post Codes': 'Post Code'})
+
+
+# +
 to_output = []
-to_output.append([tidy_sales, "sales", "Electric prepayment meter statistics - Sales", "sales", "/sales"])
-to_output.append([tidy_mean_consumption, "mean_consumption", "Electric prepayment meter statistics - Mean Consumption", "mean-consumption", "/mean"])
-to_output.append([tidy_median_consumption, "median_consumption", "Electric prepayment meter statistics - Median Consumption", "median-consumption", "/median"])
-to_output.append([tidied_sheets[9], "post_code_sales", "Electric prepayment meter statistics by Post Code - Sales", "post_code-sales", "/sales"])
+to_output.append([tidy_sales, 
+                  "sales", 
+                  "Electric prepayment meter statistics - Sales", 
+                  "sales", 
+                  "/sales", 
+                  "Annual prepayment meter electricity sales statistics for Local Authorities, LSOAs, MSOAs in England, Wales and Scotland."])
+to_output.append([tidy_mean_consumption, 
+                  "mean_consumption", 
+                  "Electric prepayment meter statistics - Mean Consumption", 
+                  "mean-consumption", 
+                  "/mean", 
+                 "Annual prepayment meter electricity mean consumption statistics for Local Authorities, LSOAs, MSOAs in England, Wales and Scotland."])
+to_output.append([tidy_median_consumption, 
+                  "median_consumption", 
+                  "Electric prepayment meter statistics - Median Consumption", 
+                  "median-consumption", 
+                  "/median", 
+                  "Annual prepayment meter electricity median consumption statistics for Local Authorities, LSOAs, MSOAs in England, Wales and Scotland."])
+to_output.append([tidied_sheets[9], 
+                  "post_code_sales", 
+                  "Electric prepayment meter statistics by Post Code - Sales", 
+                  "sales", 
+                  "/sales", 
+                  "Annual prepayment meter electricity sales statistics by Post Code in England, Wales and Scotland."])
 
 #tidy_sales
 #tidy_mean_consumption
 #tidy_median_consumption
+# -
 
-# +
-#tidy_d1.head(10)
+tidy_sales.head(10)
+#tidy_sales['Geography Level'].unique()
 
 
-# +
-#tidy_d2.head(10)
+tidy_median_consumption.head(10)
 
-# +
-#tidy_d3.head(10)
+tidied_sheets[9].head(10)
 
-# +
-#tidy_d4.head(10)
 
-# +
-# Codelist creation through gss-utils
-#scraper.dataset.family = 'towns-high-streets'
-#codelistcreation = ['Postcodes'] 
-#df = tidy_d4
-#codeclass = CSVCodelists()
-#for cl in codelistcreation:
-#    if cl in df.columns:
-#        df[cl] = df[cl].str.replace("-"," ")
-#        df[cl] = df[cl].str.capitalize()
-#        codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())
 
 # +
 from urllib.parse import urljoin
@@ -449,7 +481,7 @@ for i in to_output:
     Meters that are deemed to be disclosive at Local Authority level are set as 'Unallocated' but are not included in this 
     data as there is no matching geography code."""
 
-    scraper.dataset.comment = "Annual prepayment meter electricity sales statistics for local authorities, LSOAs, MSOAs in England, Wales and Scotland."
+    scraper.dataset.comment = i[5]
     scraper.dataset.title = i[2]
 
     dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}' + i[4]))

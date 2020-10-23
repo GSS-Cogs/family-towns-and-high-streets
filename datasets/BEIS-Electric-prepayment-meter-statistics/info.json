@@ -30,9 +30,14 @@
             "Meters": {
                 "attribute": "http://gss-data.org.uk/data/gss_data/towns-high-streets/sg-scottish-index-of-multiple-deprivation-2020/ranks/concept-scheme/meters"
             },
-            "Post Codes": {
-                "parent": "http://gss-data.org.uk/def/concept-scheme/post-codes",
-                "value": "http://gss-data.org.uk/def/concept/post-codes/{post_codes}",
+            "Post Code": {
+                "parent": "http://www.w3.org/2000/01/rdf-schema#label",
+                "value": "http://statistics.data.gov.uk/id/postcode/unit/{post_code}",
+                "description": "Post Codes"
+            },
+            "Geography Level": {
+                "parent": "http://gss-data.org.uk/def/concept-scheme/geography-level",
+                "value": "http://gss-data.org.uk/def/concept/geography-level/{geography_level}",
                 "description": ""
             },
             "Value": {
@@ -51,37 +56,25 @@
                     }
                 ],
                 "title": "2017",
-                "preview": "documentation/previews/202eea2d-6009-452e-a2c9-c8bf762f87a0.html",
+                "preview": "documentation/previews/a2c17daa-4f54-45bd-827a-079f78cb87f0.html",
                 "observation_selection": null,
                 "columns": [],
                 "postTransformNotes": [
                     {
-                        "PERIOD": [
+                        "YEAR": [
                             "Hardcoded but could have been taken from the dataset title or tab title.",
                             "Added to dataframe 'combined_dataframe_1'"
                         ]
                     },
                     {
-                        "REGION": [
-                            "Selected as all non-blank values from cell ref A4 down.",
-                            "Added to dataframe 'combined_dataframe_1'"
-                        ]
-                    },
-                    {
-                        "LOCAL_AUTHORITY": [
+                        "GEOGRAPHY_LEVEL": [
                             "Selected as all non-blank values from cell ref B4 down.",
                             "Added to dataframe 'combined_dataframe_1'"
                         ]
                     },
                     {
-                        "LA_CODE": [
+                        "GEOGRAPHY_CODE": [
                             "Selected as all non-blank values from cell ref C4 down.",
-                            "Added to dataframe 'combined_dataframe_1'"
-                        ]
-                    },
-                    {
-                        "LAU1": [
-                            "Selected as all non-blank values from cell ref D4 down.",
                             "Added to dataframe 'combined_dataframe_1'"
                         ]
                     },
@@ -92,7 +85,7 @@
                         ]
                     },
                     {
-                        "MEASURE_TYPES": [
+                        "MEASURE_TYPE": [
                             "Selected as all non-blank values from cell ref F3 going right/across.",
                             "Added to dataframe 'combined_dataframe_1'"
                         ]
@@ -119,25 +112,19 @@
                 "columns": [],
                 "postTransformNotes": [
                     {
-                        "PERIOD": []
+                        "YEAR": []
                     },
                     {
-                        "REGION": []
+                        "GEOGRAPHY_LEVEL": []
                     },
                     {
-                        "LOCAL_AUTHORITY": []
-                    },
-                    {
-                        "LA_CODE": []
-                    },
-                    {
-                        "LAU1": []
+                        "GEOGRAPHY_CODE": []
                     },
                     {
                         "METERS": []
                     },
                     {
-                        "MEASURE_TYPES": []
+                        "MEASURE_TYPE": []
                     },
                     {
                         "UNIT": []
@@ -158,31 +145,19 @@
                 "columns": [],
                 "postTransformNotes": [
                     {
-                        "PERIOD": [
+                        "YEAR": [
                             "Hardcoded but could have been taken from the dataset title or tab title.",
                             "Added to dataframe 'combined_dataframe_2'"
                         ]
                     },
                     {
-                        "LA_NAME": [
-                            "Selected as all non-blank values from cell ref A4 down.",
-                            "Added to dataframe 'combined_dataframe_2'"
-                        ]
-                    },
-                    {
-                        "LA_CODE": [
-                            "Selected as all non-blank values from cell ref B4 down.",
-                            "Added to dataframe 'combined_dataframe_2'"
-                        ]
-                    },
-                    {
-                        "MSOA_NAME": [
+                        "GEOGRAPHY_LEVEL": [
                             "Selected as all non-blank values from cell ref C4 down.",
                             "Added to dataframe 'combined_dataframe_2'"
                         ]
                     },
                     {
-                        "MSOA_CODE": [
+                        "GEOGRAPHY_CODE": [
                             "Selected as all non-blank values from cell ref D4 down.",
                             "Added to dataframe 'combined_dataframe_2'"
                         ]
@@ -194,7 +169,7 @@
                         ]
                     },
                     {
-                        "MEASURE_TYPES": [
+                        "MEASURE_TYPE": [
                             "Selected as all non-blank values from cell ref F3 going right/across.",
                             "Added to dataframe 'combined_dataframe_2'"
                         ]
@@ -221,25 +196,19 @@
                 "columns": [],
                 "postTransformNotes": [
                     {
-                        "PERIOD": []
+                        "YEAR": []
                     },
                     {
-                        "LA_NAME": []
+                        "GEOGRAPHY_LEVEL": []
                     },
                     {
-                        "LA_CODE": []
-                    },
-                    {
-                        "MSOA_NAME": []
-                    },
-                    {
-                        "MSOA_CODE": []
+                        "GEOGRAPHY_CODE": []
                     },
                     {
                         "METERS": []
                     },
                     {
-                        "MEASURE_TYPES": []
+                        "MEASURE_TYPE": []
                     },
                     {
                         "UNIT": []
@@ -260,26 +229,8 @@
                 "columns": [],
                 "postTransformNotes": [
                     {
-                        "PERIOD": [
+                        "YEAR": [
                             "Hardcoded but could have been taken from the dataset title or tab title.",
-                            "Added to dataframe 'combined_dataframe_3'"
-                        ]
-                    },
-                    {
-                        "LA_NAME": [
-                            "Selected as all non-blank values from cell ref A3 down.",
-                            "Added to dataframe 'combined_dataframe_3'"
-                        ]
-                    },
-                    {
-                        "LA_CODE": [
-                            "Selected as all non-blank values from cell ref B3 down.",
-                            "Added to dataframe 'combined_dataframe_3'"
-                        ]
-                    },
-                    {
-                        "MSOA_NAME": [
-                            "Selected as all non-blank values from cell ref C3 down.",
                             "Added to dataframe 'combined_dataframe_3'"
                         ]
                     },
@@ -290,13 +241,13 @@
                         ]
                     },
                     {
-                        "LSOA_NAME": [
+                        "GEOGRAPHY_LEVEL": [
                             "Selected as all non-blank values from cell ref E3 down.",
                             "Added to dataframe 'combined_dataframe_3'"
                         ]
                     },
                     {
-                        "LSOA_CODE": [
+                        "GEOGRAPHY_CODE": [
                             "Selected as all non-blank values from cell ref F3 down.",
                             "Added to dataframe 'combined_dataframe_3'"
                         ]
@@ -308,7 +259,7 @@
                         ]
                     },
                     {
-                        "MEASURE_TYPES": [
+                        "MEASURE_TYPE": [
                             "Selected as all non-blank values from cell ref (row) 2 and filtering for all values containing the string '(kWh)'.",
                             "Added to dataframe 'combined_dataframe_3'"
                         ]
@@ -335,31 +286,22 @@
                 "columns": [],
                 "postTransformNotes": [
                     {
-                        "PERIOD": []
-                    },
-                    {
-                        "LA_NAME": []
-                    },
-                    {
-                        "LA_CODE": []
-                    },
-                    {
-                        "MSOA_NAME": []
+                        "YEAR": []
                     },
                     {
                         "MSOA_CODE": []
                     },
                     {
-                        "LSOA_NAME": []
+                        "GEOGRAPHY_LEVEL": []
                     },
                     {
-                        "LSOA_CODE": []
+                        "GEOGRAPHY_CODE": []
                     },
                     {
                         "METERS": []
                     },
                     {
-                        "MEASURE_TYPES": []
+                        "MEASURE_TYPE": []
                     },
                     {
                         "UNIT": []
@@ -380,13 +322,13 @@
                 "columns": [],
                 "postTransformNotes": [
                     {
-                        "PERIOD": [
+                        "YEAR": [
                             "Hardcoded but could have been taken from the dataset title.",
                             "Added to dataframe 'combined_dataframe_4'"
                         ]
                     },
                     {
-                        "POSTCODES": [
+                        "POST_CODES": [
                             "Selected as all non-blank values from cell ref A2 down.",
                             "Added to dataframe 'combined_dataframe_4'"
                         ]
@@ -398,7 +340,7 @@
                         ]
                     },
                     {
-                        "MEASURE_TYPES": [
+                        "MEASURE_TYPE": [
                             "Selected as all non-blank values from cell ref C1 going right/across.",
                             "Added to dataframe 'combined_dataframe_4'"
                         ]
@@ -425,16 +367,16 @@
                 "columns": [],
                 "postTransformNotes": [
                     {
-                        "PERIOD": []
+                        "YEAR": []
                     },
                     {
-                        "POSTCODES": []
+                        "POST_CODES": []
                     },
                     {
                         "METERS": []
                     },
                     {
-                        "MEASURE_TYPES": []
+                        "MEASURE_TYPE": []
                     },
                     {
                         "UNIT": []
