@@ -1,6 +1,9 @@
+# -*- coding: utf-8 -*-
 from gssutils import * 
 import json 
 import math
+import os
+from urllib.parse import urljoin
 
 info = json.load(open('info.json')) 
 etl_title = info["title"] 
@@ -23,7 +26,7 @@ def excelRange(bag):
     top_left_cell = xypath.contrib.excel.excel_location(bag.filter(lambda x: x.x == min_x and x.y == min_y))
     bottom_right_cell = xypath.contrib.excel.excel_location(bag.filter(lambda x: x.x == max_x and x.y == max_y))
     return f"{top_left_cell}:{bottom_right_cell}"
-    
+
 def PeriodFromColumnName(value):
     # returns just the year from the column name -> which contains the dataset name
     year = value.split(',')[-1].strip()
@@ -39,8 +42,8 @@ def ScoreOrRank(value):
         return 'Average Rank'
     elif value.lower().startswith('rank of average rank'):
         return 'Rank of Average Rank'
-    
-    
+
+
 # there are 2 distinct types of format
 list_of_transform_type_1 = [
     'Economic deprivation index: rank',
@@ -210,9 +213,9 @@ for distribution in scraper.distributions:
 
             trace.store(unique_identifier, tidy_sheet)
             tidied_sheets[unique_identifier] = tidy_sheet 
+
             
-            
-            
+
 out = Path('out')
 out.mkdir(exist_ok=True)
 
@@ -223,7 +226,171 @@ for key in tidied_sheets:
 '''
 
 for key in tidied_sheets:
-    print(key)
+    #print(key)
+    #print('Count: ' + str(tidied_sheets[key]['Year'].count()))
+    if 'Economic Deprivation Indicator' in tidied_sheets[key].columns:
+        del tidied_sheets[key]['Economic Deprivation Indicator']
+    if 'Period' in tidied_sheets[key].columns:
+        tidied_sheets[key] = tidied_sheets[key].rename(columns={'Period': 'Year'})
+        tidied_sheets[key]['Year'] = 'year/' + tidied_sheets[key]['Year'].astype(str)
+    if 'lsoaname' in tidied_sheets[key].columns:
+        del tidied_sheets[key]['lsoaname']
+        tidied_sheets[key] = tidied_sheets[key].rename(columns={'lsoacode': 'Lower Layer Super Output Area'})
+    if 'lauaname' in tidied_sheets[key].columns:
+        del tidied_sheets[key]['lauaname']
+        tidied_sheets[key] = tidied_sheets[key].rename(columns={'lauacode': 'Local Authority'})
+    if 'Marker' in tidied_sheets[key].columns:
+        tidied_sheets[key]['Value'][tidied_sheets[key]['Marker'] == '*'] = '0'
+        tidied_sheets[key]['Marker'][tidied_sheets[key]['Marker'] == '*'] = 'suppressed'
+        tidied_sheets[key]['Marker'] = tidied_sheets[key]['Marker'].fillna('')
+    ind = ''
+    if 'EDI' in key:
+        ind = 'EDI'
+    elif 'IDD' in key:
+        ind = 'IDD'
+    elif 'EDD' in key:
+        ind = 'EDD'
+    elif 'CIDI' in key:
+        ind = 'CIDI'
+    if len(ind) > 0:
+        tidied_sheets[key].insert(1,'Economic Deprivation Indicator',ind)
+
+    #print(tidied_sheets[key].head(10))
+
+# +
+ranksDat = []
+scoreDat = []
+denomDat = []
+numerDat = []
+populDat = []
+
+for key in tidied_sheets:
+    if ('score & rank' not in key) & ('score and rank' not in key):
+        if 'rank' in key:
+            ranksDat.append(tidied_sheets[key])
+        elif 'score' in key:
+            scoreDat.append(tidied_sheets[key])
+            if 'Marker' not in tidied_sheets[key].columns:
+                tidied_sheets[key].insert(len(list(tidied_sheets[key].columns)) - 1,'Marker','')
+        elif 'numerator' in key:
+            numerDat.append(tidied_sheets[key])
+        elif 'denominator' in key:
+            denomDat.append(tidied_sheets[key])
+        elif 'Population' in key:
+            populDat.append(tidied_sheets[key])
+            
+ranks = pd.concat(ranksDat, sort=False)
+score = pd.concat(scoreDat, sort=False)
+numer = pd.concat(numerDat, sort=False)
+denom = pd.concat(denomDat, sort=False)
+popul = pd.concat(populDat, sort=False)
+
+all_dat = [ranks, score, numer, denom, popul]
+
+# +
+#all_dat[0].head(10)
+
+# +
+scraper.dataset.family = 'towns-high-streets'
+
+n = [
+    "ranks-observations.csv",
+    "scores-observations.csv",
+    "numerators-observations.csv",
+    "denominators-observations.csv",
+    "population-observations.csv"
+]
+
+t = [
+    "Tracking economic and child income deprivation at neighbourhood level in England: Ranks",
+    "Tracking economic and child income deprivation at neighbourhood level in England: Scores",
+    "Tracking economic and child income deprivation at neighbourhood level in England: Numerators",
+    "Tracking economic and child income deprivation at neighbourhood level in England: Denominators",
+    "Tracking economic and child income deprivation at neighbourhood level in England: Total Population (all ages)"
+]
+
+d_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower()
+pa = [
+    (d_path + "/" + "ranks"),
+    (d_path + "/" + "scores"),
+    (d_path + "/" + "numerators"),
+    (d_path + "/" + "denominators"),
+    (d_path + "/" + "population")
+]
+
+c = [
+    "Ranks tracking levels of economic deprivation in England by Lower Layer Super Output Areas (LSOA).",
+    "Scores tracking levels of economic deprivation in England by Lower Layer Super Output Areas (LSOA).",
+    "Numerators tracking levels of economic deprivation in England by Lower Layer Super Output Areas (LSOA).",
+    "Denominators tracking levels of economic deprivation in England by Lower Layer Super Output Areas (LSOA).",
+    "Population counts in England by Lower Layer Super Output Areas (LSOA) used to calculate economic deprivation Indicators."
+]
+
+dt = [
+    'integer',
+    'double',
+    'integer',
+    'integer',
+    'integer'
+]
+
+description = """
+    This Statistical Release presents key findings from the Economic Deprivation Index (EDI) and the
+    Children in Income Deprived households Index (CIDI), hereafter referred to collectively as the
+    ‘economic deprivation indices’. These indices track neighbourhood-level deprivation each year
+    on a consistent basis, taking account of changes to the tax and benefit systems
+    over this period. They are produced using the same general methodology as the Income and
+    Employment deprivation domains of the English Indices of Deprivation (with slightly narrower
+    definitions of income and employment deprivation). As such, the economic deprivation indices
+    complement the Indices of Deprivation 2010.
+    Report can be found here:
+    https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36446/Tracking_Neighbourhoods_Stats_Release.pdf
+"""
+
+# +
+out = Path('out')
+out.mkdir(exist_ok=True)
+scraper.dataset.description = description
+try:
+    
+    with open('info.json') as f:
+        jsn = json.load(f)
+    
+    i = 0
+    for dat in all_dat:
+        jsn["transform"]["columns"]["Value"]["unit"] = pa[i]
+        jsn["transform"]["columns"]["Value"]["measure"] = "deprivation"
+        jsn["transform"]["columns"]["Value"]["datatype"] = dt[i]
+        
+        if dt[i] == 'integer':
+            dat['Value'] = pd.to_numeric(dat['Value'], downcast='integer')
+
+        csvName = n[i]
+        dat = dat.drop_duplicates()
+        [print(dat.head(10))]
+        dat.drop_duplicates().to_csv(out / csvName, index = False, header=True)
+        #d.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+    
+        scraper.dataset.comment = c[i]
+        scraper.dataset.title = t[i]
+
+        dataset_path = pa[i]
+        scraper.set_base_uri('http://gss-data.org.uk')
+        scraper.set_dataset_id(dataset_path)
+
+        csvw_transform = CSVWMapping()
+        csvw_transform.set_csv(out / csvName)
+        csvw_transform.set_mapping(jsn)
+        csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
+        csvw_transform.write(out / f'{csvName}-metadata.json')
+
+        with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
+            metadata.write(scraper.generate_trig())
+        i = i + 1
+
+except Exception as s:
+    print(str(s))
+# -
 
 trace.render("spec_v1.html") 
 
@@ -233,3 +400,15 @@ Was unsure on a dimension name for the score/rank dimension within the datasets:
 'Local authority district: children in income-deprived households index average ranks and scores'
 so dimension is called 'Dimension 1'
 """
+
+# +
+#all_dat[0].head(10)
+
+# +
+#del all_dat[0]['Economic Derivation Indicator']
+#del all_dat[1]['Economic Derivation Indicator']
+#del all_dat[2]['Economic Derivation Indicator']
+#del all_dat[3]['Economic Derivation Indicator']
+# -
+
+
