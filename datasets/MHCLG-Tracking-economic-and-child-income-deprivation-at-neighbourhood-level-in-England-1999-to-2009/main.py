@@ -214,6 +214,10 @@ for distribution in scraper.distributions:
             trace.store(unique_identifier, tidy_sheet)
             tidied_sheets[unique_identifier] = tidy_sheet 
 
+del tidy_sheet
+del tabs
+del obs
+
 out = Path('out')
 out.mkdir(exist_ok=True)
 
@@ -276,14 +280,19 @@ for key in tidied_sheets:
             denomDat.append(tidied_sheets[key])
         elif 'Population' in key:
             populDat.append(tidied_sheets[key])
-            
+
+del tidied_sheets
+
 ranks = pd.concat(ranksDat, sort=False)
 score = pd.concat(scoreDat, sort=False)
 numer = pd.concat(numerDat, sort=False)
 denom = pd.concat(denomDat, sort=False)
 popul = pd.concat(populDat, sort=False)
 
+del ranksDat, scoreDat, numerDat, denomDat, populDat
+
 all_dat = [ranks, score, numer, denom, popul]
+del ranks, score, numer, denom, popul
 
 # +
 #all_dat[0].head(10)
