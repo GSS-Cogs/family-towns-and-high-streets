@@ -214,8 +214,6 @@ for distribution in scraper.distributions:
             trace.store(unique_identifier, tidy_sheet)
             tidied_sheets[unique_identifier] = tidy_sheet 
 
-            
-
 out = Path('out')
 out.mkdir(exist_ok=True)
 
@@ -398,9 +396,10 @@ try:
 
 except Exception as s:
     print(str(s))
-# -
 
-trace.render("spec_v1.html") 
+# +
+#trace.render("spec_v1.html") 
+# -
 
 """
 Was unsure on a dimension name for the score/rank dimension within the datasets:
