@@ -53,7 +53,7 @@
                     }
                 ],
                 "title": "Economic deprivation index: rank - EDI rank",
-                "preview": "documentation/previews/a0fc6094-1b3f-4184-a725-fe5c72341e0a.html",
+                "preview": "documentation/previews/41fcecd7-11d3-48f0-9b2e-9e7defb8e17e.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -104,7 +104,7 @@
                     }
                 ],
                 "title": "Economic deprivation index: income deprivation domain score - IDD score",
-                "preview": "documentation/previews/93a6a968-1cb1-460a-91ec-7dd90702f3b2.html",
+                "preview": "documentation/previews/bc03388c-bc21-4131-8cc1-064a06d508b3.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -161,7 +161,7 @@
                     }
                 ],
                 "title": "Economic deprivation index: income deprivation domain rank - IDD rank",
-                "preview": "documentation/previews/00675216-71f5-4607-a059-ed55e1be6878.html",
+                "preview": "documentation/previews/27ddaab7-8a4c-4e98-abbf-490c34268c55.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -212,7 +212,7 @@
                     }
                 ],
                 "title": "Economic deprivation index: employment deprivation domain score - EDD score",
-                "preview": "documentation/previews/0b02dcba-fdfd-4bc5-889c-1b6b1aa52e21.html",
+                "preview": "documentation/previews/52d6e753-a3dd-4775-8616-2e8fee6ed38f.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -269,7 +269,7 @@
                     }
                 ],
                 "title": "Economic deprivation index: employment deprivation domain rank - EDD rank",
-                "preview": "documentation/previews/9195cba3-3faa-49c4-a004-45c0a3b0932c.html",
+                "preview": "documentation/previews/c06cd2e5-8fde-474c-8c22-cfa55c2ecb11.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -320,7 +320,7 @@
                     }
                 ],
                 "title": "Children in income-deprived households index: score - CIDI score",
-                "preview": "documentation/previews/51a2afa2-a876-4765-bdad-6848a0943bbd.html",
+                "preview": "documentation/previews/408c17ec-88b8-4e62-b010-c3192f26810b.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -377,7 +377,7 @@
                     }
                 ],
                 "title": "Children in income-deprived households index: rank - CIDI rank",
-                "preview": "documentation/previews/49d81847-174c-4675-be2f-cd8e3962219f.html",
+                "preview": "documentation/previews/53dfaa9a-eaed-4052-a669-670c3ae21459.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -428,7 +428,7 @@
                     }
                 ],
                 "title": "Economic deprivation index: income deprivation domain numerator - IDD numerator",
-                "preview": "documentation/previews/ee5c9b7e-28bc-42ec-a772-3915896a905f.html",
+                "preview": "documentation/previews/5a89a344-f1d3-4736-837e-1f32100ad036.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -485,7 +485,7 @@
                     }
                 ],
                 "title": "Economic deprivation index: income deprivation domain denominator - IDD denominator",
-                "preview": "documentation/previews/58f29666-b379-4360-bf0d-ef17030a37de.html",
+                "preview": "documentation/previews/3b34bf0e-10bf-438b-8047-76227548c6b8.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -536,7 +536,7 @@
                     }
                 ],
                 "title": "Economic deprivation index: employment deprivation domain numerator - EDD numerator",
-                "preview": "documentation/previews/d666dd1c-6647-43a1-9ce3-17e18bc5c366.html",
+                "preview": "documentation/previews/226c90be-0c74-42f5-84c3-58d945e5b328.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -593,7 +593,7 @@
                     }
                 ],
                 "title": "Economic deprivation index: employment deprivation domain denominator - EDD denominator",
-                "preview": "documentation/previews/90b2f04c-46fc-443a-a8ca-cfe3b0ba4150.html",
+                "preview": "documentation/previews/b1fb1af1-d94a-4505-93e5-4f8424106c91.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -644,7 +644,7 @@
                     }
                 ],
                 "title": "Children in income-deprived households index: numerator - CIDI numerator",
-                "preview": "documentation/previews/0c3aa773-2472-43f1-8c12-a880d612a35c.html",
+                "preview": "documentation/previews/ddee6bec-c87c-4a6e-a987-72ad5278cc76.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -701,7 +701,7 @@
                     }
                 ],
                 "title": "Children in income-deprived households index: denominator - CIDI denominator",
-                "preview": "documentation/previews/4a44a468-2b3f-4236-8f51-10ba47b80f97.html",
+                "preview": "documentation/previews/b5047391-b8c0-4016-af12-46bb3bd21574.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -758,7 +758,7 @@
                     }
                 ],
                 "title": "Economic deprivation index: score - EDI score",
-                "preview": "documentation/previews/a17a2fc4-734e-4e93-9672-728a27405bed.html",
+                "preview": "documentation/previews/cec19eb4-2f7c-4880-b041-313a10d11394.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -809,7 +809,7 @@
                     }
                 ],
                 "title": "Total population used to calculate local authority district and economic deprivation index summary measure - Total Population (all ages)",
-                "preview": "documentation/previews/f8d7474c-dd32-4cc2-b1bd-b7315cfe4cf7.html",
+                "preview": "documentation/previews/c34ebfc1-c161-4a22-a192-68520eee38f5.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -860,7 +860,7 @@
                     }
                 ],
                 "title": "Local authority district: economic deprivation index and domains average ranks and scores - EDI average score & rank",
-                "preview": "documentation/previews/0463acdd-ddc4-406d-9783-f44b486003ae.html",
+                "preview": "documentation/previews/41c4129c-56c5-412f-b26f-f3ffc4da2c1b.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -919,7 +919,7 @@
                     }
                 ],
                 "title": "Local authority district: economic deprivation index and domains average ranks and scores - Income Domain av score & rank",
-                "preview": "documentation/previews/dc264a09-526f-4e18-8503-4786ae7c9aca.html",
+                "preview": "documentation/previews/6e5faf41-c7a6-46c7-b041-626d7f63a8cc.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -978,7 +978,7 @@
                     }
                 ],
                 "title": "Local authority district: economic deprivation index and domains average ranks and scores - Employmt Domain av score & rank",
-                "preview": "documentation/previews/ead1dbfe-f42f-4c2d-a8b9-00c191919260.html",
+                "preview": "documentation/previews/84660b8d-07ce-4131-abb1-bc9819758823.html",
                 "observation_selection": null,
                 "columns": [
                     {
@@ -1037,7 +1037,7 @@
                     }
                 ],
                 "title": "Local authority district: children in income-deprived households index average ranks and scores - CIDI average score and rank",
-                "preview": "documentation/previews/63904d1f-3c5e-4d44-a98b-63c9b1d71157.html",
+                "preview": "documentation/previews/82580415-323e-4044-b4fb-bf2b975ca240.html",
                 "observation_selection": null,
                 "columns": [
                     {

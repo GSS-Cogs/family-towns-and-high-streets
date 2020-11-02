@@ -226,7 +226,7 @@ for key in tidied_sheets:
 '''
 
 for key in tidied_sheets:
-    #print(key)
+    print(key)
     #print('Count: ' + str(tidied_sheets[key]['Year'].count()))
     if 'Economic Deprivation Indicator' in tidied_sheets[key].columns:
         del tidied_sheets[key]['Economic Deprivation Indicator']
@@ -311,11 +311,11 @@ t = [
 
 d_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower()
 pa = [
-    (d_path + "/" + "ranks"),
-    (d_path + "/" + "scores"),
-    (d_path + "/" + "numerators"),
-    (d_path + "/" + "denominators"),
-    (d_path + "/" + "population")
+    "ranks",
+    "scores",
+    "numerators",
+    "denominators",
+    "count"
 ]
 
 c = [
@@ -334,6 +334,14 @@ dt = [
     'integer'
 ]
 
+mt = [
+    "deprivation",
+    "deprivation",
+    "deprivation",
+    "deprivation",
+    "persons",
+]
+
 description = """
     This Statistical Release presents key findings from the Economic Deprivation Index (EDI) and the
     Children in Income Deprived households Index (CIDI), hereafter referred to collectively as the
@@ -346,6 +354,7 @@ description = """
     Report can be found here:
     https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/36446/Tracking_Neighbourhoods_Stats_Release.pdf
 """
+mt
 
 # +
 out = Path('out')
@@ -359,7 +368,7 @@ try:
     i = 0
     for dat in all_dat:
         jsn["transform"]["columns"]["Value"]["unit"] = pa[i]
-        jsn["transform"]["columns"]["Value"]["measure"] = "deprivation"
+        jsn["transform"]["columns"]["Value"]["measure"] = mt[i]
         jsn["transform"]["columns"]["Value"]["datatype"] = dt[i]
         
         if dt[i] == 'integer':
@@ -367,14 +376,13 @@ try:
 
         csvName = n[i]
         dat = dat.drop_duplicates()
-        [print(dat.head(10))]
         dat.drop_duplicates().to_csv(out / csvName, index = False, header=True)
         #d.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
     
         scraper.dataset.comment = c[i]
         scraper.dataset.title = t[i]
 
-        dataset_path = pa[i]
+        dataset_path = d_path + "/" + pa[i]
         scraper.set_base_uri('http://gss-data.org.uk')
         scraper.set_dataset_id(dataset_path)
 
