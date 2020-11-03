@@ -374,8 +374,8 @@ try:
     
     i = 0
     for dat in all_dat:
-        jsn["transform"]["columns"]["Value"]["unit"] = pa[i]
-        jsn["transform"]["columns"]["Value"]["measure"] = mt[i]
+        jsn["transform"]["columns"]["Value"]["unit"] = "http://gss-data.org.uk/def/concept/measurement-units/" + pa[i]
+        jsn["transform"]["columns"]["Value"]["measure"] = "http://gss-data.org.uk/def/measure/" + mt[i]
         jsn["transform"]["columns"]["Value"]["datatype"] = dt[i]
         
         if dt[i] == 'integer':
