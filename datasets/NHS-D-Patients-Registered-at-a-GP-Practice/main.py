@@ -166,7 +166,7 @@ for key in tidied_data:
     #Totals (GP practice-all persons)
     #Single year of age (GP practice-females)
     #Single year of age (GP practice-males)
-    
+
     # Only GP data from the following
     #5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice)
 
@@ -291,7 +291,7 @@ csvName = 'gp_observations.csv'
 out = Path('out')
 out.mkdir(exist_ok=True)
 gp_practice.drop_duplicates().to_csv(out / csvName, index = False)
-#gp_practice.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+gp_practice.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 
 scraper.dataset.family = 'towns-high-streets'
 scraper.dataset.description = notes
@@ -398,7 +398,7 @@ csvName = 'org_observations.csv'
 out = Path('out')
 out.mkdir(exist_ok=True)
 org_practice.drop_duplicates().to_csv(out / csvName, index = False)
-#org_practice.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+org_practice.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 
 scraper.dataset.family = 'towns-high-streets'
 scraper.dataset.description = notes
@@ -441,7 +441,7 @@ csvName = 'pcn_observations.csv'
 out = Path('out')
 out.mkdir(exist_ok=True)
 pcn_practice.drop_duplicates().to_csv(out / csvName, index = False)
-#pcn_practice.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+pcn_practice.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 
 scraper.dataset.family = 'towns-high-streets'
 scraper.dataset.description = notes

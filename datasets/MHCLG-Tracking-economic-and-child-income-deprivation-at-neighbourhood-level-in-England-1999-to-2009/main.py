@@ -384,7 +384,7 @@ try:
         csvName = n[i]
         dat = dat.drop_duplicates()
         dat.drop_duplicates().to_csv(out / csvName, index = False, header=True)
-        #d.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+        dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
     
         scraper.dataset.comment = c[i]
         scraper.dataset.title = t[i]

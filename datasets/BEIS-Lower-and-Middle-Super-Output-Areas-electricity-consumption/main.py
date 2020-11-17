@@ -250,7 +250,7 @@ notes = 'https://assets.publishing.service.gov.uk/government/uploads/system/uplo
 csvName = 'lsoa_observations.csv'
 out = Path('out')
 out.mkdir(exist_ok=True)
-#df.drop_duplicates().to_csv(out / csvName, index = False)
+df.drop_duplicates().to_csv(out / csvName, index = False)
 df.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 # Output a subset of the data to get the Mapping class to work
 #df[:10].to_csv(out / csvName, index = False)
@@ -397,3 +397,5 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total num
 
 # %%
 
+
+# %%

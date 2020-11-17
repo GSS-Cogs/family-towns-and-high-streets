@@ -195,7 +195,7 @@ notes = 'https://assets.publishing.service.gov.uk/government/uploads/system/uplo
 csvName = 'lsoa_observations.csv'
 out = Path('out')
 out.mkdir(exist_ok=True)
-#lsoa_dat.drop_duplicates().to_csv(out / csvName, index = False)
+lsoa_dat.drop_duplicates().to_csv(out / csvName, index = False)
 lsoa_dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 
 scraper.dataset.family = 'towns-high-streets'
