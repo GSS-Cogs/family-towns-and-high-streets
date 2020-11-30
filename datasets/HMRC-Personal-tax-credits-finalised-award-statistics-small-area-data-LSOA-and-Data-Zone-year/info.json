@@ -19,7 +19,3287 @@
             "To Do"
         ],
         "airtable": "recsBPDUIb4kZc3jq",
-        "main_issue": 14
+        "main_issue": 14,
+        "transformStage": [
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): North East",
+                "identifier": "Lower Layer Super Output Area (LSOA): North East||Families||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842630/LSOA_-_A_-_North_East.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842630/LSOA_-_A_-_North_East.xlsx": ""
+                    }
+                ],
+                "title": "Families",
+                "preview": "documentation/previews/bce48171-b028-4a26-a84c-0758fc8f18af.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B10:B1666"
+                    },
+                    {
+                        "Local authority code": "C10:C1666"
+                    },
+                    {
+                        "Local authority": "D10:D1666"
+                    },
+                    {
+                        "LSOA code": "E10:E1666"
+                    },
+                    {
+                        "LSOA name": "F10:F1666"
+                    },
+                    {
+                        "All tax credits recipient families": "I10:I1666"
+                    },
+                    {
+                        "WTC and CTC": "K10:K1666"
+                    },
+                    {
+                        "CTC only": "L10:L1666"
+                    },
+                    {
+                        "WTC only": "M10:M1666"
+                    },
+                    {
+                        "Total in work": "N10:N1666"
+                    },
+                    {
+                        "Benefitting from the childcare element": "O10:O1666"
+                    },
+                    {
+                        "National Childcare Indicator": "P10:P1666"
+                    },
+                    {
+                        "Total lone parents": "R8:R1666"
+                    },
+                    {
+                        "Lone parent families Benefitting from the childcare element": "S8:S1666"
+                    },
+                    {
+                        "Total out of work": "U10:U1666"
+                    },
+                    {
+                        "Lone parents": "V10:V1666"
+                    },
+                    {
+                        "Couples": "W10:W1666"
+                    },
+                    {
+                        "Value": "G10:G1666"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B10:B1666"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C10:C1666"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D10:D1666"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E10:E1666"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F10:F1666"
+                        ]
+                    },
+                    {
+                        "All_tax_credits_recipient_families": [
+                            "Values given in range I10:I1666"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K10:K1666"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L10:L1666"
+                        ]
+                    },
+                    {
+                        "WTC_only": [
+                            "Values given in range M10:M1666"
+                        ]
+                    },
+                    {
+                        "Total_in_work": [
+                            "Values given in range N10:N1666"
+                        ]
+                    },
+                    {
+                        "Benefitting_from_the_childcare_element": [
+                            "Values given in range O10:O1666"
+                        ]
+                    },
+                    {
+                        "National_Childcare_Indicator": [
+                            "Values given in range P10:P1666"
+                        ]
+                    },
+                    {
+                        "Total_lone_parents": [
+                            "Values given in range R8:R1666"
+                        ]
+                    },
+                    {
+                        "Lone_parent_families_Benefitting_from_the_childcare_element": [
+                            "Values given in range S8:S1666"
+                        ]
+                    },
+                    {
+                        "Total_out_of_work": [
+                            "Values given in range U10:U1666"
+                        ]
+                    },
+                    {
+                        "Lone_parents": [
+                            "Values given in range V10:V1666"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range W10:W1666"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G10:G1666"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): North East",
+                "identifier": "Lower Layer Super Output Area (LSOA): North East||Children||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842630/LSOA_-_A_-_North_East.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842630/LSOA_-_A_-_North_East.xlsx": ""
+                    }
+                ],
+                "title": "Children",
+                "preview": "documentation/previews/0664aa8a-f5e2-42a0-bf5a-da972c2664d5.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B9:B1665"
+                    },
+                    {
+                        "Local authority code": "C9:C1665"
+                    },
+                    {
+                        "Local authority": "D9:D1665"
+                    },
+                    {
+                        "LSOA code": "E9:E1665"
+                    },
+                    {
+                        "LSOA name": "F9:F1665"
+                    },
+                    {
+                        "All children within families receiving tax credits": "I9:I1665"
+                    },
+                    {
+                        "WTC and CTC": "K9:K1665"
+                    },
+                    {
+                        "CTC only": "L9:L1665"
+                    },
+                    {
+                        "Total children within in work families": "M9:M1665"
+                    },
+                    {
+                        "Lone parents within in work families": "O10:O1666"
+                    },
+                    {
+                        "Total children within out of work families": "P9:P1665"
+                    },
+                    {
+                        "Lone parents within out of work families": "Q9:Q1665"
+                    },
+                    {
+                        "Couples": "R9:R1665"
+                    },
+                    {
+                        "Value": "G9:G1665"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B9:B1665"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C9:C1665"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D9:D1665"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E9:E1665"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F9:F1665"
+                        ]
+                    },
+                    {
+                        "All_children_within_families_receiving_tax_credits": [
+                            "Values given in range I9:I1665"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K9:K1665"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L9:L1665"
+                        ]
+                    },
+                    {
+                        "Total_children_within_in_work_families": [
+                            "Values given in range M9:M1665"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_in_work_families": [
+                            "Values given in range O10:O1666"
+                        ]
+                    },
+                    {
+                        "Total_children_within_out_of_work_families": [
+                            "Values given in range P9:P1665"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_out_of_work_families": [
+                            "Values given in range Q9:Q1665"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range R9:R1665"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G9:G1665"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): North West",
+                "identifier": "Lower Layer Super Output Area (LSOA): North West||Families||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842631/LSOA_-_B_-_North_West.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842631/LSOA_-_B_-_North_West.xlsx": ""
+                    }
+                ],
+                "title": "Families",
+                "preview": "documentation/previews/c803b1bd-7941-45f0-80f1-cb9b1c1b4e8f.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B10:B4506"
+                    },
+                    {
+                        "Local authority code": "C10:C4506"
+                    },
+                    {
+                        "Local authority": "D10:D4506"
+                    },
+                    {
+                        "LSOA code": "E10:E4506"
+                    },
+                    {
+                        "LSOA name": "F10:F4506"
+                    },
+                    {
+                        "All tax credits recipient families": "I10:I4506"
+                    },
+                    {
+                        "WTC and CTC": "K10:K4506"
+                    },
+                    {
+                        "CTC only": "L10:L4506"
+                    },
+                    {
+                        "WTC only": "M10:M4506"
+                    },
+                    {
+                        "Total in work": "N10:N4506"
+                    },
+                    {
+                        "Benefitting from the childcare element": "O10:O4506"
+                    },
+                    {
+                        "National Childcare Indicator": "P10:P4506"
+                    },
+                    {
+                        "Total lone parents": "R8:R4506"
+                    },
+                    {
+                        "Lone parent families Benefitting from the childcare element": "S8:S4506"
+                    },
+                    {
+                        "Total out of work": "U10:U4506"
+                    },
+                    {
+                        "Lone parents": "V10:V4506"
+                    },
+                    {
+                        "Couples": "W10:W4506"
+                    },
+                    {
+                        "Value": "G10:G4506"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B10:B4506"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C10:C4506"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D10:D4506"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E10:E4506"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F10:F4506"
+                        ]
+                    },
+                    {
+                        "All_tax_credits_recipient_families": [
+                            "Values given in range I10:I4506"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K10:K4506"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L10:L4506"
+                        ]
+                    },
+                    {
+                        "WTC_only": [
+                            "Values given in range M10:M4506"
+                        ]
+                    },
+                    {
+                        "Total_in_work": [
+                            "Values given in range N10:N4506"
+                        ]
+                    },
+                    {
+                        "Benefitting_from_the_childcare_element": [
+                            "Values given in range O10:O4506"
+                        ]
+                    },
+                    {
+                        "National_Childcare_Indicator": [
+                            "Values given in range P10:P4506"
+                        ]
+                    },
+                    {
+                        "Total_lone_parents": [
+                            "Values given in range R8:R4506"
+                        ]
+                    },
+                    {
+                        "Lone_parent_families_Benefitting_from_the_childcare_element": [
+                            "Values given in range S8:S4506"
+                        ]
+                    },
+                    {
+                        "Total_out_of_work": [
+                            "Values given in range U10:U4506"
+                        ]
+                    },
+                    {
+                        "Lone_parents": [
+                            "Values given in range V10:V4506"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range W10:W4506"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G10:G4506"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): North West",
+                "identifier": "Lower Layer Super Output Area (LSOA): North West||Children||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842631/LSOA_-_B_-_North_West.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842631/LSOA_-_B_-_North_West.xlsx": ""
+                    }
+                ],
+                "title": "Children",
+                "preview": "documentation/previews/acbf7935-b69e-47e2-bf3a-920ae98b69d2.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B9:B4505"
+                    },
+                    {
+                        "Local authority code": "C9:C4505"
+                    },
+                    {
+                        "Local authority": "D9:D4505"
+                    },
+                    {
+                        "LSOA code": "E9:E4505"
+                    },
+                    {
+                        "LSOA name": "F9:F4505"
+                    },
+                    {
+                        "All children within families receiving tax credits": "I9:I4505"
+                    },
+                    {
+                        "WTC and CTC": "K9:K4505"
+                    },
+                    {
+                        "CTC only": "L9:L4505"
+                    },
+                    {
+                        "Total children within in work families": "M9:M4505"
+                    },
+                    {
+                        "Lone parents within in work families": "O10:O4506"
+                    },
+                    {
+                        "Total children within out of work families": "P9:P4505"
+                    },
+                    {
+                        "Lone parents within out of work families": "Q9:Q4505"
+                    },
+                    {
+                        "Couples": "R9:R4505"
+                    },
+                    {
+                        "Value": "G9:G4505"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B9:B4505"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C9:C4505"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D9:D4505"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E9:E4505"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F9:F4505"
+                        ]
+                    },
+                    {
+                        "All_children_within_families_receiving_tax_credits": [
+                            "Values given in range I9:I4505"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K9:K4505"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L9:L4505"
+                        ]
+                    },
+                    {
+                        "Total_children_within_in_work_families": [
+                            "Values given in range M9:M4505"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_in_work_families": [
+                            "Values given in range O10:O4506"
+                        ]
+                    },
+                    {
+                        "Total_children_within_out_of_work_families": [
+                            "Values given in range P9:P4505"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_out_of_work_families": [
+                            "Values given in range Q9:Q4505"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range R9:R4505"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G9:G4505"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): Yorkshire and The Humber",
+                "identifier": "Lower Layer Super Output Area (LSOA): Yorkshire and The Humber||Families||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842632/LSOA_-_C_-_Yorkshire_and_The_Humber.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842632/LSOA_-_C_-_Yorkshire_and_The_Humber.xlsx": ""
+                    }
+                ],
+                "title": "Families",
+                "preview": "documentation/previews/4bf2e146-20f9-4fc2-82d0-962138ff9cd0.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B10:B3326"
+                    },
+                    {
+                        "Local authority code": "C10:C3326"
+                    },
+                    {
+                        "Local authority": "D10:D3326"
+                    },
+                    {
+                        "LSOA code": "E10:E3326"
+                    },
+                    {
+                        "LSOA name": "F10:F3326"
+                    },
+                    {
+                        "All tax credits recipient families": "I10:I3326"
+                    },
+                    {
+                        "WTC and CTC": "K10:K3326"
+                    },
+                    {
+                        "CTC only": "L10:L3326"
+                    },
+                    {
+                        "WTC only": "M10:M3326"
+                    },
+                    {
+                        "Total in work": "N10:N3326"
+                    },
+                    {
+                        "Benefitting from the childcare element": "O10:O3326"
+                    },
+                    {
+                        "National Childcare Indicator": "P10:P3326"
+                    },
+                    {
+                        "Total lone parents": "R8:R3326"
+                    },
+                    {
+                        "Lone parent families Benefitting from the childcare element": "S8:S3326"
+                    },
+                    {
+                        "Total out of work": "U10:U3326"
+                    },
+                    {
+                        "Lone parents": "V10:V3326"
+                    },
+                    {
+                        "Couples": "W10:W3326"
+                    },
+                    {
+                        "Value": "G10:G3326"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B10:B3326"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C10:C3326"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D10:D3326"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E10:E3326"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F10:F3326"
+                        ]
+                    },
+                    {
+                        "All_tax_credits_recipient_families": [
+                            "Values given in range I10:I3326"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K10:K3326"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L10:L3326"
+                        ]
+                    },
+                    {
+                        "WTC_only": [
+                            "Values given in range M10:M3326"
+                        ]
+                    },
+                    {
+                        "Total_in_work": [
+                            "Values given in range N10:N3326"
+                        ]
+                    },
+                    {
+                        "Benefitting_from_the_childcare_element": [
+                            "Values given in range O10:O3326"
+                        ]
+                    },
+                    {
+                        "National_Childcare_Indicator": [
+                            "Values given in range P10:P3326"
+                        ]
+                    },
+                    {
+                        "Total_lone_parents": [
+                            "Values given in range R8:R3326"
+                        ]
+                    },
+                    {
+                        "Lone_parent_families_Benefitting_from_the_childcare_element": [
+                            "Values given in range S8:S3326"
+                        ]
+                    },
+                    {
+                        "Total_out_of_work": [
+                            "Values given in range U10:U3326"
+                        ]
+                    },
+                    {
+                        "Lone_parents": [
+                            "Values given in range V10:V3326"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range W10:W3326"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G10:G3326"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): Yorkshire and The Humber",
+                "identifier": "Lower Layer Super Output Area (LSOA): Yorkshire and The Humber||Children||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842632/LSOA_-_C_-_Yorkshire_and_The_Humber.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842632/LSOA_-_C_-_Yorkshire_and_The_Humber.xlsx": ""
+                    }
+                ],
+                "title": "Children",
+                "preview": "documentation/previews/e7e3911e-e620-4cd0-a047-1aa923a5b691.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B9:B3325"
+                    },
+                    {
+                        "Local authority code": "C9:C3325"
+                    },
+                    {
+                        "Local authority": "D9:D3325"
+                    },
+                    {
+                        "LSOA code": "E9:E3325"
+                    },
+                    {
+                        "LSOA name": "F9:F3325"
+                    },
+                    {
+                        "All children within families receiving tax credits": "I9:I3325"
+                    },
+                    {
+                        "WTC and CTC": "K9:K3325"
+                    },
+                    {
+                        "CTC only": "L9:L3325"
+                    },
+                    {
+                        "Total children within in work families": "M9:M3325"
+                    },
+                    {
+                        "Lone parents within in work families": "O10:O3326"
+                    },
+                    {
+                        "Total children within out of work families": "P9:P3325"
+                    },
+                    {
+                        "Lone parents within out of work families": "Q9:Q3325"
+                    },
+                    {
+                        "Couples": "R9:R3325"
+                    },
+                    {
+                        "Value": "G9:G3325"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B9:B3325"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C9:C3325"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D9:D3325"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E9:E3325"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F9:F3325"
+                        ]
+                    },
+                    {
+                        "All_children_within_families_receiving_tax_credits": [
+                            "Values given in range I9:I3325"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K9:K3325"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L9:L3325"
+                        ]
+                    },
+                    {
+                        "Total_children_within_in_work_families": [
+                            "Values given in range M9:M3325"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_in_work_families": [
+                            "Values given in range O10:O3326"
+                        ]
+                    },
+                    {
+                        "Total_children_within_out_of_work_families": [
+                            "Values given in range P9:P3325"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_out_of_work_families": [
+                            "Values given in range Q9:Q3325"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range R9:R3325"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G9:G3325"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): East Midlands",
+                "identifier": "Lower Layer Super Output Area (LSOA): East Midlands||Families||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842633/LSOA_-_D_-_East_Midlands.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842633/LSOA_-_D_-_East_Midlands.xlsx": ""
+                    }
+                ],
+                "title": "Families",
+                "preview": "documentation/previews/e3ef433c-5f9b-4f36-ac0c-8621bd743e35.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B10:B2783"
+                    },
+                    {
+                        "Local authority code": "C10:C2783"
+                    },
+                    {
+                        "Local authority": "D10:D2783"
+                    },
+                    {
+                        "LSOA code": "E10:E2783"
+                    },
+                    {
+                        "LSOA name": "F10:F2783"
+                    },
+                    {
+                        "All tax credits recipient families": "I10:I2783"
+                    },
+                    {
+                        "WTC and CTC": "K10:K2783"
+                    },
+                    {
+                        "CTC only": "L10:L2783"
+                    },
+                    {
+                        "WTC only": "M10:M2783"
+                    },
+                    {
+                        "Total in work": "N10:N2783"
+                    },
+                    {
+                        "Benefitting from the childcare element": "O10:O2783"
+                    },
+                    {
+                        "National Childcare Indicator": "P10:P2783"
+                    },
+                    {
+                        "Total lone parents": "R8:R2783"
+                    },
+                    {
+                        "Lone parent families Benefitting from the childcare element": "S8:S2783"
+                    },
+                    {
+                        "Total out of work": "U10:U2783"
+                    },
+                    {
+                        "Lone parents": "V10:V2783"
+                    },
+                    {
+                        "Couples": "W10:W2783"
+                    },
+                    {
+                        "Value": "G10:G2783"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B10:B2783"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C10:C2783"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D10:D2783"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E10:E2783"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F10:F2783"
+                        ]
+                    },
+                    {
+                        "All_tax_credits_recipient_families": [
+                            "Values given in range I10:I2783"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K10:K2783"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L10:L2783"
+                        ]
+                    },
+                    {
+                        "WTC_only": [
+                            "Values given in range M10:M2783"
+                        ]
+                    },
+                    {
+                        "Total_in_work": [
+                            "Values given in range N10:N2783"
+                        ]
+                    },
+                    {
+                        "Benefitting_from_the_childcare_element": [
+                            "Values given in range O10:O2783"
+                        ]
+                    },
+                    {
+                        "National_Childcare_Indicator": [
+                            "Values given in range P10:P2783"
+                        ]
+                    },
+                    {
+                        "Total_lone_parents": [
+                            "Values given in range R8:R2783"
+                        ]
+                    },
+                    {
+                        "Lone_parent_families_Benefitting_from_the_childcare_element": [
+                            "Values given in range S8:S2783"
+                        ]
+                    },
+                    {
+                        "Total_out_of_work": [
+                            "Values given in range U10:U2783"
+                        ]
+                    },
+                    {
+                        "Lone_parents": [
+                            "Values given in range V10:V2783"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range W10:W2783"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G10:G2783"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): East Midlands",
+                "identifier": "Lower Layer Super Output Area (LSOA): East Midlands||Children||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842633/LSOA_-_D_-_East_Midlands.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842633/LSOA_-_D_-_East_Midlands.xlsx": ""
+                    }
+                ],
+                "title": "Children",
+                "preview": "documentation/previews/7b3828ae-ae18-4c94-8105-6d27b3121999.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B9:B2782"
+                    },
+                    {
+                        "Local authority code": "C9:C2782"
+                    },
+                    {
+                        "Local authority": "D9:D2782"
+                    },
+                    {
+                        "LSOA code": "E9:E2782"
+                    },
+                    {
+                        "LSOA name": "F9:F2782"
+                    },
+                    {
+                        "All children within families receiving tax credits": "I9:I2782"
+                    },
+                    {
+                        "WTC and CTC": "K9:K2782"
+                    },
+                    {
+                        "CTC only": "L9:L2782"
+                    },
+                    {
+                        "Total children within in work families": "M9:M2782"
+                    },
+                    {
+                        "Lone parents within in work families": "O10:O2783"
+                    },
+                    {
+                        "Total children within out of work families": "P9:P2782"
+                    },
+                    {
+                        "Lone parents within out of work families": "Q9:Q2782"
+                    },
+                    {
+                        "Couples": "R9:R2782"
+                    },
+                    {
+                        "Value": "G9:G2782"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B9:B2782"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C9:C2782"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D9:D2782"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E9:E2782"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F9:F2782"
+                        ]
+                    },
+                    {
+                        "All_children_within_families_receiving_tax_credits": [
+                            "Values given in range I9:I2782"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K9:K2782"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L9:L2782"
+                        ]
+                    },
+                    {
+                        "Total_children_within_in_work_families": [
+                            "Values given in range M9:M2782"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_in_work_families": [
+                            "Values given in range O10:O2783"
+                        ]
+                    },
+                    {
+                        "Total_children_within_out_of_work_families": [
+                            "Values given in range P9:P2782"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_out_of_work_families": [
+                            "Values given in range Q9:Q2782"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range R9:R2782"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G9:G2782"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): West Midlands",
+                "identifier": "Lower Layer Super Output Area (LSOA): West Midlands||Families||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842634/LSOA_-_E_-_West_Midlands.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842634/LSOA_-_E_-_West_Midlands.xlsx": ""
+                    }
+                ],
+                "title": "Families",
+                "preview": "documentation/previews/f379ffdc-6f00-48fa-9988-1e348ce4552f.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B10:B3496"
+                    },
+                    {
+                        "Local authority code": "C10:C3496"
+                    },
+                    {
+                        "Local authority": "D10:D3496"
+                    },
+                    {
+                        "LSOA code": "E10:E3496"
+                    },
+                    {
+                        "LSOA name": "F10:F3496"
+                    },
+                    {
+                        "All tax credits recipient families": "I10:I3496"
+                    },
+                    {
+                        "WTC and CTC": "K10:K3496"
+                    },
+                    {
+                        "CTC only": "L10:L3496"
+                    },
+                    {
+                        "WTC only": "M10:M3496"
+                    },
+                    {
+                        "Total in work": "N10:N3496"
+                    },
+                    {
+                        "Benefitting from the childcare element": "O10:O3496"
+                    },
+                    {
+                        "National Childcare Indicator": "P10:P3496"
+                    },
+                    {
+                        "Total lone parents": "R8:R3496"
+                    },
+                    {
+                        "Lone parent families Benefitting from the childcare element": "S8:S3496"
+                    },
+                    {
+                        "Total out of work": "U10:U3496"
+                    },
+                    {
+                        "Lone parents": "V10:V3496"
+                    },
+                    {
+                        "Couples": "W10:W3496"
+                    },
+                    {
+                        "Value": "G10:G3496"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B10:B3496"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C10:C3496"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D10:D3496"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E10:E3496"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F10:F3496"
+                        ]
+                    },
+                    {
+                        "All_tax_credits_recipient_families": [
+                            "Values given in range I10:I3496"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K10:K3496"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L10:L3496"
+                        ]
+                    },
+                    {
+                        "WTC_only": [
+                            "Values given in range M10:M3496"
+                        ]
+                    },
+                    {
+                        "Total_in_work": [
+                            "Values given in range N10:N3496"
+                        ]
+                    },
+                    {
+                        "Benefitting_from_the_childcare_element": [
+                            "Values given in range O10:O3496"
+                        ]
+                    },
+                    {
+                        "National_Childcare_Indicator": [
+                            "Values given in range P10:P3496"
+                        ]
+                    },
+                    {
+                        "Total_lone_parents": [
+                            "Values given in range R8:R3496"
+                        ]
+                    },
+                    {
+                        "Lone_parent_families_Benefitting_from_the_childcare_element": [
+                            "Values given in range S8:S3496"
+                        ]
+                    },
+                    {
+                        "Total_out_of_work": [
+                            "Values given in range U10:U3496"
+                        ]
+                    },
+                    {
+                        "Lone_parents": [
+                            "Values given in range V10:V3496"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range W10:W3496"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G10:G3496"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): West Midlands",
+                "identifier": "Lower Layer Super Output Area (LSOA): West Midlands||Children||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842634/LSOA_-_E_-_West_Midlands.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842634/LSOA_-_E_-_West_Midlands.xlsx": ""
+                    }
+                ],
+                "title": "Children",
+                "preview": "documentation/previews/157a01d6-5f8a-4bc5-80ae-28c4377b723f.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B9:B3495"
+                    },
+                    {
+                        "Local authority code": "C9:C3495"
+                    },
+                    {
+                        "Local authority": "D9:D3495"
+                    },
+                    {
+                        "LSOA code": "E9:E3495"
+                    },
+                    {
+                        "LSOA name": "F9:F3495"
+                    },
+                    {
+                        "All children within families receiving tax credits": "I9:I3495"
+                    },
+                    {
+                        "WTC and CTC": "K9:K3495"
+                    },
+                    {
+                        "CTC only": "L9:L3495"
+                    },
+                    {
+                        "Total children within in work families": "M9:M3495"
+                    },
+                    {
+                        "Lone parents within in work families": "O10:O3496"
+                    },
+                    {
+                        "Total children within out of work families": "P9:P3495"
+                    },
+                    {
+                        "Lone parents within out of work families": "Q9:Q3495"
+                    },
+                    {
+                        "Couples": "R9:R3495"
+                    },
+                    {
+                        "Value": "G9:G3495"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B9:B3495"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C9:C3495"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D9:D3495"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E9:E3495"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F9:F3495"
+                        ]
+                    },
+                    {
+                        "All_children_within_families_receiving_tax_credits": [
+                            "Values given in range I9:I3495"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K9:K3495"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L9:L3495"
+                        ]
+                    },
+                    {
+                        "Total_children_within_in_work_families": [
+                            "Values given in range M9:M3495"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_in_work_families": [
+                            "Values given in range O10:O3496"
+                        ]
+                    },
+                    {
+                        "Total_children_within_out_of_work_families": [
+                            "Values given in range P9:P3495"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_out_of_work_families": [
+                            "Values given in range Q9:Q3495"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range R9:R3495"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G9:G3495"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): East of England",
+                "identifier": "Lower Layer Super Output Area (LSOA): East of England||Families||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842635/LSOA_-_F_-_East_of_England.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842635/LSOA_-_F_-_East_of_England.xlsx": ""
+                    }
+                ],
+                "title": "Families",
+                "preview": "documentation/previews/08bd174e-67bf-4014-aa85-29f146ca6cfe.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B10:B3623"
+                    },
+                    {
+                        "Local authority code": "C10:C3623"
+                    },
+                    {
+                        "Local authority": "D10:D3623"
+                    },
+                    {
+                        "LSOA code": "E10:E3623"
+                    },
+                    {
+                        "LSOA name": "F10:F3623"
+                    },
+                    {
+                        "All tax credits recipient families": "I10:I3623"
+                    },
+                    {
+                        "WTC and CTC": "K10:K3623"
+                    },
+                    {
+                        "CTC only": "L10:L3623"
+                    },
+                    {
+                        "WTC only": "M10:M3623"
+                    },
+                    {
+                        "Total in work": "N10:N3623"
+                    },
+                    {
+                        "Benefitting from the childcare element": "O10:O3623"
+                    },
+                    {
+                        "National Childcare Indicator": "P10:P3623"
+                    },
+                    {
+                        "Total lone parents": "R8:R3623"
+                    },
+                    {
+                        "Lone parent families Benefitting from the childcare element": "S8:S3623"
+                    },
+                    {
+                        "Total out of work": "U10:U3623"
+                    },
+                    {
+                        "Lone parents": "V10:V3623"
+                    },
+                    {
+                        "Couples": "W10:W3623"
+                    },
+                    {
+                        "Value": "G10:G3623"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B10:B3623"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C10:C3623"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D10:D3623"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E10:E3623"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F10:F3623"
+                        ]
+                    },
+                    {
+                        "All_tax_credits_recipient_families": [
+                            "Values given in range I10:I3623"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K10:K3623"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L10:L3623"
+                        ]
+                    },
+                    {
+                        "WTC_only": [
+                            "Values given in range M10:M3623"
+                        ]
+                    },
+                    {
+                        "Total_in_work": [
+                            "Values given in range N10:N3623"
+                        ]
+                    },
+                    {
+                        "Benefitting_from_the_childcare_element": [
+                            "Values given in range O10:O3623"
+                        ]
+                    },
+                    {
+                        "National_Childcare_Indicator": [
+                            "Values given in range P10:P3623"
+                        ]
+                    },
+                    {
+                        "Total_lone_parents": [
+                            "Values given in range R8:R3623"
+                        ]
+                    },
+                    {
+                        "Lone_parent_families_Benefitting_from_the_childcare_element": [
+                            "Values given in range S8:S3623"
+                        ]
+                    },
+                    {
+                        "Total_out_of_work": [
+                            "Values given in range U10:U3623"
+                        ]
+                    },
+                    {
+                        "Lone_parents": [
+                            "Values given in range V10:V3623"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range W10:W3623"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G10:G3623"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): East of England",
+                "identifier": "Lower Layer Super Output Area (LSOA): East of England||Children||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842635/LSOA_-_F_-_East_of_England.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842635/LSOA_-_F_-_East_of_England.xlsx": ""
+                    }
+                ],
+                "title": "Children",
+                "preview": "documentation/previews/6ac47096-67c8-4583-b8fb-d951527bbdb5.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B9:B3622"
+                    },
+                    {
+                        "Local authority code": "C9:C3622"
+                    },
+                    {
+                        "Local authority": "D9:D3622"
+                    },
+                    {
+                        "LSOA code": "E9:E3622"
+                    },
+                    {
+                        "LSOA name": "F9:F3622"
+                    },
+                    {
+                        "All children within families receiving tax credits": "I9:I3622"
+                    },
+                    {
+                        "WTC and CTC": "K9:K3622"
+                    },
+                    {
+                        "CTC only": "L9:L3622"
+                    },
+                    {
+                        "Total children within in work families": "M9:M3622"
+                    },
+                    {
+                        "Lone parents within in work families": "O10:O3623"
+                    },
+                    {
+                        "Total children within out of work families": "P9:P3622"
+                    },
+                    {
+                        "Lone parents within out of work families": "Q9:Q3622"
+                    },
+                    {
+                        "Couples": "R9:R3622"
+                    },
+                    {
+                        "Value": "G9:G3622"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B9:B3622"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C9:C3622"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D9:D3622"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E9:E3622"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F9:F3622"
+                        ]
+                    },
+                    {
+                        "All_children_within_families_receiving_tax_credits": [
+                            "Values given in range I9:I3622"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K9:K3622"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L9:L3622"
+                        ]
+                    },
+                    {
+                        "Total_children_within_in_work_families": [
+                            "Values given in range M9:M3622"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_in_work_families": [
+                            "Values given in range O10:O3623"
+                        ]
+                    },
+                    {
+                        "Total_children_within_out_of_work_families": [
+                            "Values given in range P9:P3622"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_out_of_work_families": [
+                            "Values given in range Q9:Q3622"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range R9:R3622"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G9:G3622"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): London",
+                "identifier": "Lower Layer Super Output Area (LSOA): London||Families||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842636/LSOA_-_G_-_London.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842636/LSOA_-_G_-_London.xlsx": ""
+                    }
+                ],
+                "title": "Families",
+                "preview": "documentation/previews/f51f96a7-9abe-4e6d-a56e-04e98c60ce72.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B10:B4844"
+                    },
+                    {
+                        "Local authority code": "C10:C4844"
+                    },
+                    {
+                        "Local authority": "D10:D4844"
+                    },
+                    {
+                        "LSOA code": "E10:E4844"
+                    },
+                    {
+                        "LSOA name": "F10:F4844"
+                    },
+                    {
+                        "All tax credits recipient families": "I10:I4844"
+                    },
+                    {
+                        "WTC and CTC": "K10:K4844"
+                    },
+                    {
+                        "CTC only": "L10:L4844"
+                    },
+                    {
+                        "WTC only": "M10:M4844"
+                    },
+                    {
+                        "Total in work": "N10:N4844"
+                    },
+                    {
+                        "Benefitting from the childcare element": "O10:O4844"
+                    },
+                    {
+                        "National Childcare Indicator": "P10:P4844"
+                    },
+                    {
+                        "Total lone parents": "R8:R4844"
+                    },
+                    {
+                        "Lone parent families Benefitting from the childcare element": "S8:S4844"
+                    },
+                    {
+                        "Total out of work": "U10:U4844"
+                    },
+                    {
+                        "Lone parents": "V10:V4844"
+                    },
+                    {
+                        "Couples": "W10:W4844"
+                    },
+                    {
+                        "Value": "G10:G4844"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B10:B4844"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C10:C4844"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D10:D4844"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E10:E4844"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F10:F4844"
+                        ]
+                    },
+                    {
+                        "All_tax_credits_recipient_families": [
+                            "Values given in range I10:I4844"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K10:K4844"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L10:L4844"
+                        ]
+                    },
+                    {
+                        "WTC_only": [
+                            "Values given in range M10:M4844"
+                        ]
+                    },
+                    {
+                        "Total_in_work": [
+                            "Values given in range N10:N4844"
+                        ]
+                    },
+                    {
+                        "Benefitting_from_the_childcare_element": [
+                            "Values given in range O10:O4844"
+                        ]
+                    },
+                    {
+                        "National_Childcare_Indicator": [
+                            "Values given in range P10:P4844"
+                        ]
+                    },
+                    {
+                        "Total_lone_parents": [
+                            "Values given in range R8:R4844"
+                        ]
+                    },
+                    {
+                        "Lone_parent_families_Benefitting_from_the_childcare_element": [
+                            "Values given in range S8:S4844"
+                        ]
+                    },
+                    {
+                        "Total_out_of_work": [
+                            "Values given in range U10:U4844"
+                        ]
+                    },
+                    {
+                        "Lone_parents": [
+                            "Values given in range V10:V4844"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range W10:W4844"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G10:G4844"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): London",
+                "identifier": "Lower Layer Super Output Area (LSOA): London||Children||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842636/LSOA_-_G_-_London.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842636/LSOA_-_G_-_London.xlsx": ""
+                    }
+                ],
+                "title": "Children",
+                "preview": "documentation/previews/879bbe1a-b1b0-4d44-8ae8-26383a9c26e8.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B9:B4843"
+                    },
+                    {
+                        "Local authority code": "C9:C4843"
+                    },
+                    {
+                        "Local authority": "D9:D4843"
+                    },
+                    {
+                        "LSOA code": "E9:E4843"
+                    },
+                    {
+                        "LSOA name": "F9:F4843"
+                    },
+                    {
+                        "All children within families receiving tax credits": "I9:I4843"
+                    },
+                    {
+                        "WTC and CTC": "K9:K4843"
+                    },
+                    {
+                        "CTC only": "L9:L4843"
+                    },
+                    {
+                        "Total children within in work families": "M9:M4843"
+                    },
+                    {
+                        "Lone parents within in work families": "O10:O4844"
+                    },
+                    {
+                        "Total children within out of work families": "P9:P4843"
+                    },
+                    {
+                        "Lone parents within out of work families": "Q9:Q4843"
+                    },
+                    {
+                        "Couples": "R9:R4843"
+                    },
+                    {
+                        "Value": "G9:G4843"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B9:B4843"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C9:C4843"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D9:D4843"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E9:E4843"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F9:F4843"
+                        ]
+                    },
+                    {
+                        "All_children_within_families_receiving_tax_credits": [
+                            "Values given in range I9:I4843"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K9:K4843"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L9:L4843"
+                        ]
+                    },
+                    {
+                        "Total_children_within_in_work_families": [
+                            "Values given in range M9:M4843"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_in_work_families": [
+                            "Values given in range O10:O4844"
+                        ]
+                    },
+                    {
+                        "Total_children_within_out_of_work_families": [
+                            "Values given in range P9:P4843"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_out_of_work_families": [
+                            "Values given in range Q9:Q4843"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range R9:R4843"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G9:G4843"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): South East",
+                "identifier": "Lower Layer Super Output Area (LSOA): South East||Families||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842637/LSOA_-_H_-_South_East.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842637/LSOA_-_H_-_South_East.xlsx": ""
+                    }
+                ],
+                "title": "Families",
+                "preview": "documentation/previews/4c70d9f0-83eb-4a8a-9a8c-243ab666fdb8.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B10:B5391"
+                    },
+                    {
+                        "Local authority code": "C10:C5391"
+                    },
+                    {
+                        "Local authority": "D10:D5391"
+                    },
+                    {
+                        "LSOA code": "E10:E5391"
+                    },
+                    {
+                        "LSOA name": "F10:F5391"
+                    },
+                    {
+                        "All tax credits recipient families": "I10:I5391"
+                    },
+                    {
+                        "WTC and CTC": "K10:K5391"
+                    },
+                    {
+                        "CTC only": "L10:L5391"
+                    },
+                    {
+                        "WTC only": "M10:M5391"
+                    },
+                    {
+                        "Total in work": "N10:N5391"
+                    },
+                    {
+                        "Benefitting from the childcare element": "O10:O5391"
+                    },
+                    {
+                        "National Childcare Indicator": "P10:P5391"
+                    },
+                    {
+                        "Total lone parents": "R8:R5391"
+                    },
+                    {
+                        "Lone parent families Benefitting from the childcare element": "S8:S5391"
+                    },
+                    {
+                        "Total out of work": "U10:U5391"
+                    },
+                    {
+                        "Lone parents": "V10:V5391"
+                    },
+                    {
+                        "Couples": "W10:W5391"
+                    },
+                    {
+                        "Value": "G10:G5391"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B10:B5391"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C10:C5391"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D10:D5391"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E10:E5391"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F10:F5391"
+                        ]
+                    },
+                    {
+                        "All_tax_credits_recipient_families": [
+                            "Values given in range I10:I5391"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K10:K5391"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L10:L5391"
+                        ]
+                    },
+                    {
+                        "WTC_only": [
+                            "Values given in range M10:M5391"
+                        ]
+                    },
+                    {
+                        "Total_in_work": [
+                            "Values given in range N10:N5391"
+                        ]
+                    },
+                    {
+                        "Benefitting_from_the_childcare_element": [
+                            "Values given in range O10:O5391"
+                        ]
+                    },
+                    {
+                        "National_Childcare_Indicator": [
+                            "Values given in range P10:P5391"
+                        ]
+                    },
+                    {
+                        "Total_lone_parents": [
+                            "Values given in range R8:R5391"
+                        ]
+                    },
+                    {
+                        "Lone_parent_families_Benefitting_from_the_childcare_element": [
+                            "Values given in range S8:S5391"
+                        ]
+                    },
+                    {
+                        "Total_out_of_work": [
+                            "Values given in range U10:U5391"
+                        ]
+                    },
+                    {
+                        "Lone_parents": [
+                            "Values given in range V10:V5391"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range W10:W5391"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G10:G5391"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): South East",
+                "identifier": "Lower Layer Super Output Area (LSOA): South East||Children||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842637/LSOA_-_H_-_South_East.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842637/LSOA_-_H_-_South_East.xlsx": ""
+                    }
+                ],
+                "title": "Children",
+                "preview": "documentation/previews/9b47d3d5-e228-4ab1-ba69-5e049aab6286.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B9:B5390"
+                    },
+                    {
+                        "Local authority code": "C9:C5390"
+                    },
+                    {
+                        "Local authority": "D9:D5390"
+                    },
+                    {
+                        "LSOA code": "E9:E5390"
+                    },
+                    {
+                        "LSOA name": "F9:F5390"
+                    },
+                    {
+                        "All children within families receiving tax credits": "I9:I5390"
+                    },
+                    {
+                        "WTC and CTC": "K9:K5390"
+                    },
+                    {
+                        "CTC only": "L9:L5390"
+                    },
+                    {
+                        "Total children within in work families": "M9:M5390"
+                    },
+                    {
+                        "Lone parents within in work families": "O10:O5391"
+                    },
+                    {
+                        "Total children within out of work families": "P9:P5390"
+                    },
+                    {
+                        "Lone parents within out of work families": "Q9:Q5390"
+                    },
+                    {
+                        "Couples": "R9:R5390"
+                    },
+                    {
+                        "Value": "G9:G5390"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B9:B5390"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C9:C5390"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D9:D5390"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E9:E5390"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F9:F5390"
+                        ]
+                    },
+                    {
+                        "All_children_within_families_receiving_tax_credits": [
+                            "Values given in range I9:I5390"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K9:K5390"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L9:L5390"
+                        ]
+                    },
+                    {
+                        "Total_children_within_in_work_families": [
+                            "Values given in range M9:M5390"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_in_work_families": [
+                            "Values given in range O10:O5391"
+                        ]
+                    },
+                    {
+                        "Total_children_within_out_of_work_families": [
+                            "Values given in range P9:P5390"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_out_of_work_families": [
+                            "Values given in range Q9:Q5390"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range R9:R5390"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G9:G5390"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): South West",
+                "identifier": "Lower Layer Super Output Area (LSOA): South West||Families||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842638/LSOA_-_I_-_South_West.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842638/LSOA_-_I_-_South_West.xlsx": ""
+                    }
+                ],
+                "title": "Families",
+                "preview": "documentation/previews/71929c5b-5614-48e8-8567-b82c149f2ea4.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B10:B3290"
+                    },
+                    {
+                        "Local authority code": "C10:C3290"
+                    },
+                    {
+                        "Local authority": "D10:D3290"
+                    },
+                    {
+                        "LSOA code": "E10:E3290"
+                    },
+                    {
+                        "LSOA name": "F10:F3290"
+                    },
+                    {
+                        "All tax credits recipient families": "I10:I3290"
+                    },
+                    {
+                        "WTC and CTC": "K10:K3290"
+                    },
+                    {
+                        "CTC only": "L10:L3290"
+                    },
+                    {
+                        "WTC only": "M10:M3290"
+                    },
+                    {
+                        "Total in work": "N10:N3290"
+                    },
+                    {
+                        "Benefitting from the childcare element": "O10:O3290"
+                    },
+                    {
+                        "National Childcare Indicator": "P10:P3290"
+                    },
+                    {
+                        "Total lone parents": "R8:R3290"
+                    },
+                    {
+                        "Lone parent families Benefitting from the childcare element": "S8:S3290"
+                    },
+                    {
+                        "Total out of work": "U10:U3290"
+                    },
+                    {
+                        "Lone parents": "V10:V3290"
+                    },
+                    {
+                        "Couples": "W10:W3290"
+                    },
+                    {
+                        "Value": "G10:G3290"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B10:B3290"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C10:C3290"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D10:D3290"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E10:E3290"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F10:F3290"
+                        ]
+                    },
+                    {
+                        "All_tax_credits_recipient_families": [
+                            "Values given in range I10:I3290"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K10:K3290"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L10:L3290"
+                        ]
+                    },
+                    {
+                        "WTC_only": [
+                            "Values given in range M10:M3290"
+                        ]
+                    },
+                    {
+                        "Total_in_work": [
+                            "Values given in range N10:N3290"
+                        ]
+                    },
+                    {
+                        "Benefitting_from_the_childcare_element": [
+                            "Values given in range O10:O3290"
+                        ]
+                    },
+                    {
+                        "National_Childcare_Indicator": [
+                            "Values given in range P10:P3290"
+                        ]
+                    },
+                    {
+                        "Total_lone_parents": [
+                            "Values given in range R8:R3290"
+                        ]
+                    },
+                    {
+                        "Lone_parent_families_Benefitting_from_the_childcare_element": [
+                            "Values given in range S8:S3290"
+                        ]
+                    },
+                    {
+                        "Total_out_of_work": [
+                            "Values given in range U10:U3290"
+                        ]
+                    },
+                    {
+                        "Lone_parents": [
+                            "Values given in range V10:V3290"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range W10:W3290"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G10:G3290"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): South West",
+                "identifier": "Lower Layer Super Output Area (LSOA): South West||Children||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842638/LSOA_-_I_-_South_West.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842638/LSOA_-_I_-_South_West.xlsx": ""
+                    }
+                ],
+                "title": "Children",
+                "preview": "documentation/previews/6459cbb6-6008-447a-96a1-98a63f0992c0.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B9:B3289"
+                    },
+                    {
+                        "Local authority code": "C9:C3289"
+                    },
+                    {
+                        "Local authority": "D9:D3289"
+                    },
+                    {
+                        "LSOA code": "E9:E3289"
+                    },
+                    {
+                        "LSOA name": "F9:F3289"
+                    },
+                    {
+                        "All children within families receiving tax credits": "I9:I3289"
+                    },
+                    {
+                        "WTC and CTC": "K9:K3289"
+                    },
+                    {
+                        "CTC only": "L9:L3289"
+                    },
+                    {
+                        "Total children within in work families": "M9:M3289"
+                    },
+                    {
+                        "Lone parents within in work families": "O10:O3290"
+                    },
+                    {
+                        "Total children within out of work families": "P9:P3289"
+                    },
+                    {
+                        "Lone parents within out of work families": "Q9:Q3289"
+                    },
+                    {
+                        "Couples": "R9:R3289"
+                    },
+                    {
+                        "Value": "G9:G3289"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B9:B3289"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C9:C3289"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D9:D3289"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E9:E3289"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F9:F3289"
+                        ]
+                    },
+                    {
+                        "All_children_within_families_receiving_tax_credits": [
+                            "Values given in range I9:I3289"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K9:K3289"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L9:L3289"
+                        ]
+                    },
+                    {
+                        "Total_children_within_in_work_families": [
+                            "Values given in range M9:M3289"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_in_work_families": [
+                            "Values given in range O10:O3290"
+                        ]
+                    },
+                    {
+                        "Total_children_within_out_of_work_families": [
+                            "Values given in range P9:P3289"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_out_of_work_families": [
+                            "Values given in range Q9:Q3289"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range R9:R3289"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G9:G3289"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): Wales",
+                "identifier": "Lower Layer Super Output Area (LSOA): Wales||Families||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842639/LSOA_-_Y_-_Wales.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842639/LSOA_-_Y_-_Wales.xlsx": ""
+                    }
+                ],
+                "title": "Families",
+                "preview": "documentation/previews/12711c66-f5c4-4019-b40c-f6ef8a18319a.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B10:B1918"
+                    },
+                    {
+                        "Local authority code": "C10:C1918"
+                    },
+                    {
+                        "Local authority": "D10:D1918"
+                    },
+                    {
+                        "LSOA code": "E10:E1918"
+                    },
+                    {
+                        "LSOA name": "F10:F1918"
+                    },
+                    {
+                        "All tax credits recipient families": "I10:I1918"
+                    },
+                    {
+                        "WTC and CTC": "K10:K1918"
+                    },
+                    {
+                        "CTC only": "L10:L1918"
+                    },
+                    {
+                        "WTC only": "M10:M1918"
+                    },
+                    {
+                        "Total in work": "N10:N1918"
+                    },
+                    {
+                        "Benefitting from the childcare element": "O10:O1918"
+                    },
+                    {
+                        "National Childcare Indicator": "P10:P1918"
+                    },
+                    {
+                        "Total lone parents": "R8:R1918"
+                    },
+                    {
+                        "Lone parent families Benefitting from the childcare element": "S8:S1918"
+                    },
+                    {
+                        "Total out of work": "U10:U1918"
+                    },
+                    {
+                        "Lone parents": "V10:V1918"
+                    },
+                    {
+                        "Couples": "W10:W1918"
+                    },
+                    {
+                        "Value": "G10:G1918"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B10:B1918"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C10:C1918"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D10:D1918"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E10:E1918"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F10:F1918"
+                        ]
+                    },
+                    {
+                        "All_tax_credits_recipient_families": [
+                            "Values given in range I10:I1918"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K10:K1918"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L10:L1918"
+                        ]
+                    },
+                    {
+                        "WTC_only": [
+                            "Values given in range M10:M1918"
+                        ]
+                    },
+                    {
+                        "Total_in_work": [
+                            "Values given in range N10:N1918"
+                        ]
+                    },
+                    {
+                        "Benefitting_from_the_childcare_element": [
+                            "Values given in range O10:O1918"
+                        ]
+                    },
+                    {
+                        "National_Childcare_Indicator": [
+                            "Values given in range P10:P1918"
+                        ]
+                    },
+                    {
+                        "Total_lone_parents": [
+                            "Values given in range R8:R1918"
+                        ]
+                    },
+                    {
+                        "Lone_parent_families_Benefitting_from_the_childcare_element": [
+                            "Values given in range S8:S1918"
+                        ]
+                    },
+                    {
+                        "Total_out_of_work": [
+                            "Values given in range U10:U1918"
+                        ]
+                    },
+                    {
+                        "Lone_parents": [
+                            "Values given in range V10:V1918"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range W10:W1918"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G10:G1918"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Lower Layer Super Output Area (LSOA): Wales",
+                "identifier": "Lower Layer Super Output Area (LSOA): Wales||Children||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842639/LSOA_-_Y_-_Wales.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842639/LSOA_-_Y_-_Wales.xlsx": ""
+                    }
+                ],
+                "title": "Children",
+                "preview": "documentation/previews/925e4062-1c05-4c45-b238-962450840276.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B9:B1917"
+                    },
+                    {
+                        "Local authority code": "C9:C1917"
+                    },
+                    {
+                        "Local authority": "D9:D1917"
+                    },
+                    {
+                        "LSOA code": "E9:E1917"
+                    },
+                    {
+                        "LSOA name": "F9:F1917"
+                    },
+                    {
+                        "All children within families receiving tax credits": "I9:I1917"
+                    },
+                    {
+                        "WTC and CTC": "K9:K1917"
+                    },
+                    {
+                        "CTC only": "L9:L1917"
+                    },
+                    {
+                        "Total children within in work families": "M9:M1917"
+                    },
+                    {
+                        "Lone parents within in work families": "O10:O1918"
+                    },
+                    {
+                        "Total children within out of work families": "P9:P1917"
+                    },
+                    {
+                        "Lone parents within out of work families": "Q9:Q1917"
+                    },
+                    {
+                        "Couples": "R9:R1917"
+                    },
+                    {
+                        "Value": "G9:G1917"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B9:B1917"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C9:C1917"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D9:D1917"
+                        ]
+                    },
+                    {
+                        "LSOA_code": [
+                            "Values given in range E9:E1917"
+                        ]
+                    },
+                    {
+                        "LSOA_name": [
+                            "Values given in range F9:F1917"
+                        ]
+                    },
+                    {
+                        "All_children_within_families_receiving_tax_credits": [
+                            "Values given in range I9:I1917"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K9:K1917"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L9:L1917"
+                        ]
+                    },
+                    {
+                        "Total_children_within_in_work_families": [
+                            "Values given in range M9:M1917"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_in_work_families": [
+                            "Values given in range O10:O1918"
+                        ]
+                    },
+                    {
+                        "Total_children_within_out_of_work_families": [
+                            "Values given in range P9:P1917"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_out_of_work_families": [
+                            "Values given in range Q9:Q1917"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range R9:R1917"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G9:G1917"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Scottish Data Zones",
+                "identifier": "Scottish Data Zones||Family||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842627/DZONE_-_Scotland_LSOA.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842627/DZONE_-_Scotland_LSOA.xlsx": ""
+                    }
+                ],
+                "title": "Family",
+                "preview": "documentation/previews/f79a77e3-42c0-4fac-bd7b-a9c5d3124f61.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B10:B6985"
+                    },
+                    {
+                        "Local authority code": "C10:C6985"
+                    },
+                    {
+                        "Local authority": "D10:D6985"
+                    },
+                    {
+                        "Data Zone code": "E10:E6985"
+                    },
+                    {
+                        "Data Zone name": "F10:F6985"
+                    },
+                    {
+                        "All tax credits recipient families": "I10:I6985"
+                    },
+                    {
+                        "WTC and CTC": "K10:K6985"
+                    },
+                    {
+                        "CTC only": "L10:L6985"
+                    },
+                    {
+                        "WTC only": "M10:M6985"
+                    },
+                    {
+                        "Total in work": "N10:N6985"
+                    },
+                    {
+                        "Benefitting from the childcare element": "O10:O6985"
+                    },
+                    {
+                        "National Childcare Indicator": "P10:P6985"
+                    },
+                    {
+                        "Total lone parents": "R8:R6985"
+                    },
+                    {
+                        "Lone parent families Benefitting from the childcare element": "S8:S6985"
+                    },
+                    {
+                        "Total out of work": "U10:U6985"
+                    },
+                    {
+                        "Lone parents": "V10:V6985"
+                    },
+                    {
+                        "Couples": "W10:W6985"
+                    },
+                    {
+                        "Value": "G10:G6985"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B10:B6985"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C10:C6985"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D10:D6985"
+                        ]
+                    },
+                    {
+                        "Data_Zone_code": [
+                            "Values given in range E10:E6985"
+                        ]
+                    },
+                    {
+                        "Data_Zone_name": [
+                            "Values given in range F10:F6985"
+                        ]
+                    },
+                    {
+                        "All_tax_credits_recipient_families": [
+                            "Values given in range I10:I6985"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K10:K6985"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L10:L6985"
+                        ]
+                    },
+                    {
+                        "WTC_only": [
+                            "Values given in range M10:M6985"
+                        ]
+                    },
+                    {
+                        "Total_in_work": [
+                            "Values given in range N10:N6985"
+                        ]
+                    },
+                    {
+                        "Benefitting_from_the_childcare_element": [
+                            "Values given in range O10:O6985"
+                        ]
+                    },
+                    {
+                        "National_Childcare_Indicator": [
+                            "Values given in range P10:P6985"
+                        ]
+                    },
+                    {
+                        "Total_lone_parents": [
+                            "Values given in range R8:R6985"
+                        ]
+                    },
+                    {
+                        "Lone_parent_families_Benefitting_from_the_childcare_element": [
+                            "Values given in range S8:S6985"
+                        ]
+                    },
+                    {
+                        "Total_out_of_work": [
+                            "Values given in range U10:U6985"
+                        ]
+                    },
+                    {
+                        "Lone_parents": [
+                            "Values given in range V10:V6985"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range W10:W6985"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G10:G6985"
+                        ]
+                    }
+                ]
+            },
+            {
+                "source_name": "Scottish Data Zones",
+                "identifier": "Scottish Data Zones||Children||https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842627/DZONE_-_Scotland_LSOA.xlsx",
+                "source": [
+                    {
+                        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/842627/DZONE_-_Scotland_LSOA.xlsx": ""
+                    }
+                ],
+                "title": "Children",
+                "preview": "documentation/previews/a7c98bb2-2eda-40a1-a307-6f8fba68f9fe.html",
+                "observation_selection": null,
+                "columns": [
+                    {
+                        "Region": "B9:B6984"
+                    },
+                    {
+                        "Local authority code": "C9:C6984"
+                    },
+                    {
+                        "Local authority": "D9:D6984"
+                    },
+                    {
+                        "Data Zone code": "E9:E6984"
+                    },
+                    {
+                        "Data Zone name": "F9:F6984"
+                    },
+                    {
+                        "All children within families receiving tax credits": "I9:I6984"
+                    },
+                    {
+                        "WTC and CTC": "K9:K6984"
+                    },
+                    {
+                        "CTC only": "L9:L6984"
+                    },
+                    {
+                        "Total children within in work families": "M9:M6984"
+                    },
+                    {
+                        "Lone parents within in work families": "O10:O6985"
+                    },
+                    {
+                        "Total children within out of work families": "P9:P6984"
+                    },
+                    {
+                        "Lone parents within out of work families": "Q9:Q6984"
+                    },
+                    {
+                        "Couples": "R9:R6984"
+                    },
+                    {
+                        "Value": "G9:G6984"
+                    }
+                ],
+                "postTransformNotes": [
+                    {
+                        "Period": [
+                            "Value taken from dataset title: 2017 to 2018"
+                        ]
+                    },
+                    {
+                        "Region": [
+                            "Values given in range B9:B6984"
+                        ]
+                    },
+                    {
+                        "Local_authority_code": [
+                            "Values given in range C9:C6984"
+                        ]
+                    },
+                    {
+                        "Local_authority": [
+                            "Values given in range D9:D6984"
+                        ]
+                    },
+                    {
+                        "Data_Zone_code": [
+                            "Values given in range E9:E6984"
+                        ]
+                    },
+                    {
+                        "Data_Zone_name": [
+                            "Values given in range F9:F6984"
+                        ]
+                    },
+                    {
+                        "All_children_within_families_receiving_tax_credits": [
+                            "Values given in range I9:I6984"
+                        ]
+                    },
+                    {
+                        "WTC_and_CTC": [
+                            "Values given in range K9:K6984"
+                        ]
+                    },
+                    {
+                        "CTC_only": [
+                            "Values given in range L9:L6984"
+                        ]
+                    },
+                    {
+                        "Total_children_within_in_work_families": [
+                            "Values given in range M9:M6984"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_in_work_families": [
+                            "Values given in range O10:O6985"
+                        ]
+                    },
+                    {
+                        "Total_children_within_out_of_work_families": [
+                            "Values given in range P9:P6984"
+                        ]
+                    },
+                    {
+                        "Lone_parents_within_out_of_work_families": [
+                            "Values given in range Q9:Q6984"
+                        ]
+                    },
+                    {
+                        "Couples": [
+                            "Values given in range R9:R6984"
+                        ]
+                    },
+                    {
+                        "Value": [
+                            "Values given in range G9:G6984"
+                        ]
+                    }
+                ]
+            }
+        ]
     },
     "sizingNotes": "Simple tables and structures but spread over several files (though similar framework).",
     "notes": "Prioritised as a good indicator for use, whilst the small area data is distributed across multiple files, so high value transforming into single data source"

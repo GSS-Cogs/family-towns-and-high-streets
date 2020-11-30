@@ -18,7 +18,25 @@ def excelRange(bag):
     top_left_cell = xypath.contrib.excel.excel_location(bag.filter(lambda x: x.x == min_x and x.y == min_y))
     bottom_right_cell = xypath.contrib.excel.excel_location(bag.filter(lambda x: x.x == max_x and x.y == max_y))
     return f"{top_left_cell}:{bottom_right_cell}"
-    
+
+def monthToNumber(month):
+
+    return {
+            'January' : '01',
+            'February' : '02',
+            'March' : '03',
+            'April' : '04',
+            'May' : '05',
+            'June' : '06',
+            'July' : '07',
+            'August' : '08',
+            'September' : '09', 
+            'October' : '10',
+            'November' : '11',
+            'December' : '12'
+    }[month]
+
+
 trace = TransformTrace()
 tidied_sheets = {} # dataframes will be stored in here
 
@@ -44,7 +62,7 @@ for distribution in scraper.distributions:
             if tab.name.lower() == 'families':
                 # tables differ between tabs
                 columns = [
-                    'Period', 'Region', 'Local authority code', 'Local authority', 'LSOA code','LSOA name',
+                    'Date', 'Period', 'Local authority', 'Lower Layer Super Output Area',
                     'All tax credits recipient families', 'WTC and CTC', 'CTC only', 'WTC only', 'Total in work', 
                     'Benefitting from the childcare element', 'National Childcare Indicator', 'Total lone parents', 
                     'Lone parent families Benefitting from the childcare element',
@@ -53,11 +71,14 @@ for distribution in scraper.distributions:
                 
                 trace.start(dataset_title, tab, columns, link)
                 
+                date = tab.filter(contains_string('Number of')).value.split(': ')[-1]
+                year = date.split(' ')[-1].strip()
+                month = date.split(' ')[0].strip()
+                month = monthToNumber(month)
+                date = year + '/' + month
+                
                 local_authority_code = tab.filter(contains_string('Local authority code')).fill(DOWN).is_not_number().is_not_blank() - footnotes
-                local_authority_name = local_authority_code.shift(1, 0)
-                region = local_authority_code.shift(-1, 0)
                 LSOA_code = local_authority_code.shift(2, 0)
-                LSOA_name = local_authority_code.shift(3, 0)
 
                 obs = tab.filter(contains_string('All Child Benefit recipient families')).fill(DOWN).is_not_blank()
                 obs = obs.same_row(region)
@@ -81,12 +102,10 @@ for distribution in scraper.distributions:
                 couples = total_out_of_work.shift(2, 0)
                 
                 # tracing dimensions
+                trace.Date("Value taken from table heading in sheet: {}".format(date))
                 trace.Period("Value taken from dataset title: {}".format(period))
-                trace.Region("Values given in range {}", excelRange(region)) 
-                trace.Local_authority_code("Values given in range {}", excelRange(local_authority_code))
-                trace.Local_authority("Values given in range {}", excelRange(local_authority_name))
-                trace.LSOA_code("Values given in range {}", excelRange(LSOA_code))
-                trace.LSOA_name("Values given in range {}", excelRange(LSOA_name))
+                trace.Local_authority("Values given in range {}", excelRange(local_authority_code))
+                trace.Lower_Layer_Super_Output_Area("Values given in range {}", excelRange(LSOA_code))
                 trace.All_tax_credits_recipient_families("Values given in range {}", excelRange(all_tax_credits_recipient_families))
                 trace.WTC_and_CTC("Values given in range {}", excelRange(WTC_and_CTC))
                 trace.CTC_only("Values given in range {}", excelRange(CTC_only))
@@ -102,12 +121,10 @@ for distribution in scraper.distributions:
                 trace.Value("Values given in range {}", excelRange(obs))
                 
                 dimensions = [
+                    HDimConst('Date', date),
                     HDimConst('Period', period),
-                    HDim(local_authority_code, 'Local authority code', DIRECTLY, LEFT),
-                    HDim(local_authority_name, 'Local authority', DIRECTLY, LEFT),
-                    HDim(region, 'Region', DIRECTLY, LEFT),
-                    HDim(LSOA_code, 'LSOA code', DIRECTLY, LEFT),
-                    HDim(LSOA_name, 'LSOA name', DIRECTLY, LEFT),
+                    HDim(local_authority_code, 'Local authority', DIRECTLY, LEFT),
+                    HDim(LSOA_code, 'Lower Layer Super Output Area', DIRECTLY, LEFT),
                     HDim(all_tax_credits_recipient_families, 'All tax credits recipient families', DIRECTLY, RIGHT),
                     HDim(WTC_and_CTC, 'WTC and CTC', DIRECTLY, RIGHT),
                     HDim(CTC_only, 'CTC only', DIRECTLY, RIGHT),
@@ -136,7 +153,7 @@ for distribution in scraper.distributions:
             elif tab.name.lower() == 'children':
                 
                 columns = [
-                    'Period', 'Region', 'Local authority code', 'Local authority', 'LSOA code','LSOA name',
+                    'Date', 'Period','Local authority', 'Lower Layer Super Output Area',
                     'All children within families receiving tax credits',
                     'WTC and CTC', 'CTC only', 'Total children within in work families', 'Lone parents within in work families', 
                     'Total children within out of work families', 'Lone parents within out of work families', 
@@ -145,11 +162,14 @@ for distribution in scraper.distributions:
                 
                 trace.start(dataset_title, tab, columns, link)
                 
+                date = tab.filter(contains_string('Number of')).value.split(': ')[-1]
+                year = date.split(' ')[-1].strip()
+                month = date.split(' ')[0].strip()
+                month = monthToNumber(month)
+                date = year + '/' + month
+                
                 local_authority_code = tab.filter(contains_string('Local authority code')).fill(DOWN).is_not_number().is_not_blank() - footnotes
-                local_authority_name = local_authority_code.shift(1, 0)
-                region = local_authority_code.shift(-1, 0)
                 LSOA_code = local_authority_code.shift(2, 0)
-                LSOA_name = local_authority_code.shift(3, 0)
 
                 obs = tab.filter(contains_string('All children within families registered for Child Benefit')).fill(DOWN).is_not_blank()
                 obs = obs.same_row(region)
@@ -168,12 +188,10 @@ for distribution in scraper.distributions:
                 couples = total_children_within_out_of_work_families.shift(2, 0)
                 
                 # tracing dimensions
+                trace.Date("Value taken from table heading in sheet: {}".format(date))
                 trace.Period("Value taken from dataset title: {}".format(period))
-                trace.Region("Values given in range {}", excelRange(region)) 
-                trace.Local_authority_code("Values given in range {}", excelRange(local_authority_code))
-                trace.Local_authority("Values given in range {}", excelRange(local_authority_name))
-                trace.LSOA_code("Values given in range {}", excelRange(LSOA_code))
-                trace.LSOA_name("Values given in range {}", excelRange(LSOA_name))
+                trace.Local_authority("Values given in range {}", excelRange(local_authority_code))
+                trace.Lower_Layer_Super_Output_Area("Values given in range {}", excelRange(LSOA_code))
                 trace.All_children_within_families_receiving_tax_credits("Values given in range {}", excelRange(all_children_within_families_receiving_tax_credits))
                 trace.WTC_and_CTC("Values given in range {}", excelRange(WTC_and_CTC))
                 trace.CTC_only("Values given in range {}", excelRange(CTC_only))
@@ -185,12 +203,10 @@ for distribution in scraper.distributions:
                 trace.Value("Values given in range {}", excelRange(obs))
                 
                 dimensions = [
+                    HDimConst('Date', date),
                     HDimConst('Period', period),
-                    HDim(local_authority_code, 'Local authority code', DIRECTLY, LEFT),
-                    HDim(local_authority_name, 'Local authority', DIRECTLY, LEFT),
-                    HDim(region, 'Region', DIRECTLY, LEFT),
-                    HDim(LSOA_code, 'LSOA code', DIRECTLY, LEFT),
-                    HDim(LSOA_name, 'LSOA name', DIRECTLY, LEFT),
+                    HDim(local_authority_code, 'Local authority', DIRECTLY, LEFT),
+                    HDim(LSOA_code, 'Lower Layer Super Output Area', DIRECTLY, LEFT),
                     HDim(all_children_within_families_receiving_tax_credits, 'All children within families receiving tax credits', DIRECTLY, RIGHT),
                     HDim(WTC_and_CTC, 'WTC and CTC', DIRECTLY, RIGHT),
                     HDim(CTC_only, 'CTC only', DIRECTLY, RIGHT),
@@ -225,7 +241,7 @@ for distribution in scraper.distributions:
             if tab.name.lower() == 'family': # different tab name to other datasets
                 # tables differ between tabs
                 columns = [
-                    'Period', 'Region', 'Local authority code', 'Local authority', 'Data Zone code','Data Zone name',
+                    'Date', 'Period', 'Local authority', 'Data Zone code','Data Zone name',
                     'All tax credits recipient families',
                     'WTC and CTC', 'CTC only', 'WTC only', 'Total in work', 'Benefitting from the childcare element', 
                     'National Childcare Indicator', 'Total lone parents', 
@@ -235,9 +251,14 @@ for distribution in scraper.distributions:
                 
                 trace.start(dataset_title, tab, columns, link)
                 
+                date = tab.filter(contains_string('Number of')).value.split(': ')[-1]
+                year = date.split(' ')[-1].strip()
+                month = date.split(' ')[0].strip()
+                month = monthToNumber(month)
+                date = year + '/' + month
+                
+                
                 local_authority_code = tab.filter(contains_string('Local authority code')).fill(DOWN).is_not_number().is_not_blank() - footnotes
-                local_authority_name = local_authority_code.shift(1, 0)
-                region = local_authority_code.shift(-1, 0)
                 data_zone_code = local_authority_code.shift(2, 0)
                 data_zone_name = local_authority_code.shift(3, 0)
 
@@ -263,10 +284,9 @@ for distribution in scraper.distributions:
                 couples = total_out_of_work.shift(2, 0)
                 
                 # tracing dimensions
+                trace.Date("Value taken from table heading in sheet: {}".format(date))
                 trace.Period("Value taken from dataset title: {}".format(period))
-                trace.Region("Values given in range {}", excelRange(region)) 
-                trace.Local_authority_code("Values given in range {}", excelRange(local_authority_code))
-                trace.Local_authority("Values given in range {}", excelRange(local_authority_name))
+                trace.Local_authority("Values given in range {}", excelRange(local_authority_code))
                 trace.Data_Zone_code("Values given in range {}", excelRange(data_zone_code))
                 trace.Data_Zone_name("Values given in range {}", excelRange(data_zone_name))
                 trace.All_tax_credits_recipient_families("Values given in range {}", excelRange(all_tax_credits_recipient_families))
@@ -284,10 +304,9 @@ for distribution in scraper.distributions:
                 trace.Value("Values given in range {}", excelRange(obs))
                 
                 dimensions = [
+                    HDimConst('Date', date),
                     HDimConst('Period', period),
-                    HDim(local_authority_code, 'Local authority code', DIRECTLY, LEFT),
-                    HDim(local_authority_name, 'Local authority', DIRECTLY, LEFT),
-                    HDim(region, 'Region', DIRECTLY, LEFT),
+                    HDim(local_authority_code, 'Local authority', DIRECTLY, LEFT),
                     HDim(data_zone_code, 'Data Zone code', DIRECTLY, LEFT),
                     HDim(data_zone_name, 'Data Zone name', DIRECTLY, LEFT),
                     HDim(all_tax_credits_recipient_families, 'All tax credits recipient families', DIRECTLY, RIGHT),
@@ -317,7 +336,7 @@ for distribution in scraper.distributions:
             elif tab.name.lower() == 'children':
                 
                 columns = [
-                    'Period', 'Region', 'Local authority code', 'Local authority', 'Data Zone code','Data Zone name',
+                    'Date', 'Period', 'Local authority', 'Data Zone code','Data Zone name',
                     'All children within families receiving tax credits',
                     'WTC and CTC', 'CTC only', 'Total children within in work families', 'Lone parents within in work families', 
                     'Total children within out of work families', 'Lone parents within out of work families', 
@@ -326,9 +345,13 @@ for distribution in scraper.distributions:
                 
                 trace.start(dataset_title, tab, columns, link)
                 
+                date = tab.filter(contains_string('Number of')).value.split(': ')[-1]
+                year = date.split(' ')[-1].strip()
+                month = date.split(' ')[0].strip()
+                month = monthToNumber(month)
+                date = year + '/' + month
+                
                 local_authority_code = tab.filter(contains_string('Local authority code')).fill(DOWN).is_not_number().is_not_blank() - footnotes
-                local_authority_name = local_authority_code.shift(1, 0)
-                region = local_authority_code.shift(-1, 0)
                 data_zone_code = local_authority_code.shift(2, 0)
                 data_zone_name = local_authority_code.shift(3, 0)
 
@@ -349,10 +372,9 @@ for distribution in scraper.distributions:
                 couples = total_children_within_out_of_work_families.shift(2, 0)
                 
                 # tracing dimensions
+                trace.Date("Value taken from table heading in sheet: {}".format(date))
                 trace.Period("Value taken from dataset title: {}".format(period))
-                trace.Region("Values given in range {}", excelRange(region)) 
-                trace.Local_authority_code("Values given in range {}", excelRange(local_authority_code))
-                trace.Local_authority("Values given in range {}", excelRange(local_authority_name))
+                trace.Local_authority("Values given in range {}", excelRange(local_authority_code))
                 trace.Data_Zone_code("Values given in range {}", excelRange(data_zone_code))
                 trace.Data_Zone_name("Values given in range {}", excelRange(data_zone_name))
                 trace.All_children_within_families_receiving_tax_credits("Values given in range {}", excelRange(all_children_within_families_receiving_tax_credits))
@@ -366,10 +388,9 @@ for distribution in scraper.distributions:
                 trace.Value("Values given in range {}", excelRange(obs))
                 
                 dimensions = [
+                    HDimConst('Date', date),
                     HDimConst('Period', period),
-                    HDim(local_authority_code, 'Local authority code', DIRECTLY, LEFT),
-                    HDim(local_authority_name, 'Local authority', DIRECTLY, LEFT),
-                    HDim(region, 'Region', DIRECTLY, LEFT),
+                    HDim(local_authority_code, 'Local authority', DIRECTLY, LEFT),
                     HDim(data_zone_code, 'Data Zone code', DIRECTLY, LEFT),
                     HDim(data_zone_name, 'Data Zone name', DIRECTLY, LEFT),
                     HDim(all_children_within_families_receiving_tax_credits, 'All children within families receiving tax credits', DIRECTLY, RIGHT),
@@ -391,18 +412,20 @@ for distribution in scraper.distributions:
                 
                 trace.store(tab_name, tidy_sheet_aspandas)
                 tidied_sheets[tab_name] = tidy_sheet_aspandas
-                
-                
+
+
 out = Path('out')
 out.mkdir(exist_ok=True)
-    
+tidied_sheets['Lower Layer Super Output Area (LSOA): North East - Families']
+
+
 trace.render("spec_v1.html")
-                
+
 for key in tidied_sheets:
     print(key) 
     #df = tidied_sheets[key]
     #df.drop_duplicates().to_csv(out / f'{key}.csv', index=False)
-    
+
 """
 ### Some notes on the transform ###
 
@@ -414,3 +437,13 @@ It was not obvious to me which column of data should be used as the 'Value' so i
 
 These can all be rectified easily if needed
 """
+
+# +
+# Stage 2 Transform
+
+
+monthToNum('August')
+
+# -
+
+
