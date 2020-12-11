@@ -1,8 +1,22 @@
 #!/usr/bin/env python
 # coding: utf-8
-# %%
 
-# %%
+# In[10]:
+
+
+#!/usr/bin/env python
+# coding: utf-8
+
+
+# In[10]:
+
+
+
+
+
+# In[11]:
+
+
 from gssutils import *
 import json
 import re
@@ -20,7 +34,8 @@ print("Publisher: " + etl_publisher)
 print("Title: " + etl_title)
 
 
-# %%
+# In[12]:
+
 
 
 req = Request("https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019", headers={'User-Agent': 'Mozilla/5.0'})
@@ -47,37 +62,49 @@ scraper.distributions[0].title = etl_title
 scraper
 
 
-# %%
+# In[13]:
+
+
 tab = scraper.distributions[0].as_pandas()
 #tab
 
 
-# %%
+# In[14]:
+
+
 tbls = []
 
 for x in range(4, len(tab.columns)):
     cols = [0,2,x]
     dat = tab.iloc[:, cols]
-    dat['Indices of Deprivation'] = dat.columns[2]
+    dat['Index of Deprivation'] = dat.columns[2]
     dat = dat.rename(columns={dat.columns[2]:'Value','LSOA code (2011)':'Lower Layer Super Output Area','Local Authority District code (2019)':'Local Authority'})
     dat = dat[[dat.columns[0],dat.columns[1],dat.columns[3],dat.columns[2]]]
     tbls.append(dat)
 
 
-# %%
+# In[15]:
+
+
 i = 0
 for t in tbls:
     if i == 0:
         joined_dat = t
     else:
-        joined_dat = pd.concat([joined_dat,t])   
+        joined_dat = pd.concat([joined_dat,t])
     i = i + 1
 
-# %%
-joined_dat['Indices of Deprivation'] = joined_dat['Indices of Deprivation'].apply(pathify)
+
+# In[16]:
+
+
+joined_dat['Index of Deprivation'] = joined_dat['Index of Deprivation'].apply(pathify)
 #joined_dat.head(20)
 
-# %%
+
+# In[17]:
+
+
 import os
 from urllib.parse import urljoin
 
@@ -124,16 +151,28 @@ csvw_transform.write(out / f'{csvName}-metadata.json')
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
 
-# %%
-#codelistcreation = ['Indices of Deprivation'] 
-#df = joined_dat
-#codeclass = CSVCodelists()
-#for cl in codelistcreation:
-#    if cl in df.columns:
-#        df[cl] = df[cl].str.replace("-"," ")
-#        df[cl] = df[cl].str.capitalize()
-#        codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())
 
-# %%
+# In[18]:
 
-# %%
+
+"""codelistcreation = ['Index of Deprivation']
+df = joined_dat
+codeclass = CSVCodelists()
+for cl in codelistcreation:
+    if cl in df.columns:
+        df[cl] = df[cl].str.replace("-"," ")
+        df[cl] = df[cl].str.capitalize()
+        codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())"""
+
+
+# In[18]:
+
+
+
+
+
+# In[18]:
+
+
+
+
