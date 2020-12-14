@@ -73,6 +73,7 @@ cubes = Cubes("info.json")
 
 # latest data
 scraper.select_dataset(title=lambda x: 'small area data' in x, latest=True)
+scraper.dataset.family = 'trade'
 
 for distribution in scraper.distributions:
     
@@ -416,13 +417,11 @@ for distribution in scraper.distributions:
 # print("Done")
 
 
-# +
 cubes.output_all()
-tidied_sheets["Scottish Data Zones - Children"]
-# tidied_sheets['Lower Layer Super Output Area (LSOA): North East - Children'].tail(50)
-
-# tidied_sheets['Scottish Data Zones - Families'].tail(50)
-# -
-
-
 trace.render("spec_v1.html")
+# tidied_sheets["Scottish Data Zones - Children"]
+# tidied_sheets['Lower Layer Super Output Area (LSOA): North East - Children'].tail(50)
+# tidied_sheets['Scottish Data Zones - Families'].tail(50)
+
+
+
