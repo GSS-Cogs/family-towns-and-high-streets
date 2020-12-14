@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from gssutils import * 
 import json 
 
@@ -68,6 +69,7 @@ def sanitize_family_type_in_sheets(value):
 
 trace = TransformTrace()
 tidied_sheets = {} # dataframes will be stored in here
+cubes = Cubes("info.json")
 
 # latest data
 scraper.select_dataset(title=lambda x: 'small area data' in x, latest=True)
@@ -92,7 +94,7 @@ for distribution in scraper.distributions:
             if tab.name.lower() == 'families':
                 # tables differ between tabs
                 columns = [
-                    'Date', 'Local authority', 'Lower Layer Super Output Area', 'Work Situation', 'Family Type', 'Value', 'Measure Type', 'Unit'
+                    'Date', 'Local authority', 'Lower Layer Super Output Area', 'Work Situation', 'Family Type', 'Value', 'Measure Type', 'Unit', 'Benefit Type'
                 ]
                 
                 trace.start(dataset_title, tab, columns, link)
@@ -108,6 +110,7 @@ for distribution in scraper.distributions:
 
                 work_situation = tab.filter(contains_string('All Child Benefit recipient families')).expand(RIGHT).is_not_blank()
                 family_type = tab.filter(contains_string('All families')).expand(RIGHT).is_not_blank()
+                benefit_type = tab.filter(contains_string('WTC and CTC')).expand(RIGHT).is_not_blank()
                 obs = tab.excel_ref("G10").expand(DOWN).expand(RIGHT).is_not_blank()
                 
                 # tracing dimensions 
@@ -116,6 +119,7 @@ for distribution in scraper.distributions:
                 trace.Lower_Layer_Super_Output_Area("Values given in range {}", excelRange(LSOA_code))
                 trace.Work_Situation("Values given in range {}", excelRange(work_situation))
                 trace.Family_Type("Values given in range {}", excelRange(family_type))
+                trace.Benefit_Type("Values given in range {}", excelRange(benefit_type))
                 trace.Value("Values given in range {}", excelRange(obs))
                 trace.Measure_Type("Hardcoded as Count")
                 trace.Unit("Hardcoded as families")
@@ -127,8 +131,9 @@ for distribution in scraper.distributions:
                     HDim(LSOA_code, 'Lower Layer Super Output Area', DIRECTLY, LEFT), 
                     HDim(work_situation, 'Work Situation', CLOSEST, LEFT),
                     HDim(family_type, 'Family Type', CLOSEST, LEFT),
-                    HDimConst('Measure Type', 'count'),
-                    HDimConst('Unit', 'families')
+                    HDim(benefit_type, 'Benefit Type', CLOSEST, LEFT),
+                    HDimConst('Measure Type', 'families'),
+                    HDimConst('Unit', 'thousands')
                     ]
     
                 tidy_sheet = ConversionSegment(tab, dimensions, obs)
@@ -137,24 +142,44 @@ for distribution in scraper.distributions:
                 
                 tidy_sheet_aspandas = tidy_sheet.topandas()
                 tidy_sheet_aspandas = tidy_sheet_aspandas.rename(columns={'OBS':'Value'})
-            
+                
+                # Remove all rows with related to national childcare Indicator and group Benifit Type values as per spec
+                tidy_sheet_aspandas = tidy_sheet_aspandas[tidy_sheet_aspandas["Benefit Type"] != "National Childcare Indicator (NI 118)1"]
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Work Situation"] == 'All Child Benefit recipient families'),'Benefit Type'] = 'CTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Work Situation"] == 'All tax credits recipient families'),'Benefit Type'] = 'WTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Benefit Type"] == 'Benefitting from the childcare element'),'Benefit Type'] = 'All'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Benefit Type"] == 'Total lone parents'),'Benefit Type'] = 'All'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Benefit Type"] == 'Total in-work'),'Benefit Type'] = 'All'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Benefit Type"] == 'CTC only'),'Benefit Type'] = 'CTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Benefit Type"] == 'WTC only'),'Benefit Type'] = 'WTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Family Type"] == 'Total out of work'),'Benefit Type'] = 'CTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Family Type"] == 'Lone parents'),'Benefit Type'] = 'CTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Family Type"] == 'Couples'),'Benefit Type'] = 'CTC'
+                trace.Benefit_Type("Values grouped to CTC, WTC, All, WTC and CTC")
+
+
+                
                 tidy_sheet_aspandas["Work Situation"] = tidy_sheet_aspandas["Work Situation"].apply(sanitize_work_situation_family_sheets)
                 trace.Work_Situation("Values grouped to In work, Out of work and all")
                 
                 tidy_sheet_aspandas["Family Type"] = tidy_sheet_aspandas["Family Type"].apply(sanitize_family_type_in_sheets)
                 trace.Family_Type("Values grouped to Couples, Lone Parent and all")
                 
+                                
                 tidy_sheet_aspandas = tidy_sheet_aspandas[columns]
                 
                 trace.store(tab_name, tidy_sheet_aspandas)
                 tidied_sheets[tab_name] = tidy_sheet_aspandas
+                
+                cubes.add_cube(scraper, tidy_sheet_aspandas, tab_name)
+                
                 
                 
             elif tab.name.lower() == 'children':
                 
                 columns = [
                     'Date', 'Local authority', 'Lower Layer Super Output Area',
-                    'Work Situation', 'Family Type', 'Value', 'Measure Type', 'Unit'
+                    'Work Situation', 'Family Type', 'Value', 'Measure Type', 'Unit', 'Benefit Type'
                 ]
                 
                 trace.start(dataset_title, tab, columns, link)
@@ -169,6 +194,7 @@ for distribution in scraper.distributions:
                 LSOA_code = local_authority_code.shift(2, 0)
                 work_situation = tab.filter(contains_string('All children within families registered for Child Benefit')).expand(RIGHT).is_not_blank()
                 family_type = tab.filter(contains_string('All children within families registered for Child Benefit')).shift(0,1).expand(RIGHT).is_not_blank()
+                benefit_type = tab.filter(contains_string('WTC and CTC')).expand(RIGHT).is_not_blank()
 
                 obs = tab.excel_ref("G9").expand(DOWN).expand(RIGHT).is_not_blank()
                 
@@ -179,6 +205,7 @@ for distribution in scraper.distributions:
                 trace.Lower_Layer_Super_Output_Area("Values given in range {}", excelRange(LSOA_code))
                 trace.Work_Situation("Values given in range {}", excelRange(work_situation))
                 trace.Family_Type("Values given in range {}", excelRange(family_type))
+                trace.Benefit_Type("Values given in range {}", excelRange(benefit_type))
                 trace.Value("Values given in range {}", excelRange(obs))
                 trace.Measure_Type("Hardcoded as Count")
                 trace.Unit("Hardcoded as children")
@@ -189,8 +216,9 @@ for distribution in scraper.distributions:
                     HDim(LSOA_code, 'Lower Layer Super Output Area', DIRECTLY, LEFT),
                     HDim(work_situation, 'Work Situation', CLOSEST, LEFT),
                     HDim(family_type, 'Family Type', CLOSEST, LEFT),
-                    HDimConst('Measure Type', 'count'),
-                    HDimConst('Unit', 'children')
+                    HDim(benefit_type, 'Benefit Type', CLOSEST, LEFT),
+                    HDimConst('Measure Type', 'children'),
+                    HDimConst('Unit', 'thousands')
                     ]
                 
                 tidy_sheet = ConversionSegment(tab, dimensions, obs)
@@ -199,6 +227,15 @@ for distribution in scraper.distributions:
                 
                 tidy_sheet_aspandas = tidy_sheet.topandas()
                 tidy_sheet_aspandas = tidy_sheet_aspandas.rename(columns={'OBS':'Value'})
+                
+                # Group Benifit Type values as per spec
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Work Situation"] == 'All children within families registered for Child Benefit'),'Benefit Type'] = 'CTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Work Situation"] == 'All children within families receiving tax credits'),'Benefit Type'] = 'WTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Benefit Type"] == 'CTC only'),'Benefit Type'] = 'CTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Benefit Type"] == 'Total children'),'Benefit Type'] = 'All'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Benefit Type"] == 'Lone parents'),'Benefit Type'] = 'All'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Work Situation"] == 'Children within out-of-work families'),'Benefit Type'] = 'CTC'
+                trace.Benefit_Type("Values grouped to CTC, WTC, All, WTC and CTC")
                 
                 tidy_sheet_aspandas["Work Situation"] = tidy_sheet_aspandas["Work Situation"].apply(sanitize_work_situation_children_sheets)
                 trace.Work_Situation("Values grouped to In work, Out of work and all")
@@ -210,6 +247,8 @@ for distribution in scraper.distributions:
                 
                 trace.store(tab_name, tidy_sheet_aspandas)
                 tidied_sheets[tab_name] = tidy_sheet_aspandas
+                
+                cubes.add_cube(scraper, tidy_sheet_aspandas, tab_name)
                 
     elif 'scottish data zone' in distribution.title.lower():
         # scottish data zone has slightly different format
@@ -226,7 +265,7 @@ for distribution in scraper.distributions:
                 # tables differ between tabs
                 columns = [
                     'Date', 'Local authority', 'Data Zone code',
-                    'Work Situation', 'Family Type', 'Value', 'Measure Type', 'Unit'
+                    'Work Situation', 'Family Type', 'Value', 'Measure Type', 'Unit', 'Benefit Type'
                 ]
                 
                 trace.start(dataset_title, tab, columns, link)
@@ -242,6 +281,7 @@ for distribution in scraper.distributions:
                 data_zone_code = local_authority_code.shift(2, 0)
                 work_situation = tab.filter(contains_string('All Child Benefit recipient families')).expand(RIGHT).is_not_blank()
                 family_type = tab.filter(contains_string('All families')).expand(RIGHT).is_not_blank()
+                benefit_type = tab.filter(contains_string('WTC and CTC')).expand(RIGHT).is_not_blank()
 
                 obs = tab.excel_ref("G10").expand(DOWN).expand(RIGHT).is_not_blank()
                 
@@ -252,9 +292,10 @@ for distribution in scraper.distributions:
                 trace.Data_Zone_code("Values given in range {}", excelRange(data_zone_code))
                 trace.Work_Situation("Values given in range {}", excelRange(work_situation))
                 trace.Family_Type("Values given in range {}", excelRange(family_type))
+                trace.Benefit_Type("Values given in range {}", excelRange(benefit_type))
                 trace.Value("Values given in range {}", excelRange(obs))
-                trace.Measure_Type("Hardcoded as Count")
-                trace.Unit("Hardcoded as families")
+                trace.Measure_Type("Hardcoded as families")
+                trace.Unit("Hardcoded as thousands")
                 
                 dimensions = [
                     HDimConst('Date', date),
@@ -262,8 +303,9 @@ for distribution in scraper.distributions:
                     HDim(data_zone_code, 'Data Zone code', DIRECTLY, LEFT),
                     HDim(work_situation, 'Work Situation', CLOSEST, LEFT),
                     HDim(family_type, 'Family Type', CLOSEST, LEFT),
-                    HDimConst('Measure Type', 'count'),
-                    HDimConst('Unit', 'families')
+                    HDim(benefit_type, 'Benefit Type', CLOSEST, LEFT),
+                    HDimConst('Measure Type', 'families'),
+                    HDimConst('Unit', 'thousands')
                     ]
                 
                 tidy_sheet = ConversionSegment(tab, dimensions, obs)
@@ -272,6 +314,19 @@ for distribution in scraper.distributions:
                 
                 tidy_sheet_aspandas = tidy_sheet.topandas()
                 tidy_sheet_aspandas = tidy_sheet_aspandas.rename(columns={'OBS':'Value'})
+            
+                tidy_sheet_aspandas = tidy_sheet_aspandas[tidy_sheet_aspandas["Benefit Type"] != "National Childcare Indicator (NI 118)1"]
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Work Situation"] == 'All Child Benefit recipient families'),'Benefit Type'] = 'CTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Work Situation"] == 'All tax credits recipient families'),'Benefit Type'] = 'WTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Benefit Type"] == 'Benefitting from the childcare element'),'Benefit Type'] = 'All'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Benefit Type"] == 'Total lone parents'),'Benefit Type'] = 'All'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Benefit Type"] == 'Total in-work'),'Benefit Type'] = 'All'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Benefit Type"] == 'CTC only'),'Benefit Type'] = 'CTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Benefit Type"] == 'WTC only'),'Benefit Type'] = 'WTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Family Type"] == 'Total out of work'),'Benefit Type'] = 'CTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Family Type"] == 'Lone parents'),'Benefit Type'] = 'CTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Family Type"] == 'Couples'),'Benefit Type'] = 'CTC'
+                trace.Benefit_Type("Values grouped to CTC, WTC, All, WTC and CTC")
             
                 tidy_sheet_aspandas["Work Situation"] = tidy_sheet_aspandas["Work Situation"].apply(sanitize_work_situation_family_sheets)
                 trace.Work_Situation("Values grouped to In work, Out of work and all")
@@ -284,10 +339,12 @@ for distribution in scraper.distributions:
                 trace.store(tab_name, tidy_sheet_aspandas)
                 tidied_sheets[tab_name] = tidy_sheet_aspandas
                 
+                cubes.add_cube(scraper, tidy_sheet_aspandas, tab_name)
+                
             elif tab.name.lower() == 'children':
                 columns = [
                     'Date', 'Local authority', 'Data Zone code',
-                    'Work Situation', 'Family Type', 'Value', 'Measure Type', 'Unit'
+                    'Work Situation', 'Family Type', 'Value', 'Measure Type', 'Unit', 'Benefit Type'
                 ]
                 
                 trace.start(dataset_title, tab, columns, link)
@@ -303,7 +360,7 @@ for distribution in scraper.distributions:
                 
                 work_situation = tab.filter(contains_string('All children within families registered for Child Benefit')).expand(RIGHT).is_not_blank()
                 family_type = tab.filter(contains_string('All children within families registered for Child Benefit')).shift(0,1).expand(RIGHT).is_not_blank()
-
+                benefit_type = tab.filter(contains_string('WTC and CTC')).expand(RIGHT).is_not_blank()
                 obs = tab.excel_ref("G9").expand(DOWN).expand(RIGHT).is_not_blank()
                 
                 # tracing dimensions 
@@ -313,9 +370,10 @@ for distribution in scraper.distributions:
                 trace.Data_Zone_code("Values given in range {}", excelRange(data_zone_code))
                 trace.Work_Situation("Values given in range {}", excelRange(work_situation))
                 trace.Family_Type("Values given in range {}", excelRange(family_type))
+                trace.Benefit_Type("Values given in range {}", excelRange(benefit_type))
                 trace.Value("Values given in range {}", excelRange(obs))
-                trace.Measure_Type("Hardcoded as Count")
-                trace.Unit("Hardcoded as families")
+                trace.Measure_Type("Hardcoded as children")
+                trace.Unit("Hardcoded as thousands")
                 
                 dimensions = [
                     HDimConst('Date', date),
@@ -323,8 +381,9 @@ for distribution in scraper.distributions:
                     HDim(data_zone_code, 'Data Zone code', DIRECTLY, LEFT),
                     HDim(work_situation, 'Work Situation', CLOSEST, LEFT),
                     HDim(family_type, 'Family Type', CLOSEST, LEFT),
-                    HDimConst('Measure Type', 'count'),
-                    HDimConst('Unit', 'children')
+                    HDim(benefit_type, 'Benefit Type', CLOSEST, LEFT),
+                    HDimConst('Measure Type', 'children'),
+                    HDimConst('Unit', 'thousands')
                 ]
                 
                 tidy_sheet = ConversionSegment(tab, dimensions, obs)
@@ -332,6 +391,15 @@ for distribution in scraper.distributions:
                 
                 tidy_sheet_aspandas = tidy_sheet.topandas()
                 tidy_sheet_aspandas = tidy_sheet_aspandas.rename(columns={'OBS':'Value'})
+                
+                # Group Benifit Type values as per spec
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Work Situation"] == 'All children within families registered for Child Benefit'),'Benefit Type'] = 'CTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Work Situation"] == 'All children within families receiving tax credits'),'Benefit Type'] = 'WTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Benefit Type"] == 'CTC only'),'Benefit Type'] = 'CTC'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Benefit Type"] == 'Total children'),'Benefit Type'] = 'All'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Benefit Type"] == 'Lone parents'),'Benefit Type'] = 'All'
+                tidy_sheet_aspandas.loc[(tidy_sheet_aspandas["Work Situation"] == 'Children within out-of-work families'),'Benefit Type'] = 'CTC'
+                trace.Benefit_Type("Values grouped to CTC, WTC, All, WTC and CTC")
             
                 tidy_sheet_aspandas["Work Situation"] = tidy_sheet_aspandas["Work Situation"].apply(sanitize_work_situation_children_sheets)
                 trace.Work_Situation("Values grouped to In work, Out of work and all")
@@ -343,11 +411,18 @@ for distribution in scraper.distributions:
                 
                 trace.store(tab_name, tidy_sheet_aspandas)
                 tidied_sheets[tab_name] = tidy_sheet_aspandas
+                
+                cubes.add_cube(scraper, tidy_sheet_aspandas, tab_name)
+# print("Done")
 
 
-out = Path('out')
-out.mkdir(exist_ok=True)
-# tidied_sheets['Scottish Data Zones - Children'].tail(50)
+# +
+cubes.output_all()
+tidied_sheets["Scottish Data Zones - Children"]
+# tidied_sheets['Lower Layer Super Output Area (LSOA): North East - Children'].tail(50)
+
+# tidied_sheets['Scottish Data Zones - Families'].tail(50)
+# -
 
 
 trace.render("spec_v1.html")
