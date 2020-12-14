@@ -10,7 +10,7 @@
 
 [Transform Flowchart](https://gss-cogs.github.io/family-towns-and-high-streets/datasets/specflowcharts.html?NHS-D-Patients-Registered-at-a-GP-Practice/flowchart.ttl)
 
-### 5 Spreadsheets
+### 5 Spreadsheets - 6 show on Landing Page however Mapping file is not required as it is purely reference data
 
 		Totals (GP practice-all persons)
 		Single year of age (Commissioning Regions-STPs-CCGs-PCNs)
