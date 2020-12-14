@@ -34,18 +34,19 @@
 		Benefit Type
 			All (G, I)
 			WTC and CTC (K)
-			CTC only (L)
+			CTC only (L, T, U, V)
 			WTC only (M)
 			Childcare element (O, S)
 			Child Benefit (G)
 			All Tax Credits (I)
+			 (T,U,V)
 		Marker - any value with - replace with 0 and add the following to Marker cell:
 			Suppressed
 		Remove 'National Childcare Indicator' column as this can be derived
 
 		Measure columns have been set in info.json
-			Measure Type -> count
-			Unit = families
+			Measure Type -> families
+			Unit = thousands
 
 		Scraper values
 			Title: Personal tax credits finalised award statistics, LSOA and Data Zone - Families 
@@ -75,15 +76,16 @@
 		Benefit Type
 			All (G, I)
 			WTC and CTC (K)
-			CTC only (L)
+			CTC only (L, P, Q, R)
 			Child Benefit (G)
 			All Tax Credits (I)
+			 (T,U,V)
 		Marker - any value with - replace with 0 and add the following to Marker cell:
 			Suppressed
 
 		Measure columns have been set in info.json
-			Measure Type -> count
-			Unit = children
+			Measure Type -> children
+			Unit = thousand
 			
 		Scraper values
 			Title: Personal tax credits finalised award statistics, LSOA and Data Zone - Families 
