@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
+# %%
 
-# In[64]:
+# %%
 
 
 # -*- coding: utf-8 -*-
@@ -11,23 +12,23 @@ import requests
 import os
 from urllib.parse import urljoin, urlparse
 
-trace = TransformTrace()
-tidied_sheets = {}
+#trace = TransformTrace()
+#tidied_sheets = {}
 #scraper = Scraper(seed="info.json")
-info = json.load(open('info.json'))
-scraper = Scraper(info['landingPage'])
+#info = json.load(open('info.json'))
+#scraper = Scraper(info['landingPage'])
 
-for i in scraper.distributions:
-    print(i.title)
-    print(i.downloadURL)
-    print(i.mediaType)
+#for i in scraper.distributions:
+#    print(i.title)
+#    print(i.downloadURL)
+#    print(i.mediaType)
 
 
-# In[65]:
+# %%
 
 
 from urllib.request import Request, urlopen
-from bs4 import BeautifulSoup
+#from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 
 
@@ -46,14 +47,14 @@ for page in pubPages:
         print(urljoin("https://www.gov.scot", i['href']))"""
 
 
-# In[66]:
+# %%
 
 
 #tabs = { tab for tab in scraper.distributions[0].as_databaker() }
 #len(tabs)
 
 
-# In[67]:
+# %%
 
 
 
@@ -128,9 +129,7 @@ tidied_sheets["Data"] = tidy_sheet.topandas()
 """
 
 
-# In[68]:
-
-
+# %%
 # Sheet names
 sn = ['SIMD 2020v2 ranks','Data']
 # Output filenames
@@ -148,10 +147,29 @@ de = [
 # Title
 ti = [
     'Scottish Index of Multiple Deprivation - Ranks', 'Scottish Index of Multiple Deprivation - Ranks',
-    'Scottish Index of Multiple Deprivation - Ranks', 'Scottish Index of Multiple Deprivation - Indicators'
+    'Scottish Index of Multiple Deprivation - Indicators', 'Scottish Index of Multiple Deprivation - Indicators'
 ]
 # Paths
 pa = ['/ranks', '/indicators']
+
+# %%
+# need to change the dataURLa to the indicators one
+with open("info.json", "r") as jsonFile:
+    data = json.load(jsonFile)
+
+data["dataURL"] = "https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/01/scottish-index-of-multiple-deprivation-2020-ranks-and-domain-ranks/documents/scottish-index-of-multiple-deprivation-2020-ranks-and-domain-ranks/scottish-index-of-multiple-deprivation-2020-ranks-and-domain-ranks/govscot%3Adocument/SIMD%2B2020v2%2B-%2Branks.xlsx"
+data["transform"]["columns"]["Value"]["unit"] = "http://gss-data.org.uk/def/concept/measurement-units/ranks"
+
+with open("info.json", "w") as jsonFile:
+    json.dump(data, jsonFile, indent = 2)
+
+trace = TransformTrace()
+tidied_sheets = {}
+scraper = Scraper(seed="info.json")
+scraper.distributions[0].title = "Scottish Indicators of Multiple Deprivation 2020"
+scraper
+
+# %%
 
 try:
     i = 0
@@ -203,10 +221,13 @@ try:
 except Exception as s:
     print(str(s))
 
+
+
+# %%
+print(joined_dat.head(5))
 del joined_dat
 
-
-# In[69]:
+# %%
 
 
 # need to change the dataURLa to the indicators one
@@ -226,7 +247,7 @@ scraper.distributions[0].title = "Scottish Index of Multiple Deprivation 2020"
 scraper
 
 
-# In[70]:
+# %%
 
 
 try:
@@ -361,13 +382,11 @@ except Exception as s:
     print(str(s))
 
 
-# In[71]:
+# %%
+joined_dat.head(5)
 
 
-joined_dat.head(20)
-
-
-# In[72]:
+# %%
 
 
 # Need to change the dataURL back to the RANK URL ready for the next run
@@ -381,7 +400,7 @@ with open("info.json", "w") as jsonFile:
     json.dump(data, jsonFile, indent = 2)
 
 
-# In[73]:
+# %%
 
 
 #scraper.dataset.family = 'towns-high-streets'
