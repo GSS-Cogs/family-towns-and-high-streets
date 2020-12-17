@@ -146,8 +146,8 @@ de = [
 ]
 # Title
 ti = [
-    'Scottish Index of Multiple Deprivation - Ranks', 'Scottish Index of Multiple Deprivation - Ranks',
-    'Scottish Index of Multiple Deprivation - Indicators', 'Scottish Index of Multiple Deprivation - Indicators'
+    'Scottish Index of Multiple Deprivation - Ranks', 'Scottish Index of Multiple Deprivation - Indicators',
+    'Scottish Index of Multiple Deprivation - Ranks', 'Scottish Index of Multiple Deprivation - Indicators'
 ]
 # Paths
 pa = ['/ranks', '/indicators']
