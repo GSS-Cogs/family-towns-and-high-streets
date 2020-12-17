@@ -271,7 +271,7 @@ try:
         else:
             joined_dat = pd.concat([joined_dat,t])
         k = k + 1
-
+        
     joined_dat["Indicator Type"] = joined_dat["Deprivation Indicator"]
     joined_dat["High Level Indicator"] = joined_dat["Deprivation Indicator"]
 
@@ -344,6 +344,7 @@ try:
         'overcrowded rate':'Housing',
         'nocentralheat rate':'Housing'
      })
+    dt = joined_dat
     joined_dat['Deprivation Indicator'] = joined_dat['Deprivation Indicator'].apply(pathify)
     joined_dat['Indicator Type'] = joined_dat['Indicator Type'].apply(pathify)
     joined_dat['High Level Indicator'] = joined_dat['High Level Indicator'].apply(pathify)
@@ -351,8 +352,9 @@ try:
     joined_dat['Marker'] = ''
     joined_dat['Marker'][joined_dat['Value'] == '*'] = 'suppressed-or-population-zero'
     joined_dat['Value'][joined_dat['Value'] == '*'] = 0
-
-    jouned_dat = joined_dat[['Data Zone','Deprivation Indicator','Indicator Type','High Level Indicator','Total population','Working age population','Marker','Value']]
+    joined_dat = joined_dat.rename(columns={"High Level Indicator":"High Level Domain"})
+    #joined_dat = joined_dat[['Data Zone','Deprivation Indicator','Indicator Type','High Level Indicator','Total population','Working age population','Marker','Value']]
+    joined_dat = joined_dat[['Data Zone','Deprivation Indicator','Indicator Type','High Level Domain','Total population','Working age population','Marker','Value']]
 
     csvName = fn[i]
     out = Path('out')
@@ -401,16 +403,10 @@ with open("info.json", "w") as jsonFile:
 
 
 # %%
+dt.head(40)
 
+# %%
 
-#scraper.dataset.family = 'towns-high-streets'
-#codelistcreation = ['Deprivation Indicator']
-#df = joined_dat
-#codeclass = CSVCodelists()
-#for cl in codelistcreation:
-#    if cl in df.columns:
-#        df[cl] = df[cl].str.replace("-"," ")
-#        df[cl] = df[cl].str.capitalize()
-#        codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())
-# -
+# %%
 
+# %%
