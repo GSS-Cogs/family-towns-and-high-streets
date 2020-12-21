@@ -95,7 +95,14 @@
 #### Table Structure
 
 		Date, Local Authority, Lower Layer Super Output Area, Marker, Value
-		
+
+#### JOIN
+
+	Join all tables together into one as we should now be able to do multi-measure cubes. You will need to rename the Scottish data zone columns to 'Lower Layer Super Output Area'. You will only need to output one CSV and one JSON file
+	I have added some commented out code at the end of the script, which shows how we would output the files using the old way. This is just to demonstrate what changes need to be made to the scraper title, comment, and description. Not sure how the new cubes class works.
+	Date column needs to be formatted as month/{yr/mnth}
+
+
 ##### Footnotes
 
 		footnotes

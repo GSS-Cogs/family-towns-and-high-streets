@@ -423,5 +423,41 @@ trace.render("spec_v1.html")
 # tidied_sheets['Lower Layer Super Output Area (LSOA): North East - Children'].tail(50)
 # tidied_sheets['Scottish Data Zones - Families'].tail(50)
 
+# +
+#import os
+#from urllib.parse import urljoin
+
+#csvName = 'observations.csv'
+#out = Path('out')
+#out.mkdir(exist_ok=True)
+#tidy.drop_duplicates().to_csv(out / csvName, index = False)
+#tidy.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+
+#scraper.dataset.family = 'towns-high-streets'
+#scraper.dataset.description = """
+#These statistics focus on the number of families benefiting from tax credits in
+#England, Scotland, and Wales. They are based on a snapshot of the finalised award year data, which in turn is based on 100% of tax
+#credit administrative data available for that period, and so they are not subject to sampling error. Within England and Wales, the number of families and children are
+#broken down by Lower Super Output Area (LSOA), and within Scotland they are broken down by Scottish Data Zone. This publication excludes any cases where the
+#claimants live outside the UK or where we cannot locate a region or area.LSOA level estimates for the number of properties without mains gas. Estimates at local authority and MSOA levels are also available.
+#"""
+#scraper.dataset.title = "Personal tax credits: finalised award statistics - small area data (LSOA and Data Zone)"
+
+#scraper.dataset.comment = 'These statistics provide detailed geographical estimates of the number of families in receipt of tax credits by LSOA and Data Zones'
+
+#dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower()
+#scraper.set_base_uri('http://gss-data.org.uk')
+#scraper.set_dataset_id(dataset_path)
+
+#csvw_transform = CSVWMapping()
+#csvw_transform.set_csv(out / csvName)
+#csvw_transform.set_mapping(json.load(open('info.json')))
+#csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
+#csvw_transform.write(out / f'{csvName}-metadata.json')
+
+#with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
+#    metadata.write(scraper.generate_trig())
+
+# -
 
 
