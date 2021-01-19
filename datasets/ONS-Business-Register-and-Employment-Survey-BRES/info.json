@@ -1,0 +1,19 @@
+{
+    "title": "Business Register and Employment Survey (BRES)",
+    "publisher": "Office for National Statistics",
+    "description": "The Business Register and Employment Survey (BRES) publishes employee and employment estimates at detailed geographical and industrial levels and is regarded as the official source of employee and employment estimates by detailed geography and industry.",
+    "published": "",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "SAS",
+        "stage": "Candidate"
+    },
+    "transform": {
+        "airtable": "recbjKZvPbHXJcpYN",
+        "main_issue": 18
+    },
+    "sizingNotes": "",
+    "notes": "Awaiting a repy from the producer re the availability of lower level data and its availability, Also awaiting confiirmation that the data can be obtained directly from the producer in a SAS format file."
+}
