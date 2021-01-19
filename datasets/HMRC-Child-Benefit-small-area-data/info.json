@@ -58,5 +58,5 @@
         "main_issue": 6
     },
     "sizingNotes": "Simple tables and structures but spread over several files (though similar framework).",
-    "notes": "Prioritised as data is not complex, but high value available from combining split regional data, and potentially bringing useful demographic insight"
+    "notes": "Prioritised as data is not complex, but high value available from combining split regional data, and potentially bringing useful demographic insight  Split into 2 datasets on PMD:\nChild Benefit small area statistics - Families in receipt of Child benefit\nChild Benefit small area statistics - Children receiving Child benefit"
 }

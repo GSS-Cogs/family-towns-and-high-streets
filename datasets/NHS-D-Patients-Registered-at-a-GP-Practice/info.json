@@ -56,10 +56,10 @@
                 "description": "Codes and addresses for General Practices within the NHS"
             },
             "Age": {
-                "parent": "http://gss-data.org.uk/data/gss_data/towns-high-streets/nhs-d-patients-registered-at-a-gp-practice/concept-scheme/age", 
-                "value": "http://gss-data.org.uk/data/gss_data/towns-high-streets/nhs-d-patients-registered-at-a-gp-practice/concept/age/{age}", 
+                "parent": "http://gss-data.org.uk/data/gss_data/towns-high-streets/nhs-d-patients-registered-at-a-gp-practice/concept-scheme/age",
+                "value": "http://gss-data.org.uk/data/gss_data/towns-high-streets/nhs-d-patients-registered-at-a-gp-practice/concept/age/{age}",
                 "description": "Indivdual ages from 0 to 94 then 95+ and also 5 year age bands"
-            }, 
+            },
             "Sex": {
                 "dimension": "http://purl.org/linked-data/sdmx/2009/dimension#sex",
                 "value": "http://purl.org/linked-data/sdmx/2009/code#sex-{sex}"

@@ -389,5 +389,5 @@
         ]
     },
     "sizingNotes": "Several tables but simple  structure and in CSV format.",
-    "notes": ""
+    "notes": "This has been split into 4 datasets on PMD:\nElectric prepayment meter statistics by Post Code - Sales\nElectric prepayment meter statistics - Sales\nElectric prepayment \nmeter statistics - Median Consumption\nElectric prepayment meter statistics - Mean Consumption"
 }
