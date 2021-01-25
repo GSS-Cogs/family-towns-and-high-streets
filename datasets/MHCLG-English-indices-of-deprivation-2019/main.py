@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[68]:
+# In[113]:
 
 
 #!/usr/bin/env python
 # coding: utf-8
 
 
-# In[69]:
+# In[114]:
 
 
 from gssutils import *
@@ -30,7 +30,7 @@ print("Publisher: " + etl_publisher)
 print("Title: " + etl_title)
 
 
-# In[70]:
+# In[115]:
 
 
 #Commenting out Data URL retrieve to see if its the issue on the pipeline
@@ -59,7 +59,7 @@ scraper.distributions[0].title = etl_title
 scraper
 
 
-# In[71]:
+# In[116]:
 
 
 tab = scraper.distributions[0].as_pandas()
@@ -69,26 +69,72 @@ tab = tab.drop(["LSOA name (2011)", "Local Authority District name (2019)"], axi
 tab
 
 
-# In[77]:
+# In[117]:
 
 
 df = tab.melt(id_vars = ["LSOA code (2011)", "Local Authority District code (2019)"], value_name = 'Value', var_name = "Index of Deprivation")
 df = df.rename(columns={'LSOA code (2011)' : 'Lower Layer Super Output Area', 'Local Authority District code (2019)' : 'Local Authority'})
 
-COLUMNS_TO_NOT_PATHIFY = ['Value', 'Lower Layer Super Output Area', 'Local Authority']
+df = df.replace({"Index of Deprivation" : {
+    'Index of Multiple Deprivation (IMD) Score' : 'index-of-multiple-deprivation-imd-score',
+    'Index of Multiple Deprivation (IMD) Rank (where 1 is most deprived)' : 'index-of-multiple-deprivation-imd-rank-where-1-is-most-deprived',
+    'Index of Multiple Deprivation (IMD) Decile (where 1 is most deprived 10% of LSOAs)' : 'index-of-multiple-deprivation-imd-decile-where-1-is-most-deprived-10-of-lsoas',
+    'Income Score (rate)' : 'income-score-rate',
+    'Income Rank (where 1 is most deprived)' : 'income-rank-where-1-is-most-deprived',
+    'Income Decile (where 1 is most deprived 10% of LSOAs)' : 'income-decile-where-1-is-most-deprived-10-of-lsoas',
+    'Employment Score (rate)' : 'employment-score-rate',
+    'Employment Rank (where 1 is most deprived)' : 'employment-rank-where-1-is-most-deprived',
+    'Employment Decile (where 1 is most deprived 10% of LSOAs)' : 'employment-decile-where-1-is-most-deprived-10-of-lsoas',
+    'Education, Skills and Training Score' : 'education-skills-and-training-score',
+    'Education, Skills and Training Rank (where 1 is most deprived)' : 'education-skills-and-training-rank-where-1-is-most-deprived',
+    'Education, Skills and Training Decile (where 1 is most deprived 10% of LSOAs)' : 'education-skills-and-training-decile-where-1-is-most-deprived-10-of-lsoas',
+    'Health Deprivation and Disability Score' : 'health-deprivation-and-disability-score',
+    'Health Deprivation and Disability Rank (where 1 is most deprived)' : 'health-deprivation-and-disability-rank-where-1-is-most-deprived',
+    'Health Deprivation and Disability Decile (where 1 is most deprived 10% of LSOAs)' : 'health-deprivation-and-disability-decile-where-1-is-most-deprived-10-of-lsoas',
+    'Crime Score' : 'crime-score',
+    'Crime Rank (where 1 is most deprived)' : 'crime-rank-where-1-is-most-deprived',
+    'Crime Decile (where 1 is most deprived 10% of LSOAs)' : 'crime-decile-where-1-is-most-deprived-10-of-lsoas',
+    'Barriers to Housing and Services Score' : 'barriers-to-housing-and-services-score',
+    'Barriers to Housing and Services Rank (where 1 is most deprived)' : 'barriers-to-housing-and-services-rank-where-1-is-most-deprived',
+    'Barriers to Housing and Services Decile (where 1 is most deprived 10% of LSOAs)' : 'barriers-to-housing-and-services-decile-where-1-is-most-deprived-10-of-lsoas',
+    'Living Environment Score' : 'living-environment-score',
+    'Living Environment Rank (where 1 is most deprived)' : 'living-environment-rank-where-1-is-most-deprived',
+    'Living Environment Decile (where 1 is most deprived 10% of LSOAs)' : 'living-environment-decile-where-1-is-most-deprived-10-of-lsoas',
+    'Income Deprivation Affecting Children Index (IDACI) Score (rate)' : 'income-deprivation-affecting-children-index-idaci-score-rate',
+    'Income Deprivation Affecting Children Index (IDACI) Rank (where 1 is most deprived)' : 'income-deprivation-affecting-children-index-idaci-rank-where-1-is-most-deprived',
+    'Income Deprivation Affecting Children Index (IDACI) Decile (where 1 is most deprived 10% of LSOAs)' : 'income-deprivation-affecting-children-index-idaci-decile-where-1-is-most-deprived-10-of-lsoas',
+    'Income Deprivation Affecting Older People (IDAOPI) Score (rate)' : 'income-deprivation-affecting-older-people-idaopi-score-rate',
+    'Income Deprivation Affecting Older People (IDAOPI) Rank (where 1 is most deprived)' : 'income-deprivation-affecting-older-people-idaopi-rank-where-1-is-most-deprived',
+    'Income Deprivation Affecting Older People (IDAOPI) Decile (where 1 is most deprived 10% of LSOAs)' : 'income-deprivation-affecting-older-people-idaopi-decile-where-1-is-most-deprived-10-of-lsoas',
+    'Children and Young People Sub-domain Score' : 'children-and-young-people-sub-domain-score',
+    'Children and Young People Sub-domain Rank (where 1 is most deprived)' : 'children-and-young-people-sub-domain-rank-where-1-is-most-deprived',
+    'Children and Young People Sub-domain Decile (where 1 is most deprived 10% of LSOAs)' : 'children-and-young-people-sub-domain-decile-where-1-is-most-deprived-10-of-lsoas',
+    'Adult Skills Sub-domain Score' : 'adult-skills-sub-domain-score',
+    'Adult Skills Sub-domain Rank (where 1 is most deprived)' : 'adult-skills-sub-domain-rank-where-1-is-most-deprived',
+    'Adult Skills Sub-domain Decile (where 1 is most deprived 10% of LSOAs)' : 'adult-skills-sub-domain-decile-where-1-is-most-deprived-10-of-lsoas',
+    'Geographical Barriers Sub-domain Score' : 'geographical-barriers-sub-domain-score',
+    'Geographical Barriers Sub-domain Rank (where 1 is most deprived)' : 'geographical-barriers-sub-domain-rank-where-1-is-most-deprived',
+    'Geographical Barriers Sub-domain Decile (where 1 is most deprived 10% of LSOAs)' : 'geographical-barriers-sub-domain-decile-where-1-is-most-deprived-10-of-lsoas',
+    'Wider Barriers Sub-domain Score' : 'wider-barriers-sub-domain-score',
+    'Wider Barriers Sub-domain Rank (where 1 is most deprived)' : 'wider-barriers-sub-domain-rank-where-1-is-most-deprived',
+    'Wider Barriers Sub-domain Decile (where 1 is most deprived 10% of LSOAs)' : 'wider-barriers-sub-domain-decile-where-1-is-most-deprived-10-of-lsoas',
+    'Indoors Sub-domain Score' : 'indoors-sub-domain-score',
+    'Indoors Sub-domain Rank (where 1 is most deprived)' : 'indoors-sub-domain-rank-where-1-is-most-deprived',
+    'Indoors Sub-domain Decile (where 1 is most deprived 10% of LSOAs)' : 'indoors-sub-domain-decile-where-1-is-most-deprived-10-of-lsoas',
+    'Outdoors Sub-domain Score' : 'outdoors-sub-domain-score',
+    'Outdoors Sub-domain Rank (where 1 is most deprived)' : 'outdoors-sub-domain-rank-where-1-is-most-deprived',
+    'Outdoors Sub-domain Decile (where 1 is most deprived 10% of LSOAs)' : 'outdoors-sub-domain-decile-where-1-is-most-deprived-10-of-lsoas',
+    'Total population: mid 2015 (excluding prisoners)' : 'total-population-mid-2015-excluding-prisoners',
+    'Dependent Children aged 0-15: mid 2015 (excluding prisoners)' : 'dependent-children-aged-0-15-mid-2015-excluding-prisoners',
+    'Population aged 16-59: mid 2015 (excluding prisoners)' : 'population-aged-16-59-mid-2015-excluding-prisoners',
+    'Older population aged 60 and over: mid 2015 (excluding prisoners)' : 'older-population-aged-60-and-over-mid-2015-excluding-prisoners',
+    'Working age population 18-59/64: for use with Employment Deprivation Domain (excluding prisoners) ' : 'working-age-population-18-59/64-for-use-with-employment-deprivation-domain-excluding-prisoners'
+}})
 
-for col in df.columns.values.tolist():
-    if col in COLUMNS_TO_NOT_PATHIFY:
-        continue
-    try:
-        df[col] = df[col].apply(pathify)
-    except Exception as err:
-        raise Exception('Failed to pathify column "{}".'.format(col)) from err
-    
 df
 
 
-# In[73]:
+# In[118]:
 
 
 import os
@@ -123,13 +169,13 @@ scraper.dataset.title = 'English indices of deprivation'
 cubes.add_cube(scraper, df.drop_duplicates(), csvName)
 
 
-# In[74]:
+# In[119]:
 
 
 cubes.output_all()
 
 
-# In[75]:
+# In[120]:
 
 
 #dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower()
@@ -146,7 +192,7 @@ cubes.output_all()
 #    metadata.write(scraper.generate_trig())
 
 
-# In[76]:
+# In[121]:
 
 
 """codelistcreation = ['Index of Deprivation']
@@ -159,13 +205,13 @@ for cl in codelistcreation:
         codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())"""
 
 
-# In[76]:
+# In[121]:
 
 
 
 
 
-# In[76]:
+# In[121]:
 
 
 
