@@ -1,68 +1,136 @@
 {
-  "@context": "http://www.w3.org/ns/csvw",
-  "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-english-indices-of-deprivation-2019#schema",
-  "url": "index-of-deprivation.csv",
-  "tableSchema": {
-    "columns": [
-      {
-        "titles": "Label",
-        "name": "label",
-        "datatype": "string",
-        "required": true,
-        "propertyUrl": "rdfs:label"
-      },
-      {
-        "titles": "Notation",
-        "name": "notation",
-        "datatype": {
-          "base": "string",
-          "format": "^-?[\\w\\.\\/]+(-[\\w\\.\\/]+)*$"
+    "@context": "http://www.w3.org/ns/csvw",
+    "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/english-indices-of-deprivation-2019#scheme/index-of-deprivation",
+    "url": "index-of-deprivation.csv",
+    "rdfs:label": "Index Of Deprivation",
+    "dc:title": "Index Of Deprivation",
+    "tableSchema": {
+        "columns": [
+            {
+                "titles": "Label",
+                "name": "label",
+                "datatype": "string",
+                "required": true,
+                "propertyUrl": "rdfs:label"
+            },
+            {
+                "titles": "Notation",
+                "name": "notation",
+                "datatype": {
+                    "base": "string",
+                    "format": "^-?[\\w\\.\\/\\+]+(-[\\w\\.\\/\\+]+)*$"
+                },
+                "required": true,
+                "propertyUrl": "skos:notation"
+            },
+            {
+                "titles": "Parent Notation",
+                "name": "parent_notation",
+                "datatype": {
+                    "base": "string",
+                    "format": "^(-?[\\w\\.\\/\\+]+(-[\\w\\.\\/\\+]+)*|)$"
+                },
+                "required": false,
+                "propertyUrl": "skos:broader",
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/english-indices-of-deprivation-2019#concept/index-of-deprivation/{parent_notation}"
+            },
+            {
+                "titles": "Sort Priority",
+                "name": "sort_priority",
+                "datatype": "integer",
+                "required": false,
+                "propertyUrl": "http://www.w3.org/ns/ui#sortPriority"
+            },
+            {
+                "virtual": true,
+                "propertyUrl": "rdf:type",
+                "valueUrl": "skos:Concept"
+            },
+            {
+                "virtual": true,
+                "propertyUrl": "skos:inScheme",
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/english-indices-of-deprivation-2019#scheme/index-of-deprivation"
+            }
+        ],
+        "primaryKey": "notation",
+        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/english-indices-of-deprivation-2019#concept/index-of-deprivation/{notation}"
+    },
+    "prov:hadDerivation": {
+        "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/english-indices-of-deprivation-2019#scheme/index-of-deprivation",
+        "@type": [
+            "skos:ConceptScheme",
+            "http://publishmydata.com/pmdcat#ConceptScheme"
+        ]
+    },
+    "rdfs:seeAlso": [
+        {
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/english-indices-of-deprivation-2019#scheme/index-of-deprivation/dataset",
+            "@type": [
+                "dcat:Dataset",
+                "http://publishmydata.com/pmdcat#Dataset"
+            ],
+            "http://publishmydata.com/pmdcat#datasetContents": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/english-indices-of-deprivation-2019#scheme/index-of-deprivation"
+            },
+            "http://publishmydata.com/pmdcat#graph": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/english-indices-of-deprivation-2019#scheme/index-of-deprivation"
+            },
+            "rdfs:label": "Index Of Deprivation",
+            "dc:title": "Index Of Deprivation",
+            "rdfs:comment": "Dataset representing the 'Index Of Deprivation' code list.",
+            "dc:license": {
+                "@id": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+            },
+            "dc:creator": {
+                "@id": "https://www.gov.uk/government/organisations/ministry-of-housing-communities-and-local-government"
+            },
+            "dc:publisher": {
+                "@id": "https://www.gov.uk/government/organisations/ministry-of-housing-communities-and-local-government"
+            },
+            "dcat:contactPoint": {
+                "@id": "Indices.Deprivation@communities.gov.uk"
+            },
+            "dcat:landingPage": {
+                "@id": "https://www.gov.uk/government/collections/english-indices-of-deprivation"
+            },
+            "dc:issued": {
+                "@type": "dateTime",
+                "@value": "2012-12-13T00:00:00"
+            },
+            "dc:modified": {
+                "@type": "dateTime",
+                "@value": "2020-12-10T00:00:00"
+            },
+            "http://publishmydata.com/pmdcat#markdownDescription": {
+                "@type": "https://www.w3.org/ns/iana/media-types/text/markdown#Resource",
+                "@value": "These statistics update the English indices of deprivation 2015.\\nThe English indices of deprivation measure relative deprivation in small areas in England called lower-layer super output areas. The index of multiple deprivation is the most widely used of these indices."
+            }
         },
-        "required": true,
-        "propertyUrl": "skos:notation"
-      },
-      {
-        "titles": "Parent Notation",
-        "name": "parent_notation",
-        "datatype": {
-          "base": "string",
-          "format": "^(-?[\\w\\.\\/]+(-[\\w\\.\\/]+)*|)$"
+        {
+            "@id": "http://gss-data.org.uk/catalog/vocabularies",
+            "dcat:record": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/english-indices-of-deprivation-2019#scheme/index-of-deprivation/catalog-record"
+            }
         },
-        "required": false,
-        "propertyUrl": "skos:broader",
-        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-english-indices-of-deprivation-2019#concept/index-of-deprivation/{parent_notation}"
-      },
-      {
-        "titles": "Sort Priority",
-        "name": "sort",
-        "datatype": "integer",
-        "required": false,
-        "propertyUrl": "http://www.w3.org/ns/ui#sortPriority"
-      },
-      {
-        "titles": "Description",
-        "name": "description",
-        "datatype": "string",
-        "required": false,
-        "propertyUrl": "rdfs:comment"
-      },
-      {
-        "virtual": true,
-        "propertyUrl": "rdf:type",
-        "valueUrl": "skos:Concept"
-      },
-      {
-        "virtual": true,
-        "propertyUrl": "skos:inScheme",
-        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-english-indices-of-deprivation-2019#scheme/index-of-deprivation"
-      }
-    ],
-    "primaryKey": "notation",
-    "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-english-indices-of-deprivation-2019#concept/index-of-deprivation/{notation}"
-  },
-  "prov:hadDerivation": {
-    "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-english-indices-of-deprivation-2019#scheme/index-of-deprivation",
-    "@type": "skos:ConceptScheme",
-    "rdfs:label": "Index of Deprivation"
-  }
+        {
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/english-indices-of-deprivation-2019#scheme/index-of-deprivation/catalog-record",
+            "@type": "dcat:CatalogRecord",
+            "foaf:primaryTopic": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/english-indices-of-deprivation-2019#scheme/index-of-deprivation/dataset"
+            },
+            "http://publishmydata.com/pmdcat#metadataGraph": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/english-indices-of-deprivation-2019#scheme/index-of-deprivation"
+            },
+            "dc:title": "Index Of Deprivation Catalog Record",
+            "rdfs:label": "Index Of Deprivation Catalog Record",
+            "dc:issued": {
+                "@type": "dateTime",
+                "@value": "2021-01-25T13:13:25.121083"
+            },
+            "dc:modified": {
+                "@type": "dateTime",
+                "@value": "2021-01-25T13:13:25.121083"
+            }
+        }
+    ]
 }
