@@ -1,20 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[113]:
-
-
-#!/usr/bin/env python
-# coding: utf-8
-
-
-# In[114]:
+# In[122]:
 
 
 from gssutils import *
 import json
-import re
-from urllib.request import Request, urlopen
 
 def all_same(items):
     if len(items) == 0:
@@ -30,36 +21,15 @@ print("Publisher: " + etl_publisher)
 print("Title: " + etl_title)
 
 
-# In[115]:
+# In[123]:
 
-
-#Commenting out Data URL retrieve to see if its the issue on the pipeline
-
-#req = Request("https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019", headers={'User-Agent': 'Mozilla/5.0'})
-#html = urlopen(req).read()
-#plaintext = html.decode('utf8')
-#links = re.findall("href=[\"\'](.*?)[\"\']", plaintext)
-#links = [x for x in links if x.endswith("csv")]
-#if all_same(links) == True:
-#    dataURL = links[0]
-#    with open('info.json', 'r+') as info:
-#        data = json.load(info)
-#        data["dataURL"] = dataURL
-#        info.seek(0)
-#        json.dump(data, info, indent=4)
-#        info.truncate()
-#        print("Data URL found and added to info.json")
-#else:
-#    print("Multiple or No files found, investigate or retrieve manually")
-#    for i in links:
-#        print(i)
 
 scraper = Scraper(seed = "info.json")
 scraper.distributions[0].title = etl_title
 scraper
 
 
-# In[116]:
+# In[124]:
 
 
 tab = scraper.distributions[0].as_pandas()
@@ -69,7 +39,7 @@ tab = tab.drop(["LSOA name (2011)", "Local Authority District name (2019)"], axi
 tab
 
 
-# In[117]:
+# In[125]:
 
 
 df = tab.melt(id_vars = ["LSOA code (2011)", "Local Authority District code (2019)"], value_name = 'Value', var_name = "Index of Deprivation")
@@ -134,25 +104,22 @@ df = df.replace({"Index of Deprivation" : {
 df
 
 
-# In[118]:
+# In[126]:
 
-
-import os
-from urllib.parse import urljoin
 
 yr = '2019'
 notes = f"""
 Statistics on relative deprivation in small areas in England, 2019.
 These statistics update the English indices of deprivation 2015.
 The English indices of deprivation measure relative deprivation in small areas in England called lower-layer super output areas. The index of multiple deprivation is the most widely used of these indices.
-The statistical release and FAQ document (above) explain how the Indices of Deprivation {yr} (IoD{yr}) and the Index of Multiple Deprivation (IMD{yr}) can be used and expand on the headline points in the infographic. Both documents also help users navigate the various data files and guidance documents available.
-The first data file contains the IMD{yr} ranks and deciles and is usually sufficient for the purposes of most users.
-Mapping resources and links to the IoD{yr} explorer and Open Data Communities platform can be found on our IoD{yr} mapping resource page.
+The statistical release and FAQ document (above) explain how the Indices of Deprivation 2019 (IoD2019) and the Index of Multiple Deprivation (IMD2019) can be used and expand on the headline points in the infographic. Both documents also help users navigate the various data files and guidance documents available.
+The first data file contains the IMD2019 ranks and deciles and is usually sufficient for the purposes of most users.
+Mapping resources and links to the IoD2019 explorer and Open Data Communities platform can be found on our IoD2019 mapping resource page.
 Further detail is available in the research report, which gives detailed guidance on how to interpret the data and presents some further findings, and the technical report, which describes the methodology and quality assurance processes underpinning the indices.
 \nStatistical release main findings:
-https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/835115/IoD{yr}_Statistical_Release.pdf
+https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/835115/IoD2019_Statistical_Release.pdf
 \nInfographic:
-https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/833959/IoD{yr}_Infographic.pdf
+https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/833959/IoD2019_Infographic.pdf
 \nResearch report:
 https://www.gov.uk/government/publications/english-indices-of-deprivation-2019-research-report
 \nTechnical report:
@@ -169,49 +136,13 @@ scraper.dataset.title = 'English indices of deprivation'
 cubes.add_cube(scraper, df.drop_duplicates(), csvName)
 
 
-# In[119]:
+# In[127]:
 
 
 cubes.output_all()
 
 
-# In[120]:
-
-
-#dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower()
-#scraper.set_base_uri('http://gss-data.org.uk')
-#scraper.set_dataset_id(dataset_path)
-
-#csvw_transform = CSVWMapping()
-#csvw_transform.set_csv(out / csvName)
-#csvw_transform.set_mapping(json.load(open('info.json')))
-#csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
-#csvw_transform.write(out / f'{csvName}-metadata.json')
-
-#with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
-#    metadata.write(scraper.generate_trig())
-
-
-# In[121]:
-
-
-"""codelistcreation = ['Index of Deprivation']
-df = joined_dat
-codeclass = CSVCodelists()
-for cl in codelistcreation:
-    if cl in df.columns:
-        df[cl] = df[cl].str.replace("-"," ")
-        df[cl] = df[cl].str.capitalize()
-        codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())"""
-
-
-# In[121]:
-
-
-
-
-
-# In[121]:
+# In[127]:
 
 
 
