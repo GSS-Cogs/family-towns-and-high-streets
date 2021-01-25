@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[19]:
+# In[68]:
 
 
 #!/usr/bin/env python
 # coding: utf-8
 
 
-# In[20]:
+# In[69]:
 
 
 from gssutils import *
@@ -30,7 +30,7 @@ print("Publisher: " + etl_publisher)
 print("Title: " + etl_title)
 
 
-# In[21]:
+# In[70]:
 
 
 #Commenting out Data URL retrieve to see if its the issue on the pipeline
@@ -59,47 +59,36 @@ scraper.distributions[0].title = etl_title
 scraper
 
 
-# In[22]:
+# In[71]:
 
 
 tab = scraper.distributions[0].as_pandas()
-#tab
+
+tab = tab.drop(["LSOA name (2011)", "Local Authority District name (2019)"], axis = 1)
+
+tab
 
 
-# In[23]:
+# In[77]:
 
 
-tbls = []
+df = tab.melt(id_vars = ["LSOA code (2011)", "Local Authority District code (2019)"], value_name = 'Value', var_name = "Index of Deprivation")
+df = df.rename(columns={'LSOA code (2011)' : 'Lower Layer Super Output Area', 'Local Authority District code (2019)' : 'Local Authority'})
 
-for x in range(4, len(tab.columns)):
-    cols = [0,2,x]
-    dat = tab.iloc[:, cols]
-    dat['Index of Deprivation'] = dat.columns[2]
-    dat = dat.rename(columns={dat.columns[2]:'Value','LSOA code (2011)':'Lower Layer Super Output Area','Local Authority District code (2019)':'Local Authority'})
-    dat = dat[[dat.columns[0],dat.columns[1],dat.columns[3],dat.columns[2]]]
-    tbls.append(dat)
+COLUMNS_TO_NOT_PATHIFY = ['Value', 'Lower Layer Super Output Area', 'Local Authority']
 
-
-# In[24]:
-
-
-i = 0
-for t in tbls:
-    if i == 0:
-        joined_dat = t
-    else:
-        joined_dat = pd.concat([joined_dat,t])
-    i = i + 1
+for col in df.columns.values.tolist():
+    if col in COLUMNS_TO_NOT_PATHIFY:
+        continue
+    try:
+        df[col] = df[col].apply(pathify)
+    except Exception as err:
+        raise Exception('Failed to pathify column "{}".'.format(col)) from err
+    
+df
 
 
-# In[25]:
-
-
-joined_dat['Index of Deprivation'] = joined_dat['Index of Deprivation'].apply(pathify)
-#joined_dat.head(20)
-
-
-# In[26]:
+# In[73]:
 
 
 import os
@@ -125,26 +114,22 @@ https://www.gov.uk/government/publications/english-indices-of-deprivation-2019-t
 """
 
 csvName = 'observations.csv'
-#out = Path('out')
-#out.mkdir(exist_ok=True)
-#joined_dat.drop_duplicates().to_csv(out / csvName, index = False)
-#joined_dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 
 scraper.dataset.family = 'towns-high-streets'
 scraper.dataset.description = notes
 scraper.dataset.comment = 'Statistics on relative deprivation in small areas in England, 2019.'
 scraper.dataset.title = 'English indices of deprivation'
 
-cubes.add_cube(scraper, joined_dat.drop_duplicates(), csvName)
+cubes.add_cube(scraper, df.drop_duplicates(), csvName)
 
 
-# In[27]:
+# In[74]:
 
 
 cubes.output_all()
 
 
-# In[28]:
+# In[75]:
 
 
 #dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower()
@@ -161,7 +146,7 @@ cubes.output_all()
 #    metadata.write(scraper.generate_trig())
 
 
-# In[29]:
+# In[76]:
 
 
 """codelistcreation = ['Index of Deprivation']
@@ -174,13 +159,13 @@ for cl in codelistcreation:
         codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())"""
 
 
-# In[29]:
+# In[76]:
 
 
 
 
 
-# In[29]:
+# In[76]:
 
 
 
