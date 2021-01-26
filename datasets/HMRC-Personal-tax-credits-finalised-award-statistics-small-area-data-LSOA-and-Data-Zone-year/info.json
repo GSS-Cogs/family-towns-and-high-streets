@@ -21,24 +21,34 @@
         "airtable": "recsBPDUIb4kZc3jq",
         "main_issue": 14,
          "columns": {
-            "Date": {
+            "Period": {
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refPeriod",
-                "value": "http://reference.data.gov.uk/id/{+date}"
+                "value": "http://reference.data.gov.uk/id/{+Period}",
+                "codelist": false
             },
             "Local authority": {
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
                 "value": "http://statistics.data.gov.uk/id/statistical-geography/{local_authority}",
-                "description": "A local authority is an administrative body in local government. There are 317 local authorities in England, 22 local authorities in Wales and 32 local authorities in Scotland. There are 11 district councils in Northern Ireland. This level of disaggregation is similar to the local authority level for Great Britain."
+                "description": "A local authority is an administrative body in local government. There are 317 local authorities in England, 22 local authorities in Wales and 32 local authorities in Scotland. There are 11 district councils in Northern Ireland. This level of disaggregation is similar to the local authority level for Great Britain.",
+                "codelist": false
             },
             "Lower Layer Super Output Area": {
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
                 "value": "http://statistics.data.gov.uk/id/statistical-geography/{lower_layer_super_output_area}",
-                "description": "Lower Layer Super Output Areas (LSOAs) in England and Wales were built by zone-design software using 2011 Census data from groups of Output Areas (typically four to six) and were constrained by the Standard Table wards6 used for 2011 Census outputs. They have a minimum size of 1,000 residents or 400 households and have an average of 1,500 residents. Following the 2011 Census, there are now 34,753 LSOAs in England and Wales."
+                "description": "Lower Layer Super Output Areas (LSOAs) in England and Wales were built by zone-design software using 2011 Census data from groups of Output Areas (typically four to six) and were constrained by the Standard Table wards6 used for 2011 Census outputs. They have a minimum size of 1,000 residents or 400 households and have an average of 1,500 residents. Following the 2011 Census, there are now 34,753 LSOAs in England and Wales.",
+                "codelist": false
             },
-            "Value": {
-                "unit": "http://gss-data.org.uk/def/concept/measurement-units/thousands",
-                "measure": "http://gss-data.org.uk/def/measure/families",
-                "datatype": "integer"
+            "Measure Type": {
+        		"dimension": "http://purl.org/linked-data/cube#measureType",
+        		"value": "http://gss-data.org.uk/def/measure/{measure_type}",
+        		"types": ["children", "families"]
+      		},
+      		"Unit": {
+        		"attribute": "http://purl.org/linked-data/sdmx/2009/attribute#unitMeasure",
+        		"value": "http://gss-data.org.uk/def/concept/measurement-units/{unit}"
+      		},
+      		"Value": {
+              "datatype": "double"
             }
         }
     },

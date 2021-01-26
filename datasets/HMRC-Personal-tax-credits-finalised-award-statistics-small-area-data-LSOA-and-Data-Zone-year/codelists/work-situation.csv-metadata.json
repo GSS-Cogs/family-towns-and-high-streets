@@ -1,69 +1,136 @@
 {
-  "@context": "http://www.w3.org/ns/csvw",
-  "@id": "#table",
-  "url": "work-situation.csv",
-  "tableSchema": {
-    "columns": [
-      {
-        "titles": "Label",
-        "name": "label",
-        "datatype": "string",
-        "required": true,
-        "propertyUrl": "rdfs:label"
-      },
-      {
-        "titles": "Notation",
-        "name": "notation",
-        "datatype": {
-          "base": "string",
-          "format": "^-?[\\w\\.\\/]+(-[\\w\\.\\/]+)*$"
-        },
-        "required": true,
-        "propertyUrl": "skos:notation"
-      },
-      {
-        "titles": "Parent Notation",
-        "name": "parent_notation",
-        "datatype": {
-          "base": "string",
-          "format": "^(-?[\\w\\.\\/]+(-[\\w\\.\\/]+)*|)$"
-        },
-        "required": false,
-        "propertyUrl": "skos:broader",
-        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#concept/work-situation/{parent_notation}"
-      },
-      {
-        "titles": "Sort Priority",
-        "name": "sort",
-        "datatype": "integer",
-        "required": false,
-        "propertyUrl": "http://www.w3.org/ns/ui#sortPriority"
-      },
-      {
-        "titles": "Description",
-        "name": "description",
-        "datatype": "string",
-        "required": false,
-        "propertyUrl": "rdfs:comment"
-      },
-      {
-        "virtual": true,
-        "propertyUrl": "rdf:type",
-        "valueUrl": "skos:Concept"
-      },
-      {
-        "virtual": true,
-        "propertyUrl": "skos:inScheme",
-        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/work-situation"
-      }
-    ],
-    "primaryKey": "notation",
-    "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#concept/work-situation/{notation}"
-  },
-  "prov:hadDerivation": {
-    "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/work-situation",
-    "@type": "skos:ConceptScheme",
+    "@context": "http://www.w3.org/ns/csvw",
+    "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/work-situation",
+    "url": "work-situation.csv",
+    "tableSchema": {
+        "columns": [
+            {
+                "titles": "Label",
+                "name": "label",
+                "datatype": "string",
+                "required": true,
+                "propertyUrl": "rdfs:label"
+            },
+            {
+                "titles": "Notation",
+                "name": "notation",
+                "datatype": {
+                    "base": "string",
+                    "format": "^-?[\\w\\.\\/\\+]+(-[\\w\\.\\/\\+]+)*$"
+                },
+                "required": true,
+                "propertyUrl": "skos:notation"
+            },
+            {
+                "titles": "Parent Notation",
+                "name": "parent_notation",
+                "datatype": {
+                    "base": "string",
+                    "format": "^(-?[\\w\\.\\/\\+]+(-[\\w\\.\\/\\+]+)*|)$"
+                },
+                "required": false,
+                "propertyUrl": "skos:broader",
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#concept/work-situation/{parent_notation}"
+            },
+            {
+                "titles": "Sort Priority",
+                "name": "sort_priority",
+                "datatype": "integer",
+                "required": false,
+                "propertyUrl": "http://www.w3.org/ns/ui#sortPriority"
+            },
+            {
+                "virtual": true,
+                "propertyUrl": "rdf:type",
+                "valueUrl": "skos:Concept"
+            },
+            {
+                "virtual": true,
+                "propertyUrl": "skos:inScheme",
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/work-situation"
+            }
+        ],
+        "primaryKey": "notation",
+        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#concept/work-situation/{notation}"
+    },
+    "prov:hadDerivation": {
+        "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/work-situation",
+        "@type": [
+            "skos:ConceptScheme",
+            "http://publishmydata.com/pmdcat#ConceptScheme"
+        ]
+    },
     "rdfs:label": "Work Situation",
-    "skos:hasTopConcept": { "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#concept/work-situation/all" }
-  }
+    "dc:title": "Work Situation",
+    "rdfs:seeAlso": [
+        {
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/work-situation/dataset",
+            "@type": [
+                "dcat:Dataset",
+                "http://publishmydata.com/pmdcat#Dataset"
+            ],
+            "http://publishmydata.com/pmdcat#datasetContents": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/work-situation"
+            },
+            "http://publishmydata.com/pmdcat#graph": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/work-situation"
+            },
+            "rdfs:label": "Work Situation",
+            "dc:title": "Work Situation",
+            "rdfs:comment": "Dataset representing the 'Work Situation' code list.",
+            "dc:license": {
+                "@id": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+            },
+            "dc:creator": {
+                "@id": "https://www.gov.uk/government/organisations/hm-revenue-customs"
+            },
+            "dc:publisher": {
+                "@id": "https://www.gov.uk/government/organisations/hm-revenue-customs"
+            },
+            "dcat:contactPoint": {
+                "@id": "mailto:cogs@ons.gov.uk"
+            },
+            "dcat:landingPage": {
+                "@id": "https://www.gov.uk/government/collections/personal-tax-credits-statistics#other-statistics-information"
+            },
+            "dc:issued": {
+                "@type": "dateTime",
+                "@value": "2019-10-30T00:00:00"
+            },
+            "dc:modified": {
+                "@type": "dateTime",
+                "@value": "2019-10-30T00:00:00"
+            },
+            "http://publishmydata.com/pmdcat#markdownDescription": {
+                "@type": "https://www.w3.org/ns/iana/media-types/text/markdown#Resource",
+                "@value": "On landing page scroll down to heading \\\"National Statistics\\\" where link to latest dataset can be found titled \\\"Personal tax credits: finalised award statistics - small area data (LSOA and Data Zone) [year]\\\". On new page, dataset consists of several files un the heading \\\"Documents\\\""
+            }
+        },
+        {
+            "@id": "http://gss-data.org.uk/catalog/vocabularies",
+            "dcat:record": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/work-situation/catalog-record"
+            }
+        },
+        {
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/work-situation/catalog-record",
+            "@type": "dcat:CatalogRecord",
+            "foaf:primaryTopic": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/work-situation/dataset"
+            },
+            "http://publishmydata.com/pmdcat#metadataGraph": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/work-situation"
+            },
+            "dc:title": "Work Situation Catalog Record",
+            "rdfs:label": "Work Situation Catalog Record",
+            "dc:issued": {
+                "@type": "dateTime",
+                "@value": "2021-01-26T12:19:46.597519"
+            },
+            "dc:modified": {
+                "@type": "dateTime",
+                "@value": "2021-01-26T12:19:46.597519"
+            }
+        }
+    ]
 }
