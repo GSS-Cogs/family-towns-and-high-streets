@@ -1,0 +1,4 @@
+Label,Notation,Parent Notation,Sort Priority
+All,all,,1
+Lone Parent,lone-parent,all,2
+Couples,couples,all,3

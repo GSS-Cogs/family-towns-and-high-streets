@@ -1,0 +1,5 @@
+Label,Notation,Parent Notation,Sort Priority
+All,all,,1
+CTC,ctc,all,2
+WTC,wtc,all,3
+WTC and CTC,wtc-and-ctc,all,4
