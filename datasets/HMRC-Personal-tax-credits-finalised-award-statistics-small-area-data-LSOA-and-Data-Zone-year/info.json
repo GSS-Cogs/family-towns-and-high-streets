@@ -20,7 +20,7 @@
         ],
         "airtable": "recsBPDUIb4kZc3jq",
         "main_issue": 14,
-         "columns": {
+        "columns": {
             "Period": {
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refPeriod",
                 "value": "http://reference.data.gov.uk/id/{+Period}",
@@ -39,16 +39,19 @@
                 "codelist": false
             },
             "Measure Type": {
-        		"dimension": "http://purl.org/linked-data/cube#measureType",
-        		"value": "http://gss-data.org.uk/def/measure/{measure_type}",
-        		"types": ["children", "families"]
-      		},
-      		"Unit": {
-        		"attribute": "http://purl.org/linked-data/sdmx/2009/attribute#unitMeasure",
-        		"value": "http://gss-data.org.uk/def/concept/measurement-units/{unit}"
-      		},
-      		"Value": {
-              "datatype": "double"
+                "dimension": "http://purl.org/linked-data/cube#measureType",
+                "value": "http://gss-data.org.uk/def/measure/{measure_type}",
+                "types": [
+                    "children",
+                    "families"
+                ]
+            },
+            "Unit": {
+                "attribute": "http://purl.org/linked-data/sdmx/2009/attribute#unitMeasure",
+                "value": "http://gss-data.org.uk/def/concept/measurement-units/{unit}"
+            },
+            "Value": {
+                "datatype": "double"
             }
         }
     },

@@ -1,0 +1,25 @@
+{
+    "title": "employment estimates for towns for 2019",
+    "publisher": "Office for National Statistics",
+    "description": "",
+    "landingPage": "https://docs.google.com/spreadsheets/d/1AXTh9j3wMPaAqNs3MSoEdhXBa_VThomB/edit#gid=1540514691",
+    "datasetNotes": [
+        "The  link opens the XLS spreadsheet in the shared google drive."
+    ],
+    "published": "",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "XLS",
+        "stage": "Documented"
+    },
+    "transform": {
+        "stage": [
+            "To Do"
+        ],
+        "airtable": "recqo88eLqYjxV42V"
+    },
+    "sizingNotes": "Simple 1 page spreadsheet",
+    "notes": "A single spreadsheet located in the google drive, awaiting additional information from T&HS.  This dataset has not previously been  published."
+}

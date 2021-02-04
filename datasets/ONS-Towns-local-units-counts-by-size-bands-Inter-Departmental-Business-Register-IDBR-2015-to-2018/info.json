@@ -1,0 +1,25 @@
+{
+    "title": "Towns - local units counts by size bands, Inter-Departmental Business Register (IDBR), 2015 to 2018",
+    "publisher": "Office for National Statistics",
+    "description": "Counts of local units by employment size bands for towns in England and Wales.",
+    "landingPage": "https://www.ons.gov.uk/businessindustryandtrade/business/activitysizeandlocation/adhocs/12089townslocalunitscountsbysizebandsinterdepartmentalbusinessregisteridbr2015to2018",
+    "datasetNotes": [
+        "On the landing page scroll to Download associated with request and click the link a spreadsheet will open "
+    ],
+    "published": "2020-07-31",
+    "families": [
+        "Towns and High Streets"
+    ],
+    "extract": {
+        "source": "XLS",
+        "stage": "Documented"
+    },
+    "transform": {
+        "stage": [
+            "To Do"
+        ],
+        "airtable": "recF8vfjR8yD3Mc5c"
+    },
+    "sizingNotes": "Simple 1 page spreadsheet",
+    "notes": ""
+}
