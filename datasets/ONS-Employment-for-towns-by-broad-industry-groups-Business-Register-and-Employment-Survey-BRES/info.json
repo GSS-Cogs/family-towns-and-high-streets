@@ -21,6 +21,6 @@
         "airtable": "recSrW8LtfyjNVFhi",
         "main_issue": 20
     },
-    "sizingNotes": "XLS spreadsheet with 3  tabs there are a number of ! in the data and i am in the process of confirming what these denote I will update once advised.",
+    "sizingNotes": "XLS spreadsheet with 3  tabs.  The ! in the data tables means that the value in that cell was suppressed for confidentiality reasons and issues regarding the quality of the estimates.",
     "notes": ""
 }
