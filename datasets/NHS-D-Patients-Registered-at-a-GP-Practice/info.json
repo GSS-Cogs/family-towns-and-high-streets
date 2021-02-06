@@ -1,4 +1,5 @@
 {
+    "id": "nhs-d-patients-registered-at-a-gp-practice",
     "title": "Patients Registered at a GP Practice",
     "publisher": "NHS Digital",
     "description": "Data for this publication are extracted each month as a snapshot in time from the Primary Care Registration database within the NHAIS (National Health Application and Infrastructure Services) system. This release is an accurate snapshot as at 1 August 2020.",
