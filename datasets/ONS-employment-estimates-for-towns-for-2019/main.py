@@ -28,7 +28,7 @@ dataURL = info['dataURL']
 dataURL
 
 scraper = Scraper(seed='info.json')
-# scraper = Scraper[dataURL]
+# scraper = Scraper(dataURL)
 
 table = pd.read_excel(dataURL,'EMPLOYMENT')
 table = table.drop(columns='TOWN')
