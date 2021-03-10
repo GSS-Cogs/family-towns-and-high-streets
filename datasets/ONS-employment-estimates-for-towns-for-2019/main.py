@@ -21,36 +21,13 @@ from gssutils import *
 
 cubes = Cubes('info.json')
 
-pd.set_option('display.float_format', lambda x: '%.0f' % x)
-
 info = json.load(open('info.json'))
 dataURL = info['dataURL']
 dataURL
 
 scraper = Scraper(seed='info.json')
-# scraper = Scraper(dataURL)
-
-table = pd.read_excel(dataURL,'EMPLOYMENT')
-table = table.drop(columns='TOWN')
-
-df = pd.melt(table, id_vars=['BUA11CD', 'BUA11NM', 'RNG'], var_name='Period', value_name='Value')
-df
 
 # +
-df.rename(columns= {
-    'BUA11CD' : 'CDID',
-    'BUA11NM' : 'Town',
-    'RNG' : 'Region'
-}, inplace=True)
-
-df = df.sort_values(['CDID', 'Town', 'Region'])
-df['Value'] = df['Value'].astype(float).astype(int)
-df
-# -
-
-title = info['title']
-title
-
 descr = '''
 Metadata for employment, 2019:
 
@@ -71,6 +48,39 @@ This is not a regular publication. It is just data we have used in our analysis 
 
 '''
 
+title = 'Employment estimates for towns for 2019'
+scraper.dataset.title = title
+scraper.dataset.description = descr
+# -
+
+table = pd.read_excel(dataURL,'EMPLOYMENT')
+table = table.drop(columns='TOWN')
+
+df = pd.melt(table, id_vars=['BUA11CD', 'BUA11NM', 'RNG'], var_name='Period', value_name='Value')
+
+# +
+df.rename(columns= {
+    'BUA11CD' : 'CDID',
+    'BUA11NM' : 'Town',
+    'RNG' : 'Region'
+}, inplace=True)
+
+df = df.sort_values(['CDID', 'Town', 'Region'])
+
+# -
+
+df['Value'] = df['Value'].astype(float).round().astype(int)
+
+df['Town'] = df['Town'].map(lambda x: x.strip('BAU').strip('BAUSD'))
+df['Unit'] = 'count'
+
+# +
+
+df = df[['CDID', 'Town', 'Region', 'Period', 'Value', 'Unit']]
+df
+# -
 
 cubes.add_cube(scraper, df, title)
 cubes.output_all()
+
+
