@@ -26,7 +26,7 @@ tabs = distribution.as_databaker()
 for tab in tabs:
     print(tab.name)
 
-columns = ["Region", "Industry"]
+columns = ["Region", "Industry", "Period"]
 
 tab_names_to_process = ["Employment_by_industry", "Part-time_employees", "Full-time_employees"]
 for tab_name in tab_names_to_process:
@@ -40,13 +40,13 @@ for tab_name in tab_names_to_process:
     cell = tab.excel_ref("A2").is_not_blank().is_not_whitespace()
     
     region = cell.fill(DOWN)
-
+    trace.Region("Defined from cell A2 and down")
     
     industry = cell.shift(1, 0).fill(RIGHT)
-
+    trace.Industry("Defined from cell D2 and right")
     
     period = 2018
-
+    trace.Period("Hardcoded as 2018")
     
     observations = industry.waffle(region)
 
@@ -66,24 +66,26 @@ df
 
 df['DATAMARKER'].unique()
 
-df['Industry'].unique()
-
-df['Industry'].value_counts()
-
 df['Industry'] = df['Industry'].map(lambda x: 'mining-quarrying-utilities' 
                                     if (x == 'Mining, quarrying & utilities (B,D and E)') 
                                     else 'arts-entertainment-recreation-other-services' 
                                     if (x == 'Arts, entertainment, recreation & other services (R,S,T and U)')
                                     else 'total' if (x == 'Total') else x)
+trace.Industry("If multiple letters are referenced in the label, label is pathified manually")
 
 df['Industry'] = df['Industry'].map(lambda x: x[-2] if x[-1]== ')' else x )
+trace.Industry("If a single letter is referenced in the label, letter is returned")
 
 df['Industry'] = df['Industry'].map(lambda x: "http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/"+x 
                                     if len(x) == 1 
                                     else "http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/"+x
                                    if len(x) == 5 
-                                    else "http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry"+x) 
-
-df['Industry'].value_counts()
+                                    else "http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry"+x)
+trace.Industry("prefix are added to values")
 
 df
+
+cubes.add_cube(scraper, df.drop_duplicates(), datasetTitle)
+cubes.output_all()
+
+trace.render("spec_v1.html")
