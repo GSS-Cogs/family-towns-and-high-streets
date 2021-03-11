@@ -40,16 +40,16 @@ for tab_name in tab_names_to_process:
     cell = tab.excel_ref("A2").is_not_blank().is_not_whitespace()
     
     region = cell.fill(DOWN)
-#     savepreviewhtml(town_code, fname=tab.name + "Preview.html")
+
     
     industry = cell.shift(1, 0).fill(RIGHT)
-#     savepreviewhtml(industry, fname=tab.name + "Preview.html")
+
     
     period = 2018
-#     savepreviewhtml(period, fname=tab.name + "Preview.html")
+
     
     observations = industry.waffle(region)
-#     savepreviewhtml(observations, fname=tab.name + "Preview.html")
+
     
     dimensions = [
         HDim(region, "Region", DIRECTLY, LEFT),
@@ -68,4 +68,22 @@ df['DATAMARKER'].unique()
 
 df['Industry'].unique()
 
-df[df['Industry'].str.endswith('(N)')]
+df['Industry'].value_counts()
+
+df['Industry'] = df['Industry'].map(lambda x: 'mining-quarrying-utilities' 
+                                    if (x == 'Mining, quarrying & utilities (B,D and E)') 
+                                    else 'arts-entertainment-recreation-other-services' 
+                                    if (x == 'Arts, entertainment, recreation & other services (R,S,T and U)')
+                                    else 'total' if (x == 'Total') else x)
+
+df['Industry'] = df['Industry'].map(lambda x: x[-2] if x[-1]== ')' else x )
+
+df['Industry'] = df['Industry'].map(lambda x: "http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/"+x 
+                                    if len(x) == 1 
+                                    else "http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/"+x
+                                   if len(x) == 5 
+                                    else "http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry"+x) 
+
+df['Industry'].value_counts()
+
+df
