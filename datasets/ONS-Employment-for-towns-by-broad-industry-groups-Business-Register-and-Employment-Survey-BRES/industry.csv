@@ -1,0 +1,20 @@
+Label,Notation,Parent Notation,Sort Priority
+Agriculture, forestry & fishing (A),http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/A,,1
+Mining, quarrying & utilities (B,D and E),http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/mining-quarrying-utilities,,2
+Manufacturing (C),http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/C,,3
+Construction (F),http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/F,,4
+Motor trades (Part G),http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/motor-trades,,5
+Retail (Part G),http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/retail,,6
+Wholesale (Part G),http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/wholesale',,7
+Transport & storage (inc postal) (H),http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/H,,8
+Accommodation & food services (I),http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/I,,9
+Information & communication (J),http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/J,,10
+Financial & insurance (K),http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/K,,11
+Property (L),http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/L,,12
+Professional, scientific & technical (M),http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/M,,13
+Business administration & support services (N),http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/N,,14
+Public administration & defence (O),http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/O,,15
+Education (P),http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/P,,16
+Health (Q),http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/Q,,17
+Arts, entertainment, recreation & other services (R,S,T and U),http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/arts-entertainment-recreation-other-services,,18
+All,http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/TOTAL,,19
