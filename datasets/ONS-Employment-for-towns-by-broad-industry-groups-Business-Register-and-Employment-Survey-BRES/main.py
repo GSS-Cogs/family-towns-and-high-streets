@@ -26,7 +26,7 @@ tabs = distribution.as_databaker()
 for tab in tabs:
     print(tab.name)
 
-columns = ["Region", "Industry", "Period"]
+columns = ["Region", "Industry", "Period", "Value", "Marker", "Measure Type", "Unit"]
 
 tab_names_to_process = ["Employment_by_industry", "Part-time_employees", "Full-time_employees"]
 for tab_name in tab_names_to_process:
@@ -66,22 +66,39 @@ df
 
 df['DATAMARKER'].unique()
 
-df['Industry'] = df['Industry'].map(lambda x: 'mining-quarrying-utilities' 
-                                    if (x == 'Mining, quarrying & utilities (B,D and E)') 
-                                    else 'arts-entertainment-recreation-other-services' 
+df['Industry'] = df['Industry'].map(lambda x: 'mining-quarrying-utilities'
+                                    if (x == 'Mining, quarrying & utilities (B,D and E)')
+                                    else 'arts-entertainment-recreation-other-services'
                                     if (x == 'Arts, entertainment, recreation & other services (R,S,T and U)')
+                                    else 'wholesale'
+                                    if (x == 'Wholesale (Part G)')
+                                    else 'retail'
+                                    if (x == 'Retail (Part G)')
+                                    else 'motor-trades'
+                                    if (x == 'Motor trades (Part G)')
                                     else 'total' if (x == 'Total') else x)
 trace.Industry("If multiple letters are referenced in the label, label is pathified manually")
 
 df['Industry'] = df['Industry'].map(lambda x: x[-2] if x[-1]== ')' else x )
 trace.Industry("If a single letter is referenced in the label, letter is returned")
 
-df['Industry'] = df['Industry'].map(lambda x: "http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/"+x 
-                                    if len(x) == 1 
+df['Industry'] = df['Industry'].map(lambda x: "http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/"+x
+                                    if len(x) == 1
                                     else "http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/"+x
-                                   if len(x) == 5 
-                                    else "http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry"+x)
+                                   if len(x) == 5
+                                    else "http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/"+x)
 trace.Industry("prefix are added to values")
+
+df = df.rename(columns={'OBS' : 'Value', 'DATAMARKER' : 'Marker'})
+
+df['Measure Type'] = 'count'
+df['Unit'] = 'person'
+
+df = df.replace({'Marker' : {'!' : 'suppressed'}})
+
+df['Period'] = df.apply(lambda x: 'year/' + str(x['Period']), axis = 1)
+
+df = df[['Period', 'Region', 'Industry', 'Value', 'Marker', 'Measure Type', 'Unit']]
 
 df
 
