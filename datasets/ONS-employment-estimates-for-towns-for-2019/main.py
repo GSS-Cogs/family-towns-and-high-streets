@@ -66,21 +66,27 @@ df.rename(columns= {
 }, inplace=True)
 
 df = df.sort_values(['CDID', 'Town', 'Region'])
-
 # -
 
 df['Value'] = df['Value'].astype(float).round().astype(int)
 
 df['Town'] = df['Town'].map(lambda x: x.strip('BAU').strip('BAUSD'))
-df['Unit'] = 'count'
 
-# +
+df = df.replace({'Region' : {'East of England' : 'E12000006',
+                             'East Midlands' : 'E12000004',
+                             'North East' : 'E12000001',
+                             'North West' : 'E12000002',
+                             'South East' : 'E12000008',
+                             'South West' : 'E12000009',
+                             'West Midlands' : 'E12000005',
+                             'Yorkshire and The Humber' : 'E12000003',
+                             'Wales' : 'W92000004'}})
 
-df = df[['CDID', 'Town', 'Region', 'Period', 'Value', 'Unit']]
-df
-# -
+df['Measure Type'] = 'count'
+df['Unit'] = 'person'
+df = df.drop(columns=['Town'], axis =1)
+
+df = df[['CDID', 'Region', 'Period', 'Value', 'Measure Type', 'Unit']]
 
 cubes.add_cube(scraper, df, title)
 cubes.output_all()
-
-
