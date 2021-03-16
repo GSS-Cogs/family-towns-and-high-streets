@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[11]:
+
+
 # -*- coding: utf-8 -*-
 # ---
 # jupyter:
@@ -13,11 +19,17 @@
 #     name: python3
 # ---
 
-# + tags=[]
+
+# In[12]:
+
+
 import json
 import pandas as pd
 from gssutils import *
-# -
+
+
+# In[13]:
+
 
 cubes = Cubes('info.json')
 
@@ -27,38 +39,38 @@ dataURL
 
 scraper = Scraper(seed='info.json')
 
-# +
+
+# In[14]:
+
+
 descr = '''
 Metadata for employment, 2019:
-
 1.Towns are defined as a selection of Built Up Area Sub Divisions (BUASD's) or Built Up Areas (BUA's) with Census 2011 populations greater than 5,000 and less than 225,000 outside of the London Nomenclature of Territorial Units for Statistics (NUTS1).
-
 2. Employment figures for 2019 were compiled from the Business Register and Employment Survey (BRES) 2019 provisional data. These estimates can be subject to revisions.
-
 3. BRES survey records a job at the location of an employees workplace. Employment figures include employees and working proprietors.
-
-4. In order to ensure confidentiality of business data, while maximising the detail of estimates available to users, the Business Register and Employment Survey (BRES) applies different rounding rules depending on the size and the nature of the estimates. 
-
-5. For confidentiality reasons and issues regarding the quality of the estimates, data suppression has been applied to some cells and the value of the estimate has been replaced with !. 
-
-
+4. In order to ensure confidentiality of business data, while maximising the detail of estimates available to users, the Business Register and Employment Survey (BRES) applies different rounding rules depending on the size and the nature of the estimates.
+5. For confidentiality reasons and issues regarding the quality of the estimates, data suppression has been applied to some cells and the value of the estimate has been replaced with !.
 On the publication of the dataset
-
-This is not a regular publication. It is just data we have used in our analysis that hasn’t yet been published in this format. 
-
+This is not a regular publication. It is just data we have used in our analysis that hasn’t yet been published in this format.
 '''
 
 title = 'Employment estimates for towns for 2019'
 scraper.dataset.title = title
 scraper.dataset.description = descr
-# -
+
+
+# In[15]:
+
 
 table = pd.read_excel(dataURL,'EMPLOYMENT')
 table = table.drop(columns='TOWN')
 
 df = pd.melt(table, id_vars=['BUA11CD', 'BUA11NM', 'RNG'], var_name='Period', value_name='Value')
 
-# +
+
+# In[16]:
+
+
 df.rename(columns= {
     'BUA11CD' : 'CDID',
     'BUA11NM' : 'Town',
@@ -66,7 +78,10 @@ df.rename(columns= {
 }, inplace=True)
 
 df = df.sort_values(['CDID', 'Town', 'Region'])
-# -
+
+
+# In[17]:
+
 
 df['Value'] = df['Value'].astype(float).round().astype(int)
 
@@ -86,7 +101,28 @@ df['Measure Type'] = 'count'
 df['Unit'] = 'person'
 df = df.drop(columns=['Town'], axis =1)
 
-df = df[['CDID', 'Region', 'Period', 'Value', 'Measure Type', 'Unit']]
+
+# In[18]:
+
+
+df = df[['CDID', 'Region', 'Period', 'Value']]
+df
+
+
+# In[19]:
+
 
 cubes.add_cube(scraper, df, title)
 cubes.output_all()
+
+
+# In[20]:
+
+
+from IPython.core.display import HTML
+for col in df:
+    if col not in ['Value']:
+        df[col] = df[col].astype('category')
+        display(HTML(f"<h2>{col}</h2>"))
+        display(df[col].cat.categories)
+
