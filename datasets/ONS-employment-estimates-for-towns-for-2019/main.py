@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[38]:
+# In[78]:
 
 
 # -*- coding: utf-8 -*-
@@ -20,7 +20,7 @@
 # ---
 
 
-# In[39]:
+# In[79]:
 
 
 import json
@@ -28,7 +28,7 @@ import pandas as pd
 from gssutils import *
 
 
-# In[40]:
+# In[80]:
 
 
 cubes = Cubes('info.json')
@@ -40,7 +40,7 @@ dataURL
 scraper = Scraper(seed='info.json')
 
 
-# In[41]:
+# In[81]:
 
 
 descr = '''
@@ -59,7 +59,7 @@ scraper.dataset.title = title
 scraper.dataset.description = descr
 
 
-# In[42]:
+# In[82]:
 
 
 table = pd.read_excel(dataURL,'EMPLOYMENT')
@@ -68,26 +68,26 @@ table = table.drop(columns='TOWN')
 df = pd.melt(table, id_vars=['BUA11CD', 'BUA11NM', 'RNG'], var_name='Period', value_name='Value')
 
 
-# In[43]:
+# In[83]:
 
 
 df.rename(columns= {
-    'BUA11CD' : 'CDID',
+    'BUA11CD' : 'Region',
     'BUA11NM' : 'Town',
-    'RNG' : 'Region'
+    #'RNG' : 'Region'
 }, inplace=True)
 
-df = df.sort_values(['CDID', 'Town', 'Region'])
+df = df.sort_values(['Town', 'Region'])
 
 
-# In[44]:
+# In[84]:
 
 
 df['Value'] = df['Value'].astype(float).round().astype(int)
 
 df['Town'] = df['Town'].map(lambda x: x.strip('BAU').strip('BAUSD'))
 
-df = df.replace({'Region' : {'East of England' : 'E12000006',
+"""df = df.replace({'Region' : {'East of England' : 'E12000006',
                              'East Midlands' : 'E12000004',
                              'North East' : 'E12000001',
                              'North West' : 'E12000002',
@@ -95,7 +95,7 @@ df = df.replace({'Region' : {'East of England' : 'E12000006',
                              'South West' : 'E12000009',
                              'West Midlands' : 'E12000005',
                              'Yorkshire and The Humber' : 'E12000003',
-                             'Wales' : 'W92000004'}})
+                             'Wales' : 'W92000004'}})"""
 
 df['Measure Type'] = 'count'
 df['Unit'] = 'persons'
@@ -104,21 +104,21 @@ df = df.drop(columns=['Town'], axis =1)
 df['Period'] = df.apply(lambda x: 'year/' + str(x['Period']), axis = 1)
 
 
-# In[45]:
+# In[85]:
 
 
-df = df[['Period', 'CDID', 'Region', 'Value']]
+df = df[['Period', 'Region', 'Value']]
 df
 
 
-# In[46]:
+# In[86]:
 
 
 cubes.add_cube(scraper, df, title)
 cubes.output_all()
 
 
-# In[47]:
+# In[87]:
 
 
 from IPython.core.display import HTML

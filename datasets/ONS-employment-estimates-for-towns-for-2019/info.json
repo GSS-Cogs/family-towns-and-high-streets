@@ -31,11 +31,6 @@
                 "value": "http://statistics.data.gov.uk/id/statistical-geography/{region}",
                 "codelist": false
             },
-            "CDID": {
-                "parent": "http://gss-data.org.uk/def/towns-and-high-streets/property/dimension/cdid",
-                "value": "http://gss-data.org.uk/def/towns-and-high-streets/concept/cdid/{cdid}",
-                "codelist": false
-            },
             "Value": {
                 "unit": "http://gss-data.org.uk/def/concept/measurement-units/person",
                 "measure": "http://gss-data.org.uk/def/measure/count",
