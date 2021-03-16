@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[11]:
+# In[38]:
 
 
 # -*- coding: utf-8 -*-
@@ -20,7 +20,7 @@
 # ---
 
 
-# In[12]:
+# In[39]:
 
 
 import json
@@ -28,7 +28,7 @@ import pandas as pd
 from gssutils import *
 
 
-# In[13]:
+# In[40]:
 
 
 cubes = Cubes('info.json')
@@ -40,7 +40,7 @@ dataURL
 scraper = Scraper(seed='info.json')
 
 
-# In[14]:
+# In[41]:
 
 
 descr = '''
@@ -59,7 +59,7 @@ scraper.dataset.title = title
 scraper.dataset.description = descr
 
 
-# In[15]:
+# In[42]:
 
 
 table = pd.read_excel(dataURL,'EMPLOYMENT')
@@ -68,7 +68,7 @@ table = table.drop(columns='TOWN')
 df = pd.melt(table, id_vars=['BUA11CD', 'BUA11NM', 'RNG'], var_name='Period', value_name='Value')
 
 
-# In[16]:
+# In[43]:
 
 
 df.rename(columns= {
@@ -80,7 +80,7 @@ df.rename(columns= {
 df = df.sort_values(['CDID', 'Town', 'Region'])
 
 
-# In[17]:
+# In[44]:
 
 
 df['Value'] = df['Value'].astype(float).round().astype(int)
@@ -101,22 +101,24 @@ df['Measure Type'] = 'count'
 df['Unit'] = 'person'
 df = df.drop(columns=['Town'], axis =1)
 
+df['Period'] = df.apply(lambda x: 'year/' + str(x['Period']), axis = 1)
 
-# In[18]:
+
+# In[45]:
 
 
-df = df[['CDID', 'Region', 'Period', 'Value']]
+df = df[['Period', 'CDID', 'Region', 'Value']]
 df
 
 
-# In[19]:
+# In[46]:
 
 
 cubes.add_cube(scraper, df, title)
 cubes.output_all()
 
 
-# In[20]:
+# In[47]:
 
 
 from IPython.core.display import HTML
