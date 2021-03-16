@@ -32,8 +32,8 @@
                 "codelist": false
             },
             "CDID": {
-                "parent": "http://gss-data.org.uk/def/trade/property/dimension/cdid",
-                "value": "http://gss-data.org.uk/def/trade/concept/cdid/{cdid}",
+                "parent": "http://gss-data.org.uk/def/towns-and-high-streets/property/dimension/cdid",
+                "value": "http://gss-data.org.uk/def/towns-and-high-streets/concept/cdid/{cdid}",
                 "codelist": false
             },
             "Value": {
