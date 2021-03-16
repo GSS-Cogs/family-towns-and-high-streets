@@ -98,7 +98,7 @@ df = df.replace({'Region' : {'East of England' : 'E12000006',
                              'Wales' : 'W92000004'}})
 
 df['Measure Type'] = 'count'
-df['Unit'] = 'person'
+df['Unit'] = 'persons'
 df = df.drop(columns=['Town'], axis =1)
 
 df['Period'] = df.apply(lambda x: 'year/' + str(x['Period']), axis = 1)
