@@ -57,7 +57,8 @@ This is not a regular publication. It is just data we have used in our analysis 
 title = 'Employment estimates for towns for 2019'
 scraper.dataset.title = title
 scraper.dataset.description = descr
-scraper.dataset.comment = descr
+scraper.dataset.comment = "Employment figures for 2019 were compiled from the Business Register and Employment Survey (BRES) 2019 provisional data. These estimates can be subject to revisions."
+
 
 # In[82]:
 
