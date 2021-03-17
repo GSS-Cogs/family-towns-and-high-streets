@@ -57,7 +57,7 @@ This is not a regular publication. It is just data we have used in our analysis 
 title = 'Employment estimates for towns for 2019'
 scraper.dataset.title = title
 scraper.dataset.description = descr
-
+scraper.dataset.comment = descr
 
 # In[82]:
 
