@@ -32,7 +32,7 @@
                 "codelist": false
             },
             "Value": {
-                "unit": "http://gss-data.org.uk/def/concept/measurement-units/person",
+                "unit": "http://gss-data.org.uk/def/concept/measurement-units/persons",
                 "measure": "http://gss-data.org.uk/def/measure/count",
                 "datatype": "integer"
             }
