@@ -33,7 +33,7 @@
                 "codelist": false
             },
             "Value": {
-                "unit": "http://gss-data.org.uk/def/concept/measurement-units/local-units",
+                "unit": "http://gss-data.org.uk/def/concept/measurement-units/local-unit",
                 "measure": "http://gss-data.org.uk/def/measure/count",
                 "datatype": "integer"
             },
