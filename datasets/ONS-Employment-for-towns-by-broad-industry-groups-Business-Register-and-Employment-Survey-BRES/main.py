@@ -1,5 +1,14 @@
+<<<<<<< HEAD
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[75]:
+
+
+=======
 # In[58]:
 
+>>>>>>> 3fdaad751423ecddd3f159fedc8692ac7744759c
 from gssutils import *
 import pandas as pd
 import json
@@ -21,14 +30,14 @@ cubes = Cubes("info.json")
 trace = TransformTrace()
 
 
-# In[59]:
+# In[76]:
 
 
 for i in scraper.distributions:
     display(i)
 
 
-# In[60]:
+# In[77]:
 
 
 distribution = scraper.distribution(title= lambda t: "Business Register and Employment Survey (BRES), 2018" in t)
@@ -79,7 +88,7 @@ for tab_name in tab_names_to_process:
 
 
 
-# In[61]:
+# In[78]:
 
 
 df = trace.combine_and_trace(datasetTitle, "combined_dataframe")
@@ -129,7 +138,21 @@ df = df[['Period', 'Region', 'Industry', 'Employment Type', 'Value', 'Marker', '
 df
 
 
-# In[62]:
+# In[79]:
+
+
+COLUMNS_TO_NOT_PATHIFY = ['Region', 'Period', 'Value', 'Marker']
+
+for col in df.columns.values.tolist():
+	if col in COLUMNS_TO_NOT_PATHIFY:
+		continue
+	try:
+		df[col] = df[col].apply(pathify)
+	except Exception as err:
+		raise Exception('Failed to pathify column "{}".'.format(col)) from err
+
+
+# In[80]:
 
 
 cubes.add_cube(scraper, df.drop_duplicates(), datasetTitle)
@@ -138,7 +161,7 @@ cubes.output_all()
 trace.render("spec_v1.html")
 
 
-# In[63]:
+# In[81]:
 
 
 from IPython.core.display import HTML
@@ -149,7 +172,7 @@ for col in df:
         display(df[col].cat.categories)
 
 
-# In[63]:
+# In[81]:
 
 
 
