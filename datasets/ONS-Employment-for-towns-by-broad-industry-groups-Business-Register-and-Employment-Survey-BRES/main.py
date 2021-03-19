@@ -132,7 +132,7 @@ df
 # In[79]:
 
 
-COLUMNS_TO_NOT_PATHIFY = ['Region', 'Period', 'Value', 'Marker']
+COLUMNS_TO_NOT_PATHIFY = ['Region', 'Period', 'Value', 'Marker', 'Industry']
 
 for col in df.columns.values.tolist():
 	if col in COLUMNS_TO_NOT_PATHIFY:
