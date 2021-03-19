@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[41]:
+# In[58]:
 
 
 #!/usr/bin/env python
@@ -28,14 +28,14 @@ cubes = Cubes("info.json")
 trace = TransformTrace()
 
 
-# In[42]:
+# In[59]:
 
 
 for i in scraper.distributions:
     display(i)
 
 
-# In[43]:
+# In[60]:
 
 
 distribution = scraper.distribution(title= lambda t: "Business Register and Employment Survey (BRES), 2018" in t)
@@ -86,7 +86,7 @@ for tab_name in tab_names_to_process:
 
 
 
-# In[44]:
+# In[61]:
 
 
 df = trace.combine_and_trace(datasetTitle, "combined_dataframe")
@@ -127,14 +127,18 @@ df = df.replace({'Marker' : {'!' : 'suppressed'},
 
 df['Period'] = df.apply(lambda x: 'year/' + str(x['Period']), axis = 1)
 
-df['Value'] = df.apply(lambda x: left(str(x['Value']), len(str(x['Value'])) - 2) if 'suppressed' != x['Marker'] else x['Value'], axis = 1)
+#df['Value'] = df.apply(lambda x: left(str(x['Value']), len(str(x['Value'])) - 2) if 'suppressed' != x['Marker'] else x['Value'], axis = 1)
+
+df['Value'] = pd.to_numeric(df['Value'], errors='coerce')
+
+df['Value'] = df['Value'].astype('Int64')
 
 df = df[['Period', 'Region', 'Industry', 'Employment Type', 'Value', 'Marker', 'Measure Type', 'Unit']]
 
 df
 
 
-# In[45]:
+# In[62]:
 
 
 cubes.add_cube(scraper, df.drop_duplicates(), datasetTitle)
@@ -143,7 +147,7 @@ cubes.output_all()
 trace.render("spec_v1.html")
 
 
-# In[46]:
+# In[63]:
 
 
 from IPython.core.display import HTML
@@ -154,7 +158,7 @@ for col in df:
         display(df[col].cat.categories)
 
 
-# In[46]:
+# In[63]:
 
 
 
