@@ -127,9 +127,9 @@ df = df.replace({'Marker' : {'!' : 'suppressed'},
 
 df['Period'] = df.apply(lambda x: 'year/' + str(x['Period']), axis = 1)
 
-#df['Value'] = pd.to_numeric(df['Value'], errors='coerce')
+df['Value'] = pd.to_numeric(df['Value'], errors='coerce')
 
-#df['Value'] = df['Value'].astype('Int64')
+df['Value'] = df['Value'].astype('Int64')
 
 df = df[['Period', 'Region', 'Industry', 'Employment Type', 'Value', 'Marker', 'Measure Type', 'Unit']]
 
