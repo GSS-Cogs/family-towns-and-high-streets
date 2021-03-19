@@ -1,14 +1,5 @@
-<<<<<<< HEAD
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[75]:
-
-
-=======
 # In[58]:
 
->>>>>>> 3fdaad751423ecddd3f159fedc8692ac7744759c
 from gssutils import *
 import pandas as pd
 import json
