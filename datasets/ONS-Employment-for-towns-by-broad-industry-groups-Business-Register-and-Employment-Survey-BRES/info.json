@@ -39,6 +39,9 @@
             "Industry": {
                 "description": "Industry of employment"
             },
+            "Employment Type": {
+                "description": "Type of Employment"
+            },
       		"Unit": {
         		"attribute": "http://purl.org/linked-data/sdmx/2009/attribute#unitMeasure",
         		"value": "http://gss-data.org.uk/def/concept/measurement-units/{unit}"

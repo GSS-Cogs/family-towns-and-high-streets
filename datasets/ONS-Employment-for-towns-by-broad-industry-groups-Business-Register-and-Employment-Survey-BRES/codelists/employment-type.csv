@@ -1,0 +1,4 @@
+Label,Notation,Parent Notation,Sort Priority
+All,all,,1
+Part Time,part-time,all,2
+Full Time,full-time,all,3
