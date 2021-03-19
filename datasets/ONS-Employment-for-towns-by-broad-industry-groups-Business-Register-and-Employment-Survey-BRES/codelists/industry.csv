@@ -1,20 +1,20 @@
 URI,Notation,Label,Parent URI,Sort Priority
-http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/A,A,"Agriculture, forestry & fishing (A)",,1
+http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/a,A,"Agriculture, forestry & fishing (A)",,1
 http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/mining-quarrying-utilities,mining-quarrying-utilities,"Mining, quarrying & utilities (B,D and E)",,2
-http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/C,C,Manufacturing (C),,3
-http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/F,F,Construction (F),,4
+http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/c,C,Manufacturing (C),,3
+http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/f,F,Construction (F),,4
 http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/motor-trades,motor-trades,Motor trades (Part G),,5
 http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/retail,retail,Retail (Part G),,6
 http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/wholesale,wholesale,Wholesale (Part G),,7
-http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/H,H,Transport & storage (inc postal) (H),,8
-http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/I,I,Accommodation & food services (I),,9
-http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/J,J,Information & communication (J),,10
-http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/K,K,Financial & insurance (K),,11
-http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/L,L,Property (L),,12
-http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/M,M,"Professional, scientific & technical (M)",,13
-http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/N,N,Business administration & support services (N),,14
-http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/O,O,Public administration & defence (O),,15
-http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/P,P,Education (P),,16
-http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/Q,Q,Health (Q),,17
+http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/h,H,Transport & storage (inc postal) (H),,8
+http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/i,I,Accommodation & food services (I),,9
+http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/j,J,Information & communication (J),,10
+http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/k,K,Financial & insurance (K),,11
+http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/l,L,Property (L),,12
+http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/m,M,"Professional, scientific & technical (M)",,13
+http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/n,N,Business administration & support services (N),,14
+http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/o,O,Public administration & defence (O),,15
+http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/p,P,Education (P),,16
+http://gss-data.org.uk/def/trade/concept/standard-industrial-classification-2007/q,Q,Health (Q),,17
 http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/arts-entertainment-recreation-other-services,arts-entertainment-recreation-other-services,"Arts, entertainment, recreation & other services (R,S,T and U)",,18
-http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/TOTAL,TOTAL,All,,19
+http://gss-data.org.uk/data/gss_data/trade/ons-employment-for-towns-by-broad-industry-groups#concept/industry/total,total,All,,19
