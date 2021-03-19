@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[35]:
+# In[41]:
 
 
 #!/usr/bin/env python
@@ -28,14 +28,14 @@ cubes = Cubes("info.json")
 trace = TransformTrace()
 
 
-# In[36]:
+# In[42]:
 
 
 for i in scraper.distributions:
     display(i)
 
 
-# In[37]:
+# In[43]:
 
 
 distribution = scraper.distribution(title= lambda t: "Business Register and Employment Survey (BRES), 2018" in t)
@@ -86,7 +86,7 @@ for tab_name in tab_names_to_process:
 
 
 
-# In[38]:
+# In[44]:
 
 
 df = trace.combine_and_trace(datasetTitle, "combined_dataframe")
@@ -122,19 +122,19 @@ df['Unit'] = 'person'
 
 df = df.replace({'Marker' : {'!' : 'suppressed'},
                  'Employment Type' : {'Employment_by_industry' : 'all',
-                                      'Full-time_employees' : 'full time',
-                                      'Part-time_employees' : 'part time'}})
+                                      'Full-time_employees' : 'full-time',
+                                      'Part-time_employees' : 'part-time'}})
 
 df['Period'] = df.apply(lambda x: 'year/' + str(x['Period']), axis = 1)
 
 df['Value'] = df.apply(lambda x: left(str(x['Value']), len(str(x['Value'])) - 2) if 'suppressed' != x['Marker'] else x['Value'], axis = 1)
 
-#df = df[['Period', 'Region', 'Industry', 'Value', 'Marker', 'Measure Type', 'Unit']]
+df = df[['Period', 'Region', 'Industry', 'Employment Type', 'Value', 'Marker', 'Measure Type', 'Unit']]
 
 df
 
 
-# In[39]:
+# In[45]:
 
 
 cubes.add_cube(scraper, df.drop_duplicates(), datasetTitle)
@@ -143,7 +143,7 @@ cubes.output_all()
 trace.render("spec_v1.html")
 
 
-# In[40]:
+# In[46]:
 
 
 from IPython.core.display import HTML
@@ -154,7 +154,7 @@ for col in df:
         display(df[col].cat.categories)
 
 
-# In[40]:
+# In[46]:
 
 
 
