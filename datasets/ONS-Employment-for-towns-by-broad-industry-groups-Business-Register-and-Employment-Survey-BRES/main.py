@@ -111,7 +111,7 @@ trace.Industry("prefix are added to values")
 df = df.rename(columns={'OBS' : 'Value', 'DATAMARKER' : 'Marker'})
 
 df['Measure Type'] = 'count'
-df['Unit'] = 'person'
+df['Unit'] = 'persons'
 
 df = df.replace({'Marker' : {'!' : 'suppressed'},
                  'Employment Type' : {'Employment_by_industry' : 'all',
