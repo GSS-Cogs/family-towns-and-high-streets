@@ -37,7 +37,10 @@
         		"types": ["count"]
       		},
             "Industry": {
-                "description": "Industry of employment"
+                "label": "Industry",
+                "value": "{industry}",
+                "codelist": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/ons-employment-for-towns-by-broad-industry-groups-business-register-and-employment-survey-bres#scheme/industry"
+            },
             },
             "Employment Type": {
                 "description": "Type of Employment"
