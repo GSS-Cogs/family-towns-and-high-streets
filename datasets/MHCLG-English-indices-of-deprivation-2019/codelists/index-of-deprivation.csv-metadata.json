@@ -2,8 +2,8 @@
     "@context": "http://www.w3.org/ns/csvw",
     "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/english-indices-of-deprivation-2019#scheme/index-of-deprivation",
     "url": "index-of-deprivation.csv",
-    "rdfs:label": "Index Of Deprivation",
-    "dc:title": "Index Of Deprivation",
+    "rdfs:label": "Index of Deprivation",
+    "dc:title": "Index of Deprivation",
     "tableSchema": {
         "columns": [
             {
@@ -32,7 +32,7 @@
                 },
                 "required": false,
                 "propertyUrl": "skos:broader",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/english-indices-of-deprivation-2019#concept/index-of-deprivation/{parent_notation}"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/english-indices-of-deprivation-2019#concept/index-of-deprivation/{+parent_notation}"
             },
             {
                 "titles": "Sort Priority",
@@ -53,7 +53,7 @@
             }
         ],
         "primaryKey": "notation",
-        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/english-indices-of-deprivation-2019#concept/index-of-deprivation/{notation}"
+        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/english-indices-of-deprivation-2019#concept/index-of-deprivation/{+notation}"
     },
     "prov:hadDerivation": {
         "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/english-indices-of-deprivation-2019#scheme/index-of-deprivation",
@@ -62,8 +62,6 @@
             "http://publishmydata.com/pmdcat#ConceptScheme"
         ]
     },
-    "rdfs:label": "Index of Deprivation",
-    "dc:title": "Index of Deprivation",
     "rdfs:seeAlso": [
         {
             "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/english-indices-of-deprivation-2019#scheme/index-of-deprivation/dataset",
@@ -101,7 +99,7 @@
             },
             "dc:modified": {
                 "@type": "dateTime",
-                "@value": "2020-12-10T00:00:00"
+                "@value": "2021-05-20T12:06:57.872662"
             },
             "http://publishmydata.com/pmdcat#markdownDescription": {
                 "@type": "https://www.w3.org/ns/iana/media-types/text/markdown#Resource",

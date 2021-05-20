@@ -1,68 +1,124 @@
 {
-  "@context": "http://www.w3.org/ns/csvw",
-  "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#schema",
-  "url": "geography-level.csv",
-  "tableSchema": {
-    "columns": [
-      {
-        "titles": "Label",
-        "name": "label",
-        "datatype": "string",
-        "required": true,
-        "propertyUrl": "rdfs:label"
-      },
-      {
-        "titles": "Notation",
-        "name": "notation",
-        "datatype": {
-          "base": "string",
-          "format": "^-?[\\w\\.\\/]+(-[\\w\\.\\/]+)*$"
+    "@context": "http://www.w3.org/ns/csvw",
+    "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#schema",
+    "url": "geography-level.csv",
+    "tableSchema": {
+        "columns": [
+            {
+                "titles": "Label",
+                "name": "label",
+                "datatype": "string",
+                "required": true,
+                "propertyUrl": "rdfs:label"
+            },
+            {
+                "titles": "Notation",
+                "name": "notation",
+                "datatype": {
+                    "base": "string",
+                    "format": "^-?[\\w\\.\\/]+(-[\\w\\.\\/]+)*$"
+                },
+                "required": true,
+                "propertyUrl": "skos:notation"
+            },
+            {
+                "titles": "Parent Notation",
+                "name": "parent_notation",
+                "datatype": {
+                    "base": "string",
+                    "format": "^(-?[\\w\\.\\/]+(-[\\w\\.\\/]+)*|)$"
+                },
+                "required": false,
+                "propertyUrl": "skos:broader",
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#concept/geography-level/{+parent_notation}"
+            },
+            {
+                "titles": "Sort Priority",
+                "name": "sort",
+                "datatype": "integer",
+                "required": false,
+                "propertyUrl": "http://www.w3.org/ns/ui#sortPriority"
+            },
+            {
+                "titles": "Description",
+                "name": "description",
+                "datatype": "string",
+                "required": false,
+                "propertyUrl": "rdfs:comment"
+            },
+            {
+                "virtual": true,
+                "propertyUrl": "rdf:type",
+                "valueUrl": "skos:Concept"
+            },
+            {
+                "virtual": true,
+                "propertyUrl": "skos:inScheme",
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/geography-level"
+            }
+        ],
+        "primaryKey": "notation",
+        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#concept/geography-level/{+notation}"
+    },
+    "prov:hadDerivation": {
+        "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/geography-level",
+        "@type": [
+            "skos:ConceptScheme",
+            "http://publishmydata.com/pmdcat#ConceptScheme"
+        ]
+    },
+    "rdfs:label": "Geography Level",
+    "dc:title": "Geography Level",
+    "rdfs:seeAlso": [
+        {
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#schema/dataset",
+            "@type": [
+                "dcat:Dataset",
+                "http://publishmydata.com/pmdcat#Dataset"
+            ],
+            "http://publishmydata.com/pmdcat#datasetContents": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#schema"
+            },
+            "http://publishmydata.com/pmdcat#graph": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#schema"
+            },
+            "dc:modified": {
+                "@type": "dateTime",
+                "@value": "2021-05-20T12:06:57.865344"
+            },
+            "rdfs:label": "Geography Level",
+            "dc:title": "Geography Level",
+            "rdfs:comment": "Dataset representing the 'Geography Level' code list.",
+            "dc:issued": {
+                "@type": "dateTime",
+                "@value": "2021-05-20T12:06:55.742002"
+            }
         },
-        "required": true,
-        "propertyUrl": "skos:notation"
-      },
-      {
-        "titles": "Parent Notation",
-        "name": "parent_notation",
-        "datatype": {
-          "base": "string",
-          "format": "^(-?[\\w\\.\\/]+(-[\\w\\.\\/]+)*|)$"
+        {
+            "@id": "http://gss-data.org.uk/catalog/vocabularies",
+            "dcat:record": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#schema/catalog-record"
+            }
         },
-        "required": false,
-        "propertyUrl": "skos:broader",
-        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#concept/geography-level/{parent_notation}"
-      },
-      {
-        "titles": "Sort Priority",
-        "name": "sort",
-        "datatype": "integer",
-        "required": false,
-        "propertyUrl": "http://www.w3.org/ns/ui#sortPriority"
-      },
-      {
-        "titles": "Description",
-        "name": "description",
-        "datatype": "string",
-        "required": false,
-        "propertyUrl": "rdfs:comment"
-      },
-      {
-        "virtual": true,
-        "propertyUrl": "rdf:type",
-        "valueUrl": "skos:Concept"
-      },
-      {
-        "virtual": true,
-        "propertyUrl": "skos:inScheme",
-        "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/geography-level"
-      }
-    ],
-    "primaryKey": "notation",
-    "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#concept/geography-level/{notation}"
-  },
-  "prov:hadDerivation": {
-    "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/geography-level",
-    "@type": "skos:ConceptScheme",
-    "rdfs:label": "Geography Level"
-  }
+        {
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#schema/catalog-record",
+            "@type": "dcat:CatalogRecord",
+            "foaf:primaryTopic": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#schema/dataset"
+            },
+            "http://publishmydata.com/pmdcat#metadataGraph": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#schema"
+            },
+            "dc:title": "Geography Level Catalog Record",
+            "rdfs:label": "Geography Level Catalog Record",
+            "dc:issued": {
+                "@type": "dateTime",
+                "@value": "2021-05-20T12:06:55.742002"
+            },
+            "dc:modified": {
+                "@type": "dateTime",
+                "@value": "2021-05-20T12:06:55.742002"
+            }
+        }
+    ]
 }

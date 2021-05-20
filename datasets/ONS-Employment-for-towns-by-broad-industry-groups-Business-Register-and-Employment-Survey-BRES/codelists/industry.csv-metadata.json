@@ -30,7 +30,7 @@
                 "name": "parent_uri",
                 "required": false,
                 "propertyUrl": "skos:broader",
-                "valueUrl": "{parent_uri}"
+                "valueUrl": "{+parent_uri}"
             },
             {
                 "titles": "Sort Priority",
@@ -51,7 +51,7 @@
             }
         ],
         "primaryKey": "uri",
-        "aboutUrl": "{uri}"
+        "aboutUrl": "{+uri}"
     },
     "prov:hadDerivation": {
         "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/ons-employment-for-towns-by-broad-industry-groups-business-register-and-employment-survey-bres#scheme/industry",
@@ -75,7 +75,7 @@
             },
             "dc:modified": {
                 "@type": "dateTime",
-                "@value": "2021-03-04T11:26:43.718525"
+                "@value": "2021-05-20T12:06:57.874089"
             },
             "rdfs:label": "Industry",
             "dc:title": "Industry",
