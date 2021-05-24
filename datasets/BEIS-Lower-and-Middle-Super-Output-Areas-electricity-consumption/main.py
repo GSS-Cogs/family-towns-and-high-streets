@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
-# %%
 
-# %%
+# In[61]:
+
 
 
 from gssutils import *
@@ -13,6 +13,7 @@ import string
 import re
 from zipfile import ZipFile, is_zipfile
 from io import BytesIO, TextIOWrapper
+from ntpath import basename
 
 def left(s, amount):
     return s[:amount]
@@ -154,10 +155,11 @@ print("Publisher: " + etl_publisher)
 print("Title: " + etl_title)
 
 scraper = Scraper(seed="info.json")
-#scraper.title
+scraper.title
 
 
-# %%
+# In[62]:
+
 
 
 out = Path('out')
@@ -166,7 +168,8 @@ out.mkdir(exist_ok=True)
 trace = TransformTrace()
 
 
-# %%
+# In[63]:
+
 
 
 df = pd.DataFrame()
@@ -179,37 +182,38 @@ for distribution in scraper.distributions:
         #datasetTitle = pathify(distribution.title)
         with ZipFile(BytesIO(scraper.session.get(distribution.downloadURL).content)) as zip:
             for name in zip.namelist()[1:]:
-                with zip.open(name, 'r') as file:
+                if 'LSOA' in basename(name):
+                    with zip.open(name, 'r') as file:
 
-                    link = distribution.downloadURL
+                        link = distribution.downloadURL
 
-                    columns = ['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Lower Layer Super Output Area', 'Total number of domestic electricity meters', 'Mean domestic electricity consumption kWh per meter', 'Median domestic electricity consumption kWh per meter', 'Value']
-                    trace.start(datasetTitle, name, columns, link)
+                        columns = ['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Lower Layer Super Output Area', 'Total number of domestic electricity meters', 'Mean domestic electricity consumption kWh per meter', 'Median domestic electricity consumption kWh per meter', 'Value']
+                        trace.start(datasetTitle, name, columns, link)
 
-                    print(name)
-                    table = pd.read_csv(file)
+                        print(name)
+                        table = pd.read_csv(file)
 
-                    table['Year'] = 'year/' + name[:-4][-4:]
-                    trace.Year("Value taken from CSV file name: {}", var = name[18:])
-                    trace.Local_Authority("Values taken from 'LACode' field")
-                    trace.Middle_Layer_Super_Output_Area("Values taken from 'MSOACode' field")
-                    trace.Lower_Layer_Super_Output_Area("Values taken from 'LSOACode' field")
-                    trace.Total_number_of_domestic_electricity_meters("Values taken from 'METERS' field")
-                    trace.Mean_domestic_electricity_consumption_kWh_per_meter("Values taken from 'MEAN' field")
-                    trace.Median_domestic_electricity_consumption_kWh_per_meter("Values taken from 'MEDIAN' field")
-                    trace.Value("Values taken from 'KWH' field")
+                        table['Year'] = 'year/' + name[:-4][-4:]
+                        trace.Year("Value taken from CSV file name: {}", var = name[18:])
+                        trace.Local_Authority("Values taken from 'LACode' field")
+                        trace.Middle_Layer_Super_Output_Area("Values taken from 'MSOACode' field")
+                        trace.Lower_Layer_Super_Output_Area("Values taken from 'LSOACode' field")
+                        trace.Total_number_of_domestic_electricity_meters("Values taken from 'METERS' field")
+                        trace.Mean_domestic_electricity_consumption_kWh_per_meter("Values taken from 'MEAN' field")
+                        trace.Median_domestic_electricity_consumption_kWh_per_meter("Values taken from 'MEDIAN' field")
+                        trace.Value("Values taken from 'KWH' field")
 
-                    df = df.append(table, ignore_index = True)
+                        df = df.append(table, ignore_index = True)
 
-df = df.drop(['LAName', 'MSOAName', 'LSOAName'], axis=1)
+df = df.drop(['Local Authority Name', 'Middle Layer Super Output Area (MSOA) Name', 'Lower Layer Super Output Area (LSOA) Name'], axis=1)
 
-df = df.rename(columns={'LACode':'Local Authority',
-                        'MSOACode':'Middle Layer Super Output Area',
-                        'LSOACode':'Lower Layer Super Output Area',
-                        'METERS':'Total number of domestic electricity meters',
-                        'KWH':'Value',
-                        'MEAN':'Mean domestic electricity consumption kWh per meter',
-                        'MEDIAN':'Median domestic electricity consumption kWh per meter'})
+df = df.rename(columns={'Local Authority Code':'Local Authority',
+                        'Middle Layer Super Output Area (MSOA) Code':'Middle Layer Super Output Area',
+                        'Lower Layer Super Output Area (LSOA) Code':'Lower Layer Super Output Area',
+                        'Total number of domestic electricity meters':'Total number of domestic electricity meters',
+                        'Total domestic electricity consumption (kWh)':'Value',
+                        'Mean domestic electricity consumption \n(kWh per meter)':'Mean domestic electricity consumption kWh per meter',
+                        'Median domestic electricity consumption \n(kWh per meter)':'Median domestic electricity consumption kWh per meter'})
 
 trace.Local_Authority("Rename column from 'LACode' to 'Local Authority'")
 trace.Middle_Layer_Super_Output_Area("Rename column from 'MSOACode' to 'Middle Layer Super Output Area'")
@@ -232,7 +236,9 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Lower Lay
 df.head(10)
 
 
-# %%
+# In[64]:
+
+
 #del df['Local Authority']
 #del df['Middle Layer Super Output Area']
 
@@ -241,7 +247,10 @@ del df['Mean domestic electricity consumption kWh per meter']
 del df['Median domestic electricity consumption kWh per meter']
 #### OUTPUTTING LSOA DATA AS A SINGLE DATASET
 
-# %%
+
+# In[65]:
+
+
 import os
 from urllib.parse import urljoin
 
@@ -276,7 +285,10 @@ csvw_transform.write(out / f'{csvName}-metadata.json')
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
 
-# %%
+
+# In[66]:
+
+
 """
 df = pd.DataFrame()
 
@@ -311,7 +323,9 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total num
 """
 
 
-# %%
+# In[67]:
+
+
 #del df['Local Authority']
 #del df['Middle Layer Super Output Area']
 
@@ -320,10 +334,16 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total num
 #del df['Median domestic electricity consumption kWh per meter']
 #### OUTPUTTING LSOA DATA AS A SINGLE DATASET
 
-# %%
+
+# In[68]:
+
+
 #df.head(10)
 
-# %%
+
+# In[69]:
+
+
 """
 import os
 from urllib.parse import urljoin
@@ -395,7 +415,8 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total num
 """
 
 
-# %%
+# In[69]:
 
 
-# %%
+
+
