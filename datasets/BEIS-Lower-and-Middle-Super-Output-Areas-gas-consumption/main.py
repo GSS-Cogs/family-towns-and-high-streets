@@ -1,146 +1,144 @@
-from gssutils import * 
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[46]:
+
+
+from gssutils import *
 import json
 from zipfile import ZipFile
 from io import BytesIO
+from ntpath import basename
 
-info = json.load(open('info.json')) 
-etl_title = info["title"] 
+info = json.load(open('info.json'))
+etl_title = info["title"]
 etl_publisher = info["publisher"]
-print("Publisher: " + etl_publisher) 
-print("Title: " + etl_title) 
+print("Publisher: " + etl_publisher)
+print("Title: " + etl_title)
 
-scraper = Scraper(seed="info.json")   
+scraper = Scraper(seed="info.json")
 scraper
 
 trace = TransformTrace()
 tidied_sheets = {} # dataframes will be stored in here
 
 for distribution in scraper.distributions:
-    
+
     # LSOA data first
     if distribution.downloadURL.endswith('zip') and 'LSOA' in distribution.title:
         with ZipFile(BytesIO(scraper.session.get(distribution.downloadURL).content)) as zip:
             for name in zip.namelist()[1:]:
-                with zip.open(name, 'r') as file:
-                    
-                    link = distribution.downloadURL
-                    file_name = name.split("/")[-1].split(".")[0] # the name of the file
-                    
-                    columns = ['Period', 'LA Name', 'LA Code', 'MSOA Name', 'MSOA Code', 'LSOA Name', 'LSOA Code', 'METERS', 'MEAN', 'MEDIAN', 'Value']
-                    
-                    trace.start(scraper.title, name, columns, link)
-                    
-                    table = pd.read_csv(file, dtype=str)
-                    
-                    year = file_name[-4:] # year is last 4 characters of file_name
-                    table['Period'] = year
-                    
-                    trace.Period("Value taken from CSV file name: {}".format(year))
-                    trace.LA_Name("Values taken from 'LAName' column")
-                    trace.LA_Code("Values taken from 'LACode' column")
-                    trace.MSOA_Name("Values taken from 'MSOAName' column")
-                    trace.MSOA_Code("Values taken from 'MSOACode' column")
-                    trace.LSOA_Name("Values taken from 'LSOAName' column")
-                    trace.LSOA_Code("Values taken from 'LSOACode' column")
-                    trace.METERS("Values taken from 'METERS' column")
-                    trace.MEAN("Values taken from 'MEAN' column")
-                    trace.MEDIAN("Values taken from 'MEDIAN' column")
-                    trace.Value("Values taken from 'KWH' column")
-                    
-                    # rename column
-                    table = table.rename(columns={'KWH':'Value'}) 
-                    trace.Value('Rename column from "KWH" to "Value"')
-                    
-                    # reordering columns
-                    table = table[[
-                        'Period', 'LAName', 'LACode', 'MSOAName', 'MSOACode' ,'LSOAName', 'LSOACode', 'METERS', 'MEAN', 'MEDIAN', 'Value'
-                    ]] 
+                if 'LSOA' in basename(name):
+                    with zip.open(name, 'r') as file:
 
-                    trace.store(file_name, table)
-                    tidied_sheets[file_name] = table
-                    
+                        link = distribution.downloadURL
+                        file_name = name.split("/")[-1].split(".")[0] # the name of the file
+
+                        columns = ['Period', 'LA Name', 'LA Code', 'MSOA Name', 'MSOA Code', 'LSOA Name', 'LSOA Code', 'METERS', 'MEAN', 'MEDIAN', 'Value']
+
+                        trace.start(scraper.title, name, columns, link)
+
+                        table = pd.read_csv(file, dtype=str)
+
+                        year = file_name[-4:] # year is last 4 characters of file_name
+                        table['Period'] = year
+
+                        trace.Period("Value taken from CSV file name: {}".format(year))
+                        trace.LA_Name("Values taken from 'LAName' column")
+                        trace.LA_Code("Values taken from 'LACode' column")
+                        trace.MSOA_Name("Values taken from 'MSOAName' column")
+                        trace.MSOA_Code("Values taken from 'MSOACode' column")
+                        trace.LSOA_Name("Values taken from 'LSOAName' column")
+                        trace.LSOA_Code("Values taken from 'LSOACode' column")
+                        trace.METERS("Values taken from 'METERS' column")
+                        trace.MEAN("Values taken from 'MEAN' column")
+                        trace.MEDIAN("Values taken from 'MEDIAN' column")
+                        trace.Value("Values taken from 'KWH' column")
+
+                        # rename column
+                        table = table.rename(columns={'Consumption (kWh)':'Value'})
+                        trace.Value('Rename column from "KWH" to "Value"')
+
+                        trace.store(file_name, table)
+                        tidied_sheets[file_name] = table
+
     # MSOA domestic data second
     elif distribution.downloadURL.endswith('zip') and 'MSOA domestic' in distribution.title:
         with ZipFile(BytesIO(scraper.session.get(distribution.downloadURL).content)) as zip:
             for name in zip.namelist()[1:]:
-                with zip.open(name, 'r') as file:
-                    
-                    link = distribution.downloadURL
-                    file_name = name.split("/")[-1].split(".")[0] # the name of the file
-                    
-                    columns = ['Period', 'LA Name', 'LA Code', 'MSOA Name', 'MSOA Code', 'METERS', 'MEAN', 'MEDIAN', 'Value']
-                    
-                    trace.start(scraper.title, name, columns, link)
-                    
-                    table = pd.read_csv(file, dtype=str)
-                    
-                    year = file_name[-4:] # year is last 4 characters of file_name
-                    table['Period'] = year
-                    
-                    trace.Period("Value taken from CSV file name: {}".format(year))
-                    trace.LA_Name("Values taken from 'LAName' column")
-                    trace.LA_Code("Values taken from 'LACode' column")
-                    trace.MSOA_Name("Values taken from 'MSOAName' column")
-                    trace.MSOA_Code("Values taken from 'MSOACode' column")
-                    trace.METERS("Values taken from 'METERS' column")
-                    trace.MEAN("Values taken from 'MEAN' column")
-                    trace.MEDIAN("Values taken from 'MEDIAN' column")
-                    trace.Value("Values taken from 'KWH' column")
-                    
-                    # rename column
-                    table = table.rename(columns={'KWH':'Value'}) 
-                    trace.Value('Rename column from "KWH" to "Value"')
-                    
-                    # reordering columns
-                    table = table[[
-                        'Period', 'LAName', 'LACode', 'MSOAName', 'MSOACode', 'METERS', 'MEAN', 'MEDIAN', 'Value'
-                    ]] 
+                if 'MSOA' in basename(name):
+                    with zip.open(name, 'r') as file:
 
-                    trace.store(file_name, table)
-                    tidied_sheets[file_name] = table
-                    
+                        link = distribution.downloadURL
+                        file_name = name.split("/")[-1].split(".")[0] # the name of the file
+
+                        columns = ['Period', 'LA Name', 'LA Code', 'MSOA Name', 'MSOA Code', 'METERS', 'MEAN', 'MEDIAN', 'Value']
+
+                        trace.start(scraper.title, name, columns, link)
+
+                        table = pd.read_csv(file, dtype=str)
+
+                        year = file_name[-4:] # year is last 4 characters of file_name
+                        table['Period'] = year
+
+                        trace.Period("Value taken from CSV file name: {}".format(year))
+                        trace.LA_Name("Values taken from 'LAName' column")
+                        trace.LA_Code("Values taken from 'LACode' column")
+                        trace.MSOA_Name("Values taken from 'MSOAName' column")
+                        trace.MSOA_Code("Values taken from 'MSOACode' column")
+                        trace.METERS("Values taken from 'METERS' column")
+                        trace.MEAN("Values taken from 'MEAN' column")
+                        trace.MEDIAN("Values taken from 'MEDIAN' column")
+                        trace.Value("Values taken from 'KWH' column")
+
+                        # rename column
+                        table = table.rename(columns={'Consumption (kWh)':'Value'})
+                        trace.Value('Rename column from "KWH" to "Value"')
+
+                        trace.store(file_name, table)
+                        tidied_sheets[file_name] = table
+
     # MSOA 'Non' domestic data next
     elif distribution.downloadURL.endswith('zip') and 'MSOA non domestic' in distribution.title:
         with ZipFile(BytesIO(scraper.session.get(distribution.downloadURL).content)) as zip:
             for name in zip.namelist()[1:]:
-                with zip.open(name, 'r') as file:
-                    
-                    link = distribution.downloadURL
-                    file_name = name.split("/")[-1].split(".")[0] # the name of the file
-                    
-                    columns = ['Period', 'LA Name', 'LA Code', 'MSOA Name', 'MSOA Code', 'METERS', 'MEAN', 'MEDIAN', 'Value']
-                    
-                    trace.start(scraper.title, name, columns, link)
-                    
-                    table = pd.read_csv(file, dtype=str)
-                    
-                    year = file_name[-4:] # year is last 4 characters of file_name
-                    table['Period'] = year
-                    
-                    trace.Period("Value taken from CSV file name: {}".format(year))
-                    trace.LA_Name("Values taken from 'LAName' column")
-                    trace.LA_Code("Values taken from 'LACode' column")
-                    trace.MSOA_Name("Values taken from 'MSOAName' column")
-                    trace.MSOA_Code("Values taken from 'MSOACode' column")
-                    trace.METERS("Values taken from 'METERS' column")
-                    trace.MEAN("Values taken from 'MEAN' column")
-                    trace.MEDIAN("Values taken from 'MEDIAN' column")
-                    trace.Value("Values taken from 'KWH' column")
-                    
-                    # rename column
-                    table = table.rename(columns={'KWH':'Value'}) 
-                    trace.Value('Rename column from "KWH" to "Value"')
-                    
-                    # reordering columns
-                    table = table[[
-                        'Period', 'LAName', 'LACode', 'MSOAName', 'MSOACode', 'METERS', 'MEAN', 'MEDIAN', 'Value'
-                    ]] 
+                if 'MSOA' in basename(name):
+                    with zip.open(name, 'r') as file:
 
-                    trace.store(file_name, table)
-                    tidied_sheets[file_name] = table
+                        link = distribution.downloadURL
+                        file_name = name.split("/")[-1].split(".")[0] # the name of the file
+
+                        columns = ['Period', 'LA Name', 'LA Code', 'MSOA Name', 'MSOA Code', 'METERS', 'MEAN', 'MEDIAN', 'Value']
+
+                        trace.start(scraper.title, name, columns, link)
+
+                        table = pd.read_csv(file, dtype=str)
+
+                        year = file_name[-4:] # year is last 4 characters of file_name
+                        table['Period'] = year
+
+                        trace.Period("Value taken from CSV file name: {}".format(year))
+                        trace.LA_Name("Values taken from 'LAName' column")
+                        trace.LA_Code("Values taken from 'LACode' column")
+                        trace.MSOA_Name("Values taken from 'MSOAName' column")
+                        trace.MSOA_Code("Values taken from 'MSOACode' column")
+                        trace.METERS("Values taken from 'METERS' column")
+                        trace.MEAN("Values taken from 'MEAN' column")
+                        trace.MEDIAN("Values taken from 'MEDIAN' column")
+                        trace.Value("Values taken from 'KWH' column")
+
+                        # rename column
+                        table = table.rename(columns={'KWH':'Value'})
+                        trace.Value('Rename column from "KWH" to "Value"')
+
+                        # reordering columns
+                        trace.store(file_name, table)
+                        tidied_sheets[file_name] = table
 
 
-# +
+# In[47]:
+
+
 #for key in tidied_sheets:
 #    print(key)
 # -
@@ -148,26 +146,29 @@ for distribution in scraper.distributions:
 trace.render("spec_v1.html")
 
 # Only output LSOA data for now until PMD4 can handle multiple outputs
-lsoa_dat = pd.DataFrame(columns=tidied_sheets['LSOA_GAS_2018'].columns)
+lsoa_dat = pd.DataFrame(tidied_sheets['LSOA_GAS_2019'])
 for key in tidied_sheets:
     if 'LSOA' in key:
         print('joining: ' + key)
         lsoa_dat = pd.concat([lsoa_dat,pd.DataFrame(tidied_sheets[key])], sort=False)
 
 # Remove attributes for now until we dicide whow we are handling them
-del lsoa_dat['LAName']
-del lsoa_dat['MSOAName']
-del lsoa_dat['LSOAName']
-del lsoa_dat['METERS']
-del lsoa_dat['MEAN']
-del lsoa_dat['MEDIAN']
+del lsoa_dat['Local Authority Name']
+del lsoa_dat['MSOA Name']
+del lsoa_dat['LSOA Name']
+del lsoa_dat['Number of consuming meters']
+del lsoa_dat['Mean consumption (kWh per meter)']
+del lsoa_dat['Median consumption (kWh per meter)']
 
-# +
+
+# In[48]:
+
+
 #Rename the columns to match the Electricity pipeline
 '''
 lsoa_dat = lsoa_dat.rename(columns=
                            {
-                               'METERS': 'Total number of domestic electricity meters', 
+                               'METERS': 'Total number of domestic electricity meters',
                                'MEAN': 'Mean domestic electricity consumption kWh per meter',
                                'MEDIAN': 'Median domestic electricity consumption kWh per meter'
                            })
@@ -177,16 +178,22 @@ lsoa_dat = lsoa_dat.rename(columns=
 lsoa_dat = lsoa_dat.rename(columns=
                            {
                                'Period': 'Year',
-                               'LACode': 'Local Authority', 
+                               'LACode': 'Local Authority',
                                'MSOACode': 'Middle Layer Super Output Area',
                                'LSOACode': 'Lower Layer Super Output Area'
                            })
 lsoa_dat['Year'] = 'year/' + lsoa_dat['Year'].astype(str)
-# -
+
+
+# In[49]:
+
 
 lsoa_dat.head(10)
 
-# +
+
+# In[50]:
+
+
 import os
 from urllib.parse import urljoin
 
@@ -218,7 +225,10 @@ csvw_transform.write(out / f'{csvName}-metadata.json')
 #out / csvName).unlink()
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())
-# -
+
+
+# In[50]:
+
 
 
 
