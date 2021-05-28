@@ -7,11 +7,13 @@
         "base": "https://ci.floop.org.uk",
         "path": [
             "GSS_data",
+            "beta.gss-data.org.uk",
+            "family",
             "towns-high-streets"
         ]
     },
-    "sparql": "https://staging.gss-data.org.uk/sparql",
-    "pmd": "http://staging.gss-data.org.uk",
+    "sparql": "https://beta.gss-data.org.uk/sparql",
+    "pmd": "http://beta.gss-data.org.uk",
     "pipelines": [
         "BEIS-Electric-prepayment-meter-statistics",
         "BEIS-LSOA-estimates-of-properties-not-connected-to-the-gas-network",
