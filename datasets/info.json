@@ -1,4 +1,4 @@
-{
+{   "$schema": "https://gss-cogs.github.io/family-schemas/pipelines-schema.json",
     "family": "Towns and High Streets",
     "github": "https://github.com/GSS-Cogs/family-towns-and-high-streets",
     "project": "https://github.com/orgs/GSS-Cogs/projects/11",
