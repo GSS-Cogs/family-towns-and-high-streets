@@ -1,4 +1,5 @@
-{   "$schema": "https://gss-cogs.github.io/family-schemas/pipelines-schema.json",
+{
+    "$schema": "https://gss-cogs.github.io/family-schemas/pipelines-schema.json",
     "family": "Towns and High Streets",
     "github": "https://github.com/GSS-Cogs/family-towns-and-high-streets",
     "project": "https://github.com/orgs/GSS-Cogs/projects/11",
@@ -9,7 +10,7 @@
             "GSS_data",
             "beta.gss-data.org.uk",
             "family",
-            "towns-high-streets"
+            "towns-and-high-streets"
         ]
     },
     "sparql": "https://beta.gss-data.org.uk/sparql",
@@ -33,7 +34,6 @@
         "ONS-Population-estimates-by-output-areas-electoral-health-and-other-geographies-England-and-Wales",
         "ONS-Towns-local-units-counts-by-size-bands-Inter-Departmental-Business-Register-IDBR-2015-to-2018",
         "ONS-employment-estimates-for-towns-for-2019",
-        "Ofsted-Children-s-Social-Care-data-in-England-2020",
         "SG-Scottish-Index-of-Multiple-Deprivation-2020"
     ]
 }
