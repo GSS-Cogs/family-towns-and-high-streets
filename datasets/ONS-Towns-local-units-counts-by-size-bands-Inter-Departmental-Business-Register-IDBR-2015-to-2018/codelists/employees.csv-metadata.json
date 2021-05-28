@@ -32,7 +32,7 @@
                 },
                 "required": false,
                 "propertyUrl": "skos:broader",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/ons-towns-local-units-counts-by-size-bands-inter-departmental-business-register-idbr-2015-to-2018#concept/employees/{parent_notation}"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/ons-towns-local-units-counts-by-size-bands-inter-departmental-business-register-idbr-2015-to-2018#concept/employees/{+parent_notation}"
             },
             {
                 "titles": "Sort Priority",
@@ -53,7 +53,7 @@
             }
         ],
         "primaryKey": "notation",
-        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/ons-towns-local-units-counts-by-size-bands-inter-departmental-business-register-idbr-2015-to-2018#concept/employees/{notation}"
+        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/ons-towns-local-units-counts-by-size-bands-inter-departmental-business-register-idbr-2015-to-2018#concept/employees/{+notation}"
     },
     "prov:hadDerivation": {
         "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/ons-towns-local-units-counts-by-size-bands-inter-departmental-business-register-idbr-2015-to-2018#scheme/employees",
@@ -75,16 +75,35 @@
             "http://publishmydata.com/pmdcat#graph": {
                 "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/ons-towns-local-units-counts-by-size-bands-inter-departmental-business-register-idbr-2015-to-2018#scheme/employees"
             },
-            "dc:modified": {
-                "@type": "dateTime",
-                "@value": "2021-03-19T15:46:49.475153"
-            },
             "rdfs:label": "Employees",
             "dc:title": "Employees",
             "rdfs:comment": "Dataset representing the 'Employees' code list.",
+            "dc:license": {
+                "@id": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+            },
+            "dc:creator": {
+                "@id": "https://www.ons.gov.uk"
+            },
+            "dc:publisher": {
+                "@id": "https://www.ons.gov.uk"
+            },
+            "dcat:contactPoint": {
+                "@id": "subnational@ons.gov.uk"
+            },
+            "dcat:landingPage": {
+                "@id": "https://www.ons.gov.uk/businessindustryandtrade/business/activitysizeandlocation/adhocs/12089townslocalunitscountsbysizebandsinterdepartmentalbusinessregisteridbr2015to2018"
+            },
             "dc:issued": {
                 "@type": "dateTime",
-                "@value": "2021-03-19T15:46:49.475153"
+                "@value": "2013-07-24T00:00:00"
+            },
+            "dc:modified": {
+                "@type": "dateTime",
+                "@value": "2021-05-20T12:06:57.866422"
+            },
+            "http://publishmydata.com/pmdcat#markdownDescription": {
+                "@type": "https://www.w3.org/ns/iana/media-types/text/markdown#Resource",
+                "@value": "Counts of local units by employment size bands for towns in England and Wales."
             }
         },
         {
@@ -106,11 +125,11 @@
             "rdfs:label": "Employees Catalog Record",
             "dc:issued": {
                 "@type": "dateTime",
-                "@value": "2021-03-19T15:46:49.475153"
+                "@value": "2021-02-24T11:56:38.520038"
             },
             "dc:modified": {
                 "@type": "dateTime",
-                "@value": "2021-03-19T15:46:49.475153"
+                "@value": "2021-02-24T11:56:38.520038"
             }
         }
     ]
