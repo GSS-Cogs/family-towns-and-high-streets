@@ -24,9 +24,8 @@
                 "value": "http://reference.data.gov.uk/id/{+year}"
             },
             "Geography Code": {
-                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
-                "value": "http://statistics.data.gov.uk/id/statistical-geography/{geography_code}",
-                "description": ""
+                "dimension": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
+                "value": "http://statistics.data.gov.uk/id/statistical-geography/{geography_code}"
             },
             "Meters": {
                 "attribute": "http://gss-data.org.uk/data/gss_data/towns-high-streets/sg-scottish-index-of-multiple-deprivation-2020/ranks/concept-scheme/meters"

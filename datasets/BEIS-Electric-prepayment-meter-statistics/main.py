@@ -1,22 +1,43 @@
-from gssutils import * 
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[73]:
+
+
+from gssutils import *
 import json
 import math
 
-info = json.load(open('info.json')) 
-#etl_title = info["Name"] 
-#etl_publisher = info["Producer"][0] 
-#print("Publisher: " + etl_publisher) 
-#print("Title: " + etl_title) 
+info = json.load(open('info.json'))
+#etl_title = info["Name"]
+#etl_publisher = info["Producer"][0]
+#print("Publisher: " + etl_publisher)
+#print("Title: " + etl_title)
 
-scraper = Scraper(seed="info.json")   
-scraper 
+scraper = Scraper(seed="info.json")
+scraper
 
 
 tidied_sheets = []
 trace = TransformTrace()
 df = pd.DataFrame()
 
-# +
+
+# In[74]:
+
+
+j = 0
+for i in scraper.distributions:
+    print(j)
+    print(i.title)
+    print(i.mediaType)
+    j+=1
+    print('\n')
+
+
+# In[75]:
+
+
 # #### Distribution 1 : Local authority prepayment electricity meters distribution
 #KEY: lapem2017 = Local authority prepayment electricity meters 2017
 
@@ -95,10 +116,18 @@ for i in range(0, 3):
 #tidied_sheets[0:3]
 
 
-# +
+# In[76]:
+
+
+display(scraper.distributions[2])
+
+
+# In[77]:
+
+
 # #### DISTRIBUTION 2 : MSOA prepayment electricity meters 2017
 datasetTitle2 = "Middle Layer Super Output Area (MSOA) prepayment electricity meter consumption, 2017"
-msoa2017_tabs = { tab.name: tab for tab in scraper.distributions[1].as_databaker() }
+msoa2017_tabs = { tab.name: tab for tab in scraper.distributions[2].as_databaker() }
 wanted_msoa2017_tabs = msoa2017_tabs["MSOA Domestic Electricity 2017"]
 
 msoa2017_tidy_sheet_list = [] # list of dataframes for each iteration
@@ -112,47 +141,47 @@ trace.start(datasetTitle2, wanted_msoa2017_tabs, msoa2017_columns, scraper.distr
 tab_length = len(wanted_msoa2017_tabs.excel_ref('A')) # number of rows of data
 batch_number = 10 # iterates over this many rows at a time
 number_of_iterations = math.ceil(tab_length/batch_number) # databaking will iterate this many times
-            
+
 for i in range(0, number_of_iterations):
     Min = str(4 + batch_number * i)  # data starts on row 4
     Max = str(int(Min) + batch_number - 1)
-    
+
     #msoa2017_la_name = wanted_msoa2017_tabs.excel_ref("A"+Min+":A"+Max).is_not_blank()
-    
+
     #msoa2017_la_code = wanted_msoa2017_tabs.excel_ref("B"+Min+":B"+Max).is_not_blank()
-    
+
     msoa2017_geography_level = wanted_msoa2017_tabs.excel_ref("C"+Min+":C"+Max).is_not_blank()
-    
+
     msoa2017_geography_code = wanted_msoa2017_tabs.excel_ref("D"+Min+":D"+Max).is_not_blank()
-    
+
     msoa2017_meters = wanted_msoa2017_tabs.excel_ref("E"+Min+":E"+Max).is_not_blank()
-    
+
     msoa2017_kilowatt_hours = wanted_msoa2017_tabs.excel_ref("F3").expand(RIGHT).is_not_blank()
 
     msoa2017_period = "2017"
-    
-    msoa2017_unit = "kWh"    
+
+    msoa2017_unit = "kWh"
 
     msoa2017_observations = wanted_msoa2017_tabs.excel_ref("F"+Min+":H"+Max).is_not_blank()
     #msoa2017_observations = msoa2017_meters.waffle(msoa2017_kilowatt_hours) #This doubles the expected number of returned rows
 
-    msoa2017_dimensions = [
-        HDimConst('Year', msoa2017_period),
-        #HDim(msoa2017_la_name, "LA Name", CLOSEST, ABOVE),
-        #HDim(msoa2017_la_code, "Geography Code", CLOSEST, ABOVE),
-        HDim(msoa2017_geography_level, "Geography Level", CLOSEST, ABOVE),
-        HDim(msoa2017_geography_code, "Geography Code", CLOSEST, ABOVE),
-        HDim(msoa2017_meters, "Meters", CLOSEST, ABOVE),
-        HDim(msoa2017_kilowatt_hours, "Measure Type", DIRECTLY, ABOVE),
-        HDimConst("Unit", msoa2017_unit)
-    ]
-
     if len(msoa2017_observations) != 0: # only use ConversionSegment if there is data
+        msoa2017_dimensions = [
+            HDimConst('Year', msoa2017_period),
+            #HDim(msoa2017_la_name, "LA Name", CLOSEST, ABOVE),
+            #HDim(msoa2017_la_code, "Geography Code", CLOSEST, ABOVE),
+            HDim(msoa2017_geography_level, "Geography Level", CLOSEST, ABOVE),
+            HDim(msoa2017_geography_code, "Geography Code", CLOSEST, ABOVE),
+            HDim(msoa2017_meters, "Meters", CLOSEST, ABOVE),
+            HDim(msoa2017_kilowatt_hours, "Measure Type", DIRECTLY, ABOVE),
+            HDimConst("Unit", msoa2017_unit)
+        ]
+
         msoa2017_cs_iteration = ConversionSegment(wanted_msoa2017_tabs, msoa2017_dimensions, msoa2017_observations) # creating the conversionsegment
         msoa2017_tidy_sheet_iteration = msoa2017_cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
         msoa2017_cs_list.append(msoa2017_cs_iteration) # add to list
         msoa2017_tidy_sheet_list.append(msoa2017_tidy_sheet_iteration) # add to list
-                    
+
 msoa2017_tidy_sheet = pd.concat(msoa2017_tidy_sheet_list, sort=False) # dataframe for the whole tab
 
 #trace.LA_NAME("Selected as all non-blank values from cell ref A4 down.")
@@ -185,11 +214,19 @@ for i in range(0, 3):
 #tidied_sheets[3:6]
 
 
-# +
+# In[78]:
+
+
+display(scraper.distributions[4])
+
+
+# In[79]:
+
+
 # #### DISTRIBUTION 3 : LSOA prepayment electricity meters 2017
 
 datasetTitle3 = "Lower Layer Super Output Area (LSOA)  prepayment electricity meter consumption, 2017"
-lsoa2017_tabs = { tab.name: tab for tab in scraper.distributions[2].as_databaker() }
+lsoa2017_tabs = { tab.name: tab for tab in scraper.distributions[4].as_databaker() }
 wanted_lsoa2017_tabs = lsoa2017_tabs["LSOA Dom Elec 2017"]
 
 lsoa2017_tidy_sheet_list = [] # list of dataframes for each iteration
@@ -208,30 +245,30 @@ for i in range(0, number_of_iterations):
     Max = str(int(Min) + batch_number - 1)
 
     #lsoa2017_la_name = wanted_lsoa2017_tabs.excel_ref("A"+Min+":A"+Max).is_not_blank()
-    
+
     #lsoa2017_la_code = wanted_lsoa2017_tabs.excel_ref("B"+Min+":B"+Max).is_not_blank()
-    
+
     #lsoa2017_msoa_name = wanted_lsoa2017_tabs.excel_ref("C"+Min+":C"+Max).is_not_blank()
-    
+
     lsoa2017_msoa_code = wanted_lsoa2017_tabs.excel_ref("D"+Min+":D"+Max).is_not_blank()
-    
+
     lsoa2017_geography_level = wanted_lsoa2017_tabs.excel_ref("E"+Min+":E"+Max).is_not_blank()
-    
+
     lsoa2017_geography_code = wanted_lsoa2017_tabs.excel_ref("F"+Min+":F"+Max).is_not_blank()
-    
+
     lsoa2017_meters = wanted_lsoa2017_tabs.excel_ref("H"+Min+":H"+Max).is_not_blank()
-    
+
     lsoa2017_kilowatt_hours = wanted_lsoa2017_tabs.excel_ref("2").filter(contains_string("(kWh)")).is_not_blank()
-    
+
     lsoa2017_year = "2017"
-    
+
     lsoa2017_unit = "kWh"
-    
+
     #Note: Alternative observation extraction methods kept for my own benifit to be referred back to later.
     lsoa2017_observations = wanted_lsoa2017_tabs.excel_ref("G"+Min+":G"+Max) | wanted_lsoa2017_tabs.excel_ref("I"+Min+":J"+Max)
     #lsoa2017_observations = wanted_lsoa2017_tabs.excel_ref("G"+Min+":J"+Max) - wanted_lsoa2017_tabs.excel_ref("H") #This doubles the expected number of returned rows
     #lsoa2017_observations = lsoa2017_lsoa_code.waffle(lsoa2017_kilowatt_hours) #This triples the expected number of returned rows
-    
+
     lsoa2017_dimensions = [
         HDimConst("Year", lsoa2017_year),
         #HDim(lsoa2017_la_name, "LA Name", CLOSEST, ABOVE),
@@ -244,7 +281,7 @@ for i in range(0, number_of_iterations):
         HDim(lsoa2017_kilowatt_hours, "Measure Type", DIRECTLY, ABOVE),
         HDimConst("Unit", lsoa2017_unit)
     ]
-    
+
     if len(lsoa2017_observations) != 0: # only use ConversionSegment if there is data
         lsoa2017_cs_iteration = ConversionSegment(wanted_lsoa2017_tabs, lsoa2017_dimensions, lsoa2017_observations) # creating the conversionsegment
         lsoa2017_tidy_sheet_iteration = lsoa2017_cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
@@ -255,7 +292,7 @@ lsoa2017_tidy_sheet = pd.concat(lsoa2017_tidy_sheet_list, sort=False) # datafram
 
 #trace.LA_NAME("Selected as all non-blank values from cell ref A3 down.")
 #trace.LA_CODE("Selected as all non-blank values from cell ref B3 down.")
-#trace.MSOA_NAME("Selected as all non-blank values from cell ref C3 down.")    
+#trace.MSOA_NAME("Selected as all non-blank values from cell ref C3 down.")
 trace.MSOA_CODE("Selected as all non-blank values from cell ref D3 down.")
 trace.GEOGRAPHY_LEVEL("Selected as all non-blank values from cell ref E3 down.")
 trace.GEOGRAPHY_CODE("Selected as all non-blank values from cell ref F3 down.")
@@ -284,12 +321,21 @@ for i in range(0, 3):
 #tidy_d3
 #tidied_sheets
 
-# +
+
+# In[80]:
+
+
+display(scraper.distributions[6])
+
+
+# In[81]:
+
+
 # #### DISTRIBUTION 4 : Postcode prepayment electricity meters 2017
 #KEY: plpem2017 = Postcode prepayment electricity meters 2017
 
 datasetTitle4 = "Postcode level prepayment electric meter consumption, 2017"
-plpem2017_tabs = { tab.name: tab for tab in scraper.distributions[3].as_databaker() }
+plpem2017_tabs = { tab.name: tab for tab in scraper.distributions[6].as_databaker() }
 wanted_plpem2017_tabs = plpem2017_tabs["Postcode-prepayment-electricity"]
 
 plpem2017_tidy_sheet_list = [] # list of dataframes for each iteration
@@ -302,21 +348,21 @@ trace.start(datasetTitle4, wanted_plpem2017_tabs, plpem2017_columns, scraper.dis
 tab_length = len(wanted_plpem2017_tabs.excel_ref('A')) # number of rows of data
 batch_number = 10 # iterates over this many rows at a time
 number_of_iterations = math.ceil(tab_length/batch_number) # databaking will iterate this many times
-            
+
 for i in range(0, number_of_iterations):
     Min = str(2 + batch_number * i)  # data starts on row 2
     Max = str(int(Min) + batch_number - 1)
 
     plpem2017_postcodes = wanted_plpem2017_tabs.excel_ref("A"+Min+":A"+Max).is_not_blank()
-    
+
     plpem2017_meters = wanted_plpem2017_tabs.excel_ref("B"+Min+":B"+Max).is_not_blank()
-    
+
     plpem2017_kilowatt_hours = wanted_plpem2017_tabs.excel_ref("C1").expand(RIGHT).is_not_blank()
-    
+
     plpem2017_year = "2017"
-    
+
     plpem2017_unit = "kWh"
-    
+
     #plpem2017_observations = wanted_plpem2017_tabs.excel_ref("C2").expand(RIGHT).expand(DOWN).is_not_blank()
     plpem2017_observations = wanted_plpem2017_tabs.excel_ref("C"+Min+":E"+Max).is_not_blank()
     #plpem2017_observations = plpem2017_meters.waffle(plpem2017_kilowatt_hours)
@@ -359,46 +405,56 @@ for i in range(0, 3):
 #tidy_d4
 #tidied_sheets
 
-# +
+
+# In[82]:
+
+
 #Outputs:
     #Stage 1
     #tidy_d1 = Local authority prepayment electricity meters 2017
     #tidy_d2 = MSOA prepayment electricity meters 2017
     #tidy_d3 = LSOA prepayment electricity meters 2017
     #tidy_d4 = Postcode prepayment electricity meters 2017
-    
+
     #After stage 2 spec:
     #tidied_sheets[0] = Local authority prepayment electricity meters 2017 - Sales
     #tidied_sheets[1] = Local authority prepayment electricity meters 2017 - Mean Consumption
     #tidied_sheets[2] = Local authority prepayment electricity meters 2017 - Median Consumption
-    
+
     #tidied_sheets[3] = MSOA prepayment electricity meters 2017 - Sales
     #tidied_sheets[4] = MSOA prepayment electricity meters 2017 - Mean Consumption
     #tidied_sheets[5] = MSOA prepayment electricity meters 2017 - Median Consumption
-    
+
     #tidied_sheets[6] = LSOA prepayment electricity meters 2017 - Sales
     #tidied_sheets[7] = LSOA prepayment electricity meters 2017 - Mean Consumption
     #tidied_sheets[8] = LSOA prepayment electricity meters 2017 - Median Consumption
-    
+
     #tidied_sheets[9] = Postcode prepayment electricity meters 2017 - Sales
     #tidied_sheets[10] = Postcode prepayment electricity meters 2017 - Mean Consumption
     #tidied_sheets[11] = Postcode prepayment electricity meters 2017 - Median Consumption
-    
+
     #Joined sheets
     #tidy_sales = Electric prepayment meter statistics - Sales
     #tidy_mean_consumption = Electric prepayment meter statistics - Mean Consumption
     #tidy_median_consumption = Electric prepayment meter statistics - Median Consumption
-    
+
 #Notes:
     #When running each tab, a large number of blank lines will be printed before the completed table.
-# +
+
+
+# In[83]:
+
+
 tidy_sales = pd.concat([tidied_sheets[0], tidied_sheets[3], tidied_sheets[6]])
 
 tidy_mean_consumption = pd.concat([tidied_sheets[1], tidied_sheets[4], tidied_sheets[7]])
 
 tidy_median_consumption = pd.concat([tidied_sheets[2], tidied_sheets[5], tidied_sheets[8]])
 
-# +
+
+# In[84]:
+
+
 # As we only have one Measure and Unit type they are defined within the info.json file so can be deleted from the tables
 # Also remove the space from Post Code and rename as to just 'Post Code'
 del tidy_sales['Measure Type']
@@ -417,37 +473,42 @@ tidied_sheets[9]['Post Codes'] = tidied_sheets[9]['Post Codes'].str.replace(' ',
 tidied_sheets[9] = tidied_sheets[9].rename(columns={'Post Codes': 'Post Code'})
 
 
-# +
+# In[85]:
+
+
 to_output = []
-to_output.append([tidy_sales, 
-                  "sales", 
-                  "Electric prepayment meter statistics - Sales", 
-                  "sales", 
-                  "/sales", 
+to_output.append([tidy_sales,
+                  "sales",
+                  "Electric prepayment meter statistics - Sales",
+                  "sales",
+                  "/sales",
                   "Annual prepayment meter electricity sales statistics for Local Authorities, LSOAs, MSOAs in England, Wales and Scotland."])
-to_output.append([tidy_mean_consumption, 
-                  "mean_consumption", 
-                  "Electric prepayment meter statistics - Mean Consumption", 
-                  "mean-consumption", 
-                  "/mean", 
+to_output.append([tidy_mean_consumption,
+                  "mean_consumption",
+                  "Electric prepayment meter statistics - Mean Consumption",
+                  "mean-consumption",
+                  "/mean",
                  "Annual prepayment meter electricity mean consumption statistics for Local Authorities, LSOAs, MSOAs in England, Wales and Scotland."])
-to_output.append([tidy_median_consumption, 
-                  "median_consumption", 
-                  "Electric prepayment meter statistics - Median Consumption", 
-                  "median-consumption", 
-                  "/median", 
+to_output.append([tidy_median_consumption,
+                  "median_consumption",
+                  "Electric prepayment meter statistics - Median Consumption",
+                  "median-consumption",
+                  "/median",
                   "Annual prepayment meter electricity median consumption statistics for Local Authorities, LSOAs, MSOAs in England, Wales and Scotland."])
-to_output.append([tidied_sheets[9], 
-                  "post_code_sales", 
-                  "Electric prepayment meter statistics by Post Code - Sales", 
-                  "sales", 
-                  "/postcode-sales", 
+to_output.append([tidied_sheets[9],
+                  "post_code_sales",
+                  "Electric prepayment meter statistics by Post Code - Sales",
+                  "sales",
+                  "/postcode-sales",
                   "Annual prepayment meter electricity sales statistics by Post Code in England, Wales and Scotland."])
 
 #tidy_sales
 #tidy_mean_consumption
 #tidy_median_consumption
-# -
+
+
+# In[86]:
+
 
 tidy_sales.head(10)
 #tidy_sales['Geography Level'].unique()
@@ -458,15 +519,16 @@ tidy_median_consumption.head(10)
 tidied_sheets[9].head(10)
 
 
+# In[87]:
 
-# +
+
 from urllib.parse import urljoin
 import os
 
 for i in to_output:
-    
+
     i[0]['Year'] = 'year/' + i[0]['Year'].astype(str)
-    
+
     csvName = i[1] + "_observations.csv"
     out = Path("out")
     out.mkdir(exist_ok=True)
@@ -479,9 +541,9 @@ for i in to_output:
     Data excludes:
     Geographies that are disclosive are defined as such if they contain less than 6 meters
     The dataset only contains meters that have consumption between 100 kWh and 100,000 kWh and have a domestic meter profile
-    Meters that have not successfully been assigned to a geography due to insufficient address information are counted in the 
+    Meters that have not successfully been assigned to a geography due to insufficient address information are counted in the
     'Unallocated' category but are not included in this data as there is no matching geography code.
-    Meters that are deemed to be disclosive at Local Authority level are set as 'Unallocated' but are not included in this 
+    Meters that are deemed to be disclosive at Local Authority level are set as 'Unallocated' but are not included in this
     data as there is no matching geography code."""
 
     scraper.dataset.comment = i[5]
@@ -506,6 +568,8 @@ for i in to_output:
         metadata.write(scraper.generate_trig())
 
 
-# -
+# In[87]:
+
+
 
 
