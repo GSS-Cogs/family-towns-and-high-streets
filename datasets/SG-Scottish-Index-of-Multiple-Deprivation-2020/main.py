@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
-# %%
 
-# %%
+# In[137]:
 
 
 # -*- coding: utf-8 -*-
@@ -47,14 +46,16 @@ for page in pubPages:
         print(urljoin("https://www.gov.scot", i['href']))"""
 
 
-# %%
+# In[138]:
+
 
 
 #tabs = { tab for tab in scraper.distributions[0].as_databaker() }
 #len(tabs)
 
 
-# %%
+# In[139]:
+
 
 
 
@@ -129,11 +130,13 @@ tidied_sheets["Data"] = tidy_sheet.topandas()
 """
 
 
-# %%
+# In[140]:
+
+
 # Sheet names
 sn = ['SIMD 2020v2 ranks','Data']
 # Output filenames
-fn = ['ranks-observations.csv','indicators-observations.csv']
+fn = ['ranks-observations','indicators-observations']
 # Comments
 co = [
     '2020 Rank data relating to the Scottish Index of Multiple Deprivation - a tool for identifying areas with relatively high levels of deprivation.',
@@ -152,7 +155,10 @@ ti = [
 # Paths
 pa = ['/ranks', '/indicators']
 
-# %%
+
+# In[141]:
+
+
 # need to change the dataURLa to the indicators one
 with open("info.json", "r") as jsonFile:
     data = json.load(jsonFile)
@@ -167,9 +173,15 @@ trace = TransformTrace()
 tidied_sheets = {}
 scraper = Scraper(seed="info.json")
 scraper.distributions[0].title = "Scottish Indicators of Multiple Deprivation 2020"
+
+info = 'info.json'
+cubes = Cubes(info)
+
 scraper
 
-# %%
+
+# In[142]:
+
 
 try:
     i = 0
@@ -198,7 +210,7 @@ try:
     csvName = fn[i]
     out = Path('out')
     out.mkdir(exist_ok=True)
-    joined_dat.drop_duplicates().to_csv(out / csvName, index = False)
+    #joined_dat.drop_duplicates().to_csv(out / csvName, index = False)
 
     scraper.dataset.family = 'towns-high-streets'
     scraper.dataset.description = scraper.dataset.description + '\n' + de[i]
@@ -209,25 +221,30 @@ try:
     scraper.set_base_uri('http://gss-data.org.uk')
     scraper.set_dataset_id(dataset_path)
 
+    cubes.add_cube(scraper, joined_dat, csvName)
 
-    csvw_transform = CSVWMapping()
-    csvw_transform.set_csv(out / csvName)
-    csvw_transform.set_mapping(json.load(open('info.json')))
-    csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
-    csvw_transform.write(out / f'{csvName}-metadata.json')
+    #csvw_transform = CSVWMapping()
+    #csvw_transform.set_csv(out / csvName)
+    #csvw_transform.set_mapping(json.load(open('info.json')))
+    #csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
+    #csvw_transform.write(out / f'{csvName}-metadata.json')
 
-    with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
-        metadata.write(scraper.generate_trig())
+    #with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
+    #    metadata.write(scraper.generate_trig())
+
 except Exception as s:
     print(str(s))
 
 
+# In[143]:
 
-# %%
+
 print(joined_dat.head(5))
 del joined_dat
 
-# %%
+
+# In[144]:
+
 
 
 # need to change the dataURLa to the indicators one
@@ -247,7 +264,8 @@ scraper.distributions[0].title = "Scottish Index of Multiple Deprivation 2020"
 scraper
 
 
-# %%
+# In[145]:
+
 
 
 try:
@@ -271,7 +289,7 @@ try:
         else:
             joined_dat = pd.concat([joined_dat,t])
         k = k + 1
-        
+
     joined_dat["Indicator Type"] = joined_dat["Deprivation Indicator"]
     joined_dat["High Level Indicator"] = joined_dat["Deprivation Indicator"]
 
@@ -344,22 +362,39 @@ try:
         'overcrowded rate':'Housing',
         'nocentralheat rate':'Housing'
      })
-    dt = joined_dat
-    joined_dat['Deprivation Indicator'] = joined_dat['Deprivation Indicator'].apply(pathify)
-    joined_dat['Indicator Type'] = joined_dat['Indicator Type'].apply(pathify)
-    joined_dat['High Level Indicator'] = joined_dat['High Level Indicator'].apply(pathify)
+    df = joined_dat
+    df['Deprivation Indicator'] = df['Deprivation Indicator'].apply(pathify)
+    df['Indicator Type'] = df['Indicator Type'].apply(pathify)
+    df['High Level Indicator'] = df['High Level Indicator'].apply(pathify)
 
-    joined_dat['Marker'] = ''
-    joined_dat['Marker'][joined_dat['Value'] == '*'] = 'suppressed-or-population-zero'
-    joined_dat['Value'][joined_dat['Value'] == '*'] = 0
-    joined_dat = joined_dat.rename(columns={"High Level Indicator":"High Level Domain"})
-    #joined_dat = joined_dat[['Data Zone','Deprivation Indicator','Indicator Type','High Level Indicator','Total population','Working age population','Marker','Value']]
-    joined_dat = joined_dat[['Data Zone','Deprivation Indicator','Indicator Type','High Level Domain','Total population','Working age population','Marker','Value']]
+    df['Marker'] = ''
+    df['Marker'][df['Value'] == '*'] = 'suppressed-or-population-zero'
+    df['Value'][df['Value'] == '*'] = 0
+    df = df.rename(columns={"High Level Indicator":"High Level Domain"})
+    #df = df[['Data Zone','Deprivation Indicator','Indicator Type','High Level Indicator','Total population','Working age population','Marker','Value']]
+    df = df[['Data Zone','Deprivation Indicator','Indicator Type','High Level Domain','Total population','Working age population','Marker','Value']]
+
+    df['Value'] = df.apply(lambda x: x['Value']*100 if 'percentage' in x['Indicator Type'] else x['Value'], axis = 1)
+
+    df['Value'] = df.apply(lambda x: round(x['Value'], 2), axis = 1)
+
+    df = df.replace({'Deprivation Indicator' : {'nocentralheat-count' : 'no-central-heat-count',
+                                                'nocentralheat-rate' : 'no-central-heat-rate'}})
+
+    df['Measure Type'] = df['Deprivation Indicator']
+
+    df['Unit'] = df['Indicator Type']
+
+    df = df.drop(columns = ['Deprivation Indicator', 'Indicator Type'])
+
+    from IPython.core.display import HTML
+    for col in df:
+        if col not in ['Value']:
+            df[col] = df[col].astype('category')
+            display(HTML(f"<h2>{col}</h2>"))
+            display(df[col].cat.categories)
 
     csvName = fn[i]
-    out = Path('out')
-    out.mkdir(exist_ok=True)
-    joined_dat.drop_duplicates().to_csv(out / csvName, index = False)
 
     scraper.dataset.family = 'towns-high-streets'
     scraper.dataset.description = scraper.dataset.description + '\n' + de[i]
@@ -370,25 +405,22 @@ try:
     scraper.set_base_uri('http://gss-data.org.uk')
     scraper.set_dataset_id(dataset_path)
 
+    cubes.add_cube(scraper, df, csvName)
 
-    csvw_transform = CSVWMapping()
-    csvw_transform.set_csv(out / csvName)
-    csvw_transform.set_mapping(json.load(open('info.json')))
-    csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
-    csvw_transform.write(out / f'{csvName}-metadata.json')
+    #csvw_transform = CSVWMapping()
+    #csvw_transform.set_csv(out / csvName)
+    #csvw_transform.set_mapping(json.load(open('info.json')))
+    #csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
+    #csvw_transform.write(out / f'{csvName}-metadata.json')
 
-    with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
-        metadata.write(scraper.generate_trig())
+    #with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
+    #    metadata.write(scraper.generate_trig())
 
 except Exception as s:
     print(str(s))
 
 
-# %%
-joined_dat.head(5)
-
-
-# %%
+# In[146]:
 
 
 # Need to change the dataURL back to the RANK URL ready for the next run
@@ -402,11 +434,14 @@ with open("info.json", "w") as jsonFile:
     json.dump(data, jsonFile, indent = 2)
 
 
-# %%
-dt.head(40)
+# In[ ]:
 
-# %%
 
-# %%
+df
 
-# %%
+
+# In[148]:
+
+
+cubes.output_all()
+
