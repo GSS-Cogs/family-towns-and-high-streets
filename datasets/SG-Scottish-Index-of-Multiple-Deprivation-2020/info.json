@@ -24,64 +24,68 @@
         "dimension": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
         "value": "http://statistics.data.gov.uk/id/statistical-geography/{data_zone}"
       },
-      "High Level Domain" : {
-        "description" : "High Level Domain"
+      "High Level Domain": {
+        "description": "High Level Domain"
       },
-      "Total population" : {
-        "description" : "Total population",
-        "codelist" : false
+      "Total population": {
+        "description": "Total population",
+        "codelist": false
       },
-      "Working age population" : {
-        "description" : "Working age population",
-        "codelist" : false
+      "Working age population": {
+        "description": "Working age population",
+        "codelist": false
       },
       "Measure Type": {
         "dimension": "http://purl.org/linked-data/cube#measureType",
         "value": "http://gss-data.org.uk/def/measure/{measure_type}",
-        "types": ["income-rate",
-                  "income-count",
-                  "employment-rate",
-                  "employment-count",
-                  "cif",
-                  "alcohol",
-                  "drug",
-                  "smr",
-                  "depress",
-                  "lbwt",
-                  "emerg",
-                  "attendance",
-                  "attainment",
-                  "no-qualifications",
-                  "not-participating",
-                  "university",
-                  "drive-petrol",
-                  "drive-gp",
-                  "drive-post",
-                  "drive-primary",
-                  "drive-retail",
-                  "drive-secondary",
-                  "pt-gp",
-                  "pt-post",
-                  "pt-retail",
-                  "broadband",
-                  "crime-count",
-                  "crime-rate",
-                  "overcrowded-count",
-                  "no-central-heat-count",
-                  "overcrowded-rate",
-                  "no-central-heat-rate"]
+        "types": [
+          "income-rate",
+          "income-count",
+          "employment-rate",
+          "employment-count",
+          "cif",
+          "alcohol",
+          "drug",
+          "smr",
+          "depress",
+          "lbwt",
+          "emerg",
+          "attendance",
+          "attainment",
+          "no-qualifications",
+          "not-participating",
+          "university",
+          "drive-petrol",
+          "drive-gp",
+          "drive-post",
+          "drive-primary",
+          "drive-retail",
+          "drive-secondary",
+          "pt-gp",
+          "pt-post",
+          "pt-retail",
+          "broadband",
+          "crime-count",
+          "crime-rate",
+          "overcrowded-count",
+          "no-central-heat-count",
+          "overcrowded-rate",
+          "no-central-heat-rate",
+          "deprivation-rank"
+        ]
       },
       "Unit": {
         "attribute": "http://purl.org/linked-data/sdmx/2009/attribute#unitMeasure",
         "value": "http://gss-data.org.uk/def/concept/measurement-units/{unit}"
       },
       "Value": {
-        "datatype": "double"
+        "datatype": "double",
+        "unit": "http://gss-data.org.uk/def/concept/measurement-units/ranks"
       },
       "Marker": {
-                "attribute": "http://purl.org/linked-data/sdmx/2009/attribute#obsStatus",
-                "value": "http://gss-data.org.uk/def/concept/cogs-markers/{marker}"
-            }
+        "attribute": "http://purl.org/linked-data/sdmx/2009/attribute#obsStatus",
+        "value": "http://gss-data.org.uk/def/concept/cogs-markers/{marker}"
+      }
     },
     "stage": [
       "To Do"

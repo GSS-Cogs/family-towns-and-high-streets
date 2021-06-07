@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[137]:
+# In[40]:
 
 
 # -*- coding: utf-8 -*-
@@ -46,7 +46,7 @@ for page in pubPages:
         print(urljoin("https://www.gov.scot", i['href']))"""
 
 
-# In[138]:
+# In[41]:
 
 
 
@@ -54,7 +54,7 @@ for page in pubPages:
 #len(tabs)
 
 
-# In[139]:
+# In[42]:
 
 
 
@@ -130,7 +130,7 @@ tidied_sheets["Data"] = tidy_sheet.topandas()
 """
 
 
-# In[140]:
+# In[43]:
 
 
 # Sheet names
@@ -156,7 +156,7 @@ ti = [
 pa = ['/ranks', '/indicators']
 
 
-# In[141]:
+# In[44]:
 
 
 # need to change the dataURLa to the indicators one
@@ -180,7 +180,7 @@ cubes = Cubes(info)
 scraper
 
 
-# In[142]:
+# In[45]:
 
 
 try:
@@ -192,7 +192,7 @@ try:
     for x in range(5, len(tab.columns)):
         cols = [0,1,2,3,4,x]
         dat = tab.iloc[:, cols]
-        dat['Deprivation Rank'] = dat.columns[5]
+        dat['Deprivation Type'] = dat.columns[5]
         dat = dat.rename(columns={dat.columns[5]:'Value'})
         dat = dat[[dat.columns[0],dat.columns[6],dat.columns[3],dat.columns[4],dat.columns[5]]]
         tbls.append(dat)
@@ -205,7 +205,7 @@ try:
             joined_dat = pd.concat([joined_dat,t])
         k = k + 1
 
-    joined_dat['Deprivation Rank'] = joined_dat['Deprivation Rank'].apply(pathify)
+    joined_dat['Deprivation Type'] = joined_dat['Deprivation Type'].apply(pathify)
 
     csvName = fn[i]
     out = Path('out')
@@ -220,6 +220,9 @@ try:
     dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + pa[i]
     scraper.set_base_uri('http://gss-data.org.uk')
     scraper.set_dataset_id(dataset_path)
+
+    joined_dat['Measure Type'] = 'deprivation-rank'
+    joined_dat['Unit'] = 'rank'
 
     cubes.add_cube(scraper, joined_dat, csvName)
 
@@ -236,14 +239,20 @@ except Exception as s:
     print(str(s))
 
 
-# In[143]:
+# In[46]:
+
+
+joined_dat
+
+
+# In[47]:
 
 
 print(joined_dat.head(5))
 del joined_dat
 
 
-# In[144]:
+# In[48]:
 
 
 
@@ -264,7 +273,7 @@ scraper.distributions[0].title = "Scottish Index of Multiple Deprivation 2020"
 scraper
 
 
-# In[145]:
+# In[49]:
 
 
 
@@ -387,13 +396,6 @@ try:
 
     df = df.drop(columns = ['Deprivation Indicator', 'Indicator Type'])
 
-    from IPython.core.display import HTML
-    for col in df:
-        if col not in ['Value']:
-            df[col] = df[col].astype('category')
-            display(HTML(f"<h2>{col}</h2>"))
-            display(df[col].cat.categories)
-
     csvName = fn[i]
 
     scraper.dataset.family = 'towns-high-streets'
@@ -420,7 +422,7 @@ except Exception as s:
     print(str(s))
 
 
-# In[146]:
+# In[50]:
 
 
 # Need to change the dataURL back to the RANK URL ready for the next run
@@ -434,13 +436,13 @@ with open("info.json", "w") as jsonFile:
     json.dump(data, jsonFile, indent = 2)
 
 
-# In[ ]:
+# In[51]:
 
 
 df
 
 
-# In[148]:
+# In[52]:
 
 
 cubes.output_all()
