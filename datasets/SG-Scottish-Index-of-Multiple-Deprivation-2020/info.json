@@ -29,10 +29,12 @@
       },
       "Total population": {
         "description": "Total population",
+        "value": "{total_population}",
         "codelist": false
       },
       "Working age population": {
         "description": "Working age population",
+        "value": "{working_age_population}",
         "codelist": false
       },
       "Measure Type": {

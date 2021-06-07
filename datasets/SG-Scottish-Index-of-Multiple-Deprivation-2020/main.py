@@ -213,7 +213,7 @@ try:
     out.mkdir(exist_ok=True)
     #joined_dat.drop_duplicates().to_csv(out / csvName, index = False)
 
-    scraper.dataset.family = 'towns-high-streets'
+    scraper.dataset.family = 'towns-and-high-streets'
     scraper.dataset.description = scraper.dataset.description + '\n' + de[i]
     scraper.dataset.comment = co[i]
     scraper.dataset.title = ti[i]
@@ -401,7 +401,7 @@ try:
 
     csvName = fn[i]
 
-    scraper.dataset.family = 'towns-high-streets'
+    scraper.dataset.family = 'towns-and-high-streets'
     scraper.dataset.description = scraper.dataset.description + '\n' + de[i]
     scraper.dataset.comment = co[i]
     scraper.dataset.title = ti[i]
@@ -439,10 +439,12 @@ with open("info.json", "w") as jsonFile:
     json.dump(data, jsonFile, indent = 2)
 
 
-# In[12]:
+# In[18]:
 
 
-df
+dfTest = df[['Measure Type', 'Unit']]
+dfTest = dfTest.drop_duplicates()
+dfTest
 
 
 # In[13]:
