@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[40]:
+# In[1]:
 
 
 # -*- coding: utf-8 -*-
@@ -10,6 +10,7 @@ import json
 import requests
 import os
 from urllib.parse import urljoin, urlparse
+import numpy as np
 
 #trace = TransformTrace()
 #tidied_sheets = {}
@@ -46,7 +47,7 @@ for page in pubPages:
         print(urljoin("https://www.gov.scot", i['href']))"""
 
 
-# In[41]:
+# In[2]:
 
 
 
@@ -54,7 +55,7 @@ for page in pubPages:
 #len(tabs)
 
 
-# In[42]:
+# In[3]:
 
 
 
@@ -130,7 +131,7 @@ tidied_sheets["Data"] = tidy_sheet.topandas()
 """
 
 
-# In[43]:
+# In[4]:
 
 
 # Sheet names
@@ -156,7 +157,7 @@ ti = [
 pa = ['/ranks', '/indicators']
 
 
-# In[44]:
+# In[5]:
 
 
 # need to change the dataURLa to the indicators one
@@ -180,7 +181,7 @@ cubes = Cubes(info)
 scraper
 
 
-# In[45]:
+# In[6]:
 
 
 try:
@@ -239,20 +240,20 @@ except Exception as s:
     print(str(s))
 
 
-# In[46]:
+# In[7]:
 
 
 joined_dat
 
 
-# In[47]:
+# In[8]:
 
 
 print(joined_dat.head(5))
 del joined_dat
 
 
-# In[48]:
+# In[9]:
 
 
 
@@ -273,7 +274,7 @@ scraper.distributions[0].title = "Scottish Index of Multiple Deprivation 2020"
 scraper
 
 
-# In[49]:
+# In[10]:
 
 
 
@@ -396,6 +397,8 @@ try:
 
     df = df.drop(columns = ['Deprivation Indicator', 'Indicator Type'])
 
+    df['Value'] = df.apply(lambda x: np.nan if x['Marker'] != '' else x['Value'], axis = 1)
+
     csvName = fn[i]
 
     scraper.dataset.family = 'towns-high-streets'
@@ -422,7 +425,7 @@ except Exception as s:
     print(str(s))
 
 
-# In[50]:
+# In[11]:
 
 
 # Need to change the dataURL back to the RANK URL ready for the next run
@@ -436,13 +439,13 @@ with open("info.json", "w") as jsonFile:
     json.dump(data, jsonFile, indent = 2)
 
 
-# In[51]:
+# In[12]:
 
 
 df
 
 
-# In[52]:
+# In[13]:
 
 
 cubes.output_all()
