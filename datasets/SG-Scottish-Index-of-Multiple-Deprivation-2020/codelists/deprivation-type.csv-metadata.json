@@ -1,9 +1,9 @@
 {
     "@context": "http://www.w3.org/ns/csvw",
-    "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/high-level-domain",
-    "url": "high-level-domain.csv",
-    "rdfs:label": "High Level Domain",
-    "dc:title": "High Level Domain",
+    "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-type",
+    "url": "deprivation-type.csv",
+    "rdfs:label": "Deprivation Type",
+    "dc:title": "Deprivation Type",
     "tableSchema": {
         "columns": [
             {
@@ -32,7 +32,7 @@
                 },
                 "required": false,
                 "propertyUrl": "skos:broader",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#concept/high-level-domain/{parent_notation}"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#concept/deprivation-type/{parent_notation}"
             },
             {
                 "titles": "Sort Priority",
@@ -49,14 +49,14 @@
             {
                 "virtual": true,
                 "propertyUrl": "skos:inScheme",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/high-level-domain"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-type"
             }
         ],
         "primaryKey": "notation",
-        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#concept/high-level-domain/{notation}"
+        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#concept/deprivation-type/{notation}"
     },
     "prov:hadDerivation": {
-        "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/high-level-domain",
+        "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-type",
         "@type": [
             "skos:ConceptScheme",
             "http://publishmydata.com/pmdcat#ConceptScheme"
@@ -64,24 +64,24 @@
     },
     "rdfs:seeAlso": [
         {
-            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/high-level-domain/dataset",
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-type/dataset",
             "@type": [
                 "dcat:Dataset",
                 "http://publishmydata.com/pmdcat#Dataset"
             ],
             "http://publishmydata.com/pmdcat#datasetContents": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/high-level-domain"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-type"
             },
             "http://publishmydata.com/pmdcat#graph": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/high-level-domain"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-type"
             },
             "dc:modified": {
                 "@type": "dateTime",
                 "@value": "2021-06-07T12:49:30.834267"
             },
-            "rdfs:label": "High Level Domain",
-            "dc:title": "High Level Domain",
-            "rdfs:comment": "Dataset representing the 'High Level Domain' code list.",
+            "rdfs:label": "Deprivation Type",
+            "dc:title": "Deprivation Type",
+            "rdfs:comment": "Dataset representing the 'Deprivation Type' code list.",
             "dc:issued": {
                 "@type": "dateTime",
                 "@value": "2021-06-07T12:49:30.834267"
@@ -109,20 +109,20 @@
         {
             "@id": "http://gss-data.org.uk/catalog/vocabularies",
             "dcat:record": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/high-level-domain/catalog-record"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-type/catalog-record"
             }
         },
         {
-            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/high-level-domain/catalog-record",
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-type/catalog-record",
             "@type": "dcat:CatalogRecord",
             "foaf:primaryTopic": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/high-level-domain/dataset"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-type/dataset"
             },
             "http://publishmydata.com/pmdcat#metadataGraph": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/high-level-domain"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-type"
             },
-            "dc:title": "High Level Domain Catalog Record",
-            "rdfs:label": "High Level Domain Catalog Record",
+            "dc:title": "Deprivation Type Catalog Record",
+            "rdfs:label": "Deprivation Type Catalog Record",
             "dc:issued": {
                 "@type": "dateTime",
                 "@value": "2021-06-07T12:49:30.834267"
