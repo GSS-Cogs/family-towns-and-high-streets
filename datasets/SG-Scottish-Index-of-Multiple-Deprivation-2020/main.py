@@ -458,7 +458,7 @@ metadata_json = open("./out/indicators-observations.csv-metadata.json", "r")
 metadata = json.load(metadata_json)
 metadata_json.close()
 
-for obj in metadata["tables"][1]["tableSchema"]["columns"]:
+for obj in metadata["tables"][0]["tableSchema"]["columns"]:
     if obj["name"] == "measure_type":
         obj["datatype"] = 'string'
 
