@@ -81,8 +81,7 @@
         "value": "http://gss-data.org.uk/def/concept/measurement-units/{unit}"
       },
       "Value": {
-        "datatype": "double",
-        "unit": "http://gss-data.org.uk/def/concept/measurement-units/ranks"
+        "datatype": "double"
       },
       "Marker": {
         "attribute": "http://purl.org/linked-data/sdmx/2009/attribute#obsStatus",
