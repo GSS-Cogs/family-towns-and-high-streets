@@ -461,6 +461,22 @@ with open("info.json", "w") as jsonFile:
 df
 
 
+# In[ ]:
+
+
+metadata_json = open("./out/indicators-observations.csv-metadata.json", "r")
+metadata = json.load(metadata_json)
+metadata_json.close()
+
+for obj in metadata["tables"][1]["tableSchema"]["columns"]:
+    if obj["name"] in ["total_population", "working_age_population"] :
+        obj.pop('valueUrl', None)
+
+metadata_json = open("./out/indicators-observations.csv-metadata.json", "w")
+json.dump(metadata, metadata_json, indent=4)
+metadata_json.close()
+
+
 # In[310]:
 
 
