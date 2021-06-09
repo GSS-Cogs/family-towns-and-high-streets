@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[65]:
+# In[29]:
 
 
 # -*- coding: utf-8 -*-
@@ -47,7 +47,7 @@ for page in pubPages:
         print(urljoin("https://www.gov.scot", i['href']))"""
 
 
-# In[66]:
+# In[30]:
 
 
 
@@ -55,7 +55,7 @@ for page in pubPages:
 #len(tabs)
 
 
-# In[67]:
+# In[31]:
 
 
 
@@ -131,7 +131,7 @@ tidied_sheets["Data"] = tidy_sheet.topandas()
 """
 
 
-# In[68]:
+# In[32]:
 
 
 # Sheet names
@@ -157,7 +157,7 @@ ti = [
 pa = ['/ranks', '/indicators']
 
 
-# In[69]:
+# In[33]:
 
 
 # need to change the dataURLa to the indicators one
@@ -181,7 +181,7 @@ cubes = Cubes(info)
 scraper
 
 
-# In[70]:
+# In[34]:
 
 
 try:
@@ -240,20 +240,20 @@ except Exception as s:
     print(str(s))
 
 
-# In[71]:
+# In[35]:
 
 
 joined_dat
 
 
-# In[72]:
+# In[36]:
 
 
 print(joined_dat.head(5))
 del joined_dat
 
 
-# In[73]:
+# In[37]:
 
 
 
@@ -274,7 +274,7 @@ scraper.distributions[0].title = "Scottish Index of Multiple Deprivation 2020"
 scraper
 
 
-# In[74]:
+# In[38]:
 
 
 
@@ -425,7 +425,7 @@ except Exception as s:
     print(str(s))
 
 
-# In[75]:
+# In[39]:
 
 
 # Need to change the dataURL back to the RANK URL ready for the next run
@@ -439,19 +439,19 @@ with open("info.json", "w") as jsonFile:
     json.dump(data, jsonFile, indent = 2)
 
 
-# In[76]:
+# In[40]:
 
 
 df
 
 
-# In[77]:
+# In[41]:
 
 
 cubes.output_all()
 
 
-# In[78]:
+# In[42]:
 
 
 metadata_json = open("./out/indicators-observations.csv-metadata.json", "r")
@@ -461,6 +461,9 @@ metadata_json.close()
 for obj in metadata["tables"][0]["tableSchema"]["columns"]:
     if obj["name"] == "measure_type":
         obj["datatype"] = 'string'
+    elif obj["name"] == "value":
+        obj["datatype"] = "double"
+        obj["propertyUrl"] = "http://gss-data.org.uk/def/measure/{measure_type}"
 
 metadata_json = open("./out/indicators-observations.csv-metadata.json", "w")
 json.dump(metadata, metadata_json, indent=4)
