@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[116]:
+# In[297]:
 
 
 # -*- coding: utf-8 -*-
@@ -47,7 +47,7 @@ for page in pubPages:
         print(urljoin("https://www.gov.scot", i['href']))"""
 
 
-# In[117]:
+# In[298]:
 
 
 
@@ -55,7 +55,7 @@ for page in pubPages:
 #len(tabs)
 
 
-# In[118]:
+# In[299]:
 
 
 
@@ -131,7 +131,7 @@ tidied_sheets["Data"] = tidy_sheet.topandas()
 """
 
 
-# In[119]:
+# In[300]:
 
 
 # Sheet names
@@ -157,7 +157,7 @@ ti = [
 pa = ['/ranks', '/indicators']
 
 
-# In[120]:
+# In[301]:
 
 
 # need to change the dataURLa to the indicators one
@@ -165,7 +165,6 @@ with open("info.json", "r") as jsonFile:
     data = json.load(jsonFile)
 
 data["dataURL"] = "https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/01/scottish-index-of-multiple-deprivation-2020-ranks-and-domain-ranks/documents/scottish-index-of-multiple-deprivation-2020-ranks-and-domain-ranks/scottish-index-of-multiple-deprivation-2020-ranks-and-domain-ranks/govscot%3Adocument/SIMD%2B2020v2%2B-%2Branks.xlsx"
-data["transform"]["columns"]["Value"]["unit"] = "http://gss-data.org.uk/def/concept/measurement-units/ranks"
 
 with open("info.json", "w") as jsonFile:
     json.dump(data, jsonFile, indent = 2)
@@ -181,7 +180,7 @@ cubes = Cubes(info)
 scraper
 
 
-# In[121]:
+# In[302]:
 
 
 try:
@@ -240,20 +239,20 @@ except Exception as s:
     print(str(s))
 
 
-# In[122]:
+# In[303]:
 
 
 joined_dat
 
 
-# In[123]:
+# In[304]:
 
 
 print(joined_dat.head(5))
 del joined_dat
 
 
-# In[124]:
+# In[305]:
 
 
 
@@ -262,7 +261,6 @@ with open("info.json", "r") as jsonFile:
     data = json.load(jsonFile)
 
 data["dataURL"] = "https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/01/scottish-index-of-multiple-deprivation-2020-indicator-data/documents/simd_2020_indicators/simd_2020_indicators/govscot%3Adocument/SIMD%2B2020v2%2B-%2Bindicators.xlsx"
-data["transform"]["columns"]["Value"]["unit"] = "http://gss-data.org.uk/def/concept/measurement-units/indicators"
 
 with open("info.json", "w") as jsonFile:
     json.dump(data, jsonFile, indent = 2)
@@ -274,7 +272,7 @@ scraper.distributions[0].title = "Scottish Index of Multiple Deprivation 2020"
 scraper
 
 
-# In[125]:
+# In[306]:
 
 
 
@@ -391,11 +389,17 @@ try:
     df = df.replace({'Deprivation Indicator' : {'nocentralheat-count' : 'no-central-heat-count',
                                                 'nocentralheat-rate' : 'no-central-heat-rate'}})
 
-    df['Measure Type'] = df['Deprivation Indicator']
+    df['Measure Type'] = df['Indicator Type']
 
-    df['Unit'] = df['Indicator Type']
+    df['Unit'] = df['Measure Type']
 
-    df = df.drop(columns = ['Deprivation Indicator', 'Indicator Type'])
+    df = df.replace({'Unit' : {'count' : 'person',
+                               'percentage' : 'percent',
+                               'rate-per-10-000-population' : 'rate',
+                               'time-minutes' : 'minutes'},
+                     'Measure Type' : {'time-minutes' : 'time'}})
+
+    df = df.drop(columns = ['Indicator Type'])
 
     df['Value'] = df.apply(lambda x: np.nan if x['Marker'] != '' else x['Value'], axis = 1)
 
@@ -412,6 +416,13 @@ try:
 
     cubes.add_cube(scraper, df, csvName)
 
+    from IPython.core.display import HTML
+    for col in df:
+        if col not in ['Value']:
+            df[col] = df[col].astype('category')
+            display(HTML(f"<h2>{col}</h2>"))
+            display(df[col].cat.categories)
+
     #csvw_transform = CSVWMapping()
     #csvw_transform.set_csv(out / csvName)
     #csvw_transform.set_mapping(json.load(open('info.json')))
@@ -425,7 +436,13 @@ except Exception as s:
     print(str(s))
 
 
-# In[126]:
+# In[307]:
+
+
+df
+
+
+# In[308]:
 
 
 # Need to change the dataURL back to the RANK URL ready for the next run
@@ -433,62 +450,19 @@ with open("info.json", "r") as jsonFile:
     data = json.load(jsonFile)
 
 data["dataURL"] = "https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/01/scottish-index-of-multiple-deprivation-2020-ranks-and-domain-ranks/documents/scottish-index-of-multiple-deprivation-2020-ranks-and-domain-ranks/scottish-index-of-multiple-deprivation-2020-ranks-and-domain-ranks/govscot%3Adocument/SIMD%2B2020v2%2B-%2Branks.xlsx"
-data["transform"]["columns"]["Value"]["unit"] = "http://gss-data.org.uk/def/concept/measurement-units/ranks"
 
 with open("info.json", "w") as jsonFile:
     json.dump(data, jsonFile, indent = 2)
 
 
-# In[127]:
+# In[309]:
 
 
 df
 
 
-# In[128]:
+# In[310]:
 
 
 cubes.output_all()
-
-
-# In[129]:
-
-
-metadata_json = open("./out/indicators-observations.csv-metadata.json", "r")
-metadata = json.load(metadata_json)
-metadata_json.close()
-
-for obj in metadata["tables"][0]["tableSchema"]["columns"]:
-    if obj["name"] == "measure_type":
-        obj["datatype"] = 'string'
-    elif obj["name"] == "value":
-        obj["datatype"] = "double"
-        obj["propertyUrl"] = "http://gss-data.org.uk/def/measure/{measure_type}"
-    elif obj["name"] in ["total_population", "working_age_population"] :
-        obj.pop('valueUrl', None)
-
-metadata_json = open("./out/indicators-observations.csv-metadata.json", "w")
-json.dump(metadata, metadata_json, indent=4)
-metadata_json.close()
-
-
-# In[130]:
-
-
-metadata_json = open("./out/ranks-observations.csv-metadata.json", "r")
-metadata = json.load(metadata_json)
-metadata_json.close()
-
-for obj in metadata["tables"][0]["tableSchema"]["columns"]:
-    if obj["name"] == "measure_type":
-        obj["datatype"] = 'string'
-    elif obj["name"] == "value":
-        obj["datatype"] = "double"
-        obj["propertyUrl"] = "http://gss-data.org.uk/def/measure/{measure_type}"
-    elif obj["name"] in ["total_population", "working_age_population"] :
-        obj.pop('valueUrl', None)
-
-metadata_json = open("./out/ranks-observations.csv-metadata.json", "w")
-json.dump(metadata, metadata_json, indent=4)
-metadata_json.close()
 

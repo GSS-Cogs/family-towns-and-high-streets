@@ -1,0 +1,136 @@
+{
+    "@context": "http://www.w3.org/ns/csvw",
+    "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-indicator",
+    "url": "deprivation-indicator.csv",
+    "rdfs:label": "Deprivation Indicator",
+    "dc:title": "Deprivation Indicator",
+    "tableSchema": {
+        "columns": [
+            {
+                "titles": "Label",
+                "name": "label",
+                "datatype": "string",
+                "required": true,
+                "propertyUrl": "rdfs:label"
+            },
+            {
+                "titles": "Notation",
+                "name": "notation",
+                "datatype": {
+                    "base": "string",
+                    "format": "^-?[\\w\\.\\/\\+]+(-[\\w\\.\\/\\+]+)*$"
+                },
+                "required": true,
+                "propertyUrl": "skos:notation"
+            },
+            {
+                "titles": "Parent Notation",
+                "name": "parent_notation",
+                "datatype": {
+                    "base": "string",
+                    "format": "^(-?[\\w\\.\\/\\+]+(-[\\w\\.\\/\\+]+)*|)$"
+                },
+                "required": false,
+                "propertyUrl": "skos:broader",
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#concept/deprivation-indicator/{parent_notation}"
+            },
+            {
+                "titles": "Sort Priority",
+                "name": "sort_priority",
+                "datatype": "integer",
+                "required": false,
+                "propertyUrl": "http://www.w3.org/ns/ui#sortPriority"
+            },
+            {
+                "virtual": true,
+                "propertyUrl": "rdf:type",
+                "valueUrl": "skos:Concept"
+            },
+            {
+                "virtual": true,
+                "propertyUrl": "skos:inScheme",
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-indicator"
+            }
+        ],
+        "primaryKey": "notation",
+        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#concept/deprivation-indicator/{notation}"
+    },
+    "prov:hadDerivation": {
+        "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-indicator",
+        "@type": [
+            "skos:ConceptScheme",
+            "http://publishmydata.com/pmdcat#ConceptScheme"
+        ]
+    },
+    "rdfs:seeAlso": [
+        {
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-indicator/dataset",
+            "@type": [
+                "dcat:Dataset",
+                "http://publishmydata.com/pmdcat#Dataset"
+            ],
+            "http://publishmydata.com/pmdcat#datasetContents": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-indicator"
+            },
+            "http://publishmydata.com/pmdcat#graph": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-indicator"
+            },
+            "dc:modified": {
+                "@type": "dateTime",
+                "@value": "2021-06-07T12:49:30.834267"
+            },
+            "rdfs:label": "Deprivation Indicator",
+            "dc:title": "Deprivation Indicator",
+            "rdfs:comment": "Dataset representing the 'Deprivation Indicator' code list.",
+            "dc:issued": {
+                "@type": "dateTime",
+                "@value": "2021-06-07T12:49:30.834267"
+            },
+            "dc:license": {
+                "@id": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+            },
+            "dc:creator": {
+                "@id": "https://www.gov.scot/statistics-and-research/"
+            },
+            "dc:publisher": {
+                "@id": "https://www.gov.scot/statistics-and-research/"
+            },
+            "dcat:contactPoint": {
+                "@id": "simd@gov.scot"
+            },
+            "dcat:landingPage": {
+                "@id": "https://www.gov.scot/collections/scottish-index-of-multiple-deprivation-2020/"
+            },
+            "http://publishmydata.com/pmdcat#markdownDescription": {
+                "@type": "https://www.w3.org/ns/iana/media-indicators/text/markdown#Resource",
+                "@value": "The Scottish Index of Multiple Deprivation is a relative measure of deprivation across 6,976 small areas (called data zones). If an area is identified as \\u2018deprived\\u2019, this can relate to people having a low income but it can also mean fewer resources or opportunities. SIMD looks at the extent to which an area is deprived across seven domains: income, employment, education, health, access to services, crime and housing."
+            }
+        },
+        {
+            "@id": "http://gss-data.org.uk/catalog/vocabularies",
+            "dcat:record": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-indicator/catalog-record"
+            }
+        },
+        {
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-indicator/catalog-record",
+            "@type": "dcat:CatalogRecord",
+            "foaf:primaryTopic": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-indicator/dataset"
+            },
+            "http://publishmydata.com/pmdcat#metadataGraph": {
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020#scheme/deprivation-indicator"
+            },
+            "dc:title": "Deprivation Indicator Catalog Record",
+            "rdfs:label": "Deprivation Indicator Catalog Record",
+            "dc:issued": {
+                "@type": "dateTime",
+                "@value": "2021-06-07T12:49:30.834267"
+            },
+            "dc:modified": {
+                "@type": "dateTime",
+                "@value": "2021-06-07T12:49:30.834267"
+            }
+        }
+    ]
+}

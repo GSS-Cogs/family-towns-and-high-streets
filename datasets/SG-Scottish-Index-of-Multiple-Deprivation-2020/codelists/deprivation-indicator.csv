@@ -1,0 +1,33 @@
+Label,Notation,Parent Notation,Sort Priority
+income-rate,Income Rate,,0
+income-count,Income Count,,1
+employment-rate,Employment Rate,,2
+employment-count,Employment Count,,3
+cif,Comparative Illness Factor,,4
+alcohol,Alcohol Hospital Stays,,5
+drug,Drug Hospital Stays,,6
+smr,Standardised Mortality Ratio,,7
+depress,"Depression, Anxiety, or Psychosis Hospital Stays",,8
+lbwt,Low Birth Weight Singleton Births,,9
+emerg,Emergency Hospital Stays,,10
+attendance,School Pupil Attendance,,11
+attainment,Attainment of School Leavers,,12
+no-qualifications,Working Age People with No Qualifications,,13
+not-participating,People Aged 16-20 not Participating in Education,,14
+university,Proportion of 17-21 Yr Olds Entering University,,15
+drive-petrol,Average drive time to a Petrol Station ,,16
+drive-gp,Average drive time to a GP surgery,,17
+drive-post,Average drive time to a post office,,18
+drive-primary,Average drive time to a primary school,,19
+drive-retail,Average drive time to a retail centre,,20
+drive-secondary,Average drive time to a secondary school,,21
+pt-gp,Public transport travel time to a GP,,22
+pt-post,Public transport travel time to a post office,,23
+pt-retail,Public transport travel time to a retail centre,,24
+broadband,Proportion of Premesis with access to Superfast Broadband (>30Mbs),,25
+crime-count,Recorded Crimes of Violence,,26
+crime-rate,Rate of Crimes of Violence,,27
+overcrowded-count,People in households that are overcrowded ,,28
+no-central-heat-count,People in households without central heating,,29
+overcrowded-rate,Percentage of people in households that are overcrowded ,,30
+no-central-heat-rate,Percentage of people in households without central heating,,31

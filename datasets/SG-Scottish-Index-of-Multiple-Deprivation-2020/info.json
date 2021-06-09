@@ -27,52 +27,32 @@
       "High Level Domain": {
         "description": "High Level Domain"
       },
+      "Deprivation Indicator": {
+        "description": "Deprivation Indicator"
+      },
+      "Deprivation Type": {
+        "description": "Deprivation Type"
+      },
       "Total population": {
         "description": "Total population",
-        "value": "{total_population}",
+        "value": "",
         "codelist": false
       },
       "Working age population": {
         "description": "Working age population",
-        "value": "{working_age_population}",
+        "value": "",
         "codelist": false
       },
       "Measure Type": {
         "dimension": "http://purl.org/linked-data/cube#measureType",
         "value": "http://gss-data.org.uk/def/measure/{measure_type}",
         "types": [
-          "income-rate",
-          "income-count",
-          "employment-rate",
-          "employment-count",
-          "cif",
-          "alcohol",
-          "drug",
-          "smr",
-          "depress",
-          "lbwt",
-          "emerg",
-          "attendance",
-          "attainment",
-          "no-qualifications",
-          "not-participating",
-          "university",
-          "drive-petrol",
-          "drive-gp",
-          "drive-post",
-          "drive-primary",
-          "drive-retail",
-          "drive-secondary",
-          "pt-gp",
-          "pt-post",
-          "pt-retail",
-          "broadband",
-          "crime-count",
-          "crime-rate",
-          "overcrowded-count",
-          "no-central-heat-count",
-          "overcrowded-rate",
-          "no-central-heat-rate",
+          "count",
+          "percentage",
+          "rate-per-10-000-population",
+          "score",
+          "standardised-ratio",
+          "time",
           "deprivation-rank"
         ]
       },
