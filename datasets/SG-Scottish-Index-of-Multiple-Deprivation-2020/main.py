@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[297]:
+# In[401]:
 
 
 # -*- coding: utf-8 -*-
@@ -47,7 +47,7 @@ for page in pubPages:
         print(urljoin("https://www.gov.scot", i['href']))"""
 
 
-# In[298]:
+# In[402]:
 
 
 
@@ -55,7 +55,7 @@ for page in pubPages:
 #len(tabs)
 
 
-# In[299]:
+# In[403]:
 
 
 
@@ -131,7 +131,7 @@ tidied_sheets["Data"] = tidy_sheet.topandas()
 """
 
 
-# In[300]:
+# In[404]:
 
 
 # Sheet names
@@ -157,7 +157,7 @@ ti = [
 pa = ['/ranks', '/indicators']
 
 
-# In[301]:
+# In[405]:
 
 
 # need to change the dataURLa to the indicators one
@@ -180,7 +180,7 @@ cubes = Cubes(info)
 scraper
 
 
-# In[302]:
+# In[406]:
 
 
 try:
@@ -239,20 +239,20 @@ except Exception as s:
     print(str(s))
 
 
-# In[303]:
+# In[407]:
 
 
 joined_dat
 
 
-# In[304]:
+# In[408]:
 
 
 print(joined_dat.head(5))
 del joined_dat
 
 
-# In[305]:
+# In[409]:
 
 
 
@@ -272,7 +272,7 @@ scraper.distributions[0].title = "Scottish Index of Multiple Deprivation 2020"
 scraper
 
 
-# In[306]:
+# In[410]:
 
 
 
@@ -436,13 +436,13 @@ except Exception as s:
     print(str(s))
 
 
-# In[307]:
+# In[411]:
 
 
 df
 
 
-# In[308]:
+# In[412]:
 
 
 # Need to change the dataURL back to the RANK URL ready for the next run
@@ -455,20 +455,26 @@ with open("info.json", "w") as jsonFile:
     json.dump(data, jsonFile, indent = 2)
 
 
-# In[309]:
+# In[413]:
 
 
 df
 
 
-# In[ ]:
+# In[414]:
+
+
+cubes.output_all()
+
+
+# In[415]:
 
 
 metadata_json = open("./out/indicators-observations.csv-metadata.json", "r")
 metadata = json.load(metadata_json)
 metadata_json.close()
 
-for obj in metadata["tables"][1]["tableSchema"]["columns"]:
+for obj in metadata["tables"][0]["tableSchema"]["columns"]:
     if obj["name"] in ["total_population", "working_age_population"] :
         obj.pop('valueUrl', None)
 
@@ -477,8 +483,18 @@ json.dump(metadata, metadata_json, indent=4)
 metadata_json.close()
 
 
-# In[310]:
+# In[416]:
 
 
-cubes.output_all()
+metadata_json = open("./out/ranks-observations.csv-metadata.json", "r")
+metadata = json.load(metadata_json)
+metadata_json.close()
+
+for obj in metadata["tables"][0]["tableSchema"]["columns"]:
+    if obj["name"] in ["total_population", "working_age_population"] :
+        obj.pop('valueUrl', None)
+
+metadata_json = open("./out/ranks-observations.csv-metadata.json", "w")
+json.dump(metadata, metadata_json, indent=4)
+metadata_json.close()
 
