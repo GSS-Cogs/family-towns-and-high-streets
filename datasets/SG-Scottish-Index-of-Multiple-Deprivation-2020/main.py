@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[57]:
+# In[116]:
 
 
 # -*- coding: utf-8 -*-
@@ -47,7 +47,7 @@ for page in pubPages:
         print(urljoin("https://www.gov.scot", i['href']))"""
 
 
-# In[58]:
+# In[117]:
 
 
 
@@ -55,7 +55,7 @@ for page in pubPages:
 #len(tabs)
 
 
-# In[59]:
+# In[118]:
 
 
 
@@ -131,7 +131,7 @@ tidied_sheets["Data"] = tidy_sheet.topandas()
 """
 
 
-# In[60]:
+# In[119]:
 
 
 # Sheet names
@@ -157,7 +157,7 @@ ti = [
 pa = ['/ranks', '/indicators']
 
 
-# In[61]:
+# In[120]:
 
 
 # need to change the dataURLa to the indicators one
@@ -181,7 +181,7 @@ cubes = Cubes(info)
 scraper
 
 
-# In[62]:
+# In[121]:
 
 
 try:
@@ -240,20 +240,20 @@ except Exception as s:
     print(str(s))
 
 
-# In[63]:
+# In[122]:
 
 
 joined_dat
 
 
-# In[64]:
+# In[123]:
 
 
 print(joined_dat.head(5))
 del joined_dat
 
 
-# In[65]:
+# In[124]:
 
 
 
@@ -274,7 +274,7 @@ scraper.distributions[0].title = "Scottish Index of Multiple Deprivation 2020"
 scraper
 
 
-# In[66]:
+# In[125]:
 
 
 
@@ -425,7 +425,7 @@ except Exception as s:
     print(str(s))
 
 
-# In[67]:
+# In[126]:
 
 
 # Need to change the dataURL back to the RANK URL ready for the next run
@@ -439,19 +439,19 @@ with open("info.json", "w") as jsonFile:
     json.dump(data, jsonFile, indent = 2)
 
 
-# In[68]:
+# In[127]:
 
 
 df
 
 
-# In[69]:
+# In[128]:
 
 
 cubes.output_all()
 
 
-# In[70]:
+# In[129]:
 
 
 metadata_json = open("./out/indicators-observations.csv-metadata.json", "r")
@@ -464,13 +464,15 @@ for obj in metadata["tables"][0]["tableSchema"]["columns"]:
     elif obj["name"] == "value":
         obj["datatype"] = "double"
         obj["propertyUrl"] = "http://gss-data.org.uk/def/measure/{measure_type}"
+    elif obj["name"] in ["total_population", "working_age_population"] :
+        obj.pop('valueUrl', None)
 
 metadata_json = open("./out/indicators-observations.csv-metadata.json", "w")
 json.dump(metadata, metadata_json, indent=4)
 metadata_json.close()
 
 
-# In[71]:
+# In[130]:
 
 
 metadata_json = open("./out/ranks-observations.csv-metadata.json", "r")
@@ -483,6 +485,8 @@ for obj in metadata["tables"][0]["tableSchema"]["columns"]:
     elif obj["name"] == "value":
         obj["datatype"] = "double"
         obj["propertyUrl"] = "http://gss-data.org.uk/def/measure/{measure_type}"
+    elif obj["name"] in ["total_population", "working_age_population"] :
+        obj.pop('valueUrl', None)
 
 metadata_json = open("./out/ranks-observations.csv-metadata.json", "w")
 json.dump(metadata, metadata_json, indent=4)
