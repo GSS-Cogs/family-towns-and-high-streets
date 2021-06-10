@@ -1,16 +1,38 @@
-# -*- coding: utf-8 -*-
-from gssutils import * 
-import json 
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[201]:
+
+
+from gssutils import *
+import json
 import datetime
 
-info = json.load(open('info.json')) 
-etl_title = info["title"] 
+info = json.load(open('info.json'))
+etl_title = info["title"]
 etl_publisher = info["publisher"]
-print("Publisher: " + etl_publisher) 
-print("Title: " + etl_title) 
+print("Publisher: " + etl_publisher)
+print("Title: " + etl_title)
 
-scraper = Scraper(seed="info.json")   
-scraper 
+cubes = Cubes('info.json')
+
+scraper = Scraper(seed="info.json")
+scraper
+
+
+# In[202]:
+
+
+
+dataURLS = {'Single year of age (GP practice-males)' : 'https://files.digital.nhs.uk/52/59662A/gp-reg-pat-prac-sing-age-male.csv',
+            '5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice)' : 'https://files.digital.nhs.uk/79/FC50B1/gp-reg-pat-prac-quin-age.csv',
+            'Single year of age (GP practice-females)' : 'https://files.digital.nhs.uk/D1/31EEE3/gp-reg-pat-prac-sing-age-female.csv',
+            'Totals (GP practice-all persons)' : 'https://files.digital.nhs.uk/40/2232E5/gp-reg-pat-prac-all.csv',
+            'Single year of age (Commissioning Regions-STPs-CCGs-PCNs)' : 'https://files.digital.nhs.uk/89/FC6DB4/gp-reg-pat-prac-sing-age-regions.csv'}
+
+
+# In[203]:
+
 
 trace = TransformTrace()
 tidied_data = {} # dataframes will be stored in here
@@ -20,8 +42,9 @@ def TimeFormatter(value):
     value_split = value[:2] + '-' + value[2:5].title() + '-' + value[5:]
     value_as_datetime = datetime.datetime.strptime(value_split, '%d-%b-%Y')
     new_value = datetime.datetime.strftime(value_as_datetime, '%Y-%m-%d')
-    return new_value 
+    return new_value
 
+"""
 # hacky way of returning latest data
 current_date = datetime.datetime.now().date()
 current_month = current_date.strftime('%B')
@@ -29,24 +52,30 @@ while scraper.distributions == []:
     scraper.select_dataset(title=lambda x: current_month in x, latest=True)
     current_date = datetime.datetime(current_date.year, current_date.month-1, current_date.day)
     current_month = current_date.strftime('%B')
+    """
 
-for dist in scraper.distributions:
-    # ignore any non csvs
-    if not dist.downloadURL.endswith('.csv'):
-        continue
-        
-    # ignore mapping csv - is just a reference csv, no data
-    if 'mapping' in dist.title.lower():
-        continue
-        
-    link = dist.downloadURL
-    title = dist.title.split(':')[-1].strip()
-    
-    if 'males' in dist.title.lower(): # also covers females
+for title, link in dataURLS.items():
+
+    print(title)
+    print(link)
+
+    if 'males' in title.lower(): # also covers females
+
+        with open("info.json", "r") as jsonFile:
+            data = json.load(jsonFile)
+
+            data["dataURL"] = link
+
+        with open("info.json", "w") as jsonFile:
+            json.dump(data, jsonFile, indent = 2)
+
+        scraper = Scraper(seed="info.json")
+        scraper.distributions[0].title = title
+
         columns = ['Period', 'CCG_CODE', 'ONS_CCG_CODE', 'ORG_CODE', 'POSTCODE', 'SEX', 'AGE', 'Value']
         trace.start(scraper.title, title, columns, link)
-        df = dist.as_pandas()
-        
+        df = scraper.distributions[0].as_pandas()
+
         trace.Period('Values taken from "EXTRACT_DATE" column')
         trace.CCG_CODE('Values taken from "CCG_CODE" column')
         trace.ONS_CCG_CODE('Values taken from "ONS_CCG_CODE" column')
@@ -55,22 +84,34 @@ for dist in scraper.distributions:
         trace.SEX('Values taken from "SEX" column')
         trace.AGE('Values taken from "AGE" column')
         trace.Value('Values taken from "NUMBER_OF_PATIENTS" column')
-        
+
         df = df.rename(columns={'EXTRACT_DATE':'Period', 'NUMBER_OF_PATIENTS':'Value'})
         trace.Period('Rename column from "EXTRACT_DATE" to "Period"')
         trace.Value('Rename column from "NUMBER_OF_PATIENTS" to "Value"')
-        
+
         df['Period'] = df['Period'].apply(TimeFormatter)
         trace.Period('Values have been formatted to "yyyy-mm-dd"')
-        
+
         trace.store(title, df)
         tidied_data[title] = df
-        
-    elif 'age groups' in dist.title.lower():
+
+    elif 'age groups' in title.lower():
+
+        with open("info.json", "r") as jsonFile:
+            data = json.load(jsonFile)
+
+            data["dataURL"] = link
+
+        with open("info.json", "w") as jsonFile:
+            json.dump(data, jsonFile, indent = 2)
+
+        scraper = Scraper(seed="info.json")
+        scraper.distributions[0].title = title
+
         columns = ['Period', 'PUBLICATION', 'ORG_TYPE', 'ORG_CODE', 'ONS_CODE', 'POSTCODE', 'SEX', 'AGE_GROUP_5', 'Value']
         trace.start(scraper.title, title, columns, link)
-        df = dist.as_pandas()
-        
+        df = scraper.distributions[0].as_pandas()
+
         trace.Period('Values taken from "EXTRACT_DATE" column')
         trace.PUBLICATION('Values taken from "PUBLICATION" column')
         trace.ORG_TYPE('Values taken from "ORG_TYPE" column')
@@ -80,25 +121,37 @@ for dist in scraper.distributions:
         trace.SEX('Values taken from "SEX" column')
         trace.AGE_GROUP_5('Values taken from "AGE_GROUP_5" column')
         trace.Value('Values taken from "NUMBER_OF_PATIENTS" column')
-        
+
         df = df.rename(columns={'EXTRACT_DATE':'Period', 'NUMBER_OF_PATIENTS':'Value'})
         trace.Period('Rename column from "EXTRACT_DATE" to "Period"')
         trace.Value('Rename column from "NUMBER_OF_PATIENTS" to "Value"')
-        
+
         df['Period'] = df['Period'].apply(TimeFormatter)
         trace.Period('Values have been formatted to "yyyy-mm-dd"')
-        
+
         # reordered df
         df = df[columns]
-        
+
         trace.store(title, df)
         tidied_data[title] = df
-        
-    elif 'totals' in dist.title.lower():
+
+    elif 'totals' in title.lower():
+
+        with open("info.json", "r") as jsonFile:
+            data = json.load(jsonFile)
+
+            data["dataURL"] = link
+
+        with open("info.json", "w") as jsonFile:
+            json.dump(data, jsonFile, indent = 2)
+
+        scraper = Scraper(seed="info.json")
+        scraper.distributions[0].title = title
+
         columns = ['Period', 'PUBLICATION', 'TYPE', 'CCG_CODE', 'ONS_CCG_CODE', 'CODE', 'POSTCODE', 'SEX', 'AGE', 'Value']
         trace.start(scraper.title, title, columns, link)
-        df = dist.as_pandas()
-        
+        df = scraper.distributions[0].as_pandas()
+
         trace.Period('Values taken from "EXTRACT_DATE" column')
         trace.PUBLICATION('Values taken from "PUBLICATION" column')
         trace.TYPE('Values taken from "TYPE" column')
@@ -109,25 +162,37 @@ for dist in scraper.distributions:
         trace.SEX('Values taken from "SEX" column')
         trace.AGE('Values taken from "AGE" column')
         trace.Value('Values taken from "NUMBER_OF_PATIENTS" column')
-        
+
         df = df.rename(columns={'EXTRACT_DATE':'Period', 'NUMBER_OF_PATIENTS':'Value'})
         trace.Period('Rename column from "EXTRACT_DATE" to "Period"')
         trace.Value('Rename column from "NUMBER_OF_PATIENTS" to "Value"')
-        
+
         df['Period'] = df['Period'].apply(TimeFormatter)
         trace.Period('Values have been formatted to "yyyy-mm-dd"')
-        
+
         # reordered df
         df = df[columns]
-        
+
         trace.store(title, df)
         tidied_data[title] = df
-        
-    elif 'region' in dist.title.lower():
+
+    elif 'region' in title.lower():
+
+        with open("info.json", "r") as jsonFile:
+            data = json.load(jsonFile)
+
+            data["dataURL"] = link
+
+        with open("info.json", "w") as jsonFile:
+            json.dump(data, jsonFile, indent = 2)
+
+        scraper = Scraper(seed="info.json")
+        scraper.distributions[0].title = title
+
         columns = ['Period', 'PUBLICATION', 'ORG_TYPE', 'ORG_CODE', 'ONS_CODE', 'SEX', 'AGE', 'Value']
         trace.start(scraper.title, title, columns, link)
-        df = dist.as_pandas()
-        
+        df = scraper.distributions[0].as_pandas()
+
         trace.Period('Values taken from "EXTRACT_DATE" column')
         trace.PUBLICATION('Values taken from "PUBLICATION" column')
         trace.ORG_TYPE('Values taken from "ORG_TYPE" column')
@@ -136,41 +201,26 @@ for dist in scraper.distributions:
         trace.SEX('Values taken from "SEX" column')
         trace.AGE('Values taken from "AGE" column')
         trace.Value('Values taken from "NUMBER_OF_PATIENTS" column')
-        
+
         df = df.rename(columns={'EXTRACT_DATE':'Period', 'NUMBER_OF_PATIENTS':'Value'})
         trace.Period('Rename column from "EXTRACT_DATE" to "Period"')
         trace.Value('Rename column from "NUMBER_OF_PATIENTS" to "Value"')
-        
+
         df['Period'] = df['Period'].apply(TimeFormatter)
         trace.Period('Values have been formatted to "yyyy-mm-dd"')
-        
+
         # reordered df
         df = df[columns]
-        
+
         trace.store(title, df)
         tidied_data[title] = df
 
-out = Path('out')
-out.mkdir(exist_ok=True)
+df
 
-#trace.render("spec_v1.html")
-"""
-for key in tidied_data:
-    df = tidied_data[key]
-    df.drop_duplicates().to_csv(out / f'{key}.csv', index=False)
-"""
-for key in tidied_data:
-    print(key)
 
-# First dataset includes the following data
-    #Totals (GP practice-all persons)
-    #Single year of age (GP practice-females)
-    #Single year of age (GP practice-males)
+# In[204]:
 
-    # Only GP data from the following
-    #5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice)
 
-# +
 del tidied_data['Totals (GP practice-all persons)']['PUBLICATION']
 del tidied_data['Totals (GP practice-all persons)']['TYPE']
 del tidied_data['Totals (GP practice-all persons)']['CCG_CODE']
@@ -183,7 +233,10 @@ del tidied_data['Single year of age (GP practice-females)']['CCG_CODE']
 #del tidied_data['Single year of age (GP practice-males)']['TYPE']
 del tidied_data['Single year of age (GP practice-males)']['CCG_CODE']
 
-# +
+
+# In[205]:
+
+
 tidied_data['Totals (GP practice-all persons)'] = tidied_data['Totals (GP practice-all persons)'].rename(columns={
     #'CCG_CODE': 'CCG Code',
     'ONS_CCG_CODE': 'ONS CCG Code',
@@ -221,7 +274,10 @@ tidied_data['5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice
 })
 #tidied_data['5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice)']
 
-# +
+
+# In[206]:
+
+
 # In the 5 year age group only GP data has a post code so extract it and add to the GP dataset
 # but it does not have an ONS Code or CCG Code so map it from the other data
 gp5yr = tidied_data['5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice)']
@@ -243,15 +299,18 @@ del un['count']
 gp5yr['ONS CCG Code'] = gp5yr['Practice Code'].map(un.set_index('Practice Code')['ONS CCG Code'])
 #gp5yr['CCG Code'] = gp5yr['Practice Code'].map(od.set_index('Practice Code')['CCG Code'])
 #gp5yr
-# -
+
+
+# In[207]:
+
 
 gp_practice = pd.concat([tidied_data['Totals (GP practice-all persons)'],
-                         tidied_data['Single year of age (GP practice-females)'], 
+                         tidied_data['Single year of age (GP practice-females)'],
                          tidied_data['Single year of age (GP practice-males)'],
                          gp5yr], sort=True)
 #gp_practice['CCG Code'] = gp_practice['CCG Code'].apply(pathify)
 gp_practice['Practice Code'] = gp_practice['Practice Code'].apply(pathify)
-gp_practice['Age'] = gp_practice['Age'].str.replace('_','T') 
+gp_practice['Age'] = gp_practice['Age'].str.replace('_','T')
 gp_practice['Age'] = 'Y' + gp_practice['Age'].astype(str)
 gp_practice['Sex'] = gp_practice['Sex'].replace({
     'ALL':'T',
@@ -261,7 +320,7 @@ gp_practice['Sex'] = gp_practice['Sex'].replace({
     'MALES':'M',
     'UNKNOWN':'U'
 })
-gp_practice['Period'] = 'day/' + gp_practice['Period'].astype(str) 
+gp_practice['Period'] = 'day/' + gp_practice['Period'].astype(str)
 gp_practice['Post Code'] = gp_practice['Post Code'].str.replace(' ', '')
 gp_practice = gp_practice[['Period','ONS CCG Code','Post Code','Practice Code','Age','Sex','Value']]
 
@@ -276,7 +335,9 @@ gp_practice = gp_practice[['Period','ONS CCG Code','Post Code','Practice Code','
 #        print("#######################################")
 
 
-# +
+# In[208]:
+
+
 import os
 from urllib.parse import urljoin
 
@@ -287,16 +348,19 @@ Quarterly publications in January, April, July and October will include Lower La
 The outbreak of Coronavirus (COVID-19) has led to changes in the work of General Practices and subsequently the data within this publication. Until activity in this healthcare setting stabilises, we urge caution in drawing any conclusions from these data without consideration of the country
 """
 
-csvName = 'gp_observations.csv'
-out = Path('out')
-out.mkdir(exist_ok=True)
-gp_practice.drop_duplicates().to_csv(out / csvName, index = False)
-gp_practice.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+csvName = 'gp_observations'
 
-scraper.dataset.family = 'towns-high-streets'
+scraper.dataset.family = 'towns-and-high-streets'
 scraper.dataset.description = notes
 scraper.dataset.comment = 'Data for this publication are extracted each month as a snapshot in time from the Primary Care Registration database within the NHAIS (National Health Application and Infrastructure Services) system.'
 scraper.dataset.title = 'Patients Registered at a GP Practice - GP'
+
+cubes.add_cube(scraper, gp_practice, csvName)
+
+"""out = Path('out')
+out.mkdir(exist_ok=True)
+gp_practice.drop_duplicates().to_csv(out / csvName, index = False)
+gp_practice.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 
 dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name) + '/gp').lower()
 scraper.set_base_uri('http://gss-data.org.uk')
@@ -309,8 +373,11 @@ csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._datas
 csvw_transform.write(out / f'{csvName}-metadata.json')
 
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
-    metadata.write(scraper.generate_trig())
-# -
+    metadata.write(scraper.generate_trig())"""
+
+
+# In[209]:
+
 
 del tidied_data['Single year of age (Commissioning Regions-STPs-CCGs-PCNs)']['PUBLICATION']
 del tidied_data['5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice)']['PUBLICATION']
@@ -331,7 +398,10 @@ tidied_data['Single year of age (Commissioning Regions-STPs-CCGs-PCNs)'] = tidie
 })
 #tidied_data['Single year of age (Commissioning Regions-STPs-CCGs-PCNs)'].head(10)
 
-# +
+
+# In[210]:
+
+
 org_practice = pd.concat([tidied_data['Single year of age (Commissioning Regions-STPs-CCGs-PCNs)'],
                          tidied_data['5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice)']
                          ], sort=True)
@@ -345,7 +415,10 @@ org_practice['Sex'] = org_practice['Sex'].replace({
     'UNKNOWN':'U'
 })
 
-# +
+
+# In[211]:
+
+
 #print('All: ' + str(org_practice['Period'].count()))
 
 #for c in org_practice:
@@ -355,7 +428,9 @@ org_practice['Sex'] = org_practice['Sex'].replace({
 #        print(list(org_practice[c].unique()))
 #        print("#######################################")
 
-# -
+
+# In[212]:
+
 
 # We can map CCG, STP and COMM regions to Geograpgy codes but not PCN.
 # So publish PCN on its own and the rest together
@@ -365,28 +440,38 @@ print('PCN data count: ' + str(pcn_practice['Age'].count()))
 org_practice = org_practice[org_practice['ORG Type'] != 'PCN']
 print('Org data count after before removing PCN data: ' + str(org_practice['Age'].count()))
 
-# +
+
+# In[213]:
+
+
 # Pull in the mapping files and concat
-#ccgMap = pd.read_csv('../../Reference/nhs-ccg-map-to-geography.csv') 
-#stpMap = pd.read_csv('../../Reference/nhs-stp-map-to-geography.csv') 
-#comMap = pd.read_csv('../../Reference/nhs-commissioning-region-map-to-geography.csv') 
+#ccgMap = pd.read_csv('../../Reference/nhs-ccg-map-to-geography.csv')
+#stpMap = pd.read_csv('../../Reference/nhs-stp-map-to-geography.csv')
+#comMap = pd.read_csv('../../Reference/nhs-commissioning-region-map-to-geography.csv')
 #allMap = pd.concat([ccgMap, stpMap, comMap])
 # Map the 3 ORG codes (CCG, STP and COMM Region)
 #org_practice['ORG Code'] = org_practice['ORG Code'].map(allMap.set_index('NHS Code')['Geog Code'])
-# -
+
+
+# In[214]:
+
 
 del org_practice['ORG Code']
 org_practice['ORG Type'] = org_practice['ORG Type'].apply(pathify)
 org_practice = org_practice.rename(columns={'ONS Code': 'ONS ORG Code'})
-org_practice['Age'] = org_practice['Age'].str.replace('_','T') 
+org_practice['Age'] = org_practice['Age'].str.replace('_','T')
 org_practice['Age'] = 'Y' + org_practice['Age'].astype(str)
 org_practice['Period'] = 'day/' + org_practice['Period'].astype(str)
 org_practice = org_practice[['Period','ONS ORG Code','ORG Type','Age','Sex','Value']]
-
+org_practice['Age'] = org_practice.apply(lambda x: str(x['Age']).replace('.0', '') if '.0' in str(x['Age']) else x['Age'], axis = 1)
 org_practice['Age'].unique()
 #org_practice.head(10)
+org_practice
 
-# +
+
+# In[215]:
+
+
 notes = f"""
 Data for this publication are extracted each month as a snapshot in time from the Primary Care Registration database within the NHAIS (National Health Application and Infrastructure Services) system.
 GP Practice; Primary Care Network (PCN); Sustainability and transformation partnership (STP); Clinical Commissioning Group (CCG) and NHS England Commissioning Region level data are released in single year of age (SYOA) and 5-year age bands, both of which finish at 95+, split by gender. In addition, organisational mapping data is available to derive STP; PCN; CCG and Commissioning Region associated with a GP practice and is updated each month to give relevant organisational mapping.
@@ -394,16 +479,19 @@ Quarterly publications in January, April, July and October will include Lower La
 The outbreak of Coronavirus (COVID-19) has led to changes in the work of General Practices and subsequently the data within this publication. Until activity in this healthcare setting stabilises, we urge caution in drawing any conclusions from these data without consideration of the country
 """
 
-csvName = 'org_observations.csv'
-out = Path('out')
-out.mkdir(exist_ok=True)
-org_practice.drop_duplicates().to_csv(out / csvName, index = False)
-org_practice.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+csvName = 'org_observations'
 
-scraper.dataset.family = 'towns-high-streets'
+scraper.dataset.family = 'towns-and-high-streets'
 scraper.dataset.description = notes
 scraper.dataset.comment = 'Data for this publication are extracted each month as a snapshot in time from the Primary Care Registration database within the NHAIS (National Health Application and Infrastructure Services) system.'
 scraper.dataset.title = 'Patients Registered at a GP Practice - CCG, STP, Comm Region'
+
+cubes.add_cube(scraper, org_practice, csvName)
+
+"""out = Path('out')
+out.mkdir(exist_ok=True)
+org_practice.drop_duplicates().to_csv(out / csvName, index = False)
+org_practice.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 
 dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name) + '/org').lower()
 scraper.set_base_uri('http://gss-data.org.uk')
@@ -416,20 +504,27 @@ csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._datas
 csvw_transform.write(out / f'{csvName}-metadata.json')
 
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
-    metadata.write(scraper.generate_trig())
-# -
+    metadata.write(scraper.generate_trig())"""
+
+
+# In[216]:
+
 
 del pcn_practice['ONS Code']
 pcn_practice = pcn_practice.rename(columns={'ORG Code': 'PCN Code'})
-pcn_practice['Age'] = pcn_practice['Age'].str.replace('_','T') 
+pcn_practice['Age'] = pcn_practice['Age'].str.replace('_','T')
 pcn_practice['Age'] = 'Y' + pcn_practice['Age'].astype(str)
 pcn_practice['ORG Type'] = pcn_practice['ORG Type'].apply(pathify)
 pcn_practice['PCN Code'] = pcn_practice['PCN Code'].apply(pathify)
 pcn_practice['Period'] = 'day/' + pcn_practice['Period'].astype(str)
+pcn_practice['Age'] = pcn_practice.apply(lambda x: str(x['Age']).replace('.0', '') if '.0' in str(x['Age']) else x['Age'], axis = 1)
 pcn_practice = pcn_practice[['Period','PCN Code','ORG Type','Age','Sex','Value']]
 #pcn_practice.head()
 
-# +
+
+# In[217]:
+
+
 notes = f"""
 Data for this publication are extracted each month as a snapshot in time from the Primary Care Registration database within the NHAIS (National Health Application and Infrastructure Services) system.
 GP Practice; Primary Care Network (PCN); Sustainability and transformation partnership (STP); Clinical Commissioning Group (CCG) and NHS England Commissioning Region level data are released in single year of age (SYOA) and 5-year age bands, both of which finish at 95+, split by gender. In addition, organisational mapping data is available to derive STP; PCN; CCG and Commissioning Region associated with a GP practice and is updated each month to give relevant organisational mapping.
@@ -437,16 +532,19 @@ Quarterly publications in January, April, July and October will include Lower La
 The outbreak of Coronavirus (COVID-19) has led to changes in the work of General Practices and subsequently the data within this publication. Until activity in this healthcare setting stabilises, we urge caution in drawing any conclusions from these data without consideration of the country
 """
 
-csvName = 'pcn_observations.csv'
-out = Path('out')
-out.mkdir(exist_ok=True)
-pcn_practice.drop_duplicates().to_csv(out / csvName, index = False)
-pcn_practice.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+csvName = 'pcn_observations'
 
 scraper.dataset.family = 'towns-high-streets'
 scraper.dataset.description = notes
 scraper.dataset.comment = 'Data for this publication are extracted each month as a snapshot in time from the Primary Care Registration database within the NHAIS (National Health Application and Infrastructure Services) system.'
 scraper.dataset.title = 'Patients Registered at a GP Practice - PCN'
+
+cubes.add_cube(scraper, pcn_practice, csvName)
+
+"""out = Path('out')
+out.mkdir(exist_ok=True)
+pcn_practice.drop_duplicates().to_csv(out / csvName, index = False)
+pcn_practice.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 
 dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name) + '/pcn').lower()
 scraper.set_base_uri('http://gss-data.org.uk')
@@ -459,17 +557,24 @@ csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._datas
 csvw_transform.write(out / f'{csvName}-metadata.json')
 
 with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
-    metadata.write(scraper.generate_trig())
+    metadata.write(scraper.generate_trig())"""
 
-# +
+
+# In[218]:
+
+
 #scraper.dataset.family = 'towns-high-streets'
-#codelistcreation = ['ORG Code'] 
+#codelistcreation = ['ORG Code']
 #df = pcn_practice
 #codeclass = CSVCodelists()
 #for cl in codelistcreation:
 #    if cl in df.columns:
 #        codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())
-# -
+
+
+# In[222]:
+
+
 """
 import numpy as np
 from urllib.request import urlopen
@@ -488,7 +593,7 @@ for item in xmldoc.iterfind('Organisation'):
     org_dat = pd.concat([org_dat, df])
     del df
     #print(orgID + ' : ' + orgName)
-org_dat = pd.DataFrame(org_dat) 
+org_dat = pd.DataFrame(org_dat)
 
 org_dat['Parent Notation'] = ''
 org_dat['Sort Priority'] = np.arange(len(org_dat)) + 1
@@ -497,7 +602,9 @@ org_dat
 """
 
 
-# +
+# In[220]:
+
+
 # Mapping code form csv file, not neede but just keeping it hear for reference
 #print('Main: ' + str(tidied_data['Totals (GP practice-all persons)'].count()))
 #print('Female: ' + str(tidied_data['Single year of age (GP practice-females)'].count()))
@@ -506,6 +613,10 @@ org_dat
 #print('Males: ' + str(tidied_data['Single year of age (GP practice-males)'].count()))
 #tidied_data['Single year of age (GP practice-females)'].head(10)
 #gp_practice.head(10)
-# -
 
+
+# In[221]:
+
+
+cubes.output_all()
 
