@@ -31,7 +31,7 @@ dataURLS = {'Single year of age (GP practice-males)' : 'https://files.digital.nh
             'Single year of age (Commissioning Regions-STPs-CCGs-PCNs)' : 'https://files.digital.nhs.uk/89/FC6DB4/gp-reg-pat-prac-sing-age-regions.csv'}
 
 
-# In[ ]:
+# In[43]:
 
 
 trace = TransformTrace()
@@ -218,7 +218,7 @@ for title, link in dataURLS.items():
 df
 
 
-# In[ ]:
+# In[44]:
 
 
 del tidied_data['Totals (GP practice-all persons)']['PUBLICATION']
@@ -234,7 +234,7 @@ del tidied_data['Single year of age (GP practice-females)']['CCG_CODE']
 del tidied_data['Single year of age (GP practice-males)']['CCG_CODE']
 
 
-# In[ ]:
+# In[45]:
 
 
 tidied_data['Totals (GP practice-all persons)'] = tidied_data['Totals (GP practice-all persons)'].rename(columns={
@@ -275,7 +275,7 @@ tidied_data['5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice
 #tidied_data['5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice)']
 
 
-# In[ ]:
+# In[46]:
 
 
 # In the 5 year age group only GP data has a post code so extract it and add to the GP dataset
@@ -301,7 +301,7 @@ gp5yr['ONS CCG Code'] = gp5yr['Practice Code'].map(un.set_index('Practice Code')
 #gp5yr
 
 
-# In[ ]:
+# In[47]:
 
 
 gp_practice = pd.concat([tidied_data['Totals (GP practice-all persons)'],
@@ -322,7 +322,7 @@ gp_practice['Sex'] = gp_practice['Sex'].replace({
 })
 gp_practice['Period'] = 'day/' + gp_practice['Period'].astype(str)
 gp_practice['Post Code'] = gp_practice['Post Code'].str.replace(' ', '')
-gp_practice['Age'] = gp_practice['Age'].str.replace('+', ' plus')
+gp_practice['Age'] = gp_practice['Age'].str.replace('+', '-plus')
 gp_practice = gp_practice[['Period','ONS CCG Code','Post Code','Practice Code','Age','Sex','Value']]
 
 # +
@@ -336,7 +336,7 @@ gp_practice = gp_practice[['Period','ONS CCG Code','Post Code','Practice Code','
 #        print("#######################################")
 
 
-# In[ ]:
+# In[48]:
 
 
 import os
@@ -377,7 +377,7 @@ with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())"""
 
 
-# In[ ]:
+# In[49]:
 
 
 del tidied_data['Single year of age (Commissioning Regions-STPs-CCGs-PCNs)']['PUBLICATION']
@@ -400,7 +400,7 @@ tidied_data['Single year of age (Commissioning Regions-STPs-CCGs-PCNs)'] = tidie
 #tidied_data['Single year of age (Commissioning Regions-STPs-CCGs-PCNs)'].head(10)
 
 
-# In[ ]:
+# In[50]:
 
 
 org_practice = pd.concat([tidied_data['Single year of age (Commissioning Regions-STPs-CCGs-PCNs)'],
@@ -417,7 +417,7 @@ org_practice['Sex'] = org_practice['Sex'].replace({
 })
 
 
-# In[ ]:
+# In[51]:
 
 
 #print('All: ' + str(org_practice['Period'].count()))
@@ -430,7 +430,7 @@ org_practice['Sex'] = org_practice['Sex'].replace({
 #        print("#######################################")
 
 
-# In[ ]:
+# In[52]:
 
 
 # We can map CCG, STP and COMM regions to Geograpgy codes but not PCN.
@@ -442,7 +442,7 @@ org_practice = org_practice[org_practice['ORG Type'] != 'PCN']
 print('Org data count after before removing PCN data: ' + str(org_practice['Age'].count()))
 
 
-# In[ ]:
+# In[53]:
 
 
 # Pull in the mapping files and concat
@@ -454,7 +454,7 @@ print('Org data count after before removing PCN data: ' + str(org_practice['Age'
 #org_practice['ORG Code'] = org_practice['ORG Code'].map(allMap.set_index('NHS Code')['Geog Code'])
 
 
-# In[ ]:
+# In[54]:
 
 
 del org_practice['ORG Code']
@@ -465,13 +465,13 @@ org_practice['Age'] = 'Y' + org_practice['Age'].astype(str)
 org_practice['Period'] = 'day/' + org_practice['Period'].astype(str)
 org_practice = org_practice[['Period','ONS ORG Code','ORG Type','Age','Sex','Value']]
 org_practice['Age'] = org_practice.apply(lambda x: str(x['Age']).replace('.0', '') if '.0' in str(x['Age']) else x['Age'], axis = 1)
-org_practice['Age'] = org_practice['Age'].str.replace('+', ' plus')
+org_practice['Age'] = org_practice['Age'].str.replace('+', '-plus')
 org_practice['Age'].unique()
 #org_practice.head(10)
 org_practice
 
 
-# In[ ]:
+# In[55]:
 
 
 notes = f"""
@@ -509,7 +509,7 @@ with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())"""
 
 
-# In[ ]:
+# In[56]:
 
 
 del pcn_practice['ONS Code']
@@ -520,12 +520,12 @@ pcn_practice['ORG Type'] = pcn_practice['ORG Type'].apply(pathify)
 pcn_practice['PCN Code'] = pcn_practice['PCN Code'].apply(pathify)
 pcn_practice['Period'] = 'day/' + pcn_practice['Period'].astype(str)
 pcn_practice['Age'] = pcn_practice.apply(lambda x: str(x['Age']).replace('.0', '') if '.0' in str(x['Age']) else x['Age'], axis = 1)
-pcn_practice['Age'] = pcn_practice['Age'].str.replace('+', ' plus')
+pcn_practice['Age'] = pcn_practice['Age'].str.replace('+', '-plus')
 pcn_practice = pcn_practice[['Period','PCN Code','ORG Type','Age','Sex','Value']]
 #pcn_practice.head()
 
 
-# In[ ]:
+# In[57]:
 
 
 notes = f"""
@@ -563,7 +563,7 @@ with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())"""
 
 
-# In[ ]:
+# In[58]:
 
 
 #scraper.dataset.family = 'towns-high-streets'
@@ -575,7 +575,7 @@ with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
 #        codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())
 
 
-# In[ ]:
+# In[59]:
 
 
 # Mapping code form csv file, not neede but just keeping it hear for reference
@@ -588,7 +588,7 @@ with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
 #gp_practice.head(10)
 
 
-# In[ ]:
+# In[60]:
 
 
 cubes.output_all()
