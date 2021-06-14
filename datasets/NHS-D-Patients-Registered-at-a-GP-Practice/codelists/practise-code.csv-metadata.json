@@ -1,9 +1,9 @@
 {
     "@context": "http://www.w3.org/ns/csvw",
-    "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/age",
-    "url": "age.csv",
-    "rdfs:label": "Age",
-    "dc:title": "Age",
+    "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/practise-code",
+    "url": "practise-code.csv",
+    "rdfs:label": "Practise Code",
+    "dc:title": "Practise Code",
     "tableSchema": {
         "columns": [
             {
@@ -32,7 +32,7 @@
                 },
                 "required": false,
                 "propertyUrl": "skos:broader",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#concept/age/{+parent_notation}"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#concept/practise-code/{+parent_notation}"
             },
             {
                 "titles": "Sort Priority",
@@ -49,14 +49,14 @@
             {
                 "virtual": true,
                 "propertyUrl": "skos:inScheme",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/age"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/practise-code"
             }
         ],
         "primaryKey": "notation",
-        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#concept/age/{+notation}"
+        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#concept/practise-code/{+notation}"
     },
     "prov:hadDerivation": {
-        "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/age",
+        "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/practise-code",
         "@type": [
             "skos:ConceptScheme",
             "http://publishmydata.com/pmdcat#ConceptScheme"
@@ -64,24 +64,24 @@
     },
     "rdfs:seeAlso": [
         {
-            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/age/dataset",
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/practise-code/dataset",
             "@type": [
                 "dcat:Dataset",
                 "http://publishmydata.com/pmdcat#Dataset"
             ],
             "http://publishmydata.com/pmdcat#datasetContents": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/age"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/practise-code"
             },
             "http://publishmydata.com/pmdcat#graph": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/age"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/practise-code"
             },
             "dc:modified": {
                 "@type": "dateTime",
                 "@value": "2021-06-14T13:01:45.923997"
             },
-            "rdfs:label": "Age",
-            "dc:title": "Age",
-            "rdfs:comment": "Dataset representing the 'Age' code list.",
+            "rdfs:label": "Practise Code",
+            "dc:title": "Practise Code",
+            "rdfs:comment": "Dataset representing the 'Practise Code' code list.",
             "dc:issued": {
                 "@type": "dateTime",
                 "@value": "2021-06-14T13:01:45.923997"
@@ -106,20 +106,20 @@
         {
             "@id": "http://gss-data.org.uk/catalog/vocabularies",
             "dcat:record": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/age/catalog-record"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/practise-code/catalog-record"
             }
         },
         {
-            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/age/catalog-record",
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/practise-code/catalog-record",
             "@type": "dcat:CatalogRecord",
             "foaf:primaryTopic": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/age/dataset"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/practise-code/dataset"
             },
             "http://publishmydata.com/pmdcat#metadataGraph": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/age"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice#scheme/practise-code"
             },
-            "dc:title": "Age Catalog Record",
-            "rdfs:label": "Age Catalog Record",
+            "dc:title": "Practise Code Catalog Record",
+            "rdfs:label": "Practise Code Catalog Record",
             "dc:issued": {
                 "@type": "dateTime",
                 "@value": "2021-06-14T13:01:45.923997"
