@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[131]:
+# In[154]:
 
 
 from gssutils import *
 import json
 import datetime
+import glob
+import numpy as np
 
 info = json.load(open('info.json'))
 etl_title = info["title"]
@@ -20,7 +22,7 @@ scraper = Scraper(seed="info.json")
 scraper
 
 
-# In[132]:
+# In[155]:
 
 
 
@@ -31,7 +33,7 @@ dataURLS = {'Single year of age (GP practice-males)' : 'https://files.digital.nh
             'Single year of age (Commissioning Regions-STPs-CCGs-PCNs)' : 'https://files.digital.nhs.uk/89/FC6DB4/gp-reg-pat-prac-sing-age-regions.csv'}
 
 
-# In[133]:
+# In[156]:
 
 
 trace = TransformTrace()
@@ -92,7 +94,7 @@ for title, link in dataURLS.items():
         df['Period'] = df['Period'].apply(TimeFormatter)
         trace.Period('Values have been formatted to "yyyy-mm-dd"')
 
-        trace.store(title, df)
+        #trace.store(title, df)
         tidied_data[title] = df
 
     elif 'age groups' in title.lower():
@@ -132,7 +134,7 @@ for title, link in dataURLS.items():
         # reordered df
         df = df[columns]
 
-        trace.store(title, df)
+        #trace.store(title, df)
         tidied_data[title] = df
 
     elif 'totals' in title.lower():
@@ -173,7 +175,7 @@ for title, link in dataURLS.items():
         # reordered df
         df = df[columns]
 
-        trace.store(title, df)
+        #trace.store(title, df)
         tidied_data[title] = df
 
     elif 'region' in title.lower():
@@ -212,13 +214,13 @@ for title, link in dataURLS.items():
         # reordered df
         df = df[columns]
 
-        trace.store(title, df)
+        #trace.store(title, df)
         tidied_data[title] = df
 
 df
 
 
-# In[134]:
+# In[157]:
 
 
 del tidied_data['Totals (GP practice-all persons)']['PUBLICATION']
@@ -234,7 +236,7 @@ del tidied_data['Single year of age (GP practice-females)']['CCG_CODE']
 del tidied_data['Single year of age (GP practice-males)']['CCG_CODE']
 
 
-# In[135]:
+# In[158]:
 
 
 tidied_data['Totals (GP practice-all persons)'] = tidied_data['Totals (GP practice-all persons)'].rename(columns={
@@ -275,7 +277,7 @@ tidied_data['5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice
 #tidied_data['5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice)']
 
 
-# In[136]:
+# In[159]:
 
 
 # In the 5 year age group only GP data has a post code so extract it and add to the GP dataset
@@ -301,7 +303,7 @@ gp5yr['ONS CCG Code'] = gp5yr['Practice Code'].map(un.set_index('Practice Code')
 #gp5yr
 
 
-# In[137]:
+# In[160]:
 
 
 gp_practice = pd.concat([tidied_data['Totals (GP practice-all persons)'],
@@ -338,7 +340,7 @@ gp_practice = gp_practice.drop_duplicates()
 #        print("#######################################")
 
 
-# In[138]:
+# In[161]:
 
 
 import os
@@ -379,7 +381,7 @@ with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())"""
 
 
-# In[139]:
+# In[162]:
 
 
 del tidied_data['Single year of age (Commissioning Regions-STPs-CCGs-PCNs)']['PUBLICATION']
@@ -402,7 +404,7 @@ tidied_data['Single year of age (Commissioning Regions-STPs-CCGs-PCNs)'] = tidie
 #tidied_data['Single year of age (Commissioning Regions-STPs-CCGs-PCNs)'].head(10)
 
 
-# In[140]:
+# In[163]:
 
 
 org_practice = pd.concat([tidied_data['Single year of age (Commissioning Regions-STPs-CCGs-PCNs)'],
@@ -419,7 +421,7 @@ org_practice['Sex'] = org_practice['Sex'].replace({
 })
 
 
-# In[141]:
+# In[164]:
 
 
 #print('All: ' + str(org_practice['Period'].count()))
@@ -432,7 +434,7 @@ org_practice['Sex'] = org_practice['Sex'].replace({
 #        print("#######################################")
 
 
-# In[142]:
+# In[165]:
 
 
 # We can map CCG, STP and COMM regions to Geograpgy codes but not PCN.
@@ -444,7 +446,7 @@ org_practice = org_practice[org_practice['ORG Type'] != 'PCN']
 print('Org data count after before removing PCN data: ' + str(org_practice['Age'].count()))
 
 
-# In[143]:
+# In[166]:
 
 
 # Pull in the mapping files and concat
@@ -456,7 +458,7 @@ print('Org data count after before removing PCN data: ' + str(org_practice['Age'
 #org_practice['ORG Code'] = org_practice['ORG Code'].map(allMap.set_index('NHS Code')['Geog Code'])
 
 
-# In[144]:
+# In[167]:
 
 
 del org_practice['ORG Code']
@@ -473,7 +475,7 @@ org_practice = org_practice.drop_duplicates()
 org_practice
 
 
-# In[145]:
+# In[168]:
 
 
 notes = f"""
@@ -511,7 +513,7 @@ with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())"""
 
 
-# In[146]:
+# In[169]:
 
 
 del pcn_practice['ONS Code']
@@ -528,7 +530,7 @@ pcn_practice = pcn_practice.drop_duplicates()
 #pcn_practice.head()
 
 
-# In[147]:
+# In[170]:
 
 
 notes = f"""
@@ -566,32 +568,69 @@ with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())"""
 
 
-# In[148]:
+# In[174]:
 
 
-#scraper.dataset.family = 'towns-high-streets'
-#codelistcreation = ['ORG Code']
-#df = pcn_practice
-#codeclass = CSVCodelists()
-#for cl in codelistcreation:
-#    if cl in df.columns:
-#        codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())
+with open("info.json", "r") as jsonFile:
+    data = json.load(jsonFile)
+
+    data["dataURL"] = 'https://files.digital.nhs.uk/EA/E45667/gp-reg-pat-prac-map.csv'
+
+with open("info.json", "w") as jsonFile:
+    json.dump(data, jsonFile, indent = 2)
+
+scraper = Scraper(seed="info.json")
+
+scraper.distributions[0].title = title
+
+df = scraper.distributions[0].as_pandas()
+
+df = df[['PRACTICE_CODE', 'PRACTICE_NAME', 'PCN_CODE', 'PCN_NAME', 'CCG_CODE', 'CCG_NAME']]
+
+df
 
 
-# In[149]:
+# In[196]:
 
 
-# Mapping code form csv file, not neede but just keeping it hear for reference
-#print('Main: ' + str(tidied_data['Totals (GP practice-all persons)'].count()))
-#print('Female: ' + str(tidied_data['Single year of age (GP practice-females)'].count()))
-#print('Males: ' + str(tidied_data['Single year of age (GP practice-males)'].count()))
-#tidied_data['Single year of age (GP practice-females)']['Sex'].unique()
-#print('Males: ' + str(tidied_data['Single year of age (GP practice-males)'].count()))
-#tidied_data['Single year of age (GP practice-females)'].head(10)
-#gp_practice.head(10)
+out = Path('codelists')
+out.mkdir(exist_ok=True)
+
+path = 'out/*'
 
 
-# In[150]:
+# In[ ]:
+
+
+ptcCode = df[['PRACTICE_NAME', 'PRACTICE_CODE']]
+ptcCode = ptcCode.rename(columns = {'PRACTICE_NAME' : 'Label', 'PRACTICE_CODE' : 'Notation'})
+ptcCode = ptcCode.drop_duplicates()
+ptcCode['Parent Notation'] = ''
+ptcCode['Sort Priority'] = ptcCode.index
+ptcCode['Label'] = ptcCode['Label'].str.capitalize()
+ptcCode['Notation'] = ptcCode.apply(lambda x: pathify(x['Notation']), axis = 1)
+ptcCode
+
+ptcCode.drop_duplicates().to_csv(out / 'practice-code.csv', index = False)
+
+
+# In[201]:
+
+
+pcnCode = df[['PCN_NAME', 'PCN_CODE']]
+pcnCode = pcnCode.rename(columns = {'PCN_NAME' : 'Label', 'PCN_CODE' : 'Notation'})
+pcnCode = pcnCode.drop_duplicates()
+pcnCode['Parent Notation'] = ''
+pcnCode['Sort Priority'] = pcnCode.index
+pcnCode['Label'] = ptcCode['Label'].str.capitalize()
+pcnCode['Notation'] = pcnCode.apply(lambda x: pathify(x['Notation']), axis = 1)
+
+pcnCode['Label'] = pcnCode.apply(lambda x: 'Unallocated' if x['Notation'] == 'u' else x['Label'], axis = 1)
+
+pcnCode.drop_duplicates().to_csv(out / 'pcn-code.csv', index = False)
+
+
+# In[172]:
 
 
 cubes.output_all()
