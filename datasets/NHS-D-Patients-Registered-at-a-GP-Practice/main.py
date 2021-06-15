@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[154]:
+# In[49]:
 
 
 from gssutils import *
@@ -22,7 +22,7 @@ scraper = Scraper(seed="info.json")
 scraper
 
 
-# In[155]:
+# In[50]:
 
 
 
@@ -33,7 +33,7 @@ dataURLS = {'Single year of age (GP practice-males)' : 'https://files.digital.nh
             'Single year of age (Commissioning Regions-STPs-CCGs-PCNs)' : 'https://files.digital.nhs.uk/89/FC6DB4/gp-reg-pat-prac-sing-age-regions.csv'}
 
 
-# In[156]:
+# In[51]:
 
 
 trace = TransformTrace()
@@ -220,7 +220,7 @@ for title, link in dataURLS.items():
 df
 
 
-# In[157]:
+# In[52]:
 
 
 del tidied_data['Totals (GP practice-all persons)']['PUBLICATION']
@@ -236,7 +236,7 @@ del tidied_data['Single year of age (GP practice-females)']['CCG_CODE']
 del tidied_data['Single year of age (GP practice-males)']['CCG_CODE']
 
 
-# In[158]:
+# In[53]:
 
 
 tidied_data['Totals (GP practice-all persons)'] = tidied_data['Totals (GP practice-all persons)'].rename(columns={
@@ -277,7 +277,7 @@ tidied_data['5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice
 #tidied_data['5-year age groups (Commissioning Regions-STPs-CCGs-PCNs-GP practice)']
 
 
-# In[159]:
+# In[54]:
 
 
 # In the 5 year age group only GP data has a post code so extract it and add to the GP dataset
@@ -303,7 +303,7 @@ gp5yr['ONS CCG Code'] = gp5yr['Practice Code'].map(un.set_index('Practice Code')
 #gp5yr
 
 
-# In[160]:
+# In[55]:
 
 
 gp_practice = pd.concat([tidied_data['Totals (GP practice-all persons)'],
@@ -329,18 +329,9 @@ gp_practice['Age'] = gp_practice['Age'].str.replace('+', '-plus')
 gp_practice = gp_practice[['Period','ONS CCG Code','Post Code','Practice Code','Age','Sex','Value']]
 
 gp_practice = gp_practice.drop_duplicates()
-# +
-#print('All: ' + str(gp_practice['Period'].count()))
-
-#for c in gp_practice:
-#    if c != 'Value':
-#        print('Column: ' + c)
-#        print('Row count: ' + str(gp_practice[c].count()))
-#        print(list(gp_practice[c].unique()))
-#        print("#######################################")
 
 
-# In[161]:
+# In[56]:
 
 
 import os
@@ -360,28 +351,29 @@ scraper.dataset.description = notes
 scraper.dataset.comment = 'Data for this publication are extracted each month as a snapshot in time from the Primary Care Registration database within the NHAIS (National Health Application and Infrastructure Services) system.'
 scraper.dataset.title = 'Patients Registered at a GP Practice - GP'
 
-cubes.add_cube(scraper, gp_practice, csvName)
+# Relevant assignments
+info_json_dataset_id = info.get('id', Path.cwd().name)
 
-"""out = Path('out')
-out.mkdir(exist_ok=True)
-gp_practice.drop_duplicates().to_csv(out / csvName, index = False)
-gp_practice.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+# Loop over all the unique values of period in table = pd.DataFrame()
+for region in gp_practice['ONS CCG Code'].unique():
 
-dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name) + '/gp').lower()
-scraper.set_base_uri('http://gss-data.org.uk')
-scraper.set_dataset_id(dataset_path)
+    # Read cube here as chunk, these are not qb:cubes
+    if len(cubes.cubes) == 0:
+        # For the first the chunk, create a primary graph graph_uri and csv_name
+        graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice"
+        csv_name = 'gp_observations'
+        cubes.add_cube(scraper, gp_practice[gp_practice['ONS CCG Code'] == region], csv_name, graph=info_json_dataset_id)
+    else:
+        # For subsequent chunk to add, create a secondary graph graph_uri and csv_name
+        graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-and-high-streets/nhs-d-patients-registered-at-a-gp-practice/{region}"
+        csv_name = f"gp_observations-{region}"
+        cubes.add_cube(scraper, gp_practice[gp_practice['ONS CCG Code'] == region], csv_name, graph=info_json_dataset_id,
+                       override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
 
-csvw_transform = CSVWMapping()
-csvw_transform.set_csv(out / csvName)
-csvw_transform.set_mapping(json.load(open('info.json')))
-csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
-csvw_transform.write(out / f'{csvName}-metadata.json')
-
-with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
-    metadata.write(scraper.generate_trig())"""
+#cubes.add_cube(scraper, gp_practice, csvName)
 
 
-# In[162]:
+# In[57]:
 
 
 del tidied_data['Single year of age (Commissioning Regions-STPs-CCGs-PCNs)']['PUBLICATION']
@@ -404,7 +396,7 @@ tidied_data['Single year of age (Commissioning Regions-STPs-CCGs-PCNs)'] = tidie
 #tidied_data['Single year of age (Commissioning Regions-STPs-CCGs-PCNs)'].head(10)
 
 
-# In[163]:
+# In[58]:
 
 
 org_practice = pd.concat([tidied_data['Single year of age (Commissioning Regions-STPs-CCGs-PCNs)'],
@@ -421,7 +413,7 @@ org_practice['Sex'] = org_practice['Sex'].replace({
 })
 
 
-# In[164]:
+# In[59]:
 
 
 #print('All: ' + str(org_practice['Period'].count()))
@@ -434,7 +426,7 @@ org_practice['Sex'] = org_practice['Sex'].replace({
 #        print("#######################################")
 
 
-# In[165]:
+# In[60]:
 
 
 # We can map CCG, STP and COMM regions to Geograpgy codes but not PCN.
@@ -446,7 +438,7 @@ org_practice = org_practice[org_practice['ORG Type'] != 'PCN']
 print('Org data count after before removing PCN data: ' + str(org_practice['Age'].count()))
 
 
-# In[166]:
+# In[61]:
 
 
 # Pull in the mapping files and concat
@@ -458,7 +450,7 @@ print('Org data count after before removing PCN data: ' + str(org_practice['Age'
 #org_practice['ORG Code'] = org_practice['ORG Code'].map(allMap.set_index('NHS Code')['Geog Code'])
 
 
-# In[167]:
+# In[62]:
 
 
 del org_practice['ORG Code']
@@ -475,7 +467,7 @@ org_practice = org_practice.drop_duplicates()
 org_practice
 
 
-# In[168]:
+# In[63]:
 
 
 notes = f"""
@@ -513,7 +505,7 @@ with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())"""
 
 
-# In[169]:
+# In[64]:
 
 
 del pcn_practice['ONS Code']
@@ -530,7 +522,7 @@ pcn_practice = pcn_practice.drop_duplicates()
 #pcn_practice.head()
 
 
-# In[170]:
+# In[65]:
 
 
 notes = f"""
@@ -568,7 +560,7 @@ with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
     metadata.write(scraper.generate_trig())"""
 
 
-# In[174]:
+# In[66]:
 
 
 with open("info.json", "r") as jsonFile:
@@ -590,7 +582,7 @@ df = df[['PRACTICE_CODE', 'PRACTICE_NAME', 'PCN_CODE', 'PCN_NAME', 'CCG_CODE', '
 df
 
 
-# In[196]:
+# In[67]:
 
 
 out = Path('codelists')
@@ -599,7 +591,7 @@ out.mkdir(exist_ok=True)
 path = 'out/*'
 
 
-# In[ ]:
+# In[68]:
 
 
 ptcCode = df[['PRACTICE_NAME', 'PRACTICE_CODE']]
@@ -614,7 +606,7 @@ ptcCode
 ptcCode.drop_duplicates().to_csv(out / 'practice-code.csv', index = False)
 
 
-# In[201]:
+# In[69]:
 
 
 pcnCode = df[['PCN_NAME', 'PCN_CODE']]
@@ -630,7 +622,13 @@ pcnCode['Label'] = pcnCode.apply(lambda x: 'Unallocated' if x['Notation'] == 'u'
 pcnCode.drop_duplicates().to_csv(out / 'pcn-code.csv', index = False)
 
 
-# In[172]:
+# In[69]:
+
+
+
+
+
+# In[70]:
 
 
 cubes.output_all()
