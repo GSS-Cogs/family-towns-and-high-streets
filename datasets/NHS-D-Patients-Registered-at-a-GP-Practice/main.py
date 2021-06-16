@@ -548,7 +548,7 @@ The outbreak of Coronavirus (COVID-19) has led to changes in the work of General
 
 csvName = 'pcn-observations'
 
-scraper.dataset.family = 'towns-high-streets'
+scraper.dataset.family = 'towns-and-high-streets'
 scraper.dataset.description = notes
 scraper.dataset.comment = 'Data for this publication are extracted each month as a snapshot in time from the Primary Care Registration database within the NHAIS (National Health Application and Infrastructure Services) system.'
 scraper.dataset.title = 'Patients Registered at a GP Practice - PCN'
