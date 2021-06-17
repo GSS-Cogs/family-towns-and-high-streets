@@ -1,18 +1,29 @@
-# -*- coding: utf-8 -*-
-from gssutils import * 
-import json 
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[15]:
+
+
+from gssutils import *
+import json
 import math
 import os
 from urllib.parse import urljoin
 
-info = json.load(open('info.json')) 
-etl_title = info["title"] 
+info = json.load(open('info.json'))
+etl_title = info["title"]
 etl_publisher = info["publisher"]
-print("Publisher: " + etl_publisher) 
-print("Title: " + etl_title) 
+print("Publisher: " + etl_publisher)
+print("Title: " + etl_title)
 
-scraper = Scraper(seed="info.json")   
-scraper 
+cubes = Cubes('info.json')
+
+scraper = Scraper(seed="info.json")
+scraper
+
+
+# In[ ]:
+
 
 trace = TransformTrace()
 
@@ -70,39 +81,39 @@ list_of_transform_type_2 = [
 
 tidied_sheets = {} # to be filled with each tab of data
 for distribution in scraper.distributions:
-    
+
     if distribution.title in list_of_transform_type_1:
         tabs = distribution.as_databaker()
         tabs = [tab for tab in tabs if 'metadata' not in tab.name.lower()] # unwanted tabs
-        
+
         for tab in tabs:
             # run assertions here
             assert tab.excel_ref('A1').value == 'lsoacode'
             assert tab.excel_ref('B1').value == 'lsoaname'
             assert tab.excel_ref('C1').value == 'lauacode'
             assert tab.excel_ref('D1').value == 'lauaname'
-            
+
             # trace info
             unique_identifier = distribution.title + ' - ' + tab.name # title of dataset + tab name
             link = distribution.downloadURL
             columns = ['Period', 'lsoacode', 'lsoaname', 'lauacode', 'lauaname', 'Value']
             trace.start(scraper.title, unique_identifier, columns, link)
-            
+
             tidy_sheet_list = [] # list of dataframes for each iteration
             cs_list = [] # list of conversionsegments for each iteration
-    
+
             '''Iterating the databaking process'''
             tab_length = len(tab.excel_ref('A')) # number of rows of data
             batch_number = 10 # iterates over this many rows at a time
             number_of_iterations = math.ceil(tab_length/batch_number) # databaking will iterate this many times
-            
+
             for i in range(0, number_of_iterations):
                 Min = str(2 + batch_number * i)  # data starts on row 2
-                Max = str(int(Min) + batch_number - 1) 
-                
+                Max = str(int(Min) + batch_number - 1)
+
                 '''
                 use "Min" and "Max" to specify a range of cells
-                instead of selecting cells using ".expand(DOWN)"                
+                instead of selecting cells using ".expand(DOWN)"
                 '''
                 lsoa_code = tab.excel_ref('A'+Min+':A'+Max).is_not_blank()
                 lsoa_name = tab.excel_ref('B'+Min+':B'+Max).is_not_blank()
@@ -110,7 +121,7 @@ for distribution in scraper.distributions:
                 laua_code = tab.excel_ref('C'+Min+':C'+Max).is_not_blank()
                 laua_name = tab.excel_ref('D'+Min+':D'+Max).is_not_blank()
 
-                period = tab.excel_ref('E1').expand(RIGHT).is_not_blank() 
+                period = tab.excel_ref('E1').expand(RIGHT).is_not_blank()
                 # will be the same range of cells for each iteration
 
                 obs = period.waffle(lsoa_code)
@@ -128,9 +139,9 @@ for distribution in scraper.distributions:
                     tidy_sheet_iteration = cs_iteration.topandas() # turning conversionsegment into a pandas dataframe
                     cs_list.append(cs_iteration) # add to list
                     tidy_sheet_list.append(tidy_sheet_iteration) # add to list
-                    
+
             tidy_sheet = pd.concat(tidy_sheet_list, sort=False) # dataframe for the whole tab
-            
+
             # trace
             # tracing is more hardcoded
             trace.Period('Values given in range {}', excelRange(period))
@@ -140,13 +151,13 @@ for distribution in scraper.distributions:
             trace.lauaname('Value taken from column "lsoacode" - D2 expanded down')
             trace.Value('Value taken from period columns - E2:O2 expanded down')
             trace.with_preview(cs_list[0])
-            
+
             # some tidying up
             tidy_sheet = tidy_sheet.rename(columns={'OBS':'Value', 'DATAMARKER':'Marker'})
             trace.Value('Renamed "OBS" column as "Value"')
             tidy_sheet['Period'] = tidy_sheet['Period'].apply(PeriodFromColumnName)
             trace.Period('Value changed to only include the year')
-            
+
             if 'Marker' in tidy_sheet.columns:
                 trace.add_column('Marker')
                 trace.Marker('Value taken from "Value" where a value is surpressed')
@@ -158,22 +169,22 @@ for distribution in scraper.distributions:
                 tidy_sheet = tidy_sheet[[
                         'Period', 'lsoacode', 'lsoaname', 'lauacode', 'lauaname', 'Value'
                         ]]
-            
+
             trace.store(unique_identifier, tidy_sheet)
             tidied_sheets[unique_identifier] = tidy_sheet
-            
-            
+
+
     elif distribution.title in list_of_transform_type_2:
         tabs = distribution.as_databaker()
         tabs = [tab for tab in tabs if 'metadata' not in tab.name.lower()] # unwanted tabs
-        
+
         for tab in tabs:
             # trace info
             unique_identifier = distribution.title + ' - ' + tab.name
             link = distribution.downloadURL
             columns = ['Period', 'lauacode', 'lauaname', 'Dimension 1', 'Value']
             trace.start(scraper.title, unique_identifier, columns, link)
-            
+
             pivot = tab.filter(contains_string('lauacode'))
             lauacode = pivot.fill(DOWN).is_not_blank()
             lauaname = lauacode.shift(1, 0)
@@ -191,28 +202,27 @@ for distribution in scraper.distributions:
             cs = ConversionSegment(tab, dimensions, obs)
             tidy_sheet = cs.topandas()
             trace.with_preview(cs)
-            
+
             # trace
             trace.Period('Values given in range {}', excelRange(period))
             trace.lauacode('Values given in range {}', excelRange(lauacode))
             trace.lauaname('Values given in range {}', excelRange(lauaname))
             trace.Dimension_1('Values given in range {}', excelRange(score_rank))
             trace.Value('Values given in range {}', excelRange(obs))
-            
+
             # some tidying up
             tidy_sheet = tidy_sheet.rename(columns={'OBS':'Value'})
             trace.Value('Renamed "OBS" column as "Value"')
             tidy_sheet['Period'] = tidy_sheet['Period'].apply(lambda x: int(float(x))) # removing the '.0'
             trace.Period('Removed ".0" from year')
             tidy_sheet['Dimension 1'] = tidy_sheet['Dimension 1'].apply(ScoreOrRank)
-            trace.Dimension_1('Tidied up dimensions to take one of the values \
-                              ["Average Score", "Rank of Average Score", "Average Rank", "Rank of Average Rank"]')
+            trace.Dimension_1('Tidied up dimensions to take one of the values                               ["Average Score", "Rank of Average Score", "Average Rank", "Rank of Average Rank"]')
             tidy_sheet = tidy_sheet[[
                     'Period', 'lauacode', 'lauaname', 'Dimension 1', 'Value'
                     ]]
 
             trace.store(unique_identifier, tidy_sheet)
-            tidied_sheets[unique_identifier] = tidy_sheet 
+            tidied_sheets[unique_identifier] = tidy_sheet
 
 del tidy_sheet
 del tabs
@@ -259,7 +269,10 @@ for key in tidied_sheets:
 
     #print(tidied_sheets[key].head(10))
 
-# +
+
+# In[ ]:
+
+
 ranksDat = []
 scoreDat = []
 denomDat = []
@@ -294,18 +307,24 @@ del ranksDat, scoreDat, numerDat, denomDat, populDat
 all_dat = [ranks, score, numer, denom, popul]
 del ranks, score, numer, denom, popul
 
-# +
+
+# In[ ]:
+
+
 #all_dat[0].head(10)
 
-# +
-scraper.dataset.family = 'towns-high-streets'
+
+# In[ ]:
+
+
+scraper.dataset.family = 'towns-and-high-streets'
 
 n = [
-    "ranks-observations.csv",
-    "scores-observations.csv",
-    "numerators-observations.csv",
-    "denominators-observations.csv",
-    "population-observations.csv"
+    "ranks-observations",
+    "scores-observations",
+    "numerators-observations",
+    "denominators-observations",
+    "population-observations"
 ]
 
 t = [
@@ -363,29 +382,32 @@ description = """
 """
 mt
 
-# +
+
+# In[ ]:
+
+
 out = Path('out')
 out.mkdir(exist_ok=True)
 scraper.dataset.description = description
 try:
-    
+
     with open('info.json') as f:
         jsn = json.load(f)
-    
+
     i = 0
     for dat in all_dat:
         jsn["transform"]["columns"]["Value"]["unit"] = "http://gss-data.org.uk/def/concept/measurement-units/" + mt[i]
         jsn["transform"]["columns"]["Value"]["measure"] = "http://gss-data.org.uk/def/measure/" + pa[i]
         jsn["transform"]["columns"]["Value"]["datatype"] = dt[i]
-        
+
         if dt[i] == 'integer':
             dat['Value'] = pd.to_numeric(dat['Value'], downcast='integer')
 
         csvName = n[i]
         dat = dat.drop_duplicates()
-        dat.drop_duplicates().to_csv(out / csvName, index = False, header=True)
-        dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
-    
+        #dat.drop_duplicates().to_csv(out / csvName, index = False, header=True)
+        #dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+
         scraper.dataset.comment = c[i]
         scraper.dataset.title = t[i]
 
@@ -393,22 +415,35 @@ try:
         scraper.set_base_uri('http://gss-data.org.uk')
         scraper.set_dataset_id(dataset_path)
 
-        csvw_transform = CSVWMapping()
-        csvw_transform.set_csv(out / csvName)
-        csvw_transform.set_mapping(jsn)
-        csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
-        csvw_transform.write(out / f'{csvName}-metadata.json')
+        # Loop over all the unique values of period in table = pd.DataFrame()
+        for period in dat['Year'].unique():
 
-        with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
-            metadata.write(scraper.generate_trig())
+            # Read cube here as chunk, these are not qb:cubes
+            if len(cubes.cubes) == 0:
+                # For the first the chunk, create a primary graph graph_uri and csv_name
+                graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-and-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}"
+                csv_name = csvName
+                cubes.add_cube(scraper, dat[dat['Year'] == period], csv_name, graph=csvName)
+            else:
+                # For subsequent chunk to add, create a secondary graph graph_uri and csv_name
+                graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-and-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}/{period.split('/')[1]}"
+                csv_name = csvName + '-' + period.split('/')[1]
+                cubes.add_cube(scraper, dat[dat['Year'] == period], csv_name, graph=csvName, override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
+
         i = i + 1
 
 except Exception as s:
     print(str(s))
 
-# +
-#trace.render("spec_v1.html") 
-# -
+
+# In[ ]:
+
+
+cubes.output_all()
+
+
+# In[ ]:
+
 
 """
 Was unsure on a dimension name for the score/rank dimension within the datasets:
@@ -417,14 +452,24 @@ Was unsure on a dimension name for the score/rank dimension within the datasets:
 so dimension is called 'Dimension 1'
 """
 
-# +
+
+# In[ ]:
+
+
 #all_dat[0].head(10)
 
-# +
+
+# In[ ]:
+
+
 #del all_dat[0]['Economic Derivation Indicator']
 #del all_dat[1]['Economic Derivation Indicator']
 #del all_dat[2]['Economic Derivation Indicator']
 #del all_dat[3]['Economic Derivation Indicator']
-# -
+
+
+# In[ ]:
+
+
 
 
