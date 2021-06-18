@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[15]:
+# In[91]:
 
 
 from gssutils import *
@@ -22,7 +22,7 @@ scraper = Scraper(seed="info.json")
 scraper
 
 
-# In[ ]:
+# In[92]:
 
 
 trace = TransformTrace()
@@ -270,7 +270,7 @@ for key in tidied_sheets:
     #print(tidied_sheets[key].head(10))
 
 
-# In[ ]:
+# In[93]:
 
 
 ranksDat = []
@@ -308,13 +308,13 @@ all_dat = [ranks, score, numer, denom, popul]
 del ranks, score, numer, denom, popul
 
 
-# In[ ]:
+# In[94]:
 
 
 #all_dat[0].head(10)
 
 
-# In[ ]:
+# In[95]:
 
 
 scraper.dataset.family = 'towns-and-high-streets'
@@ -383,7 +383,7 @@ description = """
 mt
 
 
-# In[ ]:
+# In[96]:
 
 
 out = Path('out')
@@ -415,15 +415,18 @@ try:
         scraper.set_base_uri('http://gss-data.org.uk')
         scraper.set_dataset_id(dataset_path)
 
+        j = 0
+
         # Loop over all the unique values of period in table = pd.DataFrame()
         for period in dat['Year'].unique():
 
             # Read cube here as chunk, these are not qb:cubes
-            if len(cubes.cubes) == 0:
+            if j == 0:
                 # For the first the chunk, create a primary graph graph_uri and csv_name
                 graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-and-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}"
                 csv_name = csvName
                 cubes.add_cube(scraper, dat[dat['Year'] == period], csv_name, graph=csvName)
+                j += 1
             else:
                 # For subsequent chunk to add, create a secondary graph graph_uri and csv_name
                 graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-and-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}/{period.split('/')[1]}"
@@ -436,13 +439,13 @@ except Exception as s:
     print(str(s))
 
 
-# In[ ]:
+# In[97]:
 
 
 cubes.output_all()
 
 
-# In[ ]:
+# In[98]:
 
 
 """
@@ -453,13 +456,13 @@ so dimension is called 'Dimension 1'
 """
 
 
-# In[ ]:
+# In[99]:
 
 
 #all_dat[0].head(10)
 
 
-# In[ ]:
+# In[100]:
 
 
 #del all_dat[0]['Economic Derivation Indicator']
@@ -468,7 +471,7 @@ so dimension is called 'Dimension 1'
 #del all_dat[3]['Economic Derivation Indicator']
 
 
-# In[ ]:
+# In[100]:
 
 
 
