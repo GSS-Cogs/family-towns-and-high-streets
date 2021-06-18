@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[91]:
+# In[112]:
 
 
 from gssutils import *
@@ -22,7 +22,7 @@ scraper = Scraper(seed="info.json")
 scraper
 
 
-# In[92]:
+# In[113]:
 
 
 trace = TransformTrace()
@@ -270,7 +270,7 @@ for key in tidied_sheets:
     #print(tidied_sheets[key].head(10))
 
 
-# In[93]:
+# In[114]:
 
 
 ranksDat = []
@@ -308,13 +308,13 @@ all_dat = [ranks, score, numer, denom, popul]
 del ranks, score, numer, denom, popul
 
 
-# In[94]:
+# In[115]:
 
 
 #all_dat[0].head(10)
 
 
-# In[95]:
+# In[116]:
 
 
 scraper.dataset.family = 'towns-and-high-streets'
@@ -383,69 +383,56 @@ description = """
 mt
 
 
-# In[96]:
+# In[117]:
 
 
 out = Path('out')
 out.mkdir(exist_ok=True)
 scraper.dataset.description = description
-try:
 
-    with open('info.json') as f:
-        jsn = json.load(f)
-
-    i = 0
-    for dat in all_dat:
-        jsn["transform"]["columns"]["Value"]["unit"] = "http://gss-data.org.uk/def/concept/measurement-units/" + mt[i]
-        jsn["transform"]["columns"]["Value"]["measure"] = "http://gss-data.org.uk/def/measure/" + pa[i]
-        jsn["transform"]["columns"]["Value"]["datatype"] = dt[i]
-
-        if dt[i] == 'integer':
-            dat['Value'] = pd.to_numeric(dat['Value'], downcast='integer')
-
-        csvName = n[i]
-        dat = dat.drop_duplicates()
-        #dat.drop_duplicates().to_csv(out / csvName, index = False, header=True)
-        #dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
-
-        scraper.dataset.comment = c[i]
-        scraper.dataset.title = t[i]
-
-        dataset_path = d_path + "/" + pa[i]
-        scraper.set_base_uri('http://gss-data.org.uk')
-        scraper.set_dataset_id(dataset_path)
-
-        j = 0
-
-        # Loop over all the unique values of period in table = pd.DataFrame()
-        for period in dat['Year'].unique():
-
-            # Read cube here as chunk, these are not qb:cubes
-            if j == 0:
-                # For the first the chunk, create a primary graph graph_uri and csv_name
-                graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-and-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}"
-                csv_name = csvName
-                cubes.add_cube(scraper, dat[dat['Year'] == period], csv_name, graph=csvName)
-                j += 1
-            else:
-                # For subsequent chunk to add, create a secondary graph graph_uri and csv_name
-                graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-and-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}/{period.split('/')[1]}"
-                csv_name = csvName + '-' + period.split('/')[1]
-                cubes.add_cube(scraper, dat[dat['Year'] == period], csv_name, graph=csvName, override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
-
-        i = i + 1
-
-except Exception as s:
-    print(str(s))
+with open('info.json') as f:
+    jsn = json.load(f)
+i = 0
+for dat in all_dat:
+    jsn["transform"]["columns"]["Value"]["unit"] = "http://gss-data.org.uk/def/concept/measurement-units/" + mt[i]
+    jsn["transform"]["columns"]["Value"]["measure"] = "http://gss-data.org.uk/def/measure/" + pa[i]
+    jsn["transform"]["columns"]["Value"]["datatype"] = dt[i]
+    if dt[i] == 'integer':
+        dat['Value'] = pd.to_numeric(dat['Value'], downcast='integer')
+    csvName = n[i]
+    dat = dat.drop_duplicates()
+    #dat.drop_duplicates().to_csv(out / csvName, index = False, header=True)
+    #dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+    scraper.dataset.comment = c[i]
+    scraper.dataset.title = t[i]
+    dataset_path = d_path + "/" + pa[i]
+    scraper.set_base_uri('http://gss-data.org.uk')
+    scraper.set_dataset_id(dataset_path)
+    j = 0
+    # Loop over all the unique values of period in table = pd.DataFrame()
+    for area in dat['Local Authority'].unique():
+        # Read cube here as chunk, these are not qb:cubes
+        if j == 0:
+            # For the first the chunk, create a primary graph graph_uri and csv_name
+            graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-and-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}"
+            csv_name = csvName
+            cubes.add_cube(scraper, dat[dat['Year'] == area], csv_name, graph=csvName)
+            j += 1
+        else:
+            # For subsequent chunk to add, create a secondary graph graph_uri and csv_name
+            graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-and-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}/{area}"
+            csv_name = csvName + '-' + area
+            cubes.add_cube(scraper, dat[dat['Year'] == area], csv_name, graph=csvName, override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
+    i = i + 1
 
 
-# In[97]:
+# In[118]:
 
 
 cubes.output_all()
 
 
-# In[98]:
+# In[119]:
 
 
 """
@@ -456,13 +443,13 @@ so dimension is called 'Dimension 1'
 """
 
 
-# In[99]:
+# In[120]:
 
 
 #all_dat[0].head(10)
 
 
-# In[100]:
+# In[121]:
 
 
 #del all_dat[0]['Economic Derivation Indicator']
@@ -471,7 +458,7 @@ so dimension is called 'Dimension 1'
 #del all_dat[3]['Economic Derivation Indicator']
 
 
-# In[100]:
+# In[121]:
 
 
 
