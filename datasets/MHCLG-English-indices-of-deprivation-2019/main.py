@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[122]:
+# In[16]:
 
 
 from gssutils import *
@@ -21,25 +21,32 @@ print("Publisher: " + etl_publisher)
 print("Title: " + etl_title)
 
 
-# In[123]:
+# In[17]:
 
 
 scraper = Scraper(seed = "info.json")
-scraper.distributions[0].title = etl_title
+#scraper.distributions[0].title = etl_title
 scraper
 
 
-# In[124]:
+# In[18]:
 
 
-tab = scraper.distributions[0].as_pandas()
+distribution = [dist for dist in scraper.distributions if 'File 7' in dist.title][0]
+display(distribution)
+
+
+# In[19]:
+
+
+tab = distribution.as_pandas()
 
 tab = tab.drop(["LSOA name (2011)", "Local Authority District name (2019)"], axis = 1)
 
 tab
 
 
-# In[125]:
+# In[20]:
 
 
 df = tab.melt(id_vars = ["LSOA code (2011)", "Local Authority District code (2019)"], value_name = 'Value', var_name = "Index of Deprivation")
@@ -104,7 +111,7 @@ df = df.replace({"Index of Deprivation" : {
 df
 
 
-# In[126]:
+# In[21]:
 
 
 yr = '2019'
@@ -128,7 +135,7 @@ https://www.gov.uk/government/publications/english-indices-of-deprivation-2019-t
 
 csvName = 'observations.csv'
 
-scraper.dataset.family = 'towns-high-streets'
+scraper.dataset.family = 'towns-and-high-streets'
 scraper.dataset.description = notes
 scraper.dataset.comment = 'Statistics on relative deprivation in small areas in England, 2019.'
 scraper.dataset.title = 'English indices of deprivation'
@@ -136,13 +143,14 @@ scraper.dataset.title = 'English indices of deprivation'
 cubes.add_cube(scraper, df.drop_duplicates(), csvName)
 
 
-# In[127]:
+# In[22]:
 
 
 cubes.output_all()
 
 
-# In[127]:
+# In[22]:
+
 
 
 
