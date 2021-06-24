@@ -567,6 +567,20 @@ for i in to_output:
 
     cubes.add_cube(scraper1, i[0], csvName)
 
+
+# In[ ]:
+
+
+cubes.output_all()
+
+
+# In[ ]:
+
+
+for i in to_output:
+
+    csvName = i[1] + "_observations"
+
     metadata_json = open(f"./out/{csvName}.csv-metadata.json", "r")
     metadata = json.load(metadata_json)
     metadata_json.close()
@@ -578,10 +592,4 @@ for i in to_output:
     metadata_json = open(f"./out/{csvName}.csv-metadata.json", "w")
     json.dump(metadata, metadata_json, indent=4)
     metadata_json.close()
-
-
-# In[ ]:
-
-
-cubes.output_all()
 
