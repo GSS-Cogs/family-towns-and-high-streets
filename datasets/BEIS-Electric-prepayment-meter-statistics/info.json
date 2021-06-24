@@ -28,7 +28,7 @@
                 "value": "http://statistics.data.gov.uk/id/statistical-geography/{geography_code}"
             },
             "Meters": {
-                "attribute": "http://gss-data.org.uk/data/gss_data/towns-high-streets/sg-scottish-index-of-multiple-deprivation-2020/ranks/concept-scheme/meters"
+                "attribute": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/sg-scottish-index-of-multiple-deprivation-2020/ranks/concept-scheme/meters"
             },
             "Post Code": {
                 "parent": "http://www.w3.org/2000/01/rdf-schema#label",
