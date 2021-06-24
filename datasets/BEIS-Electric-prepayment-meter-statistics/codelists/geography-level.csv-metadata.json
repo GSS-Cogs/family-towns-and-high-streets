@@ -1,6 +1,6 @@
 {
     "@context": "http://www.w3.org/ns/csvw",
-    "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#schema",
+    "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#schema",
     "url": "geography-level.csv",
     "tableSchema": {
         "columns": [
@@ -30,7 +30,7 @@
                 },
                 "required": false,
                 "propertyUrl": "skos:broader",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#concept/geography-level/{+parent_notation}"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#concept/geography-level/{+parent_notation}"
             },
             {
                 "titles": "Sort Priority",
@@ -54,14 +54,14 @@
             {
                 "virtual": true,
                 "propertyUrl": "skos:inScheme",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/geography-level"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#scheme/geography-level"
             }
         ],
         "primaryKey": "notation",
-        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#concept/geography-level/{+notation}"
+        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#concept/geography-level/{+notation}"
     },
     "prov:hadDerivation": {
-        "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/geography-level",
+        "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#scheme/geography-level",
         "@type": [
             "skos:ConceptScheme",
             "http://publishmydata.com/pmdcat#ConceptScheme"
@@ -71,16 +71,16 @@
     "dc:title": "Geography Level",
     "rdfs:seeAlso": [
         {
-            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#schema/dataset",
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#schema/dataset",
             "@type": [
                 "dcat:Dataset",
                 "http://publishmydata.com/pmdcat#Dataset"
             ],
             "http://publishmydata.com/pmdcat#datasetContents": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#schema"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#schema"
             },
             "http://publishmydata.com/pmdcat#graph": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#schema"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#schema"
             },
             "dc:modified": {
                 "@type": "dateTime",
@@ -97,17 +97,17 @@
         {
             "@id": "http://gss-data.org.uk/catalog/vocabularies",
             "dcat:record": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#schema/catalog-record"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#schema/catalog-record"
             }
         },
         {
-            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#schema/catalog-record",
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#schema/catalog-record",
             "@type": "dcat:CatalogRecord",
             "foaf:primaryTopic": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#schema/dataset"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#schema/dataset"
             },
             "http://publishmydata.com/pmdcat#metadataGraph": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#schema"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#schema"
             },
             "dc:title": "Geography Level Catalog Record",
             "rdfs:label": "Geography Level Catalog Record",
