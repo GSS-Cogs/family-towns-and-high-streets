@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[73]:
+# In[33]:
 
 
 from gssutils import *
@@ -18,12 +18,17 @@ scraper = Scraper(seed="info.json")
 scraper
 
 
+# In[34]:
+
+
 tidied_sheets = []
 trace = TransformTrace()
 df = pd.DataFrame()
 
+cubes = Cubes("info.json")
 
-# In[74]:
+
+# In[35]:
 
 
 j = 0
@@ -35,7 +40,7 @@ for i in scraper.distributions:
     print('\n')
 
 
-# In[75]:
+# In[36]:
 
 
 # #### Distribution 1 : Local authority prepayment electricity meters distribution
@@ -116,13 +121,13 @@ for i in range(0, 3):
 #tidied_sheets[0:3]
 
 
-# In[76]:
+# In[37]:
 
 
 display(scraper.distributions[2])
 
 
-# In[77]:
+# In[ ]:
 
 
 # #### DISTRIBUTION 2 : MSOA prepayment electricity meters 2017
@@ -214,13 +219,13 @@ for i in range(0, 3):
 #tidied_sheets[3:6]
 
 
-# In[78]:
+# In[ ]:
 
 
 display(scraper.distributions[4])
 
 
-# In[79]:
+# In[ ]:
 
 
 # #### DISTRIBUTION 3 : LSOA prepayment electricity meters 2017
@@ -322,13 +327,13 @@ for i in range(0, 3):
 #tidied_sheets
 
 
-# In[80]:
+# In[ ]:
 
 
 display(scraper.distributions[6])
 
 
-# In[81]:
+# In[ ]:
 
 
 # #### DISTRIBUTION 4 : Postcode prepayment electricity meters 2017
@@ -406,7 +411,7 @@ for i in range(0, 3):
 #tidied_sheets
 
 
-# In[82]:
+# In[ ]:
 
 
 #Outputs:
@@ -442,7 +447,7 @@ for i in range(0, 3):
     #When running each tab, a large number of blank lines will be printed before the completed table.
 
 
-# In[83]:
+# In[ ]:
 
 
 tidy_sales = pd.concat([tidied_sheets[0], tidied_sheets[3], tidied_sheets[6]])
@@ -452,7 +457,7 @@ tidy_mean_consumption = pd.concat([tidied_sheets[1], tidied_sheets[4], tidied_sh
 tidy_median_consumption = pd.concat([tidied_sheets[2], tidied_sheets[5], tidied_sheets[8]])
 
 
-# In[84]:
+# In[ ]:
 
 
 # As we only have one Measure and Unit type they are defined within the info.json file so can be deleted from the tables
@@ -473,7 +478,7 @@ tidied_sheets[9]['Post Codes'] = tidied_sheets[9]['Post Codes'].str.replace(' ',
 tidied_sheets[9] = tidied_sheets[9].rename(columns={'Post Codes': 'Post Code'})
 
 
-# In[85]:
+# In[ ]:
 
 
 to_output = []
@@ -507,7 +512,7 @@ to_output.append([tidied_sheets[9],
 #tidy_median_consumption
 
 
-# In[86]:
+# In[ ]:
 
 
 tidy_sales.head(10)
@@ -519,7 +524,7 @@ tidy_median_consumption.head(10)
 tidied_sheets[9].head(10)
 
 
-# In[87]:
+# In[ ]:
 
 
 from urllib.parse import urljoin
@@ -529,12 +534,12 @@ for i in to_output:
 
     i[0]['Year'] = 'year/' + i[0]['Year'].astype(str)
 
-    csvName = i[1] + "_observations.csv"
+    csvName = i[1] + "_observations"
     out = Path("out")
     out.mkdir(exist_ok=True)
-    i[0].drop_duplicates().to_csv(out / csvName, index = False)
+    #i[0].drop_duplicates().to_csv(out / csvName, index = False)
 
-    scraper.dataset.family = "towns-high-streets"
+    scraper.dataset.family = "towns-and-high-streets"
 
     scraper.dataset.description = """Data for prepayment meter electricity consumption, number of meters, mean and median consumption for local
     authority regions across England, Wales & Scotland. This doesn't include smart meters operating in prepayment mode.
@@ -554,22 +559,11 @@ for i in to_output:
     scraper.set_base_uri('http://gss-data.org.uk')
     scraper.set_dataset_id(dataset_path)
 
-    #Changing the measure in info.json
-    temp_info = json.load(open('info.json'))
-    temp_info["transform"]["columns"]["Value"]["measure"] = "http://gss-data.org.uk/def/measure/" + i[3]
-
-    csvw_transform = CSVWMapping()
-    csvw_transform.set_csv(out / csvName)
-    csvw_transform.set_mapping(temp_info)
-    csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
-    csvw_transform.write(out / f'{csvName}-metadata.json')
-
-    with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
-        metadata.write(scraper.generate_trig())
+    cubes.add_cube(scraper, i[0], csvName)
 
 
-# In[87]:
+# In[ ]:
 
 
-
+cubes.output_all()
 
