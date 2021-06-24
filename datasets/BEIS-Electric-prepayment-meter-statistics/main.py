@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[85]:
+# In[1]:
 
 
 from gssutils import *
 import json
 import math
+import copy
 
 info = json.load(open('info.json'))
 #etl_title = info["Name"]
@@ -18,7 +19,7 @@ scraper = Scraper(seed="info.json")
 scraper
 
 
-# In[86]:
+# In[2]:
 
 
 tidied_sheets = []
@@ -28,7 +29,7 @@ df = pd.DataFrame()
 cubes = Cubes("info.json")
 
 
-# In[87]:
+# In[3]:
 
 
 j = 0
@@ -40,7 +41,7 @@ for i in scraper.distributions:
     print('\n')
 
 
-# In[88]:
+# In[4]:
 
 
 # #### Distribution 1 : Local authority prepayment electricity meters distribution
@@ -121,13 +122,13 @@ for i in range(0, 3):
 #tidied_sheets[0:3]
 
 
-# In[89]:
+# In[5]:
 
 
 display(scraper.distributions[2])
 
 
-# In[90]:
+# In[6]:
 
 
 # #### DISTRIBUTION 2 : MSOA prepayment electricity meters 2017
@@ -219,13 +220,13 @@ for i in range(0, 3):
 #tidied_sheets[3:6]
 
 
-# In[91]:
+# In[7]:
 
 
 display(scraper.distributions[4])
 
 
-# In[92]:
+# In[8]:
 
 
 # #### DISTRIBUTION 3 : LSOA prepayment electricity meters 2017
@@ -327,13 +328,13 @@ for i in range(0, 3):
 #tidied_sheets
 
 
-# In[93]:
+# In[9]:
 
 
 display(scraper.distributions[6])
 
 
-# In[94]:
+# In[10]:
 
 
 # #### DISTRIBUTION 4 : Postcode prepayment electricity meters 2017
@@ -411,7 +412,7 @@ for i in range(0, 3):
 #tidied_sheets
 
 
-# In[95]:
+# In[11]:
 
 
 #Outputs:
@@ -447,7 +448,7 @@ for i in range(0, 3):
     #When running each tab, a large number of blank lines will be printed before the completed table.
 
 
-# In[96]:
+# In[12]:
 
 
 tidy_sales = pd.concat([tidied_sheets[0], tidied_sheets[3], tidied_sheets[6]])
@@ -457,7 +458,7 @@ tidy_mean_consumption = pd.concat([tidied_sheets[1], tidied_sheets[4], tidied_sh
 tidy_median_consumption = pd.concat([tidied_sheets[2], tidied_sheets[5], tidied_sheets[8]])
 
 
-# In[97]:
+# In[13]:
 
 
 # As we only have one Measure and Unit type they are defined within the info.json file so can be deleted from the tables
@@ -478,7 +479,7 @@ tidied_sheets[9]['Post Codes'] = tidied_sheets[9]['Post Codes'].str.replace(' ',
 tidied_sheets[9] = tidied_sheets[9].rename(columns={'Post Codes': 'Post Code'})
 
 
-# In[98]:
+# In[14]:
 
 
 to_output = []
@@ -512,7 +513,7 @@ to_output.append([tidied_sheets[9],
 #tidy_median_consumption
 
 
-# In[99]:
+# In[15]:
 
 
 tidy_sales.head(10)
@@ -524,13 +525,15 @@ tidy_median_consumption.head(10)
 tidied_sheets[9].head(10)
 
 
-# In[100]:
+# In[16]:
 
 
 from urllib.parse import urljoin
 import os
 
 for i in to_output:
+
+    scraper1 = copy.deepcopy(scraper)
 
     i[0]['Year'] = 'year/' + i[0]['Year'].astype(str)
 
@@ -542,9 +545,9 @@ for i in to_output:
     indexNames = i[0][ i[0]['Meters'] == '-'].index
     i[0].drop(indexNames, inplace = True)
 
-    scraper.dataset.family = "towns-and-high-streets"
+    scraper1.dataset.family = "towns-and-high-streets"
 
-    scraper.dataset.description = """Data for prepayment meter electricity consumption, number of meters, mean and median consumption for local
+    scraper1.dataset.description = """Data for prepayment meter electricity consumption, number of meters, mean and median consumption for local
     authority regions across England, Wales & Scotland. This doesn't include smart meters operating in prepayment mode.
     Data excludes:
     Geographies that are disclosive are defined as such if they contain less than 6 meters
@@ -554,18 +557,18 @@ for i in to_output:
     Meters that are deemed to be disclosive at Local Authority level are set as 'Unallocated' but are not included in this
     data as there is no matching geography code."""
 
-    scraper.dataset.comment = i[5]
-    scraper.dataset.title = i[2]
+    scraper1.dataset.comment = i[5]
+    scraper1.dataset.title = i[2]
 
     #dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}' + i[4]))
     #dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name) + i[4]).lower()
     #scraper.set_base_uri('http://gss-data.org.uk')
     #scraper.set_dataset_id(dataset_path)
 
-    cubes.add_cube(scraper, i[0], csvName)
+    cubes.add_cube(scraper1, i[0], csvName)
 
 
-# In[101]:
+# In[17]:
 
 
 cubes.output_all()
