@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[33]:
+# In[85]:
 
 
 from gssutils import *
@@ -18,7 +18,7 @@ scraper = Scraper(seed="info.json")
 scraper
 
 
-# In[34]:
+# In[86]:
 
 
 tidied_sheets = []
@@ -28,7 +28,7 @@ df = pd.DataFrame()
 cubes = Cubes("info.json")
 
 
-# In[35]:
+# In[87]:
 
 
 j = 0
@@ -40,7 +40,7 @@ for i in scraper.distributions:
     print('\n')
 
 
-# In[36]:
+# In[88]:
 
 
 # #### Distribution 1 : Local authority prepayment electricity meters distribution
@@ -121,13 +121,13 @@ for i in range(0, 3):
 #tidied_sheets[0:3]
 
 
-# In[37]:
+# In[89]:
 
 
 display(scraper.distributions[2])
 
 
-# In[ ]:
+# In[90]:
 
 
 # #### DISTRIBUTION 2 : MSOA prepayment electricity meters 2017
@@ -219,13 +219,13 @@ for i in range(0, 3):
 #tidied_sheets[3:6]
 
 
-# In[ ]:
+# In[91]:
 
 
 display(scraper.distributions[4])
 
 
-# In[ ]:
+# In[92]:
 
 
 # #### DISTRIBUTION 3 : LSOA prepayment electricity meters 2017
@@ -327,13 +327,13 @@ for i in range(0, 3):
 #tidied_sheets
 
 
-# In[ ]:
+# In[93]:
 
 
 display(scraper.distributions[6])
 
 
-# In[ ]:
+# In[94]:
 
 
 # #### DISTRIBUTION 4 : Postcode prepayment electricity meters 2017
@@ -411,7 +411,7 @@ for i in range(0, 3):
 #tidied_sheets
 
 
-# In[ ]:
+# In[95]:
 
 
 #Outputs:
@@ -447,7 +447,7 @@ for i in range(0, 3):
     #When running each tab, a large number of blank lines will be printed before the completed table.
 
 
-# In[ ]:
+# In[96]:
 
 
 tidy_sales = pd.concat([tidied_sheets[0], tidied_sheets[3], tidied_sheets[6]])
@@ -457,7 +457,7 @@ tidy_mean_consumption = pd.concat([tidied_sheets[1], tidied_sheets[4], tidied_sh
 tidy_median_consumption = pd.concat([tidied_sheets[2], tidied_sheets[5], tidied_sheets[8]])
 
 
-# In[ ]:
+# In[97]:
 
 
 # As we only have one Measure and Unit type they are defined within the info.json file so can be deleted from the tables
@@ -478,7 +478,7 @@ tidied_sheets[9]['Post Codes'] = tidied_sheets[9]['Post Codes'].str.replace(' ',
 tidied_sheets[9] = tidied_sheets[9].rename(columns={'Post Codes': 'Post Code'})
 
 
-# In[ ]:
+# In[98]:
 
 
 to_output = []
@@ -512,7 +512,7 @@ to_output.append([tidied_sheets[9],
 #tidy_median_consumption
 
 
-# In[ ]:
+# In[99]:
 
 
 tidy_sales.head(10)
@@ -524,7 +524,7 @@ tidy_median_consumption.head(10)
 tidied_sheets[9].head(10)
 
 
-# In[ ]:
+# In[100]:
 
 
 from urllib.parse import urljoin
@@ -538,6 +538,9 @@ for i in to_output:
     out = Path("out")
     out.mkdir(exist_ok=True)
     #i[0].drop_duplicates().to_csv(out / csvName, index = False)
+
+    indexNames = i[0][ i[0]['Meters'] == '-'].index
+    i[0].drop(indexNames, inplace = True)
 
     scraper.dataset.family = "towns-and-high-streets"
 
@@ -555,14 +558,14 @@ for i in to_output:
     scraper.dataset.title = i[2]
 
     #dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}' + i[4]))
-    dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name) + i[4]).lower()
-    scraper.set_base_uri('http://gss-data.org.uk')
-    scraper.set_dataset_id(dataset_path)
+    #dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name) + i[4]).lower()
+    #scraper.set_base_uri('http://gss-data.org.uk')
+    #scraper.set_dataset_id(dataset_path)
 
     cubes.add_cube(scraper, i[0], csvName)
 
 
-# In[ ]:
+# In[101]:
 
 
 cubes.output_all()
