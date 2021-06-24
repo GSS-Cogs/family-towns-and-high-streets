@@ -1,7 +1,9 @@
 {
     "@context": "http://www.w3.org/ns/csvw",
-    "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#schema",
+    "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#scheme/geography-level",
     "url": "geography-level.csv",
+    "rdfs:label": "Geography Level",
+    "dc:title": "Geography Level",
     "tableSchema": {
         "columns": [
             {
@@ -16,7 +18,7 @@
                 "name": "notation",
                 "datatype": {
                     "base": "string",
-                    "format": "^-?[\\w\\.\\/]+(-[\\w\\.\\/]+)*$"
+                    "format": "^-?[\\w\\.\\/\\+]+(-[\\w\\.\\/\\+]+)*$"
                 },
                 "required": true,
                 "propertyUrl": "skos:notation"
@@ -26,25 +28,18 @@
                 "name": "parent_notation",
                 "datatype": {
                     "base": "string",
-                    "format": "^(-?[\\w\\.\\/]+(-[\\w\\.\\/]+)*|)$"
+                    "format": "^(-?[\\w\\.\\/\\+]+(-[\\w\\.\\/\\+]+)*|)$"
                 },
                 "required": false,
                 "propertyUrl": "skos:broader",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#concept/geography-level/{+parent_notation}"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#concept/geography-level/{parent_notation}"
             },
             {
                 "titles": "Sort Priority",
-                "name": "sort",
+                "name": "sort_priority",
                 "datatype": "integer",
                 "required": false,
                 "propertyUrl": "http://www.w3.org/ns/ui#sortPriority"
-            },
-            {
-                "titles": "Description",
-                "name": "description",
-                "datatype": "string",
-                "required": false,
-                "propertyUrl": "rdfs:comment"
             },
             {
                 "virtual": true,
@@ -58,7 +53,7 @@
             }
         ],
         "primaryKey": "notation",
-        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#concept/geography-level/{+notation}"
+        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#concept/geography-level/{notation}"
     },
     "prov:hadDerivation": {
         "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#scheme/geography-level",
@@ -67,57 +62,74 @@
             "http://publishmydata.com/pmdcat#ConceptScheme"
         ]
     },
-    "rdfs:label": "Geography Level",
-    "dc:title": "Geography Level",
     "rdfs:seeAlso": [
         {
-            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#schema/dataset",
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#scheme/geography-level/dataset",
             "@type": [
                 "dcat:Dataset",
                 "http://publishmydata.com/pmdcat#Dataset"
             ],
             "http://publishmydata.com/pmdcat#datasetContents": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#schema"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#scheme/geography-level"
             },
             "http://publishmydata.com/pmdcat#graph": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#schema"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#scheme/geography-level"
             },
             "dc:modified": {
                 "@type": "dateTime",
-                "@value": "2021-05-20T12:06:57.865344"
+                "@value": "2021-06-07T12:49:30.834267"
             },
             "rdfs:label": "Geography Level",
             "dc:title": "Geography Level",
             "rdfs:comment": "Dataset representing the 'Geography Level' code list.",
             "dc:issued": {
                 "@type": "dateTime",
-                "@value": "2021-05-20T12:06:55.742002"
+                "@value": "2021-06-07T12:49:30.834267"
+            },
+            "dc:license": {
+                "@id": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+            },
+            "dc:creator": {
+                "@id": "https://www.gov.uk/government/organisations/department-for-business-energy-and-industrial-strategy"
+            },
+            "dc:publisher": {
+                "@id": "https://www.gov.uk/government/organisations/department-for-business-energy-and-industrial-strategy"
+            },
+            "dcat:contactPoint": {
+                "@id": "EnergyEfficiency.Stats@beis.gov.uk"
+            },
+            "dcat:landingPage": {
+                "@id": "https://www.gov.uk/government/statistics/electric-prepayment-meter-statistics"
+            },
+            "http://publishmydata.com/pmdcat#markdownDescription": {
+                "@type": "https://www.w3.org/ns/iana/media-indicators/text/markdown#Resource",
+                "@value": "Annual prepayment meter electricity statistics for local authorities, LSOAs, MSOAs and postcodes in England, Wales and Scotland."
             }
         },
         {
             "@id": "http://gss-data.org.uk/catalog/vocabularies",
             "dcat:record": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#schema/catalog-record"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#scheme/geography-level/catalog-record"
             }
         },
         {
-            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#schema/catalog-record",
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#scheme/geography-level/catalog-record",
             "@type": "dcat:CatalogRecord",
             "foaf:primaryTopic": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#schema/dataset"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#scheme/geography-level/dataset"
             },
             "http://publishmydata.com/pmdcat#metadataGraph": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#schema"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-electric-prepayment-meter-statistics#scheme/geography-level"
             },
             "dc:title": "Geography Level Catalog Record",
             "rdfs:label": "Geography Level Catalog Record",
             "dc:issued": {
                 "@type": "dateTime",
-                "@value": "2021-05-20T12:06:55.742002"
+                "@value": "2021-08-24T12:49:30.834267"
             },
             "dc:modified": {
                 "@type": "dateTime",
-                "@value": "2021-05-20T12:06:55.742002"
+                "@value": "2021-08-24T12:49:30.834267"
             }
         }
     ]
