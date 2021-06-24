@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[18]:
 
 
 from gssutils import *
@@ -19,7 +19,7 @@ scraper = Scraper(seed="info.json")
 scraper
 
 
-# In[2]:
+# In[19]:
 
 
 tidied_sheets = []
@@ -29,7 +29,7 @@ df = pd.DataFrame()
 cubes = Cubes("info.json")
 
 
-# In[3]:
+# In[20]:
 
 
 j = 0
@@ -41,7 +41,7 @@ for i in scraper.distributions:
     print('\n')
 
 
-# In[4]:
+# In[21]:
 
 
 # #### Distribution 1 : Local authority prepayment electricity meters distribution
@@ -122,13 +122,13 @@ for i in range(0, 3):
 #tidied_sheets[0:3]
 
 
-# In[5]:
+# In[22]:
 
 
 display(scraper.distributions[2])
 
 
-# In[6]:
+# In[23]:
 
 
 # #### DISTRIBUTION 2 : MSOA prepayment electricity meters 2017
@@ -220,13 +220,13 @@ for i in range(0, 3):
 #tidied_sheets[3:6]
 
 
-# In[7]:
+# In[24]:
 
 
 display(scraper.distributions[4])
 
 
-# In[8]:
+# In[25]:
 
 
 # #### DISTRIBUTION 3 : LSOA prepayment electricity meters 2017
@@ -328,13 +328,13 @@ for i in range(0, 3):
 #tidied_sheets
 
 
-# In[9]:
+# In[26]:
 
 
 display(scraper.distributions[6])
 
 
-# In[10]:
+# In[27]:
 
 
 # #### DISTRIBUTION 4 : Postcode prepayment electricity meters 2017
@@ -412,7 +412,7 @@ for i in range(0, 3):
 #tidied_sheets
 
 
-# In[11]:
+# In[28]:
 
 
 #Outputs:
@@ -448,7 +448,7 @@ for i in range(0, 3):
     #When running each tab, a large number of blank lines will be printed before the completed table.
 
 
-# In[12]:
+# In[29]:
 
 
 tidy_sales = pd.concat([tidied_sheets[0], tidied_sheets[3], tidied_sheets[6]])
@@ -458,7 +458,7 @@ tidy_mean_consumption = pd.concat([tidied_sheets[1], tidied_sheets[4], tidied_sh
 tidy_median_consumption = pd.concat([tidied_sheets[2], tidied_sheets[5], tidied_sheets[8]])
 
 
-# In[13]:
+# In[30]:
 
 
 # As we only have one Measure and Unit type they are defined within the info.json file so can be deleted from the tables
@@ -479,7 +479,7 @@ tidied_sheets[9]['Post Codes'] = tidied_sheets[9]['Post Codes'].str.replace(' ',
 tidied_sheets[9] = tidied_sheets[9].rename(columns={'Post Codes': 'Post Code'})
 
 
-# In[14]:
+# In[31]:
 
 
 to_output = []
@@ -513,7 +513,7 @@ to_output.append([tidied_sheets[9],
 #tidy_median_consumption
 
 
-# In[15]:
+# In[32]:
 
 
 tidy_sales.head(10)
@@ -525,7 +525,7 @@ tidy_median_consumption.head(10)
 tidied_sheets[9].head(10)
 
 
-# In[16]:
+# In[41]:
 
 
 from urllib.parse import urljoin
@@ -567,8 +567,20 @@ for i in to_output:
 
     cubes.add_cube(scraper1, i[0], csvName)
 
+    metadata_json = open(f"./out/{csvName}.csv-metadata.json", "r")
+    metadata = json.load(metadata_json)
+    metadata_json.close()
 
-# In[17]:
+    for obj in metadata["tables"][0]["tableSchema"]["columns"]:
+        if obj["name"] in ["meters"] :
+            obj.pop('valueUrl', None)
+
+    metadata_json = open(f"./out/{csvName}.csv-metadata.json", "w")
+    json.dump(metadata, metadata_json, indent=4)
+    metadata_json.close()
+
+
+# In[ ]:
 
 
 cubes.output_all()
