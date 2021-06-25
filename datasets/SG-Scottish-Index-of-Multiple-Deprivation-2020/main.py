@@ -405,7 +405,7 @@ try:
 
     csvName = fn[i]
 
-    scraper.dataset.family = 'towns-and-high-streets'
+    scraper.dataset.family = 'towns-high-streets'
     scraper.dataset.description = scraper.dataset.description + '\n' + de[i]
     scraper.dataset.comment = co[i]
     scraper.dataset.title = ti[i]

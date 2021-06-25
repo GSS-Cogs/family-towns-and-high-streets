@@ -317,7 +317,7 @@ del ranks, score, numer, denom, popul
 # In[116]:
 
 
-scraper.dataset.family = 'towns-and-high-streets'
+scraper.dataset.family = 'towns-high-streets'
 
 n = [
     "ranks-observations",

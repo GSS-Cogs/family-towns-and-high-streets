@@ -545,7 +545,7 @@ for i in to_output:
     indexNames = i[0][ i[0]['Meters'] == '-'].index
     i[0].drop(indexNames, inplace = True)
 
-    scraper1.dataset.family = "towns-and-high-streets"
+    scraper1.dataset.family = "towns-high-streets"
 
     scraper1.dataset.description = """Data for prepayment meter electricity consumption, number of meters, mean and median consumption for local
     authority regions across England, Wales & Scotland. This doesn't include smart meters operating in prepayment mode.

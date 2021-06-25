@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[43]:
 
 
 from gssutils import *
@@ -15,6 +15,10 @@ print("Title: " + etl_title)
 
 scraper = Scraper(seed="info.json")
 scraper
+
+
+# In[44]:
+
 
 def excelRange(bag):
     min_x = min([cell.x for cell in bag])
@@ -72,7 +76,14 @@ def sanitize_family_type_in_sheets(value):
         return 'All'
 
 
-# In[2]:
+# In[45]:
+
+
+for i in scraper.distributions:
+    print(i.title)
+
+
+# In[46]:
 
 
 trace = TransformTrace()
@@ -80,12 +91,13 @@ tidied_sheets = {} # dataframes will be stored in here
 cubes = Cubes("info.json")
 
 
-# In[3]:
+# In[47]:
+
 
 
 # latest data
-scraper.select_dataset(title=lambda x: 'small area data' in x, latest=True)
-scraper.dataset.family = 'trade'
+#scraper.select_dataset(title=lambda x: 'small area data' in x, latest=True)
+scraper.dataset.family = 'towns-high-streets'
 
 for distribution in scraper.distributions:
 
@@ -104,7 +116,7 @@ for distribution in scraper.distributions:
 
             footnotes = tab.filter(contains_string('Footnotes')).expand(DOWN).expand(RIGHT) # to be removed
 
-            if tab.name.lower() == 'families':
+            if tab.name == 'Table_1':
                 # tables differ between tabs
                 columns = [
                     'Date', 'Local authority', 'Lower Layer Super Output Area', 'Work Situation', 'Family Type', 'Value', 'Measure Type', 'Unit', 'Benefit Type'
@@ -127,15 +139,15 @@ for distribution in scraper.distributions:
                 obs = tab.excel_ref("G10").expand(DOWN).expand(RIGHT).is_not_blank()
 
                 # tracing dimensions
-                trace.Date("Value taken from dataset title: {}".format(date))
-                trace.Local_authority("Values given in range {}", excelRange(local_authority_code))
-                trace.Lower_Layer_Super_Output_Area("Values given in range {}", excelRange(LSOA_code))
-                trace.Work_Situation("Values given in range {}", excelRange(work_situation))
-                trace.Family_Type("Values given in range {}", excelRange(family_type))
-                trace.Benefit_Type("Values given in range {}", excelRange(benefit_type))
-                trace.Value("Values given in range {}", excelRange(obs))
-                trace.Measure_Type("Hardcoded as Count")
-                trace.Unit("Hardcoded as families")
+                #trace.Date("Value taken from dataset title: {}".format(date))
+                #trace.Local_authority("Values given in range {}", excelRange(local_authority_code))
+                #trace.Lower_Layer_Super_Output_Area("Values given in range {}", excelRange(LSOA_code))
+                #trace.Work_Situation("Values given in range {}", excelRange(work_situation))
+                #trace.Family_Type("Values given in range {}", excelRange(family_type))
+                #trace.Benefit_Type("Values given in range {}", excelRange(benefit_type))
+                #trace.Value("Values given in range {}", excelRange(obs))
+                #trace.Measure_Type("Hardcoded as Count")
+                #trace.Unit("Hardcoded as families")
 
 
                 dimensions = [
@@ -186,7 +198,7 @@ for distribution in scraper.distributions:
 
 
 
-            elif tab.name.lower() == 'children':
+            elif tab.name == 'Table_2':
 
                 columns = [
                     'Date', 'Local authority', 'Lower Layer Super Output Area',
@@ -270,7 +282,7 @@ for distribution in scraper.distributions:
 
             footnotes = tab.filter(contains_string('Footnotes')).expand(DOWN).expand(RIGHT) # to be removed
 
-            if tab.name.lower() == 'family': # different tab name to other datasets
+            if tab.name == 'Table_1': # different tab name to other datasets
                 # tables differ between tabs
                 columns = [
                     'Date', 'Local authority', 'Data Zone code',
@@ -348,7 +360,7 @@ for distribution in scraper.distributions:
                 trace.store(tab_name, tidy_sheet_aspandas)
                 tidied_sheets[tab_name] = tidy_sheet_aspandas
 
-            elif tab.name.lower() == 'children':
+            elif tab.name == 'Table_2':
                 columns = [
                     'Date', 'Local authority', 'Data Zone code',
                     'Work Situation', 'Family Type', 'Value', 'Measure Type', 'Unit', 'Benefit Type'
@@ -425,7 +437,7 @@ for distribution in scraper.distributions:
 # tidied_sheets['Scottish Data Zones - Families'].tail(50)
 
 
-# In[35]:
+# In[48]:
 
 
 for key in tidied_sheets:
@@ -442,7 +454,7 @@ df = df.replace({'Period' : {'2017/08' : '2017/18'}})
 df
 
 
-# In[36]:
+# In[ ]:
 
 
 COLUMNS_TO_NOT_PATHIFY = ['Local Authority', 'Period', 'Lower Layer Super Output Area', 'Value']
@@ -473,10 +485,10 @@ scraper.dataset.title = "Personal tax credits: finalised award statistics - smal
 scraper.dataset.comment = 'These statistics provide detailed geographical estimates of the number of families in receipt of tax credits by LSOA and Data Zones'
 
 
-# In[34]:
+# In[ ]:
 
 
-csvName = 'observations.csv'
+csvName = 'observations'
 cubes.add_cube(scraper, df.drop_duplicates(), csvName)
 
 
