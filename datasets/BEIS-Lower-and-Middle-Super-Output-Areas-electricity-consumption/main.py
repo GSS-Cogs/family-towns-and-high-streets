@@ -154,6 +154,8 @@ etl_publisher = info["publisher"][0]
 print("Publisher: " + etl_publisher)
 print("Title: " + etl_title)
 
+cubes = Cubes("info.json")
+
 scraper = Scraper(seed="info.json")
 scraper.title
 
@@ -256,38 +258,27 @@ from urllib.parse import urljoin
 
 notes = 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/853104/sub-national-methodology-guidance.pdf'
 
-csvName = 'lsoa_observations.csv'
+csvName = 'lsoa_observations'
 out = Path('out')
 out.mkdir(exist_ok=True)
-df.drop_duplicates().to_csv(out / csvName, index = False)
-df.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+#df.drop_duplicates().to_csv(out / csvName, index = False)
+#df.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 # Output a subset of the data to get the Mapping class to work
 #df[:10].to_csv(out / csvName, index = False)
 
-scraper.dataset.family = 'towns-high-streets'
+scraper.dataset.family = 'towns-and-high-streets'
 scraper.dataset.description = scraper.dataset.description + '\nGuidance documentation can be found here:\n' + notes
 #scraper.dataset.comment = 'Total domestic electricity consumption, number of meters, mean and median consumption for LSOA regions across England, Wales & Scotland'
 scraper.dataset.comment = 'Total domestic electricity consumption for LSOA regions across England, Wales & Scotland'
 scraper.dataset.title = 'Lower Super Output Areas (LSOA) electricity consumption'
 
-dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower()
-scraper.set_base_uri('http://gss-data.org.uk')
-scraper.set_dataset_id(dataset_path)
+cubes.add_cube(scraper, df, csvName)
 
 
-csvw_transform = CSVWMapping()
-csvw_transform.set_csv(out / csvName)
-csvw_transform.set_mapping(json.load(open('info.json')))
-csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
-csvw_transform.write(out / f'{csvName}-metadata.json')
-# Remove subset of data
-#out / csvName).unlink()
-with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
-    metadata.write(scraper.generate_trig())
+# In[ ]:
 
 
-# In[66]:
-
+cubes.output_all()
 
 """
 df = pd.DataFrame()
