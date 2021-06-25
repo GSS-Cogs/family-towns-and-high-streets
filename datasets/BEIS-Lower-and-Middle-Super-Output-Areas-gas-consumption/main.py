@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[46]:
+# In[18]:
 
 
 from gssutils import *
@@ -16,8 +16,14 @@ etl_publisher = info["publisher"]
 print("Publisher: " + etl_publisher)
 print("Title: " + etl_title)
 
+cubes = Cubes("info.json")
+
 scraper = Scraper(seed="info.json")
 scraper
+
+
+# In[19]:
+
 
 trace = TransformTrace()
 tidied_sheets = {} # dataframes will be stored in here
@@ -136,7 +142,7 @@ for distribution in scraper.distributions:
                         tidied_sheets[file_name] = table
 
 
-# In[47]:
+# In[20]:
 
 
 #for key in tidied_sheets:
@@ -161,7 +167,7 @@ del lsoa_dat['Mean consumption (kWh per meter)']
 del lsoa_dat['Median consumption (kWh per meter)']
 
 
-# In[48]:
+# In[21]:
 
 
 #Rename the columns to match the Electricity pipeline
@@ -185,13 +191,13 @@ lsoa_dat = lsoa_dat.rename(columns=
 lsoa_dat['Year'] = 'year/' + lsoa_dat['Year'].astype(str)
 
 
-# In[49]:
+# In[22]:
 
 
 lsoa_dat.head(10)
 
 
-# In[50]:
+# In[23]:
 
 
 import os
@@ -199,37 +205,40 @@ from urllib.parse import urljoin
 
 notes = 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/853104/sub-national-methodology-guidance.pdf'
 
-csvName = 'lsoa_observations.csv'
+csvName = 'lsoa_observations'
 out = Path('out')
 out.mkdir(exist_ok=True)
-lsoa_dat.drop_duplicates().to_csv(out / csvName, index = False)
-lsoa_dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+#lsoa_dat.drop_duplicates().to_csv(out / csvName, index = False)
+#lsoa_dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 
-scraper.dataset.family = 'towns-high-streets'
+scraper.dataset.family = 'towns-and-high-streets'
 scraper.dataset.description = scraper.dataset.description + '\nGuidance documentation can be found here:\n' + notes
 #scraper.dataset.comment = 'Total domestic gas consumption, number of meters, mean and median consumption for LSOA regions across England, Wales & Scotland'
 scraper.dataset.comment = 'Total domestic gas consumption for LSOA regions across England, Wales & Scotland'
 scraper.dataset.title = 'Lower Super Output Areas (LSOA) gas consumption'
 
-dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower()
-scraper.set_base_uri('http://gss-data.org.uk')
-scraper.set_dataset_id(dataset_path)
+cubes.add_cube(scraper, lsoa_dat, csvName)
 
 
-csvw_transform = CSVWMapping()
-csvw_transform.set_csv(out / csvName)
-csvw_transform.set_mapping(json.load(open('info.json')))
-csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
-csvw_transform.write(out / f'{csvName}-metadata.json')
-# Remove subset of data
-#out / csvName).unlink()
-with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
-    metadata.write(scraper.generate_trig())
+# In[24]:
 
 
-# In[50]:
+cubes.output_all()
 
 
+# In[25]:
 
+
+metadata_json = open(f"./out/{csvName}.csv-metadata.json", "r")
+metadata = json.load(metadata_json)
+metadata_json.close()
+
+for obj in metadata["tables"][0]["tableSchema"]["columns"]:
+    if obj["name"] in ["number_of_non_consuming_meters", "number_of_meters"] :
+        obj.pop('valueUrl', None)
+
+metadata_json = open(f"./out/{csvName}.csv-metadata.json", "w")
+json.dump(metadata, metadata_json, indent=4)
+metadata_json.close()
 
 
