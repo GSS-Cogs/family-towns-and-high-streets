@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[18]:
+# In[35]:
 
 
 from gssutils import *
@@ -22,7 +22,7 @@ scraper = Scraper(seed="info.json")
 scraper
 
 
-# In[19]:
+# In[36]:
 
 
 trace = TransformTrace()
@@ -142,7 +142,7 @@ for distribution in scraper.distributions:
                         tidied_sheets[file_name] = table
 
 
-# In[20]:
+# In[37]:
 
 
 #for key in tidied_sheets:
@@ -167,7 +167,7 @@ del lsoa_dat['Mean consumption (kWh per meter)']
 del lsoa_dat['Median consumption (kWh per meter)']
 
 
-# In[21]:
+# In[38]:
 
 
 #Rename the columns to match the Electricity pipeline
@@ -191,13 +191,13 @@ lsoa_dat = lsoa_dat.rename(columns=
 lsoa_dat['Year'] = 'year/' + lsoa_dat['Year'].astype(str)
 
 
-# In[22]:
+# In[39]:
 
 
 lsoa_dat.head(10)
 
 
-# In[23]:
+# In[40]:
 
 
 import os
@@ -211,22 +211,22 @@ out.mkdir(exist_ok=True)
 #lsoa_dat.drop_duplicates().to_csv(out / csvName, index = False)
 #lsoa_dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 
-scraper.dataset.family = 'towns-and-high-streets'
+scraper.dataset.family = 'towns-high-streets'
 scraper.dataset.description = scraper.dataset.description + '\nGuidance documentation can be found here:\n' + notes
 #scraper.dataset.comment = 'Total domestic gas consumption, number of meters, mean and median consumption for LSOA regions across England, Wales & Scotland'
 scraper.dataset.comment = 'Total domestic gas consumption for LSOA regions across England, Wales & Scotland'
 scraper.dataset.title = 'Lower Super Output Areas (LSOA) gas consumption'
 
-cubes.add_cube(scraper, lsoa_dat, csvName)
+cubes.add_cube(scraper, lsoa_dat.drop_duplicates(), csvName)
 
 
-# In[24]:
+# In[41]:
 
 
 cubes.output_all()
 
 
-# In[25]:
+# In[42]:
 
 
 metadata_json = open(f"./out/{csvName}.csv-metadata.json", "r")
@@ -240,5 +240,4 @@ for obj in metadata["tables"][0]["tableSchema"]["columns"]:
 metadata_json = open(f"./out/{csvName}.csv-metadata.json", "w")
 json.dump(metadata, metadata_json, indent=4)
 metadata_json.close()
-
 
