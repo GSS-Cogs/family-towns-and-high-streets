@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[61]:
+# In[1]:
 
 
 
@@ -160,7 +160,7 @@ scraper = Scraper(seed="info.json")
 scraper.title
 
 
-# In[62]:
+# In[2]:
 
 
 
@@ -170,7 +170,7 @@ out.mkdir(exist_ok=True)
 trace = TransformTrace()
 
 
-# In[63]:
+# In[3]:
 
 
 
@@ -238,7 +238,7 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Lower Lay
 df.head(10)
 
 
-# In[64]:
+# In[4]:
 
 
 #del df['Local Authority']
@@ -250,7 +250,7 @@ del df['Median domestic electricity consumption kWh per meter']
 #### OUTPUTTING LSOA DATA AS A SINGLE DATASET
 
 
-# In[65]:
+# In[5]:
 
 
 import os
@@ -275,7 +275,7 @@ scraper.dataset.title = 'Lower Super Output Areas (LSOA) electricity consumption
 cubes.add_cube(scraper, df, csvName)
 
 
-# In[ ]:
+# In[6]:
 
 
 cubes.output_all()
@@ -314,7 +314,7 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total num
 """
 
 
-# In[67]:
+# In[7]:
 
 
 #del df['Local Authority']
@@ -326,13 +326,13 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total num
 #### OUTPUTTING LSOA DATA AS A SINGLE DATASET
 
 
-# In[68]:
+# In[8]:
 
 
 #df.head(10)
 
 
-# In[69]:
+# In[9]:
 
 
 """
@@ -406,7 +406,7 @@ df = df[['Year', 'Local Authority', 'Middle Layer Super Output Area', 'Total num
 """
 
 
-# In[69]:
+# In[9]:
 
 
 
