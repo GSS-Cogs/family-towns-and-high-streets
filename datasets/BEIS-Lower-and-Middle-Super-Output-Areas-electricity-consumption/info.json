@@ -24,23 +24,24 @@
         "columns": {
             "Year": {
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refPeriod",
-                "value": "http://reference.data.gov.uk/id/{+year}"
+                "value": "http://reference.data.gov.uk/id/{+year,
+                "codelist": false
             },
             "Local Authority": {
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
                 "value": "http://statistics.data.gov.uk/id/statistical-geography/{local_authority}",
                 "codelist": false
-                },
+            },
             "Middle Layer Super Output Area": {
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
                 "value": "http://statistics.data.gov.uk/id/statistical-geography/{middle_layer_super_output_area}",
                 "codelist": false
-                },
+            },
             "Lower Layer Super Output Area": {
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
                 "value": "http://statistics.data.gov.uk/id/statistical-geography/{lower_layer_super_output_area}",
                 "codelist": false
-                },
+            },
             "Value": {
                 "unit": "http://gss-data.org.uk/def/concept/measurement-units/kilowatt-hour",
                 "measure": "http://gss-data.org.uk/def/measure/kilowatt",
