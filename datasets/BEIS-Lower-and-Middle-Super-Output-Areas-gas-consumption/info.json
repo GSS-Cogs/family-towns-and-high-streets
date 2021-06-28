@@ -20,7 +20,8 @@
         "columns": {
             "Year": {
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refPeriod",
-                "value": "http://reference.data.gov.uk/id/{+year}"
+                "value": "http://reference.data.gov.uk/id/{+year}",
+                "codelist": false
             },
             "Local Authority": {
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
