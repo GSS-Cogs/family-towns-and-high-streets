@@ -229,7 +229,7 @@ cubes.output_all()
 # In[48]:
 
 
-metadata_json = open(f"./out/{csvName}.csv-metadata.json", "r")
+"""metadata_json = open(f"./out/{csvName}.csv-metadata.json", "r")
 metadata = json.load(metadata_json)
 metadata_json.close()
 
@@ -240,4 +240,5 @@ for obj in metadata["tables"][0]["tableSchema"]["columns"]:
 metadata_json = open(f"./out/{csvName}.csv-metadata.json", "w")
 json.dump(metadata, metadata_json, indent=4)
 metadata_json.close()
+"""
 
