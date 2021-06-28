@@ -212,7 +212,7 @@ try:
     out.mkdir(exist_ok=True)
     #joined_dat.drop_duplicates().to_csv(out / csvName, index = False)
 
-    scraper.dataset.family = 'towns-and-high-streets'
+    scraper.dataset.family = 'towns-high-streets'
     scraper.dataset.description = scraper.dataset.description + '\n' + de[i]
     scraper.dataset.comment = co[i]
     scraper.dataset.title = ti[i]
