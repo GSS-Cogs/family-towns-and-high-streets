@@ -266,7 +266,7 @@ out.mkdir(exist_ok=True)
 # Output a subset of the data to get the Mapping class to work
 #df[:10].to_csv(out / csvName, index = False)
 
-scraper.dataset.family = 'towns-high-streets'
+scraper.dataset.family = 'towns-and-high-streets'
 scraper.dataset.description = scraper.dataset.description + '\nGuidance documentation can be found here:\n' + notes
 #scraper.dataset.comment = 'Total domestic electricity consumption, number of meters, mean and median consumption for LSOA regions across England, Wales & Scotland'
 scraper.dataset.comment = 'Total domestic electricity consumption for LSOA regions across England, Wales & Scotland'
