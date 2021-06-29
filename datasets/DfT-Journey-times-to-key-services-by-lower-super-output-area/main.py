@@ -1,13 +1,23 @@
-# -*- coding: utf-8 -*-
-# + {}
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[20]:
+
+
 from gssutils import *
 import json
+import copy
 
-scraper = Scraper(seed="info.json")  
+cubes = Cubes("info.json")
+
+info = json.load(open('info.json'))
+scraper = Scraper(seed="info.json")
 scraper.select_dataset(title=lambda t: 'Journey times to key services by lower super output area (JTS05)' in t)
 scraper
 
-# -
+
+# In[21]:
+
 
 uris = [
     "https://drive.google.com/file/d/1SeekTbw2ShjSws_I5G5bTG8va0hhJ5wg/view?usp=download",
@@ -54,7 +64,10 @@ no = [
     ""
 ]
 
-# +
+
+# In[ ]:
+
+
 import os
 from urllib.parse import urljoin
 scraper.dataset.family = 'towns-and-high-streets'
@@ -66,20 +79,23 @@ out.mkdir(exist_ok=True)
 notes = """
     2017 journey times have been influenced by changes to the network of walking paths being used for the calculations. The network is more extensive in 2017 reflecting changes to the underlying Ordnance Survey
     Urban Paths data set which is used (this has the effect of reducing the time taken for some trips where a relevant path has been added to the dataset).
-    Full details of the datasets for the production of all the estimates are provided in the accompanying guidance note - 
+    Full details of the datasets for the production of all the estimates are provided in the accompanying guidance note -
     https://www.gov.uk/government/publications/journey-time-statistics-guidance.\n
 """
 originalDescription = scraper.dataset.description + notes
 
 i = 0
 for u in uris:
+
+    scraper1 = copy.deepcopy(scraper)
+
     path = 'https://drive.google.com/uc?export=download&id='+u.split('/')[-2]
     df = pd.read_csv(path)
     df = df.rename(columns={'Field Code': 'Mode of Travel'})
     df['Mode of Travel'] = df['Mode of Travel'].apply(pathify)
     df['Year'] = 'year/' + df['Year'].astype(str)
     #df = df.head(10)
-    
+
     if dn[i] == "Employment Centres":
         df['Employment Centre Size'] = df['Mode of Travel']
         df['Employment Centre Size'] = df['Employment Centre Size'].replace({
@@ -95,34 +111,57 @@ for u in uris:
             })
         df['Employment Centre Size'] = df['Employment Centre Size'].apply(pathify)
         df = df[['Year','Lower Layer Super Output Area','Local Authority','Employment Centre Size','Mode of Travel','Value']]
-    
-    csvName = pathify(dn[i]).replace("-","_") + "_observations.csv"
-    df.drop_duplicates().to_csv(out / csvName, index = False)
-    df.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+
+    csvName = pathify(dn[i]).replace("-","_") + "_observations"
+    #df.drop_duplicates().to_csv(out / csvName, index = False)
+    #df.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 
     datasetExtraName = '/' + pathify(dn[i])
-    
-    scraper.dataset.description = originalDescription + no[i]
-        
-    scraper.dataset.comment = f'Travel time, destination and origin indicators for {dn[i]} by mode of travel, Lower Super Output Area (LSOA), England {ag[i]}'
-    scraper.dataset.title = f'Journey times to key services by lower super output area: {dn[i]} - JTS050{str(i+1)}'
 
-    dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower() + datasetExtraName
-    scraper.set_dataset_id(dataset_path)
+    scraper1.dataset.description = originalDescription + no[i]
 
-    csvw_transform = CSVWMapping()
-    csvw_transform.set_csv(out / csvName)
-    csvw_transform.set_mapping(json.load(open('info.json')))
-    csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
-    csvw_transform.set_registry(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
-    csvw_transform.write(out / f'{csvName}-metadata.json')
+    scraper1.dataset.comment = f'Travel time, destination and origin indicators for {dn[i]} by mode of travel, Lower Super Output Area (LSOA), England {ag[i]}'
+    scraper1.dataset.title = f'Journey times to key services by lower super output area: {dn[i]} - JTS050{str(i+1)}'
+
+
+    scraper1 = copy.deepcopy(scraper)
+
+    # Relevant assignments
+    info_json_dataset_id = info.get('id', Path.cwd().name)
+
+    # Loop over all the unique values of period in table = pd.DataFrame()
+    for region in df['Local Authority'].unique():
+
+        # Read cube here as chunk, these are not qb:cubes
+        if len(cubes.cubes) == 0:
+            # For the first the chunk, create a primary graph graph_uri and csv_name
+            graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area/{csvName}"
+            csv_name = csvName
+            cubes.add_cube(scraper1, df[df['Local Authority'] == region], csv_name, graph=csvName)
+        else:
+            # For subsequent chunk to add, create a secondary graph graph_uri and csv_name
+            graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area/{csvName}/{region}"
+            csv_name = csvName+ f'-{region}'
+            cubes.add_cube(scraper1, df[df['Local Authority'] == region], csv_name, graph=csvName,  override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
+
+    cubes.add_cube(scraper1, df.drop_duplicates(), csvName)
 
     with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
         metadata.write(scraper.generate_trig())
     i = i + 1
-# # +
-#info = json.load(open('info.json')) 
-#codelistcreation = ['Employment Centre Size'] 
+
+
+# In[ ]:
+
+
+cubes.output_all()
+
+
+# In[ ]:
+
+
+#info = json.load(open('info.json'))
+#codelistcreation = ['Employment Centre Size']
 
 #codeclass = CSVCodelists()
 #for cl in codelistcreation:
