@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[41]:
+# In[1]:
 
 
 from gssutils import *
@@ -22,7 +22,7 @@ scraper = Scraper(seed="info.json")
 scraper
 
 
-# In[42]:
+# In[2]:
 
 
 trace = TransformTrace()
@@ -142,7 +142,7 @@ for distribution in scraper.distributions:
                         tidied_sheets[file_name] = table
 
 
-# In[43]:
+# In[3]:
 
 
 #for key in tidied_sheets:
@@ -167,7 +167,7 @@ del lsoa_dat['Mean consumption (kWh per meter)']
 del lsoa_dat['Median consumption (kWh per meter)']
 
 
-# In[44]:
+# In[4]:
 
 
 #Rename the columns to match the Electricity pipeline
@@ -186,19 +186,20 @@ lsoa_dat = lsoa_dat.rename(columns=
                                'Period': 'Year',
                                'Local Authority Code': 'Local Authority',
                                'Middle Layer Super Output Area (MSOA) Code': 'Middle Layer Super Output Area',
-                               'Lower Layer Super Output Area (LSOA) Code': 'Lower Layer Super Output Area',
-                               'Number of non-consuming meters' : 'Number of non consuming meters'
+                               'Lower Layer Super Output Area (LSOA) Code': 'Lower Layer Super Output Area'
                            })
 lsoa_dat['Year'] = 'year/' + lsoa_dat['Year'].astype(str)
 
+lsoa_dat = lsoa_dat.fillna('N/A')
 
-# In[45]:
+
+# In[5]:
 
 
 lsoa_dat.head(10)
 
 
-# In[46]:
+# In[6]:
 
 
 import os
@@ -221,13 +222,13 @@ scraper.dataset.title = 'Lower Super Output Areas (LSOA) gas consumption'
 cubes.add_cube(scraper, lsoa_dat.drop_duplicates(), csvName)
 
 
-# In[47]:
+# In[7]:
 
 
 cubes.output_all()
 
 
-# In[48]:
+# In[8]:
 
 
 metadata_json = open(f"./out/{csvName}.csv-metadata.json", "r")
