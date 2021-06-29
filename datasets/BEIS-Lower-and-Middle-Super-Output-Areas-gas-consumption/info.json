@@ -38,8 +38,8 @@
                 "value": "http://statistics.data.gov.uk/id/statistical-geography/{lower_layer_super_output_area}",
                 "codelist": false
                 },
-            "Number of non-consuming meters": {
-		        "description": "Number of non-consuming meters",
+            "Number of non consuming meters": {
+		        "description": "Number of non consuming meters",
 		        "value": "",
 		        "codelist": false
 		        },

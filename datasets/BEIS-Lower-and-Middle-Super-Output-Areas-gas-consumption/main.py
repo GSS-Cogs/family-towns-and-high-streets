@@ -186,7 +186,8 @@ lsoa_dat = lsoa_dat.rename(columns=
                                'Period': 'Year',
                                'Local Authority Code': 'Local Authority',
                                'Middle Layer Super Output Area (MSOA) Code': 'Middle Layer Super Output Area',
-                               'Lower Layer Super Output Area (LSOA) Code': 'Lower Layer Super Output Area'
+                               'Lower Layer Super Output Area (LSOA) Code': 'Lower Layer Super Output Area',
+                               'Number of non-consuming meters' : 'Number of non consuming meters'
                            })
 lsoa_dat['Year'] = 'year/' + lsoa_dat['Year'].astype(str)
 
@@ -229,7 +230,7 @@ cubes.output_all()
 # In[48]:
 
 
-"""metadata_json = open(f"./out/{csvName}.csv-metadata.json", "r")
+metadata_json = open(f"./out/{csvName}.csv-metadata.json", "r")
 metadata = json.load(metadata_json)
 metadata_json.close()
 
@@ -240,5 +241,4 @@ for obj in metadata["tables"][0]["tableSchema"]["columns"]:
 metadata_json = open(f"./out/{csvName}.csv-metadata.json", "w")
 json.dump(metadata, metadata_json, indent=4)
 metadata_json.close()
-"""
 
