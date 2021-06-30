@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[20]:
+# In[1]:
 
 
 from gssutils import *
@@ -16,7 +16,7 @@ scraper.select_dataset(title=lambda t: 'Journey times to key services by lower s
 scraper
 
 
-# In[21]:
+# In[2]:
 
 
 uris = [
@@ -65,7 +65,7 @@ no = [
 ]
 
 
-# In[ ]:
+# In[3]:
 
 
 import os
@@ -123,8 +123,9 @@ for u in uris:
     scraper1.dataset.comment = f'Travel time, destination and origin indicators for {dn[i]} by mode of travel, Lower Super Output Area (LSOA), England {ag[i]}'
     scraper1.dataset.title = f'Journey times to key services by lower super output area: {dn[i]} - JTS050{str(i+1)}'
 
-
     scraper1 = copy.deepcopy(scraper)
+
+    df = df.drop_duplicates()
 
     # Relevant assignments
     info_json_dataset_id = info.get('id', Path.cwd().name)
@@ -144,20 +145,20 @@ for u in uris:
             csv_name = csvName+ f'-{region}'
             cubes.add_cube(scraper1, df[df['Local Authority'] == region], csv_name, graph=csvName,  override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
 
-    cubes.add_cube(scraper1, df.drop_duplicates(), csvName)
+    #cubes.add_cube(scraper1, df.drop_duplicates(), csvName)
 
     with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
         metadata.write(scraper.generate_trig())
     i = i + 1
 
 
-# In[ ]:
+# In[4]:
 
 
 cubes.output_all()
 
 
-# In[ ]:
+# In[5]:
 
 
 #info = json.load(open('info.json'))
