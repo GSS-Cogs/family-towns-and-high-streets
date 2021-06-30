@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[21]:
+# In[33]:
 
 
 from gssutils import *
@@ -16,7 +16,7 @@ scraper.select_dataset(title=lambda t: 'Journey times to key services by lower s
 scraper
 
 
-# In[22]:
+# In[34]:
 
 
 uris = [
@@ -65,7 +65,7 @@ no = [
 ]
 
 
-# In[23]:
+# In[35]:
 
 
 import os
@@ -123,8 +123,6 @@ for u in uris:
     scraper1.dataset.comment = f'Travel time, destination and origin indicators for {dn[i]} by mode of travel, Lower Super Output Area (LSOA), England {ag[i]}'
     scraper1.dataset.title = f'Journey times to key services by lower super output area: {dn[i]} - JTS050{str(i+1)}'
 
-    scraper1 = copy.deepcopy(scraper)
-
     df = df.drop_duplicates()
 
     info_json_dataset_id = info.get('id', Path.cwd().name)
@@ -147,19 +145,19 @@ for u in uris:
     i = i + 1
 
 
-# In[24]:
+# In[36]:
 
 
 print(df.iloc[:,3].unique())
 
 
-# In[25]:
+# In[37]:
 
 
 cubes.output_all()
 
 
-# In[26]:
+# In[38]:
 
 
 #info = json.load(open('info.json'))
