@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[21]:
 
 
 from gssutils import *
@@ -16,7 +16,7 @@ scraper.select_dataset(title=lambda t: 'Journey times to key services by lower s
 scraper
 
 
-# In[2]:
+# In[22]:
 
 
 uris = [
@@ -65,7 +65,7 @@ no = [
 ]
 
 
-# In[3]:
+# In[23]:
 
 
 import os
@@ -127,38 +127,39 @@ for u in uris:
 
     df = df.drop_duplicates()
 
-    # Relevant assignments
     info_json_dataset_id = info.get('id', Path.cwd().name)
 
-    # Loop over all the unique values of period in table = pd.DataFrame()
-    for region in df['Local Authority'].unique():
+    j = 0
 
-        # Read cube here as chunk, these are not qb:cubes
-        if len(cubes.cubes) == 0:
+    for region in df.iloc[:,3].unique():
+        if j == 0:
             # For the first the chunk, create a primary graph graph_uri and csv_name
             graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area/{csvName}"
             csv_name = csvName
-            cubes.add_cube(scraper1, df[df['Local Authority'] == region], csv_name, graph=csvName)
+            cubes.add_cube(scraper1, df[df.iloc[:,3] == region], csv_name, graph=csvName)
+            j += 1
         else:
             # For subsequent chunk to add, create a secondary graph graph_uri and csv_name
             graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-high-streets/dft-journey-times-to-key-services-by-lower-super-output-area/{csvName}/{region}"
             csv_name = csvName+ f'-{region}'
-            cubes.add_cube(scraper1, df[df['Local Authority'] == region], csv_name, graph=csvName,  override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
+            cubes.add_cube(scraper1, df[df.iloc[:,3] == region], csv_name, graph=csvName,  override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
 
-    #cubes.add_cube(scraper1, df.drop_duplicates(), csvName)
-
-    with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
-        metadata.write(scraper.generate_trig())
     i = i + 1
 
 
-# In[4]:
+# In[24]:
+
+
+print(df.iloc[:,3].unique())
+
+
+# In[25]:
 
 
 cubes.output_all()
 
 
-# In[5]:
+# In[26]:
 
 
 #info = json.load(open('info.json'))
