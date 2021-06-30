@@ -70,7 +70,7 @@ no = [
 
 import os
 from urllib.parse import urljoin
-scraper.dataset.family = 'towns-and-high-streets'
+scraper.dataset.family = 'towns-high-streets'
 scraper.set_base_uri('http://gss-data.org.uk')
 
 out = Path('out')
