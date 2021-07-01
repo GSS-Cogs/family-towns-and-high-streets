@@ -40,8 +40,8 @@
                 "codelist": false
             },
             "Value": {
-                "unit": "http://gss-data.org.uk/def/concept/measurement-units/count",
-                "measure": "http://gss-data.org.uk/def/measure/properties",
+                "unit": "http://gss-data.org.uk/def/concept/measurement-units/properties",
+                "measure": "http://gss-data.org.uk/def/measure/count",
                 "datatype": "double"
             },
             "Number of domestic gas meters": {
