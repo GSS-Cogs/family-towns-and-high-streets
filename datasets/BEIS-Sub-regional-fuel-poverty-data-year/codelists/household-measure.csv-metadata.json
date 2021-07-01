@@ -1,6 +1,6 @@
 {
     "@context": "http://www.w3.org/ns/csvw",
-    "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure",
+    "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure",
     "url": "household-measure.csv",
     "rdfs:label": "Household Measure",
     "dc:title": "Household Measure",
@@ -32,7 +32,7 @@
                 },
                 "required": false,
                 "propertyUrl": "skos:broader",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#concept/household-measure/{parent_notation}"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#concept/household-measure/{parent_notation}"
             },
             {
                 "titles": "Sort Priority",
@@ -49,14 +49,14 @@
             {
                 "virtual": true,
                 "propertyUrl": "skos:inScheme",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure"
             }
         ],
         "primaryKey": "notation",
-        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#concept/household-measure/{notation}"
+        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#concept/household-measure/{notation}"
     },
     "prov:hadDerivation": {
-        "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure",
+        "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure",
         "@type": [
             "skos:ConceptScheme",
             "http://publishmydata.com/pmdcat#ConceptScheme"
@@ -64,16 +64,16 @@
     },
     "rdfs:seeAlso": [
         {
-            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure/dataset",
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure/dataset",
             "@type": [
                 "dcat:Dataset",
                 "http://publishmydata.com/pmdcat#Dataset"
             ],
             "http://publishmydata.com/pmdcat#datasetContents": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure"
             },
             "http://publishmydata.com/pmdcat#graph": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure"
             },
             "dc:modified": {
                 "@type": "dateTime",
@@ -109,17 +109,17 @@
         {
             "@id": "http://gss-data.org.uk/catalog/vocabularies",
             "dcat:record": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure/catalog-record"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure/catalog-record"
             }
         },
         {
-            "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure/catalog-record",
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure/catalog-record",
             "@type": "dcat:CatalogRecord",
             "foaf:primaryTopic": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure/dataset"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure/dataset"
             },
             "http://publishmydata.com/pmdcat#metadataGraph": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-and-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/beis-sub-regional-fuel-poverty-data-year#scheme/household-measure"
             },
             "dc:title": "Household Measure Catalog Record",
             "rdfs:label": "Household Measure Catalog Record",
