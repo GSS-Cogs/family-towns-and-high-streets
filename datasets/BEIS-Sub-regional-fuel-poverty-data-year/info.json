@@ -22,7 +22,12 @@
             "Geography Code": {
                 "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
                 "value": "http://statistics.data.gov.uk/id/statistical-geography/{geography_code}",
-                "description": "ONS Geography code by English Region, Local Authority, Lower layer super output area, County and Parliamentary Constituency"
+                "codelist": false
+            },
+            "Geography Level": {
+                "parent": "http://gss-data.org.uk/def/concept-scheme/geography-level",
+                "value": "http://gss-data.org.uk/def/concept/geography-level/{geography_level}",
+                "codelist": false
             },
             "Value": {
                 "unit": "http://gss-data.org.uk/def/concept/measurement-units/households",

@@ -1,14 +1,28 @@
-from gssutils import * 
-import json 
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[47]:
+
+
+from gssutils import *
+import json
 import os
 from urllib.parse import urljoin
 
+cubes = Cubes('info.json')
 
-scraper = Scraper(seed="info.json")   
-scraper 
+scraper = Scraper(seed="info.json")
+scraper
+
+
+# In[48]:
+
 
 scraper.select_dataset(title=lambda t: 'data 2020' in t)
 scraper
+
+
+# In[49]:
 
 
 # region
@@ -22,7 +36,7 @@ scraper
 # endregion
 
 # region
-# Place each table in separate variables 
+# Place each table in separate variables
 #for tab in tabs:
 #    if tab.name == 'Table 1':
 #        tab1 = tab
@@ -41,7 +55,7 @@ scraper
 
 # region
 # # +
-# Processing each table starting from table 1 
+# Processing each table starting from table 1
 #region = tab1.excel_ref('A4').expand(DOWN).is_not_blank()
 #remove_from_region = tab1.filter("1 Household and fuel poverty numbers at region level come from the national fuel poverty statistics, 2018:").assert_one().expand(DOWN).is_not_blank()
 # region remove_from_region = region -
@@ -167,13 +181,13 @@ try:
         dat = dat.iloc[1:]
         dat = dat[dat['Household Measure'].notna()]
         tbls.append(dat)
-    
+
     k = 0
     for t in tbls:
         if k == 0:
             joined_dat1 = t
         else:
-            joined_dat1 = pd.concat([joined_dat1,t])   
+            joined_dat1 = pd.concat([joined_dat1,t])
         k = k + 1
     # Assuming 'East' is 'East of England'
     joined_dat1['Region'] = joined_dat1['Region'].str.strip().replace({
@@ -187,7 +201,7 @@ try:
         'South East':'E12000008',
         'South West':'E12000009'
     })
-    
+
     joined_dat.append(joined_dat1)
     del joined_dat1
 except Exception as s:
@@ -208,15 +222,15 @@ try:
         dat = dat.iloc[1:]
         dat = dat[dat['Household Measure'].notna()]
         tbls.append(dat)
-    
+
     k = 0
     for t in tbls:
         if k == 0:
             joined_dat2 = t
         else:
-            joined_dat2 = pd.concat([joined_dat2,t])   
+            joined_dat2 = pd.concat([joined_dat2,t])
         k = k + 1
-    
+
     joined_dat.append(joined_dat2)
     del joined_dat2
 except Exception as s:
@@ -237,13 +251,13 @@ try:
         dat = dat.iloc[1:]
         dat = dat[dat['Household Measure'].notna()]
         tbls.append(dat)
-    
+
     k = 0
     for t in tbls:
         if k == 0:
             joined_dat3 = t
         else:
-            joined_dat3 = pd.concat([joined_dat3,t])   
+            joined_dat3 = pd.concat([joined_dat3,t])
         k = k + 1
     joined_dat.append(joined_dat3)
     del joined_dat3
@@ -266,13 +280,13 @@ try:
         dat = dat.iloc[1:]
         dat = dat[dat['Household Measure'].notna()]
         tbls.append(dat)
-    
+
     k = 0
     for t in tbls:
         if k == 0:
             joined_dat4 = t
         else:
-            joined_dat4 = pd.concat([joined_dat4,t])   
+            joined_dat4 = pd.concat([joined_dat4,t])
         k = k + 1
 
     joined_dat.append(joined_dat4)
@@ -295,28 +309,28 @@ try:
         dat = dat.iloc[1:]
         dat = dat[dat['Household Measure'].notna()]
         tbls.append(dat)
-    
+
     k = 0
     for t in tbls:
         if k == 0:
             joined_dat5 = t
         else:
-            joined_dat5 = pd.concat([joined_dat5,t])   
+            joined_dat5 = pd.concat([joined_dat5,t])
         k = k + 1
-        
+
     joined_dat.append(joined_dat5)
     del joined_dat5
 except Exception as s:
     print(str(s))
 
 i = 0
-all_dat = pd.DataFrame(columns=['Geography Code', 'Geography Level', 'Household Measure', 'Value'])
+all_dat = pd.DataFrame()
 for j in joined_dat:
     #print('Joined data ' + str(i+1) + ': ' + str(j['Value'].count()))
     j.insert(1, 'Geography Level', j.columns[0])
     j = j.rename(columns={j.columns[0]:'Geography Code'})
     #print(list(j.columns))
-    
+
     all_dat = pd.concat([all_dat,j])
     #print(all_dat['Value'].count())
     i = i + 1
@@ -336,13 +350,20 @@ all_dat['Geography Level'] = all_dat['Geography Level'].apply(pathify)
 #all_dat.head(20)
 # endregion
 
+
+all_dat
+
+
+# In[50]:
+
+
 # region
 yr = '2020'
-csvName = 'observations.csv'
+csvName = 'observations'
 out = Path('out')
 out.mkdir(exist_ok=True)
-all_dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
-all_dat.drop_duplicates().to_csv(out / csvName, index = False)
+#all_dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+#all_dat.drop_duplicates().to_csv(out / csvName, index = False)
 
 notes = """
 Report available here:
@@ -363,31 +384,17 @@ scraper.dataset.description = scraper.dataset.description + notes
 scraper.dataset.comment = f'Fuel poverty data measured as low income high costs {yr} - Region, Local Authority, LSOA, County and Parliamentary Constituency'
 scraper.dataset.title = 'Sub-regional fuel poverty data - England'
 
-dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower()
-scraper.set_base_uri('http://gss-data.org.uk')
-scraper.set_dataset_id(dataset_path)
+cubes.add_cube(scraper, all_dat.drop_duplicates(), csvName)
 
-csvw_transform = CSVWMapping()
-csvw_transform.set_csv(out / csvName)
-csvw_transform.set_mapping(json.load(open('info.json')))
-csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
-csvw_transform.write(out / f'{csvName}-metadata.json')
 
-with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
-    metadata.write(scraper.generate_trig())
-    
-# endregion
+# In[51]:
 
-# region
-#scraper.dataset.family = 'towns-high-streets'
-#codelistcreation = ['Geography Level','Household Measure'] 
-#df = all_dat
-#codeclass = CSVCodelists()
-#for cl in codelistcreation:
-#    if cl in df.columns:
-#        df[cl] = df[cl].str.replace("-"," ")
-#        df[cl] = df[cl].str.capitalize()
-#        codeclass.create_codelists(pd.DataFrame(df[cl]), 'codelists', scraper.dataset.family, Path(os.getcwd()).name.lower())
-# endregion
+
+cubes.output_all()
+
+
+# In[51]:
+
+
 
 
