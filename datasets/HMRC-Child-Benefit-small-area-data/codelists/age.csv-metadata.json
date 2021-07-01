@@ -1,7 +1,9 @@
 {
     "@context": "http://www.w3.org/ns/csvw",
-    "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept-scheme/age",
+    "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data#scheme/age",
     "url": "age.csv",
+    "rdfs:label": "Age",
+    "dc:title": "Age",
     "tableSchema": {
         "columns": [
             {
@@ -16,7 +18,7 @@
                 "name": "notation",
                 "datatype": {
                     "base": "string",
-                    "format": "^-?[\\w\\.\\/]+(-[\\w\\.\\/]+)*$"
+                    "format": "^-?[\\w\\.\\/\\+]+(-[\\w\\.\\/\\+]+)*$"
                 },
                 "required": true,
                 "propertyUrl": "skos:notation"
@@ -26,25 +28,18 @@
                 "name": "parent_notation",
                 "datatype": {
                     "base": "string",
-                    "format": "^(-?[\\w\\.\\/]+(-[\\w\\.\\/]+)*|)$"
+                    "format": "^(-?[\\w\\.\\/\\+]+(-[\\w\\.\\/\\+]+)*|)$"
                 },
                 "required": false,
                 "propertyUrl": "skos:broader",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept/age/{+parent_notation}"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data#concept/age/{parent_notation}"
             },
             {
                 "titles": "Sort Priority",
-                "name": "sort",
+                "name": "sort_priority",
                 "datatype": "integer",
                 "required": false,
                 "propertyUrl": "http://www.w3.org/ns/ui#sortPriority"
-            },
-            {
-                "titles": "Description",
-                "name": "description",
-                "datatype": "string",
-                "required": false,
-                "propertyUrl": "rdfs:comment"
             },
             {
                 "virtual": true,
@@ -54,71 +49,87 @@
             {
                 "virtual": true,
                 "propertyUrl": "skos:inScheme",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept-scheme/age"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data#scheme/age"
             }
         ],
         "primaryKey": "notation",
-        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept/age/{+notation}"
+        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data#concept/age/{notation}"
     },
     "prov:hadDerivation": {
-        "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept-scheme/age",
+        "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data#scheme/age",
         "@type": [
             "skos:ConceptScheme",
             "http://publishmydata.com/pmdcat#ConceptScheme"
-        ],
-        "skos:hasTopConcept": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept/age/total"
+        ]
     },
-    "rdfs:label": "Age",
-    "dc:title": "Age",
     "rdfs:seeAlso": [
         {
-            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept-scheme/age/dataset",
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data#scheme/age/dataset",
             "@type": [
                 "dcat:Dataset",
                 "http://publishmydata.com/pmdcat#Dataset"
             ],
             "http://publishmydata.com/pmdcat#datasetContents": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept-scheme/age"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data#scheme/age"
             },
             "http://publishmydata.com/pmdcat#graph": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept-scheme/age"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data#scheme/age"
             },
             "dc:modified": {
                 "@type": "dateTime",
-                "@value": "2021-05-20T12:06:57.875458"
+                "@value": "2021-06-07T12:49:30.834267"
             },
             "rdfs:label": "Age",
             "dc:title": "Age",
             "rdfs:comment": "Dataset representing the 'Age' code list.",
             "dc:issued": {
                 "@type": "dateTime",
-                "@value": "2021-05-20T12:06:55.753917"
+                "@value": "2021-06-07T12:49:30.834267"
+            },
+            "dc:license": {
+                "@id": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+            },
+            "dc:creator": {
+                "@id": "https://www.gov.uk/government/organisations/hm-revenue-customs"
+            },
+            "dc:publisher": {
+                "@id": "https://www.gov.uk/government/organisations/hm-revenue-customs"
+            },
+            "dcat:contactPoint": {
+                "@id": "mailto:cogs@ons.gov.uk"
+            },
+            "dcat:landingPage": {
+                "@id": "https://www.gov.uk/government/collections/child-benefit-small-area-data"
+            },
+            "http://publishmydata.com/pmdcat#markdownDescription": {
+                "@type": "https://www.w3.org/ns/iana/media-indicators/text/markdown#Resource",
+                "@value": "Annual geographical estimates at Lower Super Output Area and Data Zone of the number of families and children claiming Child Benefit on 31 August of the year of analysis."
             }
         },
         {
             "@id": "http://gss-data.org.uk/catalog/vocabularies",
             "dcat:record": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept-scheme/age/catalog-record"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data#scheme/age/catalog-record"
             }
         },
         {
-            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept-scheme/age/catalog-record",
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data#scheme/age/catalog-record",
             "@type": "dcat:CatalogRecord",
             "foaf:primaryTopic": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept-scheme/age/dataset"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data#scheme/age/dataset"
             },
             "http://publishmydata.com/pmdcat#metadataGraph": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept-scheme/age"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data#scheme/age"
             },
             "dc:title": "Age Catalog Record",
             "rdfs:label": "Age Catalog Record",
             "dc:issued": {
                 "@type": "dateTime",
-                "@value": "2021-05-20T12:06:55.753917"
+                "@value": "2021-08-24T12:49:30.834267"
             },
             "dc:modified": {
                 "@type": "dateTime",
-                "@value": "2021-05-20T12:06:55.753917"
+                "@value": "2021-08-24T12:49:30.834267"
             }
         }
     ]
