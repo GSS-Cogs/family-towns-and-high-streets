@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
-# %%
 
-# %%
+# In[7]:
 
 
 # # LSOA estimates of properties not connected to the gas network
@@ -10,13 +9,15 @@
 from gssutils import *
 import json
 
+cubes = Cubes('info.json')
+
 info = json.load(open('info.json'))
 #scraper = Scraper(seed="info.json")
 scraper = Scraper(info['landingPage'])
 scraper
 
 
-# %%
+# In[8]:
 
 
 datasetTitle = 'LSOA estimates of properties not connected to the gas network'
@@ -105,7 +106,8 @@ df = df.replace({'Period' : {
     '2015' : '1st October 2014 - 1st October 2015',
     '2016' : '15th July 2016 – 15th July 2017',
     '2017' : '15th June 2017 – 15th June 2018',
-    '2018' : '15th May 2018 – 15th May 2019'
+    '2018' : '15th May 2018 – 15th May 2019',
+    '2019' : '16th May 2019 – 15th May 2020'
 }})
 
 
@@ -120,27 +122,36 @@ for column in tidy:
 tidy
 
 
-# %%
+# In[9]:
 
 
-# %%
 del tidy['Local Authority Name']
 del tidy['MSOA Name']
 del tidy['LSOA Name']
 del tidy['Measure Type']
 del tidy['Unit']
 
-# %%
+
+# In[10]:
+
+
 tidy = tidy.rename(columns={'Middle Layer Super Output Area (MSOA) Code':'Middle Layer Super Output Area',
                            'Lower Layer Super Output Area (LSOA) Code':'Lower Layer Super Output Area',
                            'Local Authority Code':'Local Authority'})
 
 
-# %%
+# In[11]:
+
+
 df = tidy['Period'].str.split('-', 6, expand=True)
 df['d1'] = df[0].astype(str) + " " + df[1].astype(str) + " " + df[2].astype(str)
 df['d2'] = df[3].astype(str) + " " + df[4].astype(str) + " " + df[5].astype(str)
 df.drop([0,1,2,3,4,5], axis=1, inplace=True)
+df
+
+
+# In[12]:
+
 
 df['d1'] = pd.to_datetime(pd.Series(df['d1']))
 df['d2'] = pd.to_datetime(pd.Series(df['d2']))
@@ -151,18 +162,28 @@ df['val'] = 'gregorian-interval/' + df['d1'].astype(str) + 'T00:00:00/P' + df['d
 tidy['Period'] = df['val']
 
 
+# In[13]:
 
-# %%
+
 tidy['Value'][tidy['Value'] == ''] = 0
 
-# %%
+
+# In[14]:
+
+
 del tidy['Number of domestic gas meters']
 del tidy['Number of properties']
 
-# %%
+
+# In[15]:
+
+
 #tidy.head(6)
 
-# %%
+
+# In[16]:
+
+
 import os
 from urllib.parse import urljoin
 
@@ -171,8 +192,8 @@ notes = 'Link to methodology: https://assets.publishing.service.gov.uk/governmen
 csvName = 'observations.csv'
 out = Path('out')
 out.mkdir(exist_ok=True)
-tidy.drop_duplicates().to_csv(out / csvName, index = False)
-tidy.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+#tidy.drop_duplicates().to_csv(out / csvName, index = False)
+#tidy.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
 
 scraper.dataset.family = 'towns-high-streets'
 scraper.dataset.description = """
@@ -180,16 +201,16 @@ LSOA level estimates for the number of properties without mains gas. Estimates a
 
 This dataset estimates the number of properties not connected to the gas network, at an LSOA level for England, Wales & Scotland
 
-The estimates are produced by comparing the number of properties for each LSOA (as given by VOA estimates of domestic properties) with estimates for the number of domestic gas meters in each LSOA (as given in BEIS's sub-national consumption statistics).																			
+The estimates are produced by comparing the number of properties for each LSOA (as given by VOA estimates of domestic properties) with estimates for the number of domestic gas meters in each LSOA (as given in BEIS's sub-national consumption statistics).
 
-    1. A methodology and guidance booklet containing further information 
+    1. A methodology and guidance booklet containing further information
         about all sub-national energy consumption datasets:
         https://www.gov.uk/government/statistics/regional-energy-data-guidance-note
 
 From 2015 onwards, in compliance with the ONS geography policy, the local authorities in Scotland and Wales have been re-ordered.
 
 The current data set has been revised to incorporate Valuation Office Agency (VOA) estimates of the number of properties in England and Wales local authorities.
-The number of properties in Scotland uses data published by the Scottish Government 
+The number of properties in Scotland uses data published by the Scottish Government
 
 Please note that there is no definitive source for the number of properties not on the gas grid, so BEIS estimates these figures by subtracting the number of domestic gas meters from the estimated number of properties
 
@@ -201,7 +222,7 @@ https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme
 England and Wales:
 https://www.gov.uk/government/statistics/council-tax-stock-of-properties-2018
 
-To estimate the number of properties by LSOA and MSOA in Scotland, the LA level household totals were split in proportion to the number of domestic electricity 
+To estimate the number of properties by LSOA and MSOA in Scotland, the LA level household totals were split in proportion to the number of domestic electricity
 meters in each LSOA and MSOA. For more information about this estimation, see methodology and guidance booklet
 
 In the case that the estimated number of gas meters in an LSOA is greater than the number of properties, it is assumed that there are no properties not connected to the gas grid in that area
@@ -210,19 +231,11 @@ The percentage listed for Great Britain excludes unallocated meters from the den
 """
 scraper.dataset.comment = 'LSOA level estimates for the number of properties without mains gas. Estimates at local authority and MSOA levels are also available.'
 
-dataset_path = pathify(os.environ.get('JOB_NAME', f'gss_data/{scraper.dataset.family}/' + Path(os.getcwd()).name)).lower()
-scraper.set_base_uri('http://gss-data.org.uk')
-scraper.set_dataset_id(dataset_path)
+cubes.add_cube(scraper, tidy.drop_duplicates(), csvName)
 
-csvw_transform = CSVWMapping()
-csvw_transform.set_csv(out / csvName)
-csvw_transform.set_mapping(json.load(open('info.json')))
-csvw_transform.set_dataset_uri(urljoin(scraper._base_uri, f'data/{scraper._dataset_id}'))
-csvw_transform.write(out / f'{csvName}-metadata.json')
 
-with open(out / f'{csvName}-metadata.trig', 'wb') as metadata:
-    metadata.write(scraper.generate_trig())
+# In[16]:
 
-# %%
 
-# %%
+cubes.output_all()
+
