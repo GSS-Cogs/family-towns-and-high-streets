@@ -29,6 +29,9 @@
                 "value": "http://gss-data.org.uk/def/concept/geography-level/{geography_level}",
                 "codelist": false
             },
+            "Household Measure": {
+                "description": "Household Measure"
+            },
             "Value": {
                 "unit": "http://gss-data.org.uk/def/concept/measurement-units/households",
                 "measure": "http://gss-data.org.uk/def/measure/count",
