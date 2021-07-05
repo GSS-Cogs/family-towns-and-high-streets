@@ -31,9 +31,7 @@
                 "codelist": false
             },
             "Age": {
-                "parent": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept-scheme/age",
-                "value": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept/age/{age}",
-                "description": ""
+                "description": "Age"
             },
             "Geography Level": {
                 "parent": "http://gss-data.org.uk/def/concept-scheme/geography-level",
@@ -46,9 +44,7 @@
                 "codelist": false
             },
             "Family Size": {
-                "parent": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept-scheme/family-size",
-                "value": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-child-benefit-small-area-data/concept/family-size/{family_size}",
-                "description": ""
+                "description": "Family Size"
             },
             "Value": {
                 "unit": "http://gss-data.org.uk/def/concept/measurement-units/children",
