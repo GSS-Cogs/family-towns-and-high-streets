@@ -1,7 +1,9 @@
 {
     "@context": "http://www.w3.org/ns/csvw",
-    "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type",
+    "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type",
     "url": "family-type.csv",
+    "rdfs:label": "Family Type",
+    "dc:title": "Family Type",
     "tableSchema": {
         "columns": [
             {
@@ -30,7 +32,7 @@
                 },
                 "required": false,
                 "propertyUrl": "skos:broader",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#concept/family-type/{+parent_notation}"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#concept/family-type/{parent_notation}"
             },
             {
                 "titles": "Sort Priority",
@@ -47,37 +49,43 @@
             {
                 "virtual": true,
                 "propertyUrl": "skos:inScheme",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type"
             }
         ],
         "primaryKey": "notation",
-        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#concept/family-type/{+notation}"
+        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#concept/family-type/{notation}"
     },
     "prov:hadDerivation": {
-        "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type",
+        "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type",
         "@type": [
             "skos:ConceptScheme",
             "http://publishmydata.com/pmdcat#ConceptScheme"
         ]
     },
-    "rdfs:label": "Family Type",
-    "dc:title": "Family Type",
     "rdfs:seeAlso": [
         {
-            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type/dataset",
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type/dataset",
             "@type": [
                 "dcat:Dataset",
                 "http://publishmydata.com/pmdcat#Dataset"
             ],
             "http://publishmydata.com/pmdcat#datasetContents": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type"
             },
             "http://publishmydata.com/pmdcat#graph": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type"
+            },
+            "dc:modified": {
+                "@type": "dateTime",
+                "@value": "2021-06-07T12:49:30.834267"
             },
             "rdfs:label": "Family Type",
             "dc:title": "Family Type",
             "rdfs:comment": "Dataset representing the 'Family Type' code list.",
+            "dc:issued": {
+                "@type": "dateTime",
+                "@value": "2021-06-07T12:49:30.834267"
+            },
             "dc:license": {
                 "@id": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
             },
@@ -91,45 +99,37 @@
                 "@id": "mailto:cogs@ons.gov.uk"
             },
             "dcat:landingPage": {
-                "@id": "https://www.gov.uk/government/collections/personal-tax-credits-statistics#other-statistics-information"
-            },
-            "dc:issued": {
-                "@type": "dateTime",
-                "@value": "2019-10-30T00:00:00"
-            },
-            "dc:modified": {
-                "@type": "dateTime",
-                "@value": "2021-05-20T12:06:57.867900"
+                "@id": "https://www.gov.uk/government/statistics/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-2017-to-2018"
             },
             "http://publishmydata.com/pmdcat#markdownDescription": {
-                "@type": "https://www.w3.org/ns/iana/media-types/text/markdown#Resource",
-                "@value": "On landing page scroll down to heading \\\"National Statistics\\\" where link to latest dataset can be found titled \\\"Personal tax credits: finalised award statistics - small area data (LSOA and Data Zone) [year]\\\". On new page, dataset consists of several files un the heading \\\"Documents\\\""
+                "@type": "https://www.w3.org/ns/iana/media-indicators/text/markdown#Resource",
+                "@value": "These statistics provide detailed geographical estimates of the number of families in receipt of tax credits."
             }
         },
         {
             "@id": "http://gss-data.org.uk/catalog/vocabularies",
             "dcat:record": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type/catalog-record"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type/catalog-record"
             }
         },
         {
-            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type/catalog-record",
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type/catalog-record",
             "@type": "dcat:CatalogRecord",
             "foaf:primaryTopic": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type/dataset"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type/dataset"
             },
             "http://publishmydata.com/pmdcat#metadataGraph": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/hmrc-personal-tax-credits-finalised-award-statistics-small-area-data-lsoa-and-data-zone-year#scheme/family-type"
             },
             "dc:title": "Family Type Catalog Record",
             "rdfs:label": "Family Type Catalog Record",
             "dc:issued": {
                 "@type": "dateTime",
-                "@value": "2021-01-26T12:19:10.858581"
+                "@value": "2021-08-24T12:49:30.834267"
             },
             "dc:modified": {
                 "@type": "dateTime",
-                "@value": "2021-01-26T12:19:10.858581"
+                "@value": "2021-08-24T12:49:30.834267"
             }
         }
     ]

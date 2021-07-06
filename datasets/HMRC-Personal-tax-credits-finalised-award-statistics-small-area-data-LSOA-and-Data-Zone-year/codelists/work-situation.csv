@@ -1,4 +1,6 @@
 Label,Notation,Parent Notation,Sort Priority
-All,all,,1
-In Work,in-work,all,2
-Out of Work,out-of-work,all,3
+All,all,,0
+In Work,in-work,,1
+Out of Work,out-of-work,,2
+In work,in-work,,3
+Out of work,out-of-work,,4
