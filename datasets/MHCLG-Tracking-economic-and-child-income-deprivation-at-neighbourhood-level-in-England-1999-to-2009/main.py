@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[112]:
+# In[59]:
 
 
 from gssutils import *
@@ -9,6 +9,7 @@ import json
 import math
 import os
 from urllib.parse import urljoin
+import copy
 
 info = json.load(open('info.json'))
 etl_title = info["title"]
@@ -22,7 +23,7 @@ scraper = Scraper(seed="info.json")
 scraper
 
 
-# In[113]:
+# In[60]:
 
 
 trace = TransformTrace()
@@ -270,7 +271,7 @@ for key in tidied_sheets:
     #print(tidied_sheets[key].head(10))
 
 
-# In[114]:
+# In[61]:
 
 
 ranksDat = []
@@ -308,13 +309,13 @@ all_dat = [ranks, score, numer, denom, popul]
 del ranks, score, numer, denom, popul
 
 
-# In[115]:
+# In[62]:
 
 
 #all_dat[0].head(10)
 
 
-# In[116]:
+# In[63]:
 
 
 scraper.dataset.family = 'towns-high-streets'
@@ -383,7 +384,7 @@ description = """
 mt
 
 
-# In[117]:
+# In[64]:
 
 
 out = Path('out')
@@ -409,30 +410,31 @@ for dat in all_dat:
     scraper.set_base_uri('http://gss-data.org.uk')
     scraper.set_dataset_id(dataset_path)
     j = 0
-    # Loop over all the unique values of period in table = pd.DataFrame()
-    for area in dat['Local Authority'].unique():
-        # Read cube here as chunk, these are not qb:cubes
+
+    for year in dat['Year'].unique():
+
         if j == 0:
             # For the first the chunk, create a primary graph graph_uri and csv_name
-            graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-and-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}"
+            graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}"
             csv_name = csvName
-            cubes.add_cube(scraper, dat[dat['Year'] == area], csv_name, graph=csvName)
+            cubes.add_cube(scraper, dat[dat['Year'] == year], csv_name, graph=csvName)
             j += 1
+
         else:
             # For subsequent chunk to add, create a secondary graph graph_uri and csv_name
-            graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-and-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}/{area}"
-            csv_name = csvName + '-' + area
-            cubes.add_cube(scraper, dat[dat['Year'] == area], csv_name, graph=csvName, override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
+            graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}/{str(year).replace('/', '-')}"
+            csv_name = csvName + f'-{year}'.replace('/', '-')
+            cubes.add_cube(scraper, dat[dat['Year'] == year], csv_name, graph=csvName, override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
     i = i + 1
 
 
-# In[118]:
+# In[65]:
 
 
 cubes.output_all()
 
 
-# In[119]:
+# In[66]:
 
 
 """
@@ -443,13 +445,13 @@ so dimension is called 'Dimension 1'
 """
 
 
-# In[120]:
+# In[67]:
 
 
 #all_dat[0].head(10)
 
 
-# In[121]:
+# In[68]:
 
 
 #del all_dat[0]['Economic Derivation Indicator']
@@ -458,7 +460,7 @@ so dimension is called 'Dimension 1'
 #del all_dat[3]['Economic Derivation Indicator']
 
 
-# In[121]:
+# In[68]:
 
 
 
