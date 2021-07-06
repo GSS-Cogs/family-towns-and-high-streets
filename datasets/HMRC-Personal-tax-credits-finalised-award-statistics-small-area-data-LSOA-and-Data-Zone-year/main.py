@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[176]:
+# In[7]:
 
 
 
 
 
-# In[177]:
+# In[8]:
 
 
 from gssutils import *
@@ -23,7 +23,7 @@ scraper = Scraper(seed="info.json")
 scraper
 
 
-# In[178]:
+# In[9]:
 
 
 def excelRange(bag):
@@ -82,27 +82,27 @@ def sanitize_family_type_in_sheets(value):
         return 'All'
 
 
-# In[179]:
+# In[10]:
 
 
 for i in scraper.distributions:
     print(i.title)
 
 
-# In[180]:
+# In[11]:
 
 
 tidied_sheets = {} # dataframes will be stored in here
 cubes = Cubes("info.json")
 
 
-# In[181]:
+# In[12]:
 
 
 scraper.dataset.family = 'towns-high-streets'
 
 
-# In[182]:
+# In[ ]:
 
 
 for dist in scraper.distributions:
@@ -157,7 +157,7 @@ for dist in scraper.distributions:
                 tidied_sheets[tab_name] = tidy_sheet_aspandas
 
 
-# In[186]:
+# In[ ]:
 
 
 df = pd.concat([i for i in tidied_sheets.values()])
@@ -199,10 +199,20 @@ df = df.drop(columns=['Situation'])
 
 df = df[['Period', 'Local Authority', 'Lower Layer Super Output Area', 'Family Type', 'Work Situation', 'Benefit Type', 'Value', 'Marker', 'Measure Type', 'Unit']]
 
+COLUMNS_TO_NOT_PATHIFY = ['Period', 'Local Authority', 'Lower Layer Super Output Area', 'Value', 'Measure Type', 'Unit', 'Marker']
+
+for col in df.columns.values.tolist():
+	if col in COLUMNS_TO_NOT_PATHIFY:
+		continue
+	try:
+		df[col] = df[col].apply(pathify)
+	except Exception as err:
+		raise Exception('Failed to pathify column "{}".'.format(col)) from err
+
 df
 
 
-# In[184]:
+# In[ ]:
 
 
 scraper.dataset.title = 'Personal tax credits finalised award statistics, LSOA and Data Zone'
@@ -218,52 +228,14 @@ claimants live outside the UK or where we cannot locate a region or area.LSOA le
 cubes.add_cube(scraper, df, scraper.dataset.title)
 
 
-# In[185]:
+# In[ ]:
 
 
 cubes.output_all()
 
 
-# In[187]:
+# In[ ]:
 
 
-import glob
-import numpy as np
 
-out = Path('codelists')
-out.mkdir(exist_ok=True)
-
-CODELISTS = True
-
-path = 'out/*'
-
-csv_files = [i for i in glob.glob(path.format('csv')) if 'json' not in i and 'trig' not in i]
-
-if CODELISTS:
-    for i in csv_files:
-        df = pd.read_csv(i)
-        for col in df.columns:
-            if col not in ['Period', 'Lower Layer Super Output Area', 'Local authority', 'Measure Type', 'Unit', 'Value', 'Marker']:
-                if os.path.exists(out / f'{pathify(col)}.csv'):
-                    dfcodeexists = pd.read_csv(out / f'{pathify(col)}.csv')
-                    dfcodeexists = dfcodeexists[['Label', 'Notation']]
-                    dfcode = df[[col]].drop_duplicates()
-                    dfcode = dfcode.replace("", float("NaN"))
-                    dfcode = dfcode.dropna(subset = [col])
-                    dfcode['Notation'] = dfcode.apply(lambda x: pathify(x[col]), axis = 1)
-                    dfcode = dfcode.rename(columns={dfcode.columns[0]: 'Label'})
-                    dfcode['Label'] = dfcode['Label'].str.replace("-", " ").str.capitalize()
-                    dfcode = pd.concat([dfcodeexists, dfcode], sort = False).drop_duplicates()
-                    dfcode['Parent Notation'] = ''
-                    dfcode['Sort Priority'] = np.arange(dfcode.shape[0])
-                else:
-                    dfcode = df[[col]].drop_duplicates()
-                    dfcode = dfcode.replace("", float("NaN"))
-                    dfcode = dfcode.dropna(subset = [col])
-                    dfcode['Notation'] = dfcode.apply(lambda x: pathify(x[col]), axis = 1)
-                    dfcode = dfcode.rename(columns={dfcode.columns[0]: 'Label'})
-                    dfcode['Label'] = dfcode['Label'].str.replace("-", " ").str.capitalize()
-                    dfcode['Parent Notation'] = ''
-                    dfcode['Sort Priority'] = np.arange(dfcode.shape[0])
-                dfcode.drop_duplicates().to_csv(out / f'{pathify(col)}.csv', index = False)
 
