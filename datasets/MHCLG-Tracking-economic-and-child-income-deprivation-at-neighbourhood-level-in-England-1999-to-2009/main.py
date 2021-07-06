@@ -395,6 +395,9 @@ with open('info.json') as f:
     jsn = json.load(f)
 i = 0
 for dat in all_dat:
+
+    scraper1 = copy.deepcopy(scraper)
+
     jsn["transform"]["columns"]["Value"]["unit"] = "http://gss-data.org.uk/def/concept/measurement-units/" + mt[i]
     jsn["transform"]["columns"]["Value"]["measure"] = "http://gss-data.org.uk/def/measure/" + pa[i]
     jsn["transform"]["columns"]["Value"]["datatype"] = dt[i]
@@ -404,11 +407,11 @@ for dat in all_dat:
     dat = dat.drop_duplicates()
     #dat.drop_duplicates().to_csv(out / csvName, index = False, header=True)
     #dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
-    scraper.dataset.comment = c[i]
-    scraper.dataset.title = t[i]
+    scraper1.dataset.comment = c[i]
+    scraper1.dataset.title = t[i]
     dataset_path = d_path + "/" + pa[i]
-    scraper.set_base_uri('http://gss-data.org.uk')
-    scraper.set_dataset_id(dataset_path)
+    scraper1.set_base_uri('http://gss-data.org.uk')
+    scraper1.set_dataset_id(dataset_path)
     j = 0
 
     for year in dat['Year'].unique():
@@ -417,14 +420,14 @@ for dat in all_dat:
             # For the first the chunk, create a primary graph graph_uri and csv_name
             graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}"
             csv_name = csvName
-            cubes.add_cube(scraper, dat[dat['Year'] == year], csv_name, graph=csvName)
+            cubes.add_cube(scraper1, dat[dat['Year'] == year], csv_name, graph=csvName)
             j += 1
 
         else:
             # For subsequent chunk to add, create a secondary graph graph_uri and csv_name
             graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}/{str(year).replace('/', '-')}"
             csv_name = csvName + f'-{year}'.replace('/', '-')
-            cubes.add_cube(scraper, dat[dat['Year'] == year], csv_name, graph=csvName, override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
+            cubes.add_cube(scraper1, dat[dat['Year'] == year], csv_name, graph=csvName, override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
     i = i + 1
 
 
