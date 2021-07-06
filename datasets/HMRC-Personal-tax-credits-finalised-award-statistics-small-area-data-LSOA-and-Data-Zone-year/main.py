@@ -102,7 +102,7 @@ cubes = Cubes("info.json")
 scraper.dataset.family = 'towns-high-streets'
 
 
-# In[ ]:
+# In[13]:
 
 
 for dist in scraper.distributions:
@@ -157,7 +157,7 @@ for dist in scraper.distributions:
                 tidied_sheets[tab_name] = tidy_sheet_aspandas
 
 
-# In[ ]:
+# In[14]:
 
 
 df = pd.concat([i for i in tidied_sheets.values()])
@@ -168,7 +168,6 @@ df['Family Type'] = df.apply(lambda x: 'Lone Parent' if 'lone parent' in str(x['
 df['Work Situation'] = df.apply(lambda x: 'In Work' if 'in-work' in str(x['Situation']).lower() else ('Out of Work' if 'out-of-work' in str(x['Situation']).lower().replace(" ", "") else 'All'), axis = 1)
 
 df['Marker'] = df.apply(lambda x: 'suppressed' if x['Value'] == 0.0 else '', axis = 1)
-df['Value'] = df.apply(lambda x: '' if x['Marker'] == 'suppressed' else x['Value'], axis = 1)
 
 df['Benefit Type'] = df['Situation']
 
@@ -212,7 +211,7 @@ for col in df.columns.values.tolist():
 df
 
 
-# In[ ]:
+# In[15]:
 
 
 scraper.dataset.title = 'Personal tax credits finalised award statistics, LSOA and Data Zone'
@@ -228,13 +227,13 @@ claimants live outside the UK or where we cannot locate a region or area.LSOA le
 cubes.add_cube(scraper, df, scraper.dataset.title)
 
 
-# In[ ]:
+# In[16]:
 
 
 cubes.output_all()
 
 
-# In[ ]:
+# In[16]:
 
 
 
