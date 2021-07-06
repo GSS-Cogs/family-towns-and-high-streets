@@ -1,6 +1,6 @@
 {
     "@context": "http://www.w3.org/ns/csvw",
-    "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-England-1999-to-2009#scheme/economic-deprivation-indicator",
+    "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009#scheme/economic-deprivation-indicator",
     "url": "economic-deprivation-indicator.csv",
     "rdfs:label": "Economic Deprivation Indicator",
     "dc:title": "Economic Deprivation Indicator",
@@ -32,7 +32,7 @@
                 },
                 "required": false,
                 "propertyUrl": "skos:broader",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-England-1999-to-2009#concept/economic-deprivation-indicator/{parent_notation}"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009#concept/economic-deprivation-indicator/{parent_notation}"
             },
             {
                 "titles": "Sort Priority",
@@ -49,14 +49,14 @@
             {
                 "virtual": true,
                 "propertyUrl": "skos:inScheme",
-                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-England-1999-to-2009#scheme/economic-deprivation-indicator"
+                "valueUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009#scheme/economic-deprivation-indicator"
             }
         ],
         "primaryKey": "notation",
-        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-England-1999-to-2009#concept/economic-deprivation-indicator/{notation}"
+        "aboutUrl": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009#concept/economic-deprivation-indicator/{notation}"
     },
     "prov:hadDerivation": {
-        "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-England-1999-to-2009#scheme/economic-deprivation-indicator",
+        "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009#scheme/economic-deprivation-indicator",
         "@type": [
             "skos:ConceptScheme",
             "http://publishmydata.com/pmdcat#ConceptScheme"
@@ -64,16 +64,16 @@
     },
     "rdfs:seeAlso": [
         {
-            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-England-1999-to-2009#scheme/economic-deprivation-indicator/dataset",
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009#scheme/economic-deprivation-indicator/dataset",
             "@type": [
                 "dcat:Dataset",
                 "http://publishmydata.com/pmdcat#Dataset"
             ],
             "http://publishmydata.com/pmdcat#datasetContents": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-England-1999-to-2009#scheme/economic-deprivation-indicator"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009#scheme/economic-deprivation-indicator"
             },
             "http://publishmydata.com/pmdcat#graph": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-England-1999-to-2009#scheme/economic-deprivation-indicator"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009#scheme/economic-deprivation-indicator"
             },
             "dc:modified": {
                 "@type": "dateTime",
@@ -109,17 +109,17 @@
         {
             "@id": "http://gss-data.org.uk/catalog/vocabularies",
             "dcat:record": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-England-1999-to-2009#scheme/economic-deprivation-indicator/catalog-record"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009#scheme/economic-deprivation-indicator/catalog-record"
             }
         },
         {
-            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-England-1999-to-2009#scheme/economic-deprivation-indicator/catalog-record",
+            "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009#scheme/economic-deprivation-indicator/catalog-record",
             "@type": "dcat:CatalogRecord",
             "foaf:primaryTopic": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-England-1999-to-2009#scheme/economic-deprivation-indicator/dataset"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009#scheme/economic-deprivation-indicator/dataset"
             },
             "http://publishmydata.com/pmdcat#metadataGraph": {
-                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-England-1999-to-2009#scheme/economic-deprivation-indicator"
+                "@id": "http://gss-data.org.uk/data/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009#scheme/economic-deprivation-indicator"
             },
             "dc:title": "Economic Deprivation Indicator Catalog Record",
             "rdfs:label": "Economic Deprivation Indicator Catalog Record",
