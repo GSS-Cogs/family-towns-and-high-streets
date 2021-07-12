@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[59]:
+# In[1]:
 
 
 from gssutils import *
@@ -23,7 +23,7 @@ scraper = Scraper(seed="info.json")
 scraper
 
 
-# In[60]:
+# In[2]:
 
 
 trace = TransformTrace()
@@ -271,7 +271,7 @@ for key in tidied_sheets:
     #print(tidied_sheets[key].head(10))
 
 
-# In[61]:
+# In[3]:
 
 
 ranksDat = []
@@ -309,13 +309,13 @@ all_dat = [ranks, score, numer, denom, popul]
 del ranks, score, numer, denom, popul
 
 
-# In[62]:
+# In[4]:
 
 
 #all_dat[0].head(10)
 
 
-# In[63]:
+# In[5]:
 
 
 scraper.dataset.family = 'towns-high-streets'
@@ -384,7 +384,7 @@ description = """
 mt
 
 
-# In[64]:
+# In[6]:
 
 
 out = Path('out')
@@ -431,39 +431,13 @@ for dat in all_dat:
     i = i + 1
 
 
-# In[65]:
+# In[7]:
 
 
 cubes.output_all()
 
 
-# In[66]:
-
-
-"""
-Was unsure on a dimension name for the score/rank dimension within the datasets:
-'Local authority district: economic deprivation index and domains average ranks and scores'
-'Local authority district: children in income-deprived households index average ranks and scores'
-so dimension is called 'Dimension 1'
-"""
-
-
-# In[67]:
-
-
-#all_dat[0].head(10)
-
-
-# In[68]:
-
-
-#del all_dat[0]['Economic Derivation Indicator']
-#del all_dat[1]['Economic Derivation Indicator']
-#del all_dat[2]['Economic Derivation Indicator']
-#del all_dat[3]['Economic Derivation Indicator']
-
-
-# In[68]:
+# In[ ]:
 
 
 

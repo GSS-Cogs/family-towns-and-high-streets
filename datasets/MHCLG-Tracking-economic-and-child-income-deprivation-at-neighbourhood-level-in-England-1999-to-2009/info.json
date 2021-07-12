@@ -27,11 +27,11 @@
             	"description": "Economic Deprivation Index - EDI, Income Deprivation Domain - IDD, Employment Deprivation Domain - EDD, Children Income-Deprived Index - CIDI"
             },
             "Local Authority": {
-                "dimension": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
                 "value": "http://statistics.data.gov.uk/id/statistical-geography/{local_authority}"
                 },
             "Lower Layer Super Output Area": {
-                "dimension": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
+                "parent": "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
                 "value": "http://statistics.data.gov.uk/id/statistical-geography/{lower_layer_super_output_area}"
                 },
             "Marker": {
