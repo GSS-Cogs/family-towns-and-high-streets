@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[10]:
+# In[25]:
 
 
 from gssutils import *
@@ -405,8 +405,8 @@ for dat in all_dat:
         dat['Value'] = pd.to_numeric(dat['Value'], downcast='integer')
     csvName = n[i]
     dat = dat.drop_duplicates()
-    #dat.drop_duplicates().to_csv(out / csvName, index = False, header=True)
-    #dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
+    dat.drop_duplicates().to_csv(out / csvName, index = False, header=True)
+    dat.drop_duplicates().to_csv(out / (csvName + '.gz'), index = False, compression='gzip')
     scraper1.dataset.comment = c[i]
     scraper1.dataset.title = t[i]
     dataset_path = d_path + "/" + pa[i]
@@ -426,14 +426,14 @@ for dat in all_dat:
                 # For the first the chunk, create a primary graph graph_uri and csv_name
                 graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}"
                 csv_name = csvName
-                cubes.add_cube(scraper1, dat[dat['Year'] == year], csv_name, graph=csvName)
+                cubes.add_cube(scraper1, dat[dat['Year'] == year].sample(1000), csv_name, graph=csvName)
                 j += 1
 
             else:
                 # For subsequent chunk to add, create a secondary graph graph_uri and csv_name
                 graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}/{str(year).replace('/', '-')}"
                 csv_name = csvName + f'-{year}'.replace('/', '-')
-                cubes.add_cube(scraper1, dat[dat['Year'] == year], csv_name, graph=csvName, override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
+                cubes.add_cube(scraper1, dat[dat['Year'] == year].sample(1000), csv_name, graph=csvName, override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
 
     i = i + 1
 
