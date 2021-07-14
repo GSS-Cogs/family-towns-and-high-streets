@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[8]:
 
 
 from gssutils import *
@@ -23,7 +23,7 @@ scraper = Scraper(seed="info.json")
 scraper
 
 
-# In[2]:
+# In[9]:
 
 
 trace = TransformTrace()
@@ -271,7 +271,7 @@ for key in tidied_sheets:
     #print(tidied_sheets[key].head(10))
 
 
-# In[3]:
+# In[ ]:
 
 
 ranksDat = []
@@ -309,13 +309,13 @@ all_dat = [ranks, score, numer, denom, popul]
 del ranks, score, numer, denom, popul
 
 
-# In[4]:
+# In[ ]:
 
 
 #all_dat[0].head(10)
 
 
-# In[5]:
+# In[ ]:
 
 
 scraper.dataset.family = 'towns-high-streets'
@@ -384,7 +384,7 @@ description = """
 mt
 
 
-# In[6]:
+# In[ ]:
 
 
 out = Path('out')
@@ -423,15 +423,21 @@ for dat in all_dat:
             cubes.add_cube(scraper1, dat[dat['Year'] == year], csv_name, graph=csvName)
             j += 1
 
+        if j == 2:
+            break
+
         else:
             # For subsequent chunk to add, create a secondary graph graph_uri and csv_name
             graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}/{str(year).replace('/', '-')}"
             csv_name = csvName + f'-{year}'.replace('/', '-')
             cubes.add_cube(scraper1, dat[dat['Year'] == year], csv_name, graph=csvName, override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
+            j += 1
+
+
     i = i + 1
 
 
-# In[7]:
+# In[ ]:
 
 
 cubes.output_all()
