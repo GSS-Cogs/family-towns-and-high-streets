@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[8]:
+# In[10]:
 
 
 from gssutils import *
@@ -23,7 +23,7 @@ scraper = Scraper(seed="info.json")
 scraper
 
 
-# In[9]:
+# In[ ]:
 
 
 trace = TransformTrace()
@@ -416,23 +416,24 @@ for dat in all_dat:
 
     for year in dat['Year'].unique():
 
-        if j == 0:
-            # For the first the chunk, create a primary graph graph_uri and csv_name
-            graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}"
-            csv_name = csvName
-            cubes.add_cube(scraper1, dat[dat['Year'] == year], csv_name, graph=csvName)
-            j += 1
+        if year not in ['year/1999', 'year/2000']:
 
-        if j == 2:
             break
 
         else:
-            # For subsequent chunk to add, create a secondary graph graph_uri and csv_name
-            graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}/{str(year).replace('/', '-')}"
-            csv_name = csvName + f'-{year}'.replace('/', '-')
-            cubes.add_cube(scraper1, dat[dat['Year'] == year], csv_name, graph=csvName, override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
-            j += 1
 
+            if j == 0:
+                # For the first the chunk, create a primary graph graph_uri and csv_name
+                graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}"
+                csv_name = csvName
+                cubes.add_cube(scraper1, dat[dat['Year'] == year], csv_name, graph=csvName)
+                j += 1
+
+            else:
+                # For subsequent chunk to add, create a secondary graph graph_uri and csv_name
+                graph_uri = f"http://gss-data.org.uk/graph/gss_data/towns-high-streets/mhclg-tracking-economic-and-child-income-deprivation-at-neighbourhood-level-in-england-1999-to-2009/{csvName}/{str(year).replace('/', '-')}"
+                csv_name = csvName + f'-{year}'.replace('/', '-')
+                cubes.add_cube(scraper1, dat[dat['Year'] == year], csv_name, graph=csvName, override_containing_graph=graph_uri, suppress_catalog_and_dsd_output=True)
 
     i = i + 1
 
